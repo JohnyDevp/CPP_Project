@@ -7,5 +7,5 @@
 #include "ClassDiagramController.h"
 
 void ClassDiagramController::painEvent(QPaintEvent *event){
-    QRect rect;
+    (void)event;
 }

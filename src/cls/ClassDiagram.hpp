@@ -92,6 +92,7 @@ public:
      * @param name
      */
     ClassDiagram(std::string name);
+
     /**
      * @brief Destroy the Class Diagram object
      *

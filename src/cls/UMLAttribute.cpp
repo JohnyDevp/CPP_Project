@@ -3,6 +3,7 @@
 UMLAttribute::UMLAttribute(std::string name) : Element(name)
 {
 }
+
 UMLAttribute::UMLAttribute(std::string name, std::string type) : UMLAttribute(name)
 {
     this->type = type;
