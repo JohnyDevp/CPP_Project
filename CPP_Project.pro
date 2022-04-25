@@ -9,14 +9,17 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    controllers/ClassDiagramController.cpp \
     main.cpp \
     controllers/mainwindow.cpp
 
 HEADERS += \
+    controllers/ClassDiagramController.h \
     controllers/mainwindow.h
 
 FORMS += \
-    views/mainwindow.ui
+    views/classDiagram_view.ui \
+    views/mainwindow.ui \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
