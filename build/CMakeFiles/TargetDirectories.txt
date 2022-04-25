@@ -1,0 +1,3 @@
+/home/musta-pollo/VUT/ICP_COL/CPP_Project/build/CMakeFiles/cls.dir
+/home/musta-pollo/VUT/ICP_COL/CPP_Project/build/CMakeFiles/edit_cache.dir
+/home/musta-pollo/VUT/ICP_COL/CPP_Project/build/CMakeFiles/rebuild_cache.dir

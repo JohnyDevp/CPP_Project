@@ -10,7 +10,30 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp\
+    Element.cpp \
+    UMLAttribute.cpp \
+    UMLOperation.cpp \
+    UMLClassInterfaceTemplate.cpp \
+    UMLInterface.cpp \
+    UMLRelation.cpp \
+    UMLClass.cpp \
+    ClassDiagram.cpp \
+    Mess.cpp \
+    SequenceDiagram.cpp \
+    Element.hpp \
+    UMLAttribute.hpp \
+    UMLOperation.hpp \
+    UMLClassInterfaceTemplate.hpp \
+    UMLInterface.hpp \
+    UMLRelation.hpp \
+    UMLClass.hpp \
+    ClassDiagram.hpp \
+    Mess.hpp \
+    SequenceDiagram.hpp
+    
+
+    
 
 HEADERS += \
     mainwindow.h
