@@ -16,4 +16,7 @@ public:
      *
      */
     ~UMLInterface();
+
+    bool operator==(const UMLInterface &other) const;
+    bool operator!=(const UMLInterface &other) const;
 };

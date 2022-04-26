@@ -21,6 +21,16 @@ void UMLClass::deleteAttribute(const String &name)
     }
 }
 
+bool UMLClass::operator==(const UMLClass &other) const
+{
+    return static_cast<const UMLClassInterfaceTemplate &>(*this) == static_cast<const UMLClassInterfaceTemplate &>(other);
+}
+
+bool UMLClass::operator!=(const UMLClass &other) const
+{
+    return !(*this == other);
+}
+
 UMLClass::UMLClass(String name) : UMLClassInterfaceTemplate(name) {}
 
 UMLClass::~UMLClass() {}

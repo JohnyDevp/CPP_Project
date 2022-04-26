@@ -38,8 +38,8 @@ public:
      * @param type
      */
     UMLAttribute(char modifier, std::string name, std::string type);
-
     ~UMLAttribute();
+
     bool operator==(const UMLAttribute &other) const;
     bool operator!=(const UMLAttribute &other) const;
 };

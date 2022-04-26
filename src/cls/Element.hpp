@@ -18,4 +18,5 @@ public:
     ~Element();
 
     bool operator==(const Element &other) const;
+    bool operator!=(const Element &other) const;
 };

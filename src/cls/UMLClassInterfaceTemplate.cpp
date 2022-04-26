@@ -46,9 +46,7 @@ bool UMLClassInterfaceTemplate::addOperation(UMLOperation operation)
             umlOperationsList.push_back(operation);
             return true;
         }
-        return true;
     }
-
 }
 void UMLClassInterfaceTemplate::deleteOperation(std::string name)
 {

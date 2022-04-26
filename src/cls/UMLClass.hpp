@@ -36,4 +36,7 @@ public:
      *
      */
     ~UMLClass();
+
+    bool operator==(const UMLClass &other) const;
+    bool operator!=(const UMLClass &other) const;
 };

@@ -18,8 +18,6 @@ public:
         COMPOSITION
     };
 
-private:
-
     UMLClassInterfaceTemplate relationFromObject;
     UMLClassInterfaceTemplate relationToObject;
     RelationType relationType;
@@ -31,7 +29,6 @@ private:
     double endX, endY;
 
     UMLRelation(std::string name);
-
     UMLRelation(std::string name,
                 UMLClassInterfaceTemplate relationFromObject,
                 UMLClassInterfaceTemplate relationToObject, RelationType type);

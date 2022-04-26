@@ -6,8 +6,7 @@ ClassDiagram::~ClassDiagram() {}
 
 bool ClassDiagram::addClass(UMLClass &umlClass)
 {
-    auto pos = std::find_if(std::begin(umlList), std::end(umlList), [&umlClass](const UMLClassInterfaceTemplate &umlItem)
-                            { return umlItem.name == umlClass.name; });
+    auto pos = std::find(std::begin(umlList), std::end(umlList), umlClass);
     if (pos != std::end(umlList))
     {
         // find it
@@ -19,8 +18,7 @@ bool ClassDiagram::addClass(UMLClass &umlClass)
 
 bool ClassDiagram::addInterface(UMLInterface &umlInterface)
 {
-    auto pos = std::find_if(std::begin(umlList), std::end(umlList), [&umlInterface](const UMLClassInterfaceTemplate &umlItem)
-                            { return umlItem.name == umlInterface.name; });
+    auto pos = std::find(std::begin(umlList), std::end(umlList), umlInterface);
     if (pos != std::end(umlList))
     {
         // find it
@@ -32,47 +30,45 @@ bool ClassDiagram::addInterface(UMLInterface &umlInterface)
 
 bool ClassDiagram::addRelation(UMLRelation &umlRelation)
 {
-    auto pos = std::find_if(std::begin(umlRelationList), std::end(umlRelationList), [&umlRelation](const UMLRelation &umlItem)
-                            { return umlItem.name == umlRelation.name; });
-    if (pos != std::end(umlRelationList))
-    {
-        // find it
-        return false;
-    }
     umlRelationList.push_back(umlRelation);
     return true;
 }
 
-UMLClass ClassDiagram::createClass(String &name)
+bool ClassDiagram::operator==(const ClassDiagram &other) const
 {
-    // auto pos = std::find_if(std::begin(umlList), std::end(umlList), [&name](const UMLClassInterfaceTemplate &umlItem)
-    //                         { return name == umlItem.name; });
-    // if (pos != std::end(umlList))
-    // {
-    //     // find it
-    //     return nullptr;
-    // }
-    // umlList.emplace_back(name);
-    // return umlList.back().um;
+    return static_cast<const Element &>(*this) == static_cast<const Element &>(other);
 }
 
-UMLInterface ClassDiagram::createInterface(String &name)
+bool ClassDiagram::operator!=(const ClassDiagram &other) const
 {
-}
-
-UMLRelation ClassDiagram::createRelation(String &name)
-{
+    return !(*this == other);
 }
 
 void ClassDiagram::deleteClass(UMLClass &umlClass)
 {
+    auto pos = std::find(std::begin(umlList), std::end(umlList), umlClass);
+    if (pos != std::end(umlList))
+    {
+        // find it
+        umlList.erase(pos);
+    }
 }
 
 void ClassDiagram::deleteInterface(UMLInterface &umlInterface)
 {
+    auto pos = std::find(std::begin(umlList), std::end(umlList), umlInterface);
+    if (pos != std::end(umlList))
+    {
+        // find it
+        umlList.erase(pos);
+    }
 }
 
 void ClassDiagram::deleteObject(UMLClassInterfaceTemplate &umlObject)
+{
+}
+
+bool addObject(UMLClassInterfaceTemplate &umlObject)
 {
 }
 
