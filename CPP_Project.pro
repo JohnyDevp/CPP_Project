@@ -19,9 +19,10 @@ SOURCES += \
         src/cls/Mess.cpp \
         src/cls/ClassDiagram.cpp \
         src/cls/SequenceDiagram.cpp \
+        src/jsonreader.cpp \
         src/main.cpp \
-        src/controllers/ClassDiagramController.cpp \
-        src/controllers/mainwindow.cpp
+        src/controllers/mainwindow.cpp \
+        src/controllers/classdiagramview.cpp
 
 HEADERS += \
         src/cls/Element.hpp \
@@ -34,12 +35,15 @@ HEADERS += \
         src/cls/Mess.hpp \
         src/cls/ClassDiagram.hpp \
         src/cls/SequenceDiagram.hpp \
-        src/controllers/ClassDiagramController.h \
-        src/controllers/mainwindow.h
+        src/controllers/mainwindow.h \
+        src/controllers/classdiagramview.h \
+        src/jsonreader.h
 
 FORMS += \
-    src/views/classDiagram_view.ui \
+    src/views/classdiagramview.ui \
     src/views/mainwindow.ui
+
+CONFIG += console
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
