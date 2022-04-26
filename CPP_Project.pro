@@ -11,31 +11,13 @@ CONFIG += c++17
 SOURCES += \
 	src/controllers/ClassDiagramController.cpp \
 	src/controllers/mainwindow.cpp\
-    src/cls/Element.cpp \
-    src/cls/UMLAttribute.cpp \
-    src/cls/UMLOperation.cpp \
-    src/cls/UMLClassInterfaceTemplate.cpp \
-    src/cls/UMLInterface.cpp \
-    src/cls/UMLRelation.cpp \
-    src/cls/UMLClass.cpp \
-    src/cls/ClassDiagram.cpp \
-    src/cls/Mess.cpp \
-    src/cls/SequenceDiagram.cpp\
-    src/main.cpp 
-
+    src/main.cpp
 HEADERS += \
 	src/controllers/ClassDiagramController.h \
 	src/controllers/mainwindow.h \
-    src/cls/Element.hpp \
-    src/cls/UMLAttribute.hpp \
-    src/cls/UMLOperation.hpp \
-    src/cls/UMLClassInterfaceTemplate.hpp \
-    src/cls/UMLInterface.hpp \
-    src/cls/UMLRelation.hpp \
-    src/cls/UMLClass.hpp \
-    src/cls/ClassDiagram.hpp \
-    src/cls/Mess.hpp \
-    src/cls/SequenceDiagram.hpp
+
+INCLUDEPATH += ../staticLibrary
+LIBS += -L../staticLibrary/debug -lstaticLibrary
 
 FORMS += \
     src/views/classDiagram_view.ui \
