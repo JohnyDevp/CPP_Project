@@ -1,4 +1,4 @@
-#include "controllers/mainwindow.h"
+#include "../controllers/mainwindow.h"
 #include "cls/ClassDiagram.hpp"
 #include <iostream>
 

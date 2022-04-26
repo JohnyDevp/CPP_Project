@@ -4,24 +4,32 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
 
+TEMPLATE = subdirs
+
+CONFIG += ordered
+
+
+
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-SOURCES += \
-	src/controllers/ClassDiagramController.cpp \
-	src/controllers/mainwindow.cpp\
-    src/main.cpp
-HEADERS += \
-	src/controllers/ClassDiagramController.h \
-	src/controllers/mainwindow.h \
 
-INCLUDEPATH += ../staticLibrary
-LIBS += -L../staticLibrary/debug -lstaticLibrary
+SOURCES += \
+	controllers/ClassDiagramController.cpp \
+	controllers/mainwindow.cpp
+HEADERS += \
+	controllers/ClassDiagramController.h \
+	controllers/mainwindow.h 
 
 FORMS += \
-    src/views/classDiagram_view.ui \
-    src/views/mainwindow.ui
+    views/classDiagram_view.ui \
+    views/mainwindow.ui
+
+SUBDIRS = cls \
+          app
+app.depends = cls
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
