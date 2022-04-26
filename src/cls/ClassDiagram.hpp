@@ -42,7 +42,7 @@ public:
      * @param o can be either name of object or object to found
      * @return found object or null if not found or bad object has been passed
      * */
-    UMLClassInterfaceTemplate findObject(Element &element);
+    bool findObject(Element &element);
     /**
      * @param umlRelation relation object
      * @return boolean according success of adding operation

@@ -54,10 +54,30 @@ OBJECTS_DIR   = ./
 
 SOURCES       = src/main.cpp \
 		src/controllers/ClassDiagramController.cpp \
-		src/controllers/mainwindow.cpp moc_mainwindow.cpp
+		src/controllers/mainwindow.cpp \
+		src/cls/Element.cpp \
+		src/cls/UMLAttribute.cpp \
+		src/cls/UMLOperation.cpp \
+		src/cls/UMLClassInterfaceTemplate.cpp \
+		src/cls/UMLInterface.cpp \
+		src/cls/UMLRelation.cpp \
+		src/cls/UMLClass.cpp \
+		src/cls/ClassDiagram.cpp \
+		src/cls/Mess.cpp \
+		src/cls/SequenceDiagram.cpp moc_mainwindow.cpp
 OBJECTS       = main.o \
 		ClassDiagramController.o \
 		mainwindow.o \
+		Element.o \
+		UMLAttribute.o \
+		UMLOperation.o \
+		UMLClassInterfaceTemplate.o \
+		UMLInterface.o \
+		UMLRelation.o \
+		UMLClass.o \
+		ClassDiagram.o \
+		Mess.o \
+		SequenceDiagram.o \
 		moc_mainwindow.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
@@ -277,9 +297,29 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/yacc.prf \
 		/usr/lib/qt/mkspecs/features/lex.prf \
 		CPP_Project.pro src/controllers/ClassDiagramController.h \
-		src/controllers/mainwindow.h src/main.cpp \
+		src/controllers/mainwindow.h \
+		src/cls/Element.hpp \
+		src/cls/UMLAttribute.hpp \
+		src/cls/UMLOperation.hpp \
+		src/cls/UMLClassInterfaceTemplate.hpp \
+		src/cls/UMLInterface.hpp \
+		src/cls/UMLRelation.hpp \
+		src/cls/UMLClass.hpp \
+		src/cls/ClassDiagram.hpp \
+		src/cls/Mess.hpp \
+		src/cls/SequenceDiagram.hpp src/main.cpp \
 		src/controllers/ClassDiagramController.cpp \
-		src/controllers/mainwindow.cpp
+		src/controllers/mainwindow.cpp \
+		src/cls/Element.cpp \
+		src/cls/UMLAttribute.cpp \
+		src/cls/UMLOperation.cpp \
+		src/cls/UMLClassInterfaceTemplate.cpp \
+		src/cls/UMLInterface.cpp \
+		src/cls/UMLRelation.cpp \
+		src/cls/UMLClass.cpp \
+		src/cls/ClassDiagram.cpp \
+		src/cls/Mess.cpp \
+		src/cls/SequenceDiagram.cpp
 QMAKE_TARGET  = CPP_Project
 DESTDIR       = 
 TARGET        = CPP_Project
@@ -743,8 +783,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents src/controllers/ClassDiagramController.h src/controllers/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/main.cpp src/controllers/ClassDiagramController.cpp src/controllers/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/controllers/ClassDiagramController.h src/controllers/mainwindow.h src/cls/Element.hpp src/cls/UMLAttribute.hpp src/cls/UMLOperation.hpp src/cls/UMLClassInterfaceTemplate.hpp src/cls/UMLInterface.hpp src/cls/UMLRelation.hpp src/cls/UMLClass.hpp src/cls/ClassDiagram.hpp src/cls/Mess.hpp src/cls/SequenceDiagram.hpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/main.cpp src/controllers/ClassDiagramController.cpp src/controllers/mainwindow.cpp src/cls/Element.cpp src/cls/UMLAttribute.cpp src/cls/UMLOperation.cpp src/cls/UMLClassInterfaceTemplate.cpp src/cls/UMLInterface.cpp src/cls/UMLRelation.cpp src/cls/UMLClass.cpp src/cls/ClassDiagram.cpp src/cls/Mess.cpp src/cls/SequenceDiagram.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents src/views/classDiagram_view.ui src/views/mainwindow.ui $(DISTDIR)/
 
 
@@ -810,7 +850,15 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
-main.o: src/main.cpp src/controllers/mainwindow.h
+main.o: src/main.cpp src/controllers/mainwindow.h \
+		src/cls/ClassDiagram.hpp \
+		src/cls/UMLClassInterfaceTemplate.hpp \
+		src/cls/UMLOperation.hpp \
+		src/cls/UMLAttribute.hpp \
+		src/cls/Element.hpp \
+		src/cls/UMLRelation.hpp \
+		src/cls/UMLClass.hpp \
+		src/cls/UMLInterface.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o src/main.cpp
 
 ClassDiagramController.o: src/controllers/ClassDiagramController.cpp src/controllers/ClassDiagramController.h
@@ -819,6 +867,65 @@ ClassDiagramController.o: src/controllers/ClassDiagramController.cpp src/control
 mainwindow.o: src/controllers/mainwindow.cpp src/controllers/mainwindow.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o src/controllers/mainwindow.cpp
+
+Element.o: src/cls/Element.cpp src/cls/UMLClass.hpp \
+		src/cls/UMLClassInterfaceTemplate.hpp \
+		src/cls/UMLOperation.hpp \
+		src/cls/UMLAttribute.hpp \
+		src/cls/Element.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Element.o src/cls/Element.cpp
+
+UMLAttribute.o: src/cls/UMLAttribute.cpp src/cls/UMLAttribute.hpp \
+		src/cls/Element.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o UMLAttribute.o src/cls/UMLAttribute.cpp
+
+UMLOperation.o: src/cls/UMLOperation.cpp src/cls/UMLOperation.hpp \
+		src/cls/UMLAttribute.hpp \
+		src/cls/Element.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o UMLOperation.o src/cls/UMLOperation.cpp
+
+UMLClassInterfaceTemplate.o: src/cls/UMLClassInterfaceTemplate.cpp src/cls/UMLClassInterfaceTemplate.hpp \
+		src/cls/UMLOperation.hpp \
+		src/cls/UMLAttribute.hpp \
+		src/cls/Element.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o UMLClassInterfaceTemplate.o src/cls/UMLClassInterfaceTemplate.cpp
+
+UMLInterface.o: src/cls/UMLInterface.cpp src/cls/UMLInterface.hpp \
+		src/cls/UMLClassInterfaceTemplate.hpp \
+		src/cls/UMLOperation.hpp \
+		src/cls/UMLAttribute.hpp \
+		src/cls/Element.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o UMLInterface.o src/cls/UMLInterface.cpp
+
+UMLRelation.o: src/cls/UMLRelation.cpp src/cls/UMLRelation.hpp \
+		src/cls/UMLClassInterfaceTemplate.hpp \
+		src/cls/UMLOperation.hpp \
+		src/cls/UMLAttribute.hpp \
+		src/cls/Element.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o UMLRelation.o src/cls/UMLRelation.cpp
+
+UMLClass.o: src/cls/UMLClass.cpp src/cls/UMLClass.hpp \
+		src/cls/UMLClassInterfaceTemplate.hpp \
+		src/cls/UMLOperation.hpp \
+		src/cls/UMLAttribute.hpp \
+		src/cls/Element.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o UMLClass.o src/cls/UMLClass.cpp
+
+ClassDiagram.o: src/cls/ClassDiagram.cpp src/cls/ClassDiagram.hpp \
+		src/cls/UMLClassInterfaceTemplate.hpp \
+		src/cls/UMLOperation.hpp \
+		src/cls/UMLAttribute.hpp \
+		src/cls/Element.hpp \
+		src/cls/UMLRelation.hpp \
+		src/cls/UMLClass.hpp \
+		src/cls/UMLInterface.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ClassDiagram.o src/cls/ClassDiagram.cpp
+
+Mess.o: src/cls/Mess.cpp src/cls/Mess.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Mess.o src/cls/Mess.cpp
+
+SequenceDiagram.o: src/cls/SequenceDiagram.cpp src/cls/SequenceDiagram.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SequenceDiagram.o src/cls/SequenceDiagram.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

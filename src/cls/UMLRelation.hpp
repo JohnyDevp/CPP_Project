@@ -33,4 +33,7 @@ public:
                 UMLClassInterfaceTemplate relationFromObject,
                 UMLClassInterfaceTemplate relationToObject, RelationType type);
     ~UMLRelation();
+
+    bool operator==(const UMLRelation &other) const;
+    bool operator!=(const UMLRelation &other) const;
 };
