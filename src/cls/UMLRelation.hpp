@@ -1,4 +1,7 @@
-#pragma once
+//#pragma once
+
+#ifndef _UML_RELATION_HPP
+#define _UML_RELATION_HPP
 
 #include <string>
 #include "UMLClassInterfaceTemplate.hpp"
@@ -31,6 +34,9 @@ public:
     UMLRelation(std::string name);
     UMLRelation(std::string name,
                 UMLClassInterfaceTemplate relationFromObject,
-                UMLClassInterfaceTemplate relationToObject, RelationType type);
+                UMLClassInterfaceTemplate relationToObject,
+                RelationType type);
     ~UMLRelation();
 };
+
+#endif

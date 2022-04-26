@@ -8,10 +8,15 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <iostream>
+#include <QLabel>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    QPushButton * m_button = ui->btnCreateNewDiagram;
+    connect(m_button, &QPushButton::clicked,this, [&] {ui->tabWidget->addTab(this, QString("hello there"));});
 }
 
 MainWindow::~MainWindow()

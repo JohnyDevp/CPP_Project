@@ -2,6 +2,8 @@
 
 UMLClassInterfaceTemplate::UMLClassInterfaceTemplate(std::string name) : Element(name) {}
 
+UMLClassInterfaceTemplate::UMLClassInterfaceTemplate() : Element("") {}
+
 UMLClassInterfaceTemplate::~UMLClassInterfaceTemplate() {}
 
 bool UMLClassInterfaceTemplate::addOperation(UMLOperation operation)
@@ -48,6 +50,7 @@ bool UMLClassInterfaceTemplate::addOperation(UMLOperation operation)
         }
     }
 }
+
 void UMLClassInterfaceTemplate::deleteOperation(std::string name)
 {
     auto pos = std::find_if(std::begin(umlOperationsList), std::end(umlOperationsList), [&](const UMLOperation &op)

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.15.3
+** Created by: Qt User Interface Compiler version 5.12.8
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -28,8 +28,8 @@ public:
     QVBoxLayout *verticalLayout_2;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
-    QPushButton *pushButton;
-    QPushButton *pushButton_2;
+    QPushButton *btnCreateNewDiagram;
+    QPushButton *btnLoadExistingDiagram;
     QSpacerItem *horizontalSpacer;
     QTabWidget *tabWidget;
     QWidget *tab;
@@ -38,7 +38,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(800, 600);
+        MainWindow->resize(757, 520);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         verticalLayout_2 = new QVBoxLayout(centralwidget);
@@ -47,15 +47,15 @@ public:
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        pushButton = new QPushButton(centralwidget);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        btnCreateNewDiagram = new QPushButton(centralwidget);
+        btnCreateNewDiagram->setObjectName(QString::fromUtf8("btnCreateNewDiagram"));
 
-        horizontalLayout->addWidget(pushButton);
+        horizontalLayout->addWidget(btnCreateNewDiagram);
 
-        pushButton_2 = new QPushButton(centralwidget);
-        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
+        btnLoadExistingDiagram = new QPushButton(centralwidget);
+        btnLoadExistingDiagram->setObjectName(QString::fromUtf8("btnLoadExistingDiagram"));
 
-        horizontalLayout->addWidget(pushButton_2);
+        horizontalLayout->addWidget(btnLoadExistingDiagram);
 
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -87,10 +87,10 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        pushButton->setText(QCoreApplication::translate("MainWindow", "Create new class diagram", nullptr));
-        pushButton_2->setText(QCoreApplication::translate("MainWindow", "Load existing class diagram", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("MainWindow", "Tab 1", nullptr));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
+        btnCreateNewDiagram->setText(QApplication::translate("MainWindow", "Create new class diagram", nullptr));
+        btnLoadExistingDiagram->setText(QApplication::translate("MainWindow", "Load existing class diagram", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "Tab 1", nullptr));
     } // retranslateUi
 
 };
