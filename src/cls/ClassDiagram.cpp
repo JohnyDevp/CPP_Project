@@ -96,17 +96,6 @@ void ClassDiagram::read(const QJsonObject &json)
     }
 }
 
-bool ClassDiagram::addObject(UMLClassInterfaceTemplate &umlObject)
-{
-    auto pos = std::find(std::begin(umlList), std::end(umlList), umlObject);
-    if (pos != std::end(umlList))
-    {
-        // find it
-        return false;
-    }
-    umlList.push_back(umlObject);
-    return true;
-}
 
 void ClassDiagram::deleteObject(UMLClassInterfaceTemplate &umlObject)
 {

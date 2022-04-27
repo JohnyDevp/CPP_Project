@@ -42,13 +42,12 @@ public:
      * @return object representing class, if class already exists returns null
      */
     bool addClass(UMLClass &umlClass);
+
+    void updateClass(QString oldName, UMLClass &umlClass);
+
+    void updateInterface(QString oldName, UMLInterface &umlInterface);
+
     bool addInterface(UMLInterface &UMLInterface);
-    /**
-     * @brief remove object representation from class diagram
-     *
-     * @param umlObject
-     */
-    void deleteObject(UMLClassInterfaceTemplate &umlObject);
     /**
      * @param o  object to found
      * @return if the object of found
