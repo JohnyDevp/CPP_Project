@@ -2,9 +2,8 @@
 
 bool UMLOperation::addOperationParameter(UMLAttribute param)
 {
-    auto pos = std::find_if(std::begin(parameterssOfOperationList), std::end(parameterssOfOperationList), [&](UMLAttribute atr)
-                            { return atr.name == param.name; });
     // if attribute has been find with desired name then fail
+    auto pos = std::find(std::begin(parameterssOfOperationList), std::end(parameterssOfOperationList), param);
     if (pos != std::end(parameterssOfOperationList))
     {
         return false;
@@ -14,13 +13,27 @@ bool UMLOperation::addOperationParameter(UMLAttribute param)
     return true;
 }
 
-UMLOperation::UMLOperation(std::string name) : UMLAttribute(name)
+UMLOperation::UMLOperation(QString name) : UMLAttribute(name)
 {
 }
-UMLOperation::UMLOperation(std::string name, std::string returnType, char modifier) : UMLAttribute(modifier, name, returnType)
+bool UMLOperation::operator==(const UMLOperation &other) const
 {
+    return static_cast<const UMLAttribute &>(*this) == static_cast<const UMLAttribute &>(other);
+}
+bool UMLOperation::operator!=(const UMLOperation &other) const
+{
+    return !(*this == other);
+}
+UMLOperation::UMLOperation(QString name, QString returnType, char modifier) : UMLAttribute(modifier, name, returnType) {}
+
+UMLOperation::~UMLOperation() {}
+
+void UMLOperation::write(QJsonObject &json) const
+{
+    // TODO: UMLOperation write
 }
 
-UMLOperation::~UMLOperation()
+void UMLOperation::read(const QJsonObject &json)
 {
+    // TODO: UMLOperation read
 }

@@ -6,15 +6,7 @@
 class UMLAttribute : public Element
 {
 public:
-    /**
-     * @brief name of the type
-     *
-     */
-    std::string type;
-    /**
-     * @brief name of the modifier
-     *
-     */
+    QString type;
     char modifier;
 
     /**
@@ -22,14 +14,14 @@ public:
      *
      * @param name
      */
-    UMLAttribute(std::string name);
+    UMLAttribute(QString name);
     /**
      * @brief Construct a new UMLAttribute object
      *
      * @param name
      * @param type
      */
-    UMLAttribute(std::string name, std::string type);
+    UMLAttribute(QString name, QString type);
     /**
      * @brief Construct a new UMLAttribute object
      *
@@ -37,8 +29,21 @@ public:
      * @param name
      * @param type
      */
-    UMLAttribute(char modifier, std::string name, std::string type);
+    UMLAttribute(char modifier, QString name, QString type);
     ~UMLAttribute();
+
+    /**
+     * @brief converts object to json
+     *
+     * @param json
+     */
+    void write(QJsonObject &json) const override;
+    /**
+     * @brief reads object from json
+     *
+     * @param json
+     */
+    void read(const QJsonObject &json);
 
     bool operator==(const UMLAttribute &other) const;
     bool operator!=(const UMLAttribute &other) const;

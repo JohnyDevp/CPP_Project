@@ -4,7 +4,7 @@
 #include "UMLAttribute.hpp"
 #include <string>
 
-using String = std::string;
+using String = QString;
 class UMLClass : public UMLClassInterfaceTemplate
 {
 public:
@@ -12,7 +12,7 @@ public:
      * @brief List of attributes of class
      *
      */
-    std::vector<UMLAttribute> umlAttributesList;
+    QList<UMLAttribute> umlAttributesList;
     /**
      * @brief adding an attribute (which is parameter) of this class
      * checking whether theres no other attribute with same name
@@ -36,6 +36,24 @@ public:
      *
      */
     ~UMLClass();
+    /**
+     * @brief Default construct a new UMLClass object
+     *
+     */
+    UMLClass();
+
+    /**
+     * @brief converts object to json
+     *
+     * @param json
+     */
+    virtual void write(QJsonObject &json) const override;
+    /**
+     * @brief reads object from json
+     *
+     * @param json
+     */
+    virtual void read(const QJsonObject &json);
 
     bool operator==(const UMLClass &other) const;
     bool operator!=(const UMLClass &other) const;

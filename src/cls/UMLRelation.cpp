@@ -1,8 +1,10 @@
 #include "UMLRelation.hpp"
 
-UMLRelation::UMLRelation(std::string name) : Element(name), startX(-1.0), startY(-1.0), endX(-1.0), endY(-1.0) {}
+UMLRelation::UMLRelation() {}
 
-UMLRelation::UMLRelation(std::string name,
+UMLRelation::UMLRelation(QString name) : Element(name), startX(-1.0), startY(-1.0), endX(-1.0), endY(-1.0) {}
+
+UMLRelation::UMLRelation(QString name,
                          UMLClassInterfaceTemplate relationFromObject,
                          UMLClassInterfaceTemplate relationToObject,
                          RelationType type) : Element(name),
@@ -12,4 +14,14 @@ UMLRelation::UMLRelation(std::string name,
 
 UMLRelation::~UMLRelation()
 {
+}
+
+void UMLRelation::write(QJsonObject &json) const
+{
+    // TODO: UMLRelation write
+}
+
+void UMLRelation::read(const QJsonObject &json)
+{
+    // TODO: UMLRelation read
 }

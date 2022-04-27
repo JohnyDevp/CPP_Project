@@ -11,7 +11,7 @@ public:
      * @brief list of operations of class
      *
      */
-    std::vector<UMLOperation> umlOperationsList;
+    QList<UMLOperation> umlOperationsList;
     /**
      * @brief variable for storing X position of this class on pane
      *
@@ -29,7 +29,7 @@ public:
      *
      * @param name
      */
-    void deleteOperation(std::string name);
+    void deleteOperation(QString name);
     /**
      * @brief Default Construct a new UMLClassInterfaceTemplate object
      *
@@ -40,10 +40,23 @@ public:
      *
      * @param name
      */
-    UMLClassInterfaceTemplate(std::string name);
+    UMLClassInterfaceTemplate(QString name);
     /**
      * @brief Destroy the UMLClassInterfaceTemplate object
      *
      */
     ~UMLClassInterfaceTemplate();
+
+    /**
+     * @brief converts object to json
+     *
+     * @param json
+     */
+    void write(QJsonObject &json) const override;
+    /**
+     * @brief reads object from json
+     *
+     * @param json
+     */
+    void read(const QJsonObject &json);
 };

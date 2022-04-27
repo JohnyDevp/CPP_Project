@@ -11,19 +11,29 @@
 #include "UMLClass.hpp"
 #include "UMLInterface.hpp"
 
+#define classListName "umlClassList"
+#define interfaceListName "umlInterfaceList"
+#define relationListName "umlRelationList"
+
 class ClassDiagram : public Element
 {
+
 public:
     /**
-     * @brief list of all classes and interfaces in class diagram
+     * @brief list of all classes for diagram
      *
      */
-    std::vector<UMLClassInterfaceTemplate> umlList;
+    QList<UMLClass> classList;
+    /**
+     * @brief list of all classes for diagram
+     *
+     */
+    QList<UMLInterface> interfaceList;
     /**
      * @brief list of all relations in this diagram
      *
      */
-    std::vector<UMLRelation> umlRelationList;
+    QList<UMLRelation> relationList;
 
     /**
      * Creates an instance of UML class and inserts it into diagram
@@ -31,18 +41,19 @@ public:
      * @param name Name of the class
      * @return object representing class, if class already exists returns null
      */
-    bool addObject(UMLClassInterfaceTemplate &umlClass);
+    bool addClass(UMLClass &umlClass);
+    bool addInterface(UMLInterface &UMLInterface);
     /**
-     * @brief remove object representation from uml class diagram
+     * @brief remove object representation from class diagram
      *
      * @param umlObject
      */
     void deleteObject(UMLClassInterfaceTemplate &umlObject);
     /**
-     * @param o can be either name of object or object to found
-     * @return found object or null if not found or bad object has been passed
+     * @param o  object to found
+     * @return if the object of found
      * */
-    UMLClassInterfaceTemplate findObject(Element &element);
+    bool findObject(UMLClassInterfaceTemplate &umlObject);
     /**
      * @param umlRelation relation object
      * @return boolean according success of adding operation
@@ -58,12 +69,25 @@ public:
      *
      * @param name
      */
-    ClassDiagram(std::string name);
+    ClassDiagram(QString name);
     /**
      * @brief Destroy the Class Diagram object
      *
      */
     ~ClassDiagram();
+
+    /**
+     * @brief converts object to json
+     *
+     * @param json
+     */
+    void write(QJsonObject &json) const override;
+    /**
+     * @brief reads object from json
+     *
+     * @param json
+     */
+    void read(const QJsonObject &json);
 
     bool operator==(const ClassDiagram &other) const;
     bool operator!=(const ClassDiagram &other) const;

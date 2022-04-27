@@ -18,7 +18,7 @@ public:
      * @brief list of all parameters of this operation
      *
      */
-    std::vector<UMLAttribute> parameterssOfOperationList;
+    QList<UMLAttribute> parameterssOfOperationList;
 
     /**
      * @brief adding parameter for this operation
@@ -29,17 +29,11 @@ public:
      */
     bool addOperationParameter(UMLAttribute param);
     /**
-     * @brief Get the Parameters Of Operation List object
-     *
-     * @return const std::vector<UMLAttribute>
-     */
-    const std::vector<UMLAttribute> getParametersOfOperationList();
-    /**
      * @brief Construct a new UMLOperation object
      *
      * @param name
      */
-    UMLOperation(std::string name);
+    UMLOperation(QString name);
     /**
      * @brief Construct a new UMLOperation object
      *
@@ -47,10 +41,26 @@ public:
      * @param returnType
      * @param modifier
      */
-    UMLOperation(std::string name, std::string returnType, char modifier);
+    UMLOperation(QString name, QString returnType, char modifier);
     /**
      * @brief Destroy the UMLOperation object
      *
      */
     ~UMLOperation();
+
+    /**
+     * @brief converts object to json
+     *
+     * @param json
+     */
+    void write(QJsonObject &json) const override;
+    /**
+     * @brief reads object from json
+     *
+     * @param json
+     */
+    void read(const QJsonObject &json);
+
+    bool operator==(const UMLOperation &other) const;
+    bool operator!=(const UMLOperation &other) const;
 };

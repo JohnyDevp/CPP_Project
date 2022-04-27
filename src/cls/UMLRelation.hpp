@@ -1,7 +1,4 @@
-//#pragma once
-
-#ifndef _UML_RELATION_HPP
-#define _UML_RELATION_HPP
+#pragma once
 
 #include <string>
 #include "UMLClassInterfaceTemplate.hpp"
@@ -24,19 +21,35 @@ public:
     UMLClassInterfaceTemplate relationFromObject;
     UMLClassInterfaceTemplate relationToObject;
     RelationType relationType;
-    std::string cardinalityByFromClass;
-    std::string cardinalityByToClass;
+    QString cardinalityByFromClass;
+    QString cardinalityByToClass;
 
     // graphical points
     double startX, startY;
     double endX, endY;
 
-    UMLRelation(std::string name);
-    UMLRelation(std::string name,
-                UMLClassInterfaceTemplate relationFromObject,
-                UMLClassInterfaceTemplate relationToObject,
-                RelationType type);
-    ~UMLRelation();
-};
+    /**
+     * @brief Default construct a new UMLRelation object
+     *
+     */
+    UMLRelation();
 
-#endif
+    UMLRelation(QString name);
+    UMLRelation(QString name,
+                UMLClassInterfaceTemplate relationFromObject,
+                UMLClassInterfaceTemplate relationToObject, RelationType type);
+
+    ~UMLRelation();
+    /**
+     * @brief converts object to json
+     *
+     * @param json
+     */
+    void write(QJsonObject &json) const override;
+    /**
+     * @brief reads object from json
+     *
+     * @param json
+     */
+    void read(const QJsonObject &json);
+};

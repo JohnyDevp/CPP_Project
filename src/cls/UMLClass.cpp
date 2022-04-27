@@ -32,5 +32,16 @@ bool UMLClass::operator!=(const UMLClass &other) const
 }
 
 UMLClass::UMLClass(String name) : UMLClassInterfaceTemplate(name) {}
+UMLClass::UMLClass() : UMLClassInterfaceTemplate(QString(DEFAULT_NAME)) {}
+
+void UMLClass::write(QJsonObject &json) const
+{
+    // TODO: UMLClass write
+}
+
+void UMLClass::read(const QJsonObject &json)
+{
+    // TODO: UMLClass read
+}
 
 UMLClass::~UMLClass() {}
