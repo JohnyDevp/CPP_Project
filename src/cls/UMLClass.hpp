@@ -8,6 +8,7 @@ using String = QString;
 class UMLClass : public UMLClassInterfaceTemplate
 {
 public:
+    bool isInterface = false;
     /**
      * @brief List of attributes of class
      *

@@ -10,7 +10,7 @@
 #include "ClassDiagram.hpp"
 #include <QJsonArray>
 
-ClassDiagram::ClassDiagram(QString name) : Element(name), classList(), interfaceList(), relationList() {}
+ClassDiagram::ClassDiagram(QString name) : Element(name), classList(), relationList() {}
 
 ClassDiagram::~ClassDiagram() {}
 
@@ -18,17 +18,9 @@ void ClassDiagram::write(QJsonObject &json) const
 {
     json[nameName] = name;
 
-    QJsonArray interfaceJsonList;
-    for (const UMLInterface &uml : interfaceList)
-    {
-        QJsonObject umlObject;
-        uml.write(umlObject);
-        interfaceJsonList.append(umlObject);
-    }
-    json[interfaceListName] = interfaceJsonList;
-
     QJsonArray classJsonList;
-    for (const UMLClass &uml : classList)
+
+    foreach (const UMLClass &uml, classList)
     {
         QJsonObject umlObject;
         uml.write(umlObject);
@@ -46,7 +38,6 @@ void ClassDiagram::write(QJsonObject &json) const
     json[relationListName] = relationJsonList;
 }
 
-// TODO: Class::read
 void ClassDiagram::read(const QJsonObject &json)
 {
     // Read name
@@ -57,27 +48,12 @@ void ClassDiagram::read(const QJsonObject &json)
     {
         QJsonArray classArray = json[classListName].toArray();
         classList.clear();
-        classList.reserve(classArray.size());
         for (int classIndex = 0; classIndex < classArray.size(); classIndex++)
         {
             QJsonObject classObject = classArray[classIndex].toObject();
             UMLClass cla;
             cla.read(classObject);
-            classList.append(cla);
-        }
-    }
-    // Read UMLInterface objects
-    if (json.contains(interfaceListName) && json[interfaceListName].isArray())
-    {
-        QJsonArray interfaceArray = json[interfaceListName].toArray();
-        interfaceList.clear();
-        interfaceList.reserve(interfaceArray.size());
-        for (int interfaceIndex = 0; interfaceIndex < interfaceArray.size(); interfaceIndex++)
-        {
-            QJsonObject classObject = interfaceArray[interfaceIndex].toObject();
-            UMLInterface in;
-            in.read(classObject);
-            interfaceList.append(in);
+            classList[cla.name] = cla;
         }
     }
     // Read UMLRelation objects
@@ -96,15 +72,20 @@ void ClassDiagram::read(const QJsonObject &json)
     }
 }
 
-
-void ClassDiagram::deleteObject(UMLClassInterfaceTemplate &umlObject)
+bool ClassDiagram::addClass(UMLClass &umlClass)
 {
-    auto pos = std::find(std::begin(umlList), std::end(umlList), umlObject);
-    if (pos != std::end(umlList))
-    {
-        // find it
-        umlList.erase(pos);
-    }
+    if (classList.contains(umlClass.name))
+        return false;
+    classList[umlClass.name] = umlClass;
+    return true;
+}
+
+void ClassDiagram::updateClass(QString oldName, UMLClass &umlClass)
+{
+    if (classList.contains(oldName))
+        classList.remove(oldName);
+
+    classList[umlClass.name] = umlClass;
 }
 
 bool ClassDiagram::addRelation(UMLRelation &umlRelation)
@@ -120,17 +101,6 @@ void ClassDiagram::removeRelation(UMLRelation &umlRelation)
         // find it
         relationList.erase(pos);
     }
-}
-
-bool ClassDiagram::findObject(UMLClassInterfaceTemplate &umlObject)
-{
-    auto pos = std::find(std::begin(umlList), std::end(umlList), umlObject);
-    if (pos != std::end(umlList))
-    {
-        // find it
-        return true;
-    }
-    return false;
 }
 
 bool ClassDiagram::operator==(const ClassDiagram &other) const

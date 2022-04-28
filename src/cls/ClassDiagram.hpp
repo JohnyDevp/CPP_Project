@@ -9,11 +9,11 @@
 #include "UMLRelation.hpp"
 #include "Element.hpp"
 #include "UMLClass.hpp"
-#include "UMLInterface.hpp"
 
 #define classListName "umlClassList"
 #define interfaceListName "umlInterfaceList"
 #define relationListName "umlRelationList"
+#define isInterfaceName "isInterfaceName"
 
 class ClassDiagram : public Element
 {
@@ -23,12 +23,7 @@ public:
      * @brief list of all classes for diagram
      *
      */
-    QList<UMLClass> classList;
-    /**
-     * @brief list of all classes for diagram
-     *
-     */
-    QList<UMLInterface> interfaceList;
+    QMap<QString, UMLClass> classList;
     /**
      * @brief list of all relations in this diagram
      *
@@ -45,14 +40,6 @@ public:
 
     void updateClass(QString oldName, UMLClass &umlClass);
 
-    void updateInterface(QString oldName, UMLInterface &umlInterface);
-
-    bool addInterface(UMLInterface &UMLInterface);
-    /**
-     * @param o  object to found
-     * @return if the object of found
-     * */
-    bool findObject(UMLClassInterfaceTemplate &umlObject);
     /**
      * @param umlRelation relation object
      * @return boolean according success of adding operation
