@@ -1,7 +1,7 @@
 #pragma once
 
-#include "UMLClassInterfaceTemplate.hpp"
 #include "UMLAttribute.hpp"
+#include "UMLOperation.hpp"
 #include <string>
 
 using String = QString;

@@ -5,7 +5,6 @@
  * @author xzimol04
  * */
 
-#include "UMLClassInterfaceTemplate.hpp"
 #include "UMLRelation.hpp"
 #include "Element.hpp"
 #include "UMLClass.hpp"

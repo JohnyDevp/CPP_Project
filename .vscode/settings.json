@@ -3,6 +3,9 @@
         "qjsonobject": "cpp",
         "qjsonarray": "cpp",
         "string_view": "cpp",
-        "array": "cpp"
+        "array": "cpp",
+        "*.tcc": "cpp",
+        "system_error": "cpp",
+        "typeinfo": "cpp"
     }
 }

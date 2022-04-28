@@ -1,11 +1,23 @@
 #pragma once
 
 #include <string>
-#include "UMLClassInterfaceTemplate.hpp"
+#include "UMLClass.hpp"
 
 /**
  * type accesible through all classes to determine type of relation
  * */
+
+#define relFromName "relFromName"
+#define relToName "relToName"
+#define relTypeName "relTypeName"
+#define cardiFromName "cardiFromName"
+#define cardiToName "cardiToName"
+
+#define startXName "startXName"
+#define startYName "startYName"
+
+#define endXName "endXName"
+#define endYName "endYName"
 
 class UMLRelation : public Element
 {
@@ -18,8 +30,8 @@ public:
         COMPOSITION
     };
 
-    UMLClassInterfaceTemplate relationFromObject;
-    UMLClassInterfaceTemplate relationToObject;
+    QString relationFrom;
+    QString relationTo;
     RelationType relationType;
     QString cardinalityByFromClass;
     QString cardinalityByToClass;
@@ -30,14 +42,14 @@ public:
 
     /**
      * @brief Default construct a new UMLRelation object
-     *
+     *UMLClQass
      */
     UMLRelation();
 
     UMLRelation(QString name);
     UMLRelation(QString name,
-                UMLClassInterfaceTemplate relationFromObject,
-                UMLClassInterfaceTemplate relationToObject, RelationType type);
+                QString relationFrom,
+                QString relationToName, RelationType type);
 
     ~UMLRelation();
     /**
