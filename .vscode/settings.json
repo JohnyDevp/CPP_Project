@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "qjsonobject": "cpp",
-        "qjsonarray": "cpp"
+        "qjsonarray": "cpp",
+        "string_view": "cpp",
+        "array": "cpp"
     }
 }

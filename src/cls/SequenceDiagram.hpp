@@ -5,6 +5,10 @@
 #include "Message.hpp"
 #include <vector>
 
+#define listPartiName "listPartiName"
+#define messageListName "messageListName"
+#define lastTimeName "lastTimeName"
+
 class SequenceDiagram : public Element
 {
 public:

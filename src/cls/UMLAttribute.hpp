@@ -3,11 +3,14 @@
 #include <string>
 #include "Element.hpp"
 
+#define typeName "typeName"
+#define modifierName "modifierName"
+
 class UMLAttribute : public Element
 {
 public:
     QString type;
-    char modifier;
+    QChar modifier;
 
     /**
      * @brief Construct a new UMLAttribute object
@@ -29,7 +32,7 @@ public:
      * @param name
      * @param type
      */
-    UMLAttribute(char modifier, QString name, QString type);
+    UMLAttribute(QChar modifier, QString name, QString type);
     ~UMLAttribute();
 
     /**

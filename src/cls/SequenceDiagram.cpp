@@ -28,6 +28,7 @@ void SequenceDiagram::deleteMessage(Message &message)
 void SequenceDiagram::write(QJsonObject &json) const
 {
     // TODO: Sequence write
+    json[lastTimeName] = lastTimeStamp;
 }
 
 void SequenceDiagram::read(const QJsonObject &json)
