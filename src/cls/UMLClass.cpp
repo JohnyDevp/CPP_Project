@@ -22,7 +22,7 @@ void UMLClass::deleteAttribute(const String &name)
     }
 }
 
-UMLClass::UMLClass(String name) : Element(name) {}
+UMLClass::UMLClass(String name) : Element(name), umlAttributesList(), umlOperationsList() {}
 UMLClass::UMLClass() {}
 
 void UMLClass::write(QJsonObject &json) const
@@ -98,6 +98,16 @@ void UMLClass::read(const QJsonObject &json)
             umlOperationsList.append(oper);
         }
     }
+}
+
+bool UMLClass::operator==(const UMLClass &other) const
+{
+    return static_cast<const Element &>(*this) == static_cast<const Element &>(other);
+}
+
+bool UMLClass::operator!=(const UMLClass &other) const
+{
+    return !(*this == other);
 }
 
 UMLClass::~UMLClass() {}

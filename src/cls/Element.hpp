@@ -14,6 +14,7 @@
 
 #include "JsonPrintable.hpp"
 #include <string>
+#include <QString>
 
 class Element : public JsonPrintable
 {

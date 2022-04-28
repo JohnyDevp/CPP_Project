@@ -38,7 +38,7 @@ void SequenceDiagram::read(const QJsonObject &json)
 
 SequenceDiagram::SequenceDiagram(QString name)
     : Element(name),
-      lastTimeStamp(0)
+      lastTimeStamp(0), listOfObjectParticipants(), messageList()
 {
 }
 

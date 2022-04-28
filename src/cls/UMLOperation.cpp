@@ -15,7 +15,7 @@ bool UMLOperation::addOperationParameter(UMLAttribute param)
     return true;
 }
 
-UMLOperation::UMLOperation() {}
+UMLOperation::UMLOperation() : parameterssOfOperationList() {}
 
 UMLOperation::UMLOperation(QString name) : UMLAttribute(name)
 {
@@ -28,7 +28,7 @@ bool UMLOperation::operator!=(const UMLOperation &other) const
 {
     return !(*this == other);
 }
-UMLOperation::UMLOperation(QString name, QString returnType, char modifier) : UMLAttribute(modifier, name, returnType) {}
+UMLOperation::UMLOperation(QString name, QString returnType, QChar modifier) : UMLAttribute(modifier, name, returnType), parameterssOfOperationList() {}
 
 UMLOperation::~UMLOperation() {}
 

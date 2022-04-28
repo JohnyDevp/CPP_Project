@@ -54,7 +54,7 @@ public:
      * @param returnType
      * @param modifier
      */
-    UMLOperation(QString name, QString returnType, char modifier);
+    UMLOperation(QString name, QString returnType, QChar modifier);
     /**
      * @brief Destroy the UMLOperation object
      *

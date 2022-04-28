@@ -40,3 +40,4 @@ void UMLAttribute::read(const QJsonObject &json)
     {
         modifier = json[modifierName].toString().at(0);
     }
+}
