@@ -1,11 +1,59 @@
-#include "controllers/mainwindow.h"
+/**
+ * @file main.cpp
+ * @author Jan Zimola (xzimol04) and Jan Holáň (xholan11)
+ * @brief
+ * @date 2022-04-28
+ * @copyright Copyright (c) 2022
+ *
+ */
+
+// #include "controllers/mainwindow.h"
+#include "cls/ClassDiagram.hpp"
 
 #include <QApplication>
+#include <QJsonDocument>
+#include <QFile>
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-    return a.exec();
+
+    ClassDiagram dia = ClassDiagram("ahoj");
+
+    UMLClass cl1 = UMLClass("cl1");
+    UMLClass cl2 = UMLClass("cl2");
+    UMLClass cl3 = UMLClass("cl3");
+
+    dia.addClass(cl1);
+    dia.addClass(cl2);
+    dia.addClass(cl3);
+
+    QJsonObject obj;
+    dia.write(obj);
+
+    QFile file("../examples/test2/test2.json");
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        return 0;
+
+    QTextStream out(&file);
+    out << QJsonDocument(obj).toJson();
+
+    QFile file2("../examples/test2/test2.json");
+    if (!file2.open(QIODevice::ReadOnly | QIODevice::Text))
+        return;
+
+    QByteArray saveData = file2.readAll();
+
+    QJsonDocument loadDoc = QJsonDocument::fromJson(saveData);
+
+    dia.read(loadDoc.object());
+
+    QFile file3("../examples/test2/test3.json");
+    if (!file3.open(QIODevice::WriteOnly | QIODevice::Text))
+        return 0;
+    QTextStream out(&file3);
+
+    dia.write(obj);
+    out << QJsonDocument(obj).toJson();
+
+    return 0;
 }

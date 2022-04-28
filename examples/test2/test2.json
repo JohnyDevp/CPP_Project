@@ -1,0 +1,37 @@
+{
+    "name": "ahoj",
+    "umlClassList": [
+        {
+            "attributeListName": [
+            ],
+            "isInterfaceName": false,
+            "name": "cl1",
+            "operationListName": [
+            ],
+            "xcoordName": 0,
+            "ycoordName": 0
+        },
+        {
+            "attributeListName": [
+            ],
+            "isInterfaceName": false,
+            "name": "cl2",
+            "operationListName": [
+            ],
+            "xcoordName": 0,
+            "ycoordName": 0
+        },
+        {
+            "attributeListName": [
+            ],
+            "isInterfaceName": false,
+            "name": "cl3",
+            "operationListName": [
+            ],
+            "xcoordName": 0,
+            "ycoordName": 0
+        }
+    ],
+    "umlRelationList": [
+    ]
+}
