@@ -1,5 +1,7 @@
 #include "UMLOperation.hpp"
 
+#include <QJsonArray>
+
 bool UMLOperation::addOperationParameter(UMLAttribute param)
 {
     // if attribute has been find with desired name then fail
@@ -30,10 +32,36 @@ UMLOperation::~UMLOperation() {}
 
 void UMLOperation::write(QJsonObject &json) const
 {
-    // TODO: UMLOperation write
+    UMLAttribute::write(json);
+
+    QJsonArray attrArray;
+    for (const UMLAttribute &attr : parameterssOfOperationList)
+    {
+        QJsonObject attrObject;
+        attr.write(attrObject);
+        attrArray.append(attrObject);
+    }
+
+    json[parametersName] = attrArray;
 }
 
 void UMLOperation::read(const QJsonObject &json)
 {
-    // TODO: UMLOperation read
+    UMLAttribute::read(json);
+
+    if (json.contains(parametersName) && json[parametersName].isArray())
+    {
+        QJsonArray attrArray = json[parametersName].toArray();
+
+        parameterssOfOperationList.clear();
+        parameterssOfOperationList.reserve(attrArray.size());
+
+        for (int i = 0; i < attrArray.size(); i++)
+        {
+            QJsonObject attrObject = attrArray[i].toObject();
+            UMLAttribute attr;
+            attr.read(attrObject);
+            parameterssOfOperationList.append(attr);
+        }
+    }
 }

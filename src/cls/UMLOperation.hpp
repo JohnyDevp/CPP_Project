@@ -11,6 +11,8 @@
 #include <vector>
 #include <string>
 
+#define parametersName "parametersName"
+
 class UMLOperation : public UMLAttribute
 {
 public:
