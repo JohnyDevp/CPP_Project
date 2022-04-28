@@ -4,10 +4,12 @@
  */
 
 #include "classdiagramview.h"
-#include "src/cls/UMLClass.hpp"
-#include "src/controllers/sequencediagramview.h"
+#include "cls/UMLClass.hpp"
+#include "controllers/sequencediagramview.h"
 #include "ui_classdiagramview.h"
 #include <QGraphicsRectItem>
+#include "diagraminterface.h"
+#include "../objectgui.h"
 
 ClassDiagramView::ClassDiagramView(QWidget *parent) : QWidget(parent),
                                                       ui(new Ui::ClassDiagramView)

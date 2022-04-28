@@ -1,8 +1,8 @@
 #ifndef DIAGRAMINTERFACE_H
 #define DIAGRAMINTERFACE_H
 
-#include "src/cls/ClassDiagram.hpp"
-#include "src/objectgui.h"
+#include "cls/ClassDiagram.hpp"
+#include "objectgui.h"
 #include <iostream>
 #include <vector>
 

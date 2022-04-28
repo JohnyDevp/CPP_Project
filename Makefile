@@ -12,4 +12,5 @@ clean:
 	rm -rf ui_*;\
 	rm -rf moc_*;\
 	rm -rf *.o;\
+	rm -rf .qmake.stash ;\
 	cd ..;

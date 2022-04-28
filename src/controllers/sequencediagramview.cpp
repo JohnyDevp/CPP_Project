@@ -1,15 +1,14 @@
 #include "sequencediagramview.h"
 #include "ui_sequencediagramview.h"
 
-SequenceDiagramView::SequenceDiagramView(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::SequenceDiagramView)
+SequenceDiagramView::SequenceDiagramView(QWidget *parent) : QWidget(parent),
+                                                            ui(new Ui::SequenceDiagramView)
 {
     ui->setupUi(this);
 }
 
-void SequenceDiagramView::init(QTabWidget *tabPane){
-
+void SequenceDiagramView::init(QTabWidget *tabPane)
+{
 }
 
 SequenceDiagramView::~SequenceDiagramView()
@@ -19,6 +18,4 @@ SequenceDiagramView::~SequenceDiagramView()
 
 void SequenceDiagramView::on_btnClose_clicked()
 {
-
 }
-

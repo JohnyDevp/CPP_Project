@@ -1,7 +1,7 @@
 #ifndef OBJECTGUI_H
 #define OBJECTGUI_H
 
-#include "src/cls/UMLClass.hpp"
+#include "cls/UMLClass.hpp"
 #include <QGraphicsItem>
 #include <QPainter>
 #include <QDebug>
