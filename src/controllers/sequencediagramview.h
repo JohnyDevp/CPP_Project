@@ -4,8 +4,9 @@
 #include "qtabwidget.h"
 #include <QWidget>
 
-namespace Ui {
-class SequenceDiagramView;
+namespace Ui
+{
+    class SequenceDiagramView;
 }
 
 class SequenceDiagramView : public QWidget

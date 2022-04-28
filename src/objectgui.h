@@ -1,7 +1,7 @@
 #ifndef OBJECTGUI_H
 #define OBJECTGUI_H
 
-#include "src/cls/UMLClassInterfaceTemplate.hpp"
+#include "src/cls/UMLClass.hpp"
 #include <QGraphicsItem>
 #include <QPainter>
 #include <QDebug>
@@ -28,14 +28,14 @@ public:
     /**
      * @brief umlObject
      */
-    UMLClassInterfaceTemplate umlObject;
+    UMLClass umlObject;
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
 
 private:
-    //variables for default coords of bounding rectangle
+    // variables for default coords of bounding rectangle
     int boundingX;
     int boundingY;
     int boundingWidth;
@@ -45,7 +45,6 @@ private:
      * @brief umlClass
      */
     UMLClass umlClass;
-
 };
 
 #endif // OBJECTGUI_H
