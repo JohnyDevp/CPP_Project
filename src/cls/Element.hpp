@@ -1,7 +1,12 @@
 /**
- * class representing element in string format - to be inherited
- * @author dr.Koci, rewritten to c++ by xzimol04
- * */
+ * @file Element.hpp
+ * @author Jan Zimola (xzimol04) and dr. Koci
+ * @brief Class representing element in string format - to be inherited
+ * @date 2022-04-28
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
 #pragma once
 
 #define DEFAULT_NAME "default"

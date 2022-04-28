@@ -1,3 +1,12 @@
+/**
+ * @file UMLAttribute.hpp
+ * @author Jan Zimola (xzimol04) and dr.Koci
+ * @brief Class representing uml attribute
+ * @date 2022-04-28
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
 #pragma once
 
 #include <string>
@@ -14,7 +23,7 @@ public:
 
     /**
      * @brief Default construct a new UMLAttribute object
-     * 
+     *
      */
     UMLAttribute();
 

@@ -1,11 +1,16 @@
+/**
+ * @file UMLRelation.hpp
+ * @author Jan Zimola (xzimol04)
+ * @brief  Class that defines relationship between UML classes
+ * @date 2022-04-28
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
 #pragma once
 
 #include <string>
 #include "UMLClass.hpp"
-
-/**
- * type accesible through all classes to determine type of relation
- * */
 
 #define relFromName "relFromName"
 #define relToName "relToName"

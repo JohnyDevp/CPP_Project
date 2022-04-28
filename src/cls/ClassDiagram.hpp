@@ -1,9 +1,13 @@
-
-#pragma once
 /**
- * class representing the whole class diagram with its items
- * @author xzimol04
- * */
+ * @file ClassDiagram.hpp
+ * @author Jan Zimola (xzimol04)
+ * @brief Class representing the whole class diagram with its items
+ * @date 2022-04-28
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+#pragma once
 
 #include "UMLRelation.hpp"
 #include "Element.hpp"

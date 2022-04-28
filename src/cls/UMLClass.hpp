@@ -1,3 +1,12 @@
+/**
+ * @file UMLClass.hpp
+ * @author Jan Zimola (xzimol04) and dr. Koci
+ * @brief class representing UML class
+ * @date 2022-04-28
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
 #pragma once
 
 #include "UMLAttribute.hpp"

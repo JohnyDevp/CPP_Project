@@ -1,12 +1,17 @@
+/**
+ * @file UMLOperation.hpp
+ * @author Jan Zimola (xzimol04) and dr. Koci
+ * @brief Class for representing uml operation for both interface and class
+ * @date 2022-04-28
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
 #pragma once
 
 #include <algorithm>
 #include "UMLAttribute.hpp"
-
-/**
- * class for representing uml operation for both interface and class
- * @author xzimol04
- * */
 
 #include <vector>
 #include <string>

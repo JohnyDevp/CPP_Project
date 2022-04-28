@@ -1,11 +1,3 @@
-/*
- * Filename: /home/musta-pollo/VUT/ICP_COL/CPP_Project/src/cls/ClassDiagram.cpp
- * Path: /home/musta-pollo/VUT/ICP_COL/CPP_Project/src/cls
- * Created Date: Wednesday, April 27th 2022, 7:17:44 pm
- * Author: Jan Zimola
- * Sources: https://doc.qt.io/qt-5/qtcore-serialization-savegame-example.html
- * Copyright (c) 2022 Your Company
- */
 
 #include "ClassDiagram.hpp"
 #include <QJsonArray>
