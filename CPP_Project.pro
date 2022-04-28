@@ -9,6 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        src/classobjectgui.cpp \
         src/cls/Element.cpp \
         src/cls/UMLClassInterfaceTemplate.cpp \
         src/cls/UMLInterface.cpp \
@@ -19,12 +20,18 @@ SOURCES += \
         src/cls/Mess.cpp \
         src/cls/ClassDiagram.cpp \
         src/cls/SequenceDiagram.cpp \
+        src/controllers/editobjectdialog.cpp \
+        src/controllers/sequencediagramview.cpp \
+        src/diagraminterface.cpp \
+        src/interfaceobjectgui.cpp \
         src/jsonreader.cpp \
         src/main.cpp \
         src/controllers/mainwindow.cpp \
-        src/controllers/classdiagramview.cpp
+        src/controllers/classdiagramview.cpp \
+        src/objectgui.cpp
 
 HEADERS += \
+        src/classobjectgui.h \
         src/cls/Element.hpp \
         src/cls/UMLClassInterfaceTemplate.hpp \
         src/cls/UMLInterface.hpp \
@@ -35,11 +42,18 @@ HEADERS += \
         src/cls/Mess.hpp \
         src/cls/ClassDiagram.hpp \
         src/cls/SequenceDiagram.hpp \
+        src/controllers/editobjectdialog.h \
         src/controllers/mainwindow.h \
         src/controllers/classdiagramview.h \
-        src/jsonreader.h
+        src/controllers/sequencediagramview.h \
+        src/diagraminterface.h \
+        src/interfaceobjectgui.h \
+        src/jsonreader.h \
+        src/objectgui.h
 
 FORMS += \
+    src/controllers/editobjectdialog.ui \
+    src/views/sequencediagramview.ui \
     src/views/classdiagramview.ui \
     src/views/mainwindow.ui
 

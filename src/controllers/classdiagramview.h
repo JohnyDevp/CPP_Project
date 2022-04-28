@@ -6,10 +6,21 @@
 #ifndef CLASSDIAGRAMVIEW_H
 #define CLASSDIAGRAMVIEW_H
 
+#include "qgraphicsscene.h"
 #include "qtabwidget.h"
 #include <QTabWidget>
 #include <QPushButton>
 #include <iostream>
+
+#include <QtCore>
+#include <QtGui>
+#include <QCursor>
+
+//include the objects which will be drawn on canvas
+#include "./../classobjectgui.h"
+#include "./../interfaceobjectgui.h"
+
+#include "./../diagraminterface.h"
 
 namespace Ui {
 class ClassDiagramView;
@@ -31,8 +42,16 @@ public:
      * @param tabPane
      */
     void init(std::string filePath, QPushButton * btn1, QPushButton * btn2, QTabWidget * tabPane);
+    /**
+     * @brief parseFile - function parsing file of existing diagram (if set)
+     */
+    void parseFile();
+
     explicit ClassDiagramView(QWidget *parent = nullptr);
+
     ~ClassDiagramView();
+
+    ObjectGUI * newObj;
 
 private slots:
     /**
@@ -41,8 +60,31 @@ private slots:
      */
     void on_btnClose_clicked();
 
+    /**
+     * @brief on_btnAddObject_clicked
+     */
+    void on_btnAddObject_clicked();
+
+    /**
+     * @brief on_btnCreateNewSequenceDiagram_clicked
+     */
+    void on_btnCreateNewSequenceDiagram_clicked();
+
 private:
     Ui::ClassDiagramView *ui;
+
+    /**
+     * @brief scene - on which objects and relations are drawing for the current class diagram
+     */
+    QGraphicsScene *scene;
+
+    /**
+     * @brief diagramInterface
+     * pointer to all objects and information necessary for class diagram and sequence diagram
+     * concerning their inner and gui representation
+     */
+    DiagramInterface *diagramInterface;
+
     /**
      * @brief filePath - path to file, if was loaded
      * otherwise should be empty string literal

@@ -1,6 +1,6 @@
 #include "ClassDiagram.hpp"
 
-//ClassDiagram::ClassDiagram(std::string name) : Element(name), umlList(), umlRelationList() {}
+ClassDiagram::ClassDiagram(std::string name) : Element(name), umlList(), umlRelationList() {}
 
 ClassDiagram::~ClassDiagram() {}
 
