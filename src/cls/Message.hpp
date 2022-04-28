@@ -2,6 +2,11 @@
 
 #include "UMLClass.hpp"
 
+#define ycoordName "ycoordName"
+#define umlClassName "umlClassName"
+#define umlOperationName "umlOperationName"
+#define messageTypeName "messageTypeName"
+
 class Message : public JsonPrintable
 {
 public:
