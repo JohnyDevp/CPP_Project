@@ -35,6 +35,12 @@ public:
      *
      * @param name
      */
+    UMLOperation();
+    /**
+     * @brief Construct a new UMLOperation object
+     *
+     * @param name
+     */
     UMLOperation(QString name);
     /**
      * @brief Construct a new UMLOperation object

@@ -15,6 +15,8 @@ bool UMLOperation::addOperationParameter(UMLAttribute param)
     return true;
 }
 
+UMLOperation::UMLOperation() {}
+
 UMLOperation::UMLOperation(QString name) : UMLAttribute(name)
 {
 }

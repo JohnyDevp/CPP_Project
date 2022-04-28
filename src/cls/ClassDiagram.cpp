@@ -16,7 +16,7 @@ ClassDiagram::~ClassDiagram() {}
 
 void ClassDiagram::write(QJsonObject &json) const
 {
-    json[nameName] = name;
+    Element::write(json);
 
     QJsonArray classJsonList;
 
@@ -40,9 +40,8 @@ void ClassDiagram::write(QJsonObject &json) const
 
 void ClassDiagram::read(const QJsonObject &json)
 {
-    // Read name
-    if (json.contains(nameName) && json[nameName].isString())
-        name = json[nameName].toString();
+    Element::read(json);
+
     // Read UMLClass objects
     if (json.contains(classListName) && json[classListName].isArray())
     {

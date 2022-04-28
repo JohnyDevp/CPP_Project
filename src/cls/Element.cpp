@@ -11,14 +11,15 @@ Element::~Element() {}
 
 void Element::write(QJsonObject &json) const
 {
-    // TODO: Element write
-    // Very likely it doesn't matter
+    // set name
+    json[nameName] = name;
 }
 
 void Element::read(const QJsonObject &json)
 {
-    // TODO: Element read
-    // Very likely it doesn't matter
+    // Read name
+    if (json.contains(nameName) && json[nameName].isString())
+        name = json[nameName].toString();
 }
 
 bool Element::operator==(const Element &other) const

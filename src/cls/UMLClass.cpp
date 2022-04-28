@@ -22,24 +22,16 @@ void UMLClass::deleteAttribute(const String &name)
     }
 }
 
-bool UMLClass::operator==(const UMLClass &other) const
-{
-    return static_cast<const UMLClassInterfaceTemplate &>(*this) == static_cast<const UMLClassInterfaceTemplate &>(other);
-}
-
-bool UMLClass::operator!=(const UMLClass &other) const
-{
-    return !(*this == other);
-}
-
-UMLClass::UMLClass(String name) : UMLClassInterfaceTemplate(name) {}
-UMLClass::UMLClass() : UMLClassInterfaceTemplate(QString(DEFAULT_NAME)) {}
+UMLClass::UMLClass(String name) : Element(name) {}
+UMLClass::UMLClass() {}
 
 void UMLClass::write(QJsonObject &json) const
 {
-    json[nameName] = name;
+    Element::write(json);
 
     json[isInterfaceName] = isInterface;
+    json[xcoordeName] = Xcoord;
+    json[ycoordeName] = Ycoord;
 
     QJsonArray attributesJsonList;
     for (const UMLAttribute &attr : umlAttributesList)
@@ -49,18 +41,34 @@ void UMLClass::write(QJsonObject &json) const
         attributesJsonList.append(attrObject);
     }
     json[attributeListName] = attributesJsonList;
+
+    QJsonArray operationJsonList;
+    for (const UMLOperation &oper : umlOperationsList)
+    {
+        QJsonObject operObject;
+        oper.write(operObject);
+        operationJsonList.append(operObject);
+    }
+    json[operationListName] = operationJsonList;
 }
 
 void UMLClass::read(const QJsonObject &json)
 {
-    if (json.contains(nameName) && json[nameName].isString())
-    {
-        name = json[nameName].toString();
-    }
+    Element::read(json);
 
     if (json.contains(isInterfaceName) && json[isInterfaceName].isBool())
     {
         isInterface = json[isInterfaceName].toBool();
+    }
+
+    if (json.contains(xcoordeName) && json[xcoordeName].isDouble())
+    {
+        Xcoord = json[xcoordeName].toDouble();
+    }
+
+    if (json.contains(ycoordeName) && json[ycoordeName].isDouble())
+    {
+        Ycoord = json[ycoordeName].toDouble();
     }
 
     if (json.contains(attributeListName) && json[attributeListName].isArray())
@@ -74,6 +82,20 @@ void UMLClass::read(const QJsonObject &json)
             UMLAttribute attr;
             attr.read(attrObject);
             umlAttributesList.append(attr);
+        }
+    }
+
+    if (json.contains(operationListName) && json[operationListName].isArray())
+    {
+        QJsonArray operArray = json[attributeListName].toArray();
+        umlOperationsList.clear();
+        umlOperationsList.reserve(operArray.size());
+        for (int i = 0; i < operArray.size(); i++)
+        {
+            QJsonObject operationObject = operArray[i].toObject();
+            UMLOperation oper;
+            oper.read(operationObject);
+            umlOperationsList.append(oper);
         }
     }
 }

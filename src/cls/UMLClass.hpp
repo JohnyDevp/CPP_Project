@@ -7,9 +7,12 @@
 using String = QString;
 
 #define attributeListName "attributeListName"
+#define operationListName "operationListName"
 #define isInterfaceName "isInterfaceName"
+#define xcoordeName "xcoordName"
+#define ycoordeName "ycoordName"
 
-class UMLClass : public UMLClassInterfaceTemplate
+class UMLClass : public Element
 {
 public:
     bool isInterface = false;
@@ -18,6 +21,31 @@ public:
      *
      */
     QList<UMLAttribute> umlAttributesList;
+
+    /**
+     * @brief list of operations of class
+     *
+     */
+    QList<UMLOperation> umlOperationsList;
+    /**
+     * @brief variable for storing X position of this class on pane
+     *
+     */
+    double Xcoord = 0.0;
+    /**
+     * @brief variable for storing Y position of this class on pane
+     *
+     */
+    double Ycoord = 0.0;
+
+    bool addOperation(UMLOperation operation);
+    /**
+     * @brief delete operation by name
+     *
+     * @param name
+     */
+    void deleteOperation(QString name);
+
     /**
      * @brief adding an attribute (which is parameter) of this class
      * checking whether theres no other attribute with same name

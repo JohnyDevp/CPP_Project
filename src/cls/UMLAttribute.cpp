@@ -19,8 +19,8 @@ UMLAttribute::UMLAttribute(QChar modifier, QString name, QString type) : Element
 UMLAttribute::~UMLAttribute() {}
 
 void UMLAttribute::write(QJsonObject &json) const
-{ // TODO: UMLAttribute write
-    json[nameName] = name;
+{
+    Element::write(json);
 
     json[typeName] = type;
 
@@ -29,11 +29,7 @@ void UMLAttribute::write(QJsonObject &json) const
 
 void UMLAttribute::read(const QJsonObject &json)
 {
-    // TODO: UMLAttribute read
-    if (json.contains(nameName) && json[nameName].isString())
-    {
-        name = json[nameName].toString();
-    }
+    Element::read(json);
 
     if (json.contains(typeName) && json[typeName].isString())
     {

@@ -7,29 +7,7 @@
 class UMLClassInterfaceTemplate : public Element
 {
 public:
-    /**
-     * @brief list of operations of class
-     *
-     */
-    QList<UMLOperation> umlOperationsList;
-    /**
-     * @brief variable for storing X position of this class on pane
-     *
-     */
-    double Xcoord = 0.0;
-    /**
-     * @brief variable for storing Y position of this class on pane
-     *
-     */
-    double Ycoord = 0.0;
-
-    bool addOperation(UMLOperation operation);
-    /**
-     * @brief delete operation by name
-     *
-     * @param name
-     */
-    void deleteOperation(QString name);
+  
     /**
      * @brief Default Construct a new UMLClassInterfaceTemplate object
      *
