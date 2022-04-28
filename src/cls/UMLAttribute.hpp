@@ -13,6 +13,12 @@ public:
     QChar modifier;
 
     /**
+     * @brief Default construct a new UMLAttribute object
+     * 
+     */
+    UMLAttribute();
+
+    /**
      * @brief Construct a new UMLAttribute object
      *
      * @param name

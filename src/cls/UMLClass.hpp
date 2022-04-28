@@ -5,6 +5,10 @@
 #include <string>
 
 using String = QString;
+
+#define attributeListName "attributeListName"
+#define isInterfaceName "isInterfaceName"
+
 class UMLClass : public UMLClassInterfaceTemplate
 {
 public:

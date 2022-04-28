@@ -1,6 +1,7 @@
 #include "UMLAttribute.hpp"
 
 UMLAttribute::UMLAttribute(QString name) : Element(name) {}
+UMLAttribute::UMLAttribute() {}
 UMLAttribute::UMLAttribute(QString name, QString type) : Element(name), type(type) {}
 
 bool UMLAttribute::operator==(const UMLAttribute &other) const

@@ -1,4 +1,5 @@
 #include "UMLClass.hpp"
+#include <QJsonArray>
 
 bool UMLClass::addAttribute(UMLAttribute &attr)
 {
@@ -36,12 +37,45 @@ UMLClass::UMLClass() : UMLClassInterfaceTemplate(QString(DEFAULT_NAME)) {}
 
 void UMLClass::write(QJsonObject &json) const
 {
-    // TODO: UMLClass write
+    json[nameName] = name;
+
+    json[isInterfaceName] = isInterface;
+
+    QJsonArray attributesJsonList;
+    for (const UMLAttribute &attr : umlAttributesList)
+    {
+        QJsonObject attrObject;
+        attr.write(attrObject);
+        attributesJsonList.append(attrObject);
+    }
+    json[attributeListName] = attributesJsonList;
 }
 
 void UMLClass::read(const QJsonObject &json)
 {
-    // TODO: UMLClass read
+    if (json.contains(nameName) && json[nameName].isString())
+    {
+        name = json[nameName].toString();
+    }
+
+    if (json.contains(isInterfaceName) && json[isInterfaceName].isBool())
+    {
+        isInterface = json[isInterfaceName].toBool();
+    }
+
+    if (json.contains(attributeListName) && json[attributeListName].isArray())
+    {
+        QJsonArray attrArray = json[attributeListName].toArray();
+        umlAttributesList.clear();
+        umlAttributesList.reserve(attrArray.size());
+        for (int i = 0; i < attrArray.size(); i++)
+        {
+            QJsonObject attrObject = attrArray[i].toObject();
+            UMLAttribute attr;
+            attr.read(attrObject);
+            umlAttributesList.append(attr);
+        }
+    }
 }
 
 UMLClass::~UMLClass() {}
