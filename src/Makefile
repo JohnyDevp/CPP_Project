@@ -37,7 +37,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = CPP_Project1.0.0
-DISTDIR = /home/musta-pollo/VUT/ICP_COL/CPP_Project/.tmp/CPP_Project1.0.0
+DISTDIR = /home/musta-pollo/VUT/ICP_COL/CPP_Project/src/.tmp/CPP_Project1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1 -pipe -O2 -std=gnu++1z -flto=6 -fno-fat-lto-objects -fuse-linker-plugin -fPIC
 LIBS          = $(SUBLIBS) /usr/lib/libQt5Widgets.so /usr/lib/libQt5Gui.so /usr/lib/libQt5Core.so -lGL -lpthread   
@@ -63,7 +63,8 @@ SOURCES       = cls/Element.cpp \
 		jsonreader.cpp \
 		main.cpp \
 		controllers/mainwindow.cpp \
-		controllers/classdiagramview.cpp 
+		controllers/classdiagramview.cpp moc_mainwindow.cpp \
+		moc_classdiagramview.cpp
 OBJECTS       = Element.o \
 		UMLClass.o \
 		UMLAttribute.o \
@@ -75,7 +76,9 @@ OBJECTS       = Element.o \
 		jsonreader.o \
 		main.o \
 		mainwindow.o \
-		classdiagramview.o
+		classdiagramview.o \
+		moc_mainwindow.o \
+		moc_classdiagramview.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
 		/usr/lib/qt/mkspecs/common/linux.conf \
@@ -271,7 +274,7 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/qt_config.prf \
 		/usr/lib/qt/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/qt/mkspecs/features/spec_post.prf \
-		.qmake.stash \
+		../.qmake.stash \
 		/usr/lib/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/qt/mkspecs/features/toolchain.prf \
 		/usr/lib/qt/mkspecs/features/default_pre.prf \
@@ -521,7 +524,7 @@ Makefile: CPP_Project.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/m
 		/usr/lib/qt/mkspecs/features/qt_config.prf \
 		/usr/lib/qt/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/qt/mkspecs/features/spec_post.prf \
-		.qmake.stash \
+		../.qmake.stash \
 		/usr/lib/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/qt/mkspecs/features/toolchain.prf \
 		/usr/lib/qt/mkspecs/features/default_pre.prf \
@@ -740,7 +743,7 @@ Makefile: CPP_Project.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/m
 /usr/lib/qt/mkspecs/features/qt_config.prf:
 /usr/lib/qt/mkspecs/linux-g++/qmake.conf:
 /usr/lib/qt/mkspecs/features/spec_post.prf:
-.qmake.stash:
+../.qmake.stash:
 /usr/lib/qt/mkspecs/features/exclusive_builds.prf:
 /usr/lib/qt/mkspecs/features/toolchain.prf:
 /usr/lib/qt/mkspecs/features/default_pre.prf:
@@ -790,7 +793,6 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) $(TARGET) 
-	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -812,8 +814,21 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/qt/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -std=gnu++1z -flto -fno-fat-lto-objects -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all:
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_classdiagramview.cpp
 compiler_moc_header_clean:
+	-$(DEL_FILE) moc_mainwindow.cpp moc_classdiagramview.cpp
+moc_mainwindow.cpp: controllers/mainwindow.h \
+		controllers/classdiagramview.h \
+		ui_mainwindow.h \
+		moc_predefs.h \
+		/usr/bin/moc
+	/usr/bin/moc $(DEFINES) --include /home/musta-pollo/VUT/ICP_COL/CPP_Project/src/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/musta-pollo/VUT/ICP_COL/CPP_Project/src -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include controllers/mainwindow.h -o moc_mainwindow.cpp
+
+moc_classdiagramview.cpp: controllers/classdiagramview.h \
+		moc_predefs.h \
+		/usr/bin/moc
+	/usr/bin/moc $(DEFINES) --include /home/musta-pollo/VUT/ICP_COL/CPP_Project/src/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/musta-pollo/VUT/ICP_COL/CPP_Project/src -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include controllers/classdiagramview.h -o moc_classdiagramview.cpp
+
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
@@ -835,45 +850,89 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean compiler_uic_clean 
+compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
-Element.o: cls/Element.cpp 
+Element.o: cls/Element.cpp cls/Element.hpp \
+		cls/JsonPrintable.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Element.o cls/Element.cpp
 
-UMLClass.o: cls/UMLClass.cpp 
+UMLClass.o: cls/UMLClass.cpp cls/UMLClass.hpp \
+		cls/UMLAttribute.hpp \
+		cls/Element.hpp \
+		cls/JsonPrintable.hpp \
+		cls/UMLOperation.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o UMLClass.o cls/UMLClass.cpp
 
-UMLAttribute.o: cls/UMLAttribute.cpp 
+UMLAttribute.o: cls/UMLAttribute.cpp cls/UMLAttribute.hpp \
+		cls/Element.hpp \
+		cls/JsonPrintable.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o UMLAttribute.o cls/UMLAttribute.cpp
 
-UMLOperation.o: cls/UMLOperation.cpp 
+UMLOperation.o: cls/UMLOperation.cpp cls/UMLOperation.hpp \
+		cls/UMLAttribute.hpp \
+		cls/Element.hpp \
+		cls/JsonPrintable.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o UMLOperation.o cls/UMLOperation.cpp
 
-UMLRelation.o: cls/UMLRelation.cpp 
+UMLRelation.o: cls/UMLRelation.cpp cls/UMLRelation.hpp \
+		cls/UMLClass.hpp \
+		cls/UMLAttribute.hpp \
+		cls/Element.hpp \
+		cls/JsonPrintable.hpp \
+		cls/UMLOperation.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o UMLRelation.o cls/UMLRelation.cpp
 
-Message.o: cls/Message.cpp 
+Message.o: cls/Message.cpp cls/Message.hpp \
+		cls/UMLClass.hpp \
+		cls/UMLAttribute.hpp \
+		cls/Element.hpp \
+		cls/JsonPrintable.hpp \
+		cls/UMLOperation.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Message.o cls/Message.cpp
 
-ClassDiagram.o: cls/ClassDiagram.cpp 
+ClassDiagram.o: cls/ClassDiagram.cpp cls/ClassDiagram.hpp \
+		cls/UMLRelation.hpp \
+		cls/UMLClass.hpp \
+		cls/UMLAttribute.hpp \
+		cls/Element.hpp \
+		cls/JsonPrintable.hpp \
+		cls/UMLOperation.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ClassDiagram.o cls/ClassDiagram.cpp
 
-SequenceDiagram.o: cls/SequenceDiagram.cpp 
+SequenceDiagram.o: cls/SequenceDiagram.cpp cls/SequenceDiagram.hpp \
+		cls/Element.hpp \
+		cls/JsonPrintable.hpp \
+		cls/UMLSeqClass.hpp \
+		cls/UMLClass.hpp \
+		cls/UMLAttribute.hpp \
+		cls/UMLOperation.hpp \
+		cls/Message.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SequenceDiagram.o cls/SequenceDiagram.cpp
 
-jsonreader.o: jsonreader.cpp 
+jsonreader.o: jsonreader.cpp jsonreader.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o jsonreader.o jsonreader.cpp
 
-main.o: main.cpp 
+main.o: main.cpp controllers/mainwindow.h \
+		controllers/classdiagramview.h \
+		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
-mainwindow.o: controllers/mainwindow.cpp 
+mainwindow.o: controllers/mainwindow.cpp controllers/mainwindow.h \
+		controllers/classdiagramview.h \
+		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o controllers/mainwindow.cpp
 
-classdiagramview.o: controllers/classdiagramview.cpp 
+classdiagramview.o: controllers/classdiagramview.cpp controllers/classdiagramview.h \
+		ui_classdiagramview.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o classdiagramview.o controllers/classdiagramview.cpp
+
+moc_mainwindow.o: moc_mainwindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
+
+moc_classdiagramview.o: moc_classdiagramview.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_classdiagramview.o moc_classdiagramview.cpp
 
 ####### Install
 
