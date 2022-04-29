@@ -16,6 +16,7 @@ SOURCES += \
         cls/UMLOperation.cpp \
         cls/UMLRelation.cpp \
         cls/Message.cpp \
+        cls/UMLSeqClass.cpp \
         cls/ClassDiagram.cpp \
         cls/SequenceDiagram.cpp \
         controllers/editobjectdialog.cpp \
@@ -36,6 +37,7 @@ HEADERS += \
         cls/UMLOperation.hpp \
         cls/UMLRelation.hpp \
         cls/Message.hpp \
+        cls/UMLSeqClass.hpp \
         cls/ClassDiagram.hpp \
         cls/SequenceDiagram.hpp \
         controllers/editobjectdialog.h \

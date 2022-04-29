@@ -13,6 +13,7 @@
 #include <QApplication>
 #include <QJsonDocument>
 #include <QFile>
+#include <QTextStream>
 
 int main(int argc, char *argv[])
 {
@@ -39,7 +40,7 @@ int main(int argc, char *argv[])
 
     QFile file2("../examples/test2/test2.json");
     if (!file2.open(QIODevice::ReadOnly | QIODevice::Text))
-        return;
+        return 0;
 
     QByteArray saveData = file2.readAll();
 
@@ -47,13 +48,13 @@ int main(int argc, char *argv[])
 
     dia.read(loadDoc.object());
 
-    QFile file3("../examples/test2/test3.json");
+    QFile file3("../examples/test2/test4.json");
     if (!file3.open(QIODevice::WriteOnly | QIODevice::Text))
         return 0;
-    QTextStream out(&file3);
+    QTextStream out2(&file3);
 
     dia.write(obj);
-    out << QJsonDocument(obj).toJson();
+    out2 << QJsonDocument(obj).toJson();
 
     return 0;
 }

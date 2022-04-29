@@ -12,6 +12,7 @@
 #include "UMLRelation.hpp"
 #include "Element.hpp"
 #include "UMLClass.hpp"
+#include "qmap.h"
 
 #define classListName "umlClassList"
 #define interfaceListName "umlInterfaceList"

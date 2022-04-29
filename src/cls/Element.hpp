@@ -12,6 +12,8 @@
 #define DEFAULT_NAME "default"
 #define nameName "name"
 
+//#include "qlist.h"
+#include <QList>
 #include "JsonPrintable.hpp"
 #include <string>
 #include <QString>
