@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.12.8
+** Created by: Qt User Interface Compiler version 5.15.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -83,9 +83,9 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
-        btnCreateNewDiagram->setText(QApplication::translate("MainWindow", "Create new class diagram", nullptr));
-        btnLoadExistingDiagram->setText(QApplication::translate("MainWindow", "Load existing class diagram", nullptr));
+        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
+        btnCreateNewDiagram->setText(QCoreApplication::translate("MainWindow", "Create new class diagram", nullptr));
+        btnLoadExistingDiagram->setText(QCoreApplication::translate("MainWindow", "Load existing class diagram", nullptr));
     } // retranslateUi
 
 };

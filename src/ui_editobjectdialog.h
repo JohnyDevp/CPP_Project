@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'editobjectdialog.ui'
 **
-** Created by: Qt User Interface Compiler version 5.12.8
+** Created by: Qt User Interface Compiler version 5.15.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -112,14 +112,14 @@ public:
 
     void retranslateUi(QDialog *EditObjectDialog)
     {
-        EditObjectDialog->setWindowTitle(QApplication::translate("EditObjectDialog", "Dialog", nullptr));
-        pushButton_2->setText(QApplication::translate("EditObjectDialog", "PushButton", nullptr));
-        pushButton_3->setText(QApplication::translate("EditObjectDialog", "ADD", nullptr));
-        pushButton_4->setText(QApplication::translate("EditObjectDialog", "Add operation attribute", nullptr));
-        pushButton_5->setText(QApplication::translate("EditObjectDialog", "ADD", nullptr));
-        pushButton_6->setText(QApplication::translate("EditObjectDialog", "RENAME", nullptr));
-        pushButton_7->setText(QApplication::translate("EditObjectDialog", "REMOVE", nullptr));
-        pushButton->setText(QApplication::translate("EditObjectDialog", "DELETE", nullptr));
+        EditObjectDialog->setWindowTitle(QCoreApplication::translate("EditObjectDialog", "Dialog", nullptr));
+        pushButton_2->setText(QCoreApplication::translate("EditObjectDialog", "PushButton", nullptr));
+        pushButton_3->setText(QCoreApplication::translate("EditObjectDialog", "ADD", nullptr));
+        pushButton_4->setText(QCoreApplication::translate("EditObjectDialog", "Add operation attribute", nullptr));
+        pushButton_5->setText(QCoreApplication::translate("EditObjectDialog", "ADD", nullptr));
+        pushButton_6->setText(QCoreApplication::translate("EditObjectDialog", "RENAME", nullptr));
+        pushButton_7->setText(QCoreApplication::translate("EditObjectDialog", "REMOVE", nullptr));
+        pushButton->setText(QCoreApplication::translate("EditObjectDialog", "DELETE", nullptr));
     } // retranslateUi
 
 };

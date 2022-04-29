@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'sequencediagramview.ui'
 **
-** Created by: Qt User Interface Compiler version 5.12.8
+** Created by: Qt User Interface Compiler version 5.15.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -112,14 +112,14 @@ public:
 
     void retranslateUi(QWidget *SequenceDiagramView)
     {
-        SequenceDiagramView->setWindowTitle(QApplication::translate("SequenceDiagramView", "Form", nullptr));
-        btnSave->setText(QApplication::translate("SequenceDiagramView", "Save", nullptr));
-        btnUndo->setText(QApplication::translate("SequenceDiagramView", "Undo", nullptr));
-        btnClose->setText(QApplication::translate("SequenceDiagramView", "Close", nullptr));
-        btnAddObject->setText(QApplication::translate("SequenceDiagramView", "ADD CLASS", nullptr));
-        btnAddRelation->setText(QApplication::translate("SequenceDiagramView", "ADD RELATION", nullptr));
-        btnEditObject->setText(QApplication::translate("SequenceDiagramView", "EDIT CLASS/INTERFACE", nullptr));
-        btnEditRelation->setText(QApplication::translate("SequenceDiagramView", "EDIT RELATION", nullptr));
+        SequenceDiagramView->setWindowTitle(QCoreApplication::translate("SequenceDiagramView", "Form", nullptr));
+        btnSave->setText(QCoreApplication::translate("SequenceDiagramView", "Save", nullptr));
+        btnUndo->setText(QCoreApplication::translate("SequenceDiagramView", "Undo", nullptr));
+        btnClose->setText(QCoreApplication::translate("SequenceDiagramView", "Close", nullptr));
+        btnAddObject->setText(QCoreApplication::translate("SequenceDiagramView", "ADD CLASS", nullptr));
+        btnAddRelation->setText(QCoreApplication::translate("SequenceDiagramView", "ADD RELATION", nullptr));
+        btnEditObject->setText(QCoreApplication::translate("SequenceDiagramView", "EDIT CLASS/INTERFACE", nullptr));
+        btnEditRelation->setText(QCoreApplication::translate("SequenceDiagramView", "EDIT RELATION", nullptr));
     } // retranslateUi
 
 };

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'classdiagramview.ui'
 **
-** Created by: Qt User Interface Compiler version 5.12.8
+** Created by: Qt User Interface Compiler version 5.15.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -124,15 +124,15 @@ public:
 
     void retranslateUi(QWidget *ClassDiagramView)
     {
-        ClassDiagramView->setWindowTitle(QApplication::translate("ClassDiagramView", "Form", nullptr));
-        btnCreateNewSequenceDiagram->setText(QApplication::translate("ClassDiagramView", "Create new sequence diagram", nullptr));
-        btnSave->setText(QApplication::translate("ClassDiagramView", "Save", nullptr));
-        btnUndo->setText(QApplication::translate("ClassDiagramView", "Undo", nullptr));
-        btnClose->setText(QApplication::translate("ClassDiagramView", "Close", nullptr));
-        btnAddObject->setText(QApplication::translate("ClassDiagramView", "ADD CLASS/INTERFACE", nullptr));
-        btnAddRelation->setText(QApplication::translate("ClassDiagramView", "ADD RELATION", nullptr));
-        btnEditObject->setText(QApplication::translate("ClassDiagramView", "EDIT CLASS/INTERFACE", nullptr));
-        btnEditRelation->setText(QApplication::translate("ClassDiagramView", "EDIT RELATION", nullptr));
+        ClassDiagramView->setWindowTitle(QCoreApplication::translate("ClassDiagramView", "Form", nullptr));
+        btnCreateNewSequenceDiagram->setText(QCoreApplication::translate("ClassDiagramView", "Create new sequence diagram", nullptr));
+        btnSave->setText(QCoreApplication::translate("ClassDiagramView", "Save", nullptr));
+        btnUndo->setText(QCoreApplication::translate("ClassDiagramView", "Undo", nullptr));
+        btnClose->setText(QCoreApplication::translate("ClassDiagramView", "Close", nullptr));
+        btnAddObject->setText(QCoreApplication::translate("ClassDiagramView", "ADD CLASS/INTERFACE", nullptr));
+        btnAddRelation->setText(QCoreApplication::translate("ClassDiagramView", "ADD RELATION", nullptr));
+        btnEditObject->setText(QCoreApplication::translate("ClassDiagramView", "EDIT CLASS/INTERFACE", nullptr));
+        btnEditRelation->setText(QCoreApplication::translate("ClassDiagramView", "EDIT RELATION", nullptr));
     } // retranslateUi
 
 };
