@@ -97,6 +97,15 @@ void ObjectGUI::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void ObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
+    bool isInX = ((event->pos().x() >= 30) && (this->x() - 30 <= event->pos().x()));
+    bool isInY = ((event->pos().y() >= 30) && (this->y() - 30 <= event->pos().y()));
+
+    if (!isInX && !isInY)
+    {
+        WordCountDialog dialog(this);
+        dialog.setWordCount(document().wordCount());
+        dialog.exec();
+    }
     // create new dialog, wait for response
     EditObjectDialog *dlg = new EditObjectDialog();
     dlg->show();
