@@ -51,6 +51,8 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     }
     painter->fillRect(rec, brush);
 
+    painter->fillRect(10 + this->boundingX,this->boundingY + 10, this->boundingWidth - 10, this->boundingHeight-10, Qt::yellow);
+
     // draw name of the class/interface
     painter->drawText(this->boundingX + int(this->boundingWidth / 2) - 30, this->boundingY + 20, "First class");
     // first line - space between object name and
@@ -98,13 +100,14 @@ void ObjectGUI::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void ObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
-    bool isInX = ((event->pos().x() >= 100) && ((this->boundingX + this->boundingWidth - 100) <= event->pos().x()));
-    bool isInY = ((event->pos().y() >= 100) && ((this->boundingY + this->boundingHeight - 100) <= event->pos().y()));
+    int maxX = this->boundingWidth;
+    int maxY = this->boundingHeight;
+    bool isInX = (((event->pos().x()-this->boundingX) >= 10) && ((maxX - 10) >= (event->pos().x()-this->boundingX)));
+    bool isInY = (((event->pos().y()-this->boundingY) >= 10) && ((maxY - 10) >= (event->pos().y() - this->boundingY)));
+    std::cout << "X pos" << event->pos().x()-this->boundingX << "  " << maxX  << isInX <<std::endl;
+    std::cout << "Y pos" << event->pos().y() -this->boundingY << "   " << maxY<< isInY << std::endl;
 
-    std::cout << "X " << event->pos().x() << std::endl;
-    std::cout << "Y" << event->pos().y() << std::endl;
-
-    if (!isInX && !isInY)
+    if (!(isInX && isInY))
     {
         AskDialog *dialog = new AskDialog();
         // dialog.setWordCount(document().wordCount());
