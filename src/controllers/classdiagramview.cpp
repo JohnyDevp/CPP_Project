@@ -6,10 +6,12 @@
 #include "classdiagramview.h"
 #include "cls/UMLClass.hpp"
 #include "controllers/sequencediagramview.h"
+#include "qinputdialog.h"
 #include "ui_classdiagramview.h"
 #include <QGraphicsRectItem>
 #include "diagraminterface.h"
 #include "../objectgui.h"
+#include "views/addclassdiagramobjectdialog.h"
 
 ClassDiagramView::ClassDiagramView(QWidget *parent) : QWidget(parent),
                                                       ui(new Ui::ClassDiagramView)
@@ -19,7 +21,6 @@ ClassDiagramView::ClassDiagramView(QWidget *parent) : QWidget(parent),
     scene = new QGraphicsScene(this);
     ui->graphicsView->setScene(scene);
     ui->graphicsView->setAlignment(Qt::AlignTop | Qt::AlignLeft);
-    // scene->setSceneRect(0,0, 800, 800); //FIXME
 }
 
 ClassDiagramView::~ClassDiagramView()
@@ -69,15 +70,33 @@ void ClassDiagramView::on_btnClose_clicked()
 void ClassDiagramView::on_btnAddObject_clicked()
 {
     // raise a dialog => choose name and whether it will be an interface or not
+    AddClassDiagramObjectDialog * addClassDlg = new AddClassDiagramObjectDialog();
+    addClassDlg->exec();
 
-    // create umlclass
-    UMLClass newCls("tmpname");
+    if (!addClassDlg->isValid){
+        //if dialog was canceled or close or the input is invalid
+        return;
+    }
+
+
+    // create umlinterface or umlclass
+    UMLClass newCls(addClassDlg->getObjectName());
+    // set whether the uml object is interface or not
+    newCls.isInterface = addClassDlg->getIsInterface();
+
+    //test===========================
+    UMLAttribute attr('+',"prvni", "atribute");
+    newCls.addAttribute(attr);
+    UMLOperation uo("operace", "navratovy typ", '+');
+    //newCls.addOperation(uo);
 
     // create new object - according to which has been specified in dialog
-    ObjectGUI *newObj = new ObjectGUI(newCls);
+    ObjectGUI *newObj = new ObjectGUI(newCls, this->diagramInterface);
 
     // add this object to the list of objects in public place (diagraminterface)
-    // TODO
+    this->diagramInterface->addObjectToClassDiagram(newCls);
+    // add gui representation of this object to the list
+    this->diagramInterface->addObjectToObjectGuiList(newObj);
 
     // newObjj = new ObjectGUI();
     scene->addItem(newObj);

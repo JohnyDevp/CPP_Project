@@ -15,6 +15,9 @@ public:
     explicit EditObjectDialog(QWidget *parent = nullptr);
     ~EditObjectDialog();
 
+private slots:
+    void on_btnRenameObject_clicked();
+
 private:
     Ui::EditObjectDialog *ui;
 };
