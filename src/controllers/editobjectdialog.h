@@ -17,12 +17,23 @@ public:
     ~EditObjectDialog();
 
     void init(DiagramInterface * diagramInterface, UMLClass * umlObject);
+    /**
+     * @brief getUpdatedUmlObject
+     * @return poiter to updated class by this dialog, when returned nullptr then it signs that this object has been removed
+     */
     UMLClass * getUpdatedUmlObject();
+
+    void loadCmbAttributes();
+    void loadCmbOperations();
 
 private slots:
     void on_btnRenameObject_clicked();
 
     void on_btnRemoveObject_clicked();
+
+    void on_btnDeleteAttribute_clicked();
+
+    void on_btnDeleteOperation_clicked();
 
 private:
     Ui::EditObjectDialog *ui;
@@ -35,7 +46,19 @@ private:
     /**
      * @brief umlClass
      */
-    UMLClass * umlClass;
+    UMLClass * umlObject;
+
+    /**
+     * @brief operationMapGUI
+     * map for storing each operation and its string representation drawn in gui object
+     */
+    QMap<UMLOperation, QString> operationMapGUI;
+
+    /**
+     * @brief attributesMapGUI
+     * map for storing each attribute and its string representation drawn in gui object
+     */
+    QMap<UMLAttribute, QString> attributesMapGUI;
 };
 
 #endif // EDITOBJECTDIALOG_H

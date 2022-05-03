@@ -38,7 +38,7 @@ void ClassDiagramView::init(QString filePath, QPushButton *btn1, QPushButton *bt
     this->tabPane = tabPane;
 
     // create diagraminterface - a public place and interface for storing classes, objects, relations,...
-    DiagramInterface *diagramInterface = new DiagramInterface();
+    DiagramInterface *diagramInterface = new DiagramInterface(scene);
     this->diagramInterface = diagramInterface;
 
     // if the file path isnt empty then call file parser

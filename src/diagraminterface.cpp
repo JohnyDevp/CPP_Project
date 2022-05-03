@@ -1,18 +1,21 @@
 #include "diagraminterface.h"
 #include "objectgui.h"
+#include <QGraphicsScene>
 
 /**
  * @brief DiagramInterface::DiagramInterface
  * interface for diagrams -> storing sequence diagrams, class diagram
  *                           gui objects lists, relations,...
  */
-DiagramInterface::DiagramInterface()
+DiagramInterface::DiagramInterface(QGraphicsScene * scene)
     : classDiagram(QString("ClassDiagram"))
 {
+    this->scene = scene;
 }
 
 void DiagramInterface::updateUMLClass(QString oldName, UMLClass umlClass)
 {
+    scene->update();
     classDiagram.updateClass(oldName, umlClass);
 }
 
@@ -84,4 +87,10 @@ void DiagramInterface::read(const QJsonObject &json)
 void DiagramInterface::addObjectToObjectGuiList(ObjectGUI *objectGui)
 {
     this->guiObjectList.append(objectGui);
+}
+
+void DiagramInterface::removeObjectFromGuiList(ObjectGUI *objectGui){
+    this->scene->removeItem(objectGui);
+
+    this->guiObjectList.removeOne(objectGui);
 }

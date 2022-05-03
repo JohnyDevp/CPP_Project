@@ -1,7 +1,6 @@
 #include "objectgui.h"
 #include "diagraminterface.h"
 #include "controllers/editobjectdialog.h"
-#include "dialogs/askdialog.h"
 
 #include <QGraphicsSceneMouseEvent>
 #include <QInputDialog>
@@ -26,12 +25,21 @@ ObjectGUI::ObjectGUI(UMLClass umlClass, DiagramInterface *diagramInterface) : um
 
     // initialize gui representation of this object
     this->initGui();
+
+    // set gui coordinates of the object
+    this->boundingHeight = 100;
+    this->boundingWidth = 100;
+    this->boundingX = this->umlObject.Xcoord;
+    this->boundingY = this->umlObject.Ycoord;
 }
 
 void ObjectGUI::initGui()
 {
     // set name
     this->objectName = this->umlObject.name;
+    //reset maps
+    this->attributesMapGUI.clear();
+    this->operationMapGUI.clear();
 
     // add all attributes (only if class) to the map with their string representation
     if (!this->isInterface)
@@ -59,11 +67,6 @@ void ObjectGUI::initGui()
         this->operationMapGUI.insert(umlOperation, operationText);
     }
 
-    // set gui coordinates of the object
-    this->boundingHeight = 100;
-    this->boundingWidth = 100;
-    this->boundingX = this->umlObject.Xcoord;
-    this->boundingY = this->umlObject.Ycoord;
 }
 
 QRectF ObjectGUI::boundingRect() const
@@ -99,6 +102,7 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     // fill the most back background (containing whole object)
     painter->fillRect(rec, brush);
 
+    std::cout << this->boundingX << std::endl;
     // fill the second background (making space for object contain)
     painter->fillRect(10 + this->boundingX, this->boundingY + 10, this->boundingWidth - 20, this->boundingHeight - 20, QColor(217, 211, 210));
 
@@ -203,6 +207,9 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
 void ObjectGUI::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
+    this->prevMouseX = event->pos().x();
+    this->prevMouseY = event->pos().y();
+
     this->isSelected = !isSelected;
 
     update();
@@ -239,14 +246,49 @@ void ObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
     }
     else
     {
-        // create new dialog, wait for response
-//        EditObjectDialog *dlg = new EditObjectDialog();
-//        dlg->init(this->diagramInterface, &this->umlObject);
-//        dlg->show();
+        //create new dialog, wait for response
+        EditObjectDialog *dlg = new EditObjectDialog();
+        dlg->init(this->diagramInterface, &this->umlObject);
+        dlg->exec();
+
+        //update this object
+        if (dlg->getUpdatedUmlObject() == NULL){
+
+            //delete the class in diagraminterface and remove also object from
+            diagramInterface->removeUMLClass(this->umlObject);
+
+            //remove from gui
+            diagramInterface->removeObjectFromGuiList(this);
+
+            return; //this is the end of this object
+        } else {
+            this->umlObject = *dlg->getUpdatedUmlObject();
+            //update the class in class diagram
+            this->diagramInterface->updateUMLClass(this->objectName, this->umlObject);
+            //newly init everything
+            this->initGui();
+
+            update();
+        }
+
 
     }
 
     QGraphicsItem::mouseDoubleClickEvent(event);
+}
+
+void ObjectGUI::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
+
+    this->boundingX += event->pos().x() -  this->prevMouseX;
+    this->boundingY += event->pos().y() -  this->prevMouseY;
+
+    this->prevMouseX = event->pos().x();
+    this->prevMouseY = event->pos().y();
+
+    this->umlObject.Xcoord = this->boundingX;
+    this->umlObject.Ycoord = this->boundingY;
+
+    QGraphicsItem::mouseMoveEvent(event);
 }
 
 ObjectGUI::~ObjectGUI()

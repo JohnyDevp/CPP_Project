@@ -38,8 +38,11 @@ public:
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
 
 private:
+    int prevMouseX;
+    int prevMouseY;
     // variables for default coords of bounding rectangle
     int boundingX;
     int boundingY;

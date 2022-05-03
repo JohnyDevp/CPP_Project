@@ -17,9 +17,9 @@ class ObjectGUI;
 class DiagramInterface : public JsonPrintable
 {
 public:
-    DiagramInterface();
+    DiagramInterface(QGraphicsScene * scene);
     void addObjectToObjectGuiList(ObjectGUI *objectGui);
-    void removeObjectFromList();
+    void removeObjectFromGuiList(ObjectGUI *objectGui);
 
     int relationIndex;
     int sequenceDiagramIndex;
@@ -84,6 +84,8 @@ private:
      * @brief guiObjectList
      */
     QList<ObjectGUI *> guiObjectList;
+
+    QGraphicsScene * scene;
 };
 
 #endif // DIAGRAMINTERFACE_H
