@@ -20,7 +20,6 @@ public:
     bool addObjectToClassDiagram(UMLClass umlClass);
     void removeObjectFromList();
 
-private:
     int relationIndex;
     int sequenceDiagramIndex;
     /**
@@ -45,6 +44,9 @@ private:
      * @param dia
      * @param seqClass
      */
+
+    void existsClass(QString &className);
+
     void updateSeqClass(SequenceDiagram dia, UMLSeqClass seqClass);
 
     void updateMessage(SequenceDiagram dia, Message message);
@@ -63,7 +65,7 @@ private:
 
     void removeRelation(UMLRelation relation);
 
-        /**
+    /**
      * @brief converts object to json
      *
      * @param json
@@ -80,7 +82,7 @@ private:
     /**
      * @brief guiObjectList
      */
-    QList<ObjectGUI*> guiObjectList;
+    QList<ObjectGUI *> guiObjectList;
 };
 
 #endif // DIAGRAMINTERFACE_H
