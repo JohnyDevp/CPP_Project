@@ -69,6 +69,6 @@ public:
      */
     void read(const QJsonObject &json);
 
-    SequenceDiagram(QString name);
+    SequenceDiagram();
     ~SequenceDiagram();
 };
