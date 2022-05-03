@@ -12,11 +12,10 @@
 #include "UMLClass.hpp"
 
 #define ycoordName "ycoordName"
-#define umlClassName "umlClassName"
-#define umlOperationName "umlOperationName"
+#define umlClassName "className"
+#define umlOperationName "operationName"
 #define messageTypeName "messageTypeName"
 #define messageIndexName "index"
-
 class Message : public JsonPrintable
 {
 public:
@@ -33,9 +32,9 @@ public:
         DESTROY
     };
     int index;
-    double Ycoord;
-    UMLClass umlClass;
-    UMLOperation umlOperation;
+    int Ycoord;
+    QString className;
+    QString operationName;
     MessageType messageType;
     // TODO: Support return type
 
@@ -52,7 +51,7 @@ public:
      * @param umlOperation
      * @param messageType
      */
-    Message(double Ycoord, UMLClass umlClass, UMLOperation umlOperation, MessageType messageType);
+    Message(int Ycoord, QString className, QString operationName, MessageType messageType);
     /**
      * @brief Destroy the Message object
      *

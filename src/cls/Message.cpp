@@ -2,30 +2,33 @@
 
 Message::Message() {}
 
-Message::Message(double Ycoord, UMLClass umlClass, UMLOperation umlOperation, MessageType messageType) : Ycoord(Ycoord), umlClass(umlClass), umlOperation(umlOperation), messageType(messageType){};
+Message::Message(int Ycoord, QString umlClass, QString umlOperation, MessageType messageType) : Ycoord(Ycoord), className(umlClass), operationName(umlOperation), messageType(messageType){};
 
 Message::~Message() {}
+bool Message::operator==(const Message &other) const
+{
+    return index == other.index;
+}
+bool Message::operator!=(const Message &other) const
+{
+    return !(*this == other);
+}
 void Message::write(QJsonObject &json) const
 {
     json[ycoordName] = Ycoord;
 
     json[messageIndexName] = index;
-
     json[messageTypeName] = messageType;
 
-    QJsonObject classObject;
-    umlClass.write(classObject);
-    json[umlClassName] = classObject;
+    json[umlClassName] = className;
 
-    QJsonObject operationObject;
-    umlOperation.write(operationObject);
-    json[umlOperationName] = operationObject;
+    json[umlOperationName] = operationName;
 }
 void Message::read(const QJsonObject &json)
 {
     if (json.contains(ycoordName) && json[ycoordName].isDouble())
     {
-        Ycoord = json[ycoordName].toDouble();
+        Ycoord = json[ycoordName].toInt();
     }
 
     if (json.contains(messageIndexName) && json[messageIndexName].isDouble())
@@ -40,22 +43,11 @@ void Message::read(const QJsonObject &json)
 
     if (json.contains(umlClassName) && json[umlClassName].isObject())
     {
-        QJsonObject classObject = json[umlClassName].toObject();
-        umlClass.read(classObject);
+        className = json[umlClassName].toString();
     }
 
     if (json.contains(umlOperationName) && json[umlOperationName].isObject())
     {
-        QJsonObject operationObject = json[umlOperationName].toObject();
-        umlOperation.read(operationObject);
+        operationName = json[umlOperationName].toString();
     }
-}
-bool Message::operator==(const Message &other) const
-{
-    return umlClass == other.umlClass && umlOperation == other.umlOperation && messageType == other.messageType;
-}
-
-bool Message::operator!=(const Message &other) const
-{
-    return !(*this == other);
 }
