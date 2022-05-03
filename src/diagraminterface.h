@@ -63,7 +63,6 @@ public:
      * @param dia
      * @param seqClass
      */
-
     void updateSeqClass(SequenceDiagram dia, UMLSeqClass seqClass);
 
     void updateMessage(SequenceDiagram dia, Message message);
@@ -77,7 +76,10 @@ public:
     void removeMessage(SequenceDiagram dia, Message &message);
 
     void removeSeqClass(SequenceDiagram dia, UMLSeqClass seqClass);
-
+    /**
+     * @brief removeUMLClass
+     * @param umlClass
+     */
     void removeUMLClass(UMLClass umlClass);
 
     void removeRelation(UMLRelation relation);

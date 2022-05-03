@@ -1,15 +1,15 @@
 #ifndef RELATIONGUI_H
 #define RELATIONGUI_H
 
+#include "cls/UMLRelation.hpp"
 #include "qwidget.h"
 #include <QGraphicsItem>
 
-class RelationGui : public QGraphicsItem
+class RelationGui : public QGraphicsLineItem
 {
 public:
-    RelationGui();
+    RelationGui(UMLRelation umlRelation);
 
-    QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     QPoint qpointStart;
@@ -18,6 +18,8 @@ public:
 protected:
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
 
+private:
+    UMLRelation umlRelation;
 };
 
 #endif // RELATIONGUI_H
