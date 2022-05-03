@@ -2,6 +2,7 @@
 #include "ClassDiagram.hpp"
 #include <QJsonArray>
 
+ClassDiagram::ClassDiagram() : classList(), relationList() {}
 ClassDiagram::ClassDiagram(QString name) : Element(name), classList(), relationList() {}
 
 ClassDiagram::~ClassDiagram() {}
@@ -72,6 +73,11 @@ void ClassDiagram::read(const QJsonObject &json)
 bool ClassDiagram::existsClass(UMLClass &umlClass)
 {
     return classList.contains(umlClass.name);
+}
+
+bool ClassDiagram::existsClass(QString &className)
+{
+    return classList.contains(className);
 }
 
 bool ClassDiagram::addClass(UMLClass &umlClass)

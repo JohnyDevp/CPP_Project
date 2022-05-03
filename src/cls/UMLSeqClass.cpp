@@ -1,21 +1,32 @@
 #include "UMLSeqClass.hpp"
 
-UMLSeqClass::UMLSeqClass(QString name, double Xcoord) : Element(name), Xcoord(Xcoord) {}
-
-UMLSeqClass::UMLSeqClass(UMLClass umlClass, double Xcoord) : Element(umlClass.name), umlClass(umlClass), Xcoord(Xcoord) {}
+UMLSeqClass::UMLSeqClass(QString name, QString className, int Xcoord) : Element(name), className(className), Xcoord(Xcoord) {}
 
 UMLSeqClass::~UMLSeqClass() {}
 
-UMLSeqClass::UMLSeqClass() : Element(DEFAULT_NAME)
-{
-}
+UMLSeqClass::UMLSeqClass() : Element(DEFAULT_NAME) {}
 
 void UMLSeqClass::write(QJsonObject &json) const
 {
-    // TODO: UMLSeqClass write
+    Element::write(json);
+
+    json[classNameName] = className;
+
+    json[xcoordName] = Xcoord;
 }
 
 void UMLSeqClass::read(const QJsonObject &json)
 {
-    // TODO: UMLSeqClass read
+
+    Element::read(json);
+
+    if (json.contains(classNameName) && json[classNameName].isString())
+    {
+        className = json[classNameName].toString();
+    }
+
+    if (json.contains(xcoordName) && json[xcoordName].isDouble())
+    {
+        Xcoord = json[xcoordName].toInt();
+    }
 }

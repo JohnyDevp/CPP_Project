@@ -2,8 +2,7 @@
 
 #include "Element.hpp"
 
-Element::Element()
-    : name(DEFAULT_NAME) {}
+Element::Element() {}
 
 Element::Element(QString name) : name(name) {}
 

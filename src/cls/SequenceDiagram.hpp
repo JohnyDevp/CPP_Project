@@ -40,11 +40,12 @@ public:
     bool addObject(UMLSeqClass umlSewClass);
 
     /**
-     * @brief Updae Seq Class
+     * @brief Updae Seq Class or create new one
      *
      * @param name
      */
     void updateClass(UMLSeqClass seqClass);
+
     /**adding message to specific position - rest of messages will move forward +1
      * @param messageType type of the message (sync, async, ...)
      * @param Ycoord Y coordination on timeline of object

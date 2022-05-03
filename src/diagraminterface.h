@@ -40,13 +40,22 @@ public:
     void updateRelation(UMLRelation relation);
 
     /**
+     * @brief returns UMLClass and assumes that you checked that it exists
+     *
+     * @param name
+     * @return UMLClass
+     */
+    UMLClass getUMLClass(QString &name);
+
+    bool existsClass(QString &className);
+
+    bool existsClass(UMLClass &umlClass);
+    /**
      * @brief Create or update SeqClass
      *
      * @param dia
      * @param seqClass
      */
-
-    bool existsClass(UMLClass &umlClass);
 
     void updateSeqClass(SequenceDiagram dia, UMLSeqClass seqClass);
 

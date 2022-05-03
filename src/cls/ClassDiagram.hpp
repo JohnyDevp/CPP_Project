@@ -36,6 +36,8 @@ public:
      */
     QMap<int, UMLRelation> relationList;
 
+    bool existsClass(QString &className);
+
     bool existsClass(UMLClass &umlClass);
     /**
      * Creates an instance of UML class and inserts it into diagram
@@ -57,6 +59,7 @@ public:
      * */
     void removeRelation(UMLRelation &umlRelation);
 
+    ClassDiagram();
     /**
      * @brief Construct a new Class Diagram object
      *

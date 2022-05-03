@@ -9,7 +9,7 @@
  */
 #pragma once
 
-#define DEFAULT_NAME "default"
+#define DEFAULT_NAME ""
 #define nameName "name"
 
 //#include "qlist.h"
