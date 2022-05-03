@@ -108,7 +108,7 @@ void UMLClass::read(const QJsonObject &json)
 
     if (json.contains(operationListName) && json[operationListName].isArray())
     {
-        QJsonArray operArray = json[attributeListName].toArray();
+        QJsonArray operArray = json[operationListName].toArray();
         umlOperationsList.clear();
         umlOperationsList.reserve(operArray.size());
         for (int i = 0; i < operArray.size(); i++)
