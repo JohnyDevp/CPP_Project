@@ -12,6 +12,8 @@
 #include <vector>
 #include <QMap>
 
+class ObjectGUI;
+
 class DiagramInterface : public JsonPrintable
 {
 public:
