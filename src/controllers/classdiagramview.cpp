@@ -88,6 +88,7 @@ void ClassDiagramView::on_btnClose_clicked()
 
 void ClassDiagramView::on_btnAddObject_clicked()
 {
+
     // raise a dialog => choose name and whether it will be an interface or not
     AddClassDiagramObjectDialog *addClassDlg = new AddClassDiagramObjectDialog();
     addClassDlg->exec();
@@ -110,13 +111,6 @@ void ClassDiagramView::on_btnAddObject_clicked()
         return;
     }
 
-    // test===========================
-    UMLAttribute attr('+', "prvni", "atribute");
-    newCls.addAttribute(attr);
-    UMLOperation uo("operace", "navratovy typ", '+');
-    newCls.addOperation(uo);
-    // newCls.addOperation(uo);
-
     // create new object - according to which has been specified in dialog
     ObjectGUI *newObj = new ObjectGUI(newCls, this->diagramInterface);
 
@@ -136,6 +130,7 @@ void ClassDiagramView::on_btnCreateNewSequenceDiagram_clicked()
     this->tabPane->addTab(q, "Sequence diagram ");
 }
 
+<<<<<<< HEAD
 void ClassDiagramView::on_btnSave_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(this, "Open a file", QDir::homePath(), "JSON (*.json)");
@@ -151,3 +146,10 @@ void ClassDiagramView::on_btnSave_clicked()
         // TODO: When saving error occured
     }
 }
+=======
+// TODO
+void ClassDiagramView::on_btnSave_clicked()
+{
+}
+
+>>>>>>> origin/creatingDialogs

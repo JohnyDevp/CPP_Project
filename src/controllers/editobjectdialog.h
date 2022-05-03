@@ -35,6 +35,14 @@ private slots:
 
     void on_btnDeleteOperation_clicked();
 
+    void on_btnAddAttribute_clicked();
+
+    void on_btnAddOperation_clicked();
+
+    void on_btnAddAttributeToOperation_clicked();
+
+    void on_btnClearAllOperationAttributes_clicked();
+
 private:
     Ui::EditObjectDialog *ui;
 
@@ -54,11 +62,14 @@ private:
      */
     QMap<UMLOperation, QString> operationMapGUI;
 
+    QMap<UMLAttribute, QString> operationAttributesMapGUI;
     /**
      * @brief attributesMapGUI
      * map for storing each attribute and its string representation drawn in gui object
      */
     QMap<UMLAttribute, QString> attributesMapGUI;
+
+
 };
 
 #endif // EDITOBJECTDIALOG_H

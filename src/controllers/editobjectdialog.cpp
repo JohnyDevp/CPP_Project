@@ -17,20 +17,26 @@ void EditObjectDialog::init(DiagramInterface * diagramInterface, UMLClass * umlC
     this->diagramInterface = diagramInterface;
     this->umlObject = umlClass;
 
+    //make list of modifiers -> they will be load into comboboxes for modifiers
+    QStringList modifiers;
+    modifiers << "+" << "-" << "~" << "#";
+
     //turn off adding attributes if uml interface
     if (this->umlObject->isInterface){
         ui->cmbAttributes->setEnabled(false);
         ui->btnAddAttribute->setEnabled(false);
     } else {
-        //otherwise load list of
+        //otherwise map list of attributes
         foreach (UMLAttribute umlAttribute, this->umlObject->umlAttributesList)
         {
             QString attrText = umlAttribute.modifier + umlAttribute.name + " : " + umlAttribute.type;
             // add to the map
             this->attributesMapGUI.insert(umlAttribute, attrText);
         }
-
         loadCmbAttributes();
+
+        //load attributes modifiers
+        ui->cmbAttributeModifier->addItems(modifiers);
     }
 
     // set all operations (both class and interface)
@@ -49,6 +55,11 @@ void EditObjectDialog::init(DiagramInterface * diagramInterface, UMLClass * umlC
     }
 
     loadCmbOperations();
+
+    //load operations modifiers
+    ui->cmbOperationModifier->addItems(modifiers);
+    //load operations attributes modifiers
+    ui->cmbAttrForOperationModifier->addItems(modifiers);
 
 }
 
@@ -110,7 +121,6 @@ void EditObjectDialog::on_btnRemoveObject_clicked()
     this->close();
 }
 
-
 void EditObjectDialog::on_btnDeleteAttribute_clicked()
 {
     QString selectedAttr = ui->cmbAttributes->currentText();
@@ -137,7 +147,6 @@ void EditObjectDialog::on_btnDeleteAttribute_clicked()
     loadCmbAttributes();
 }
 
-
 void EditObjectDialog::on_btnDeleteOperation_clicked()
 {
     QString selectedOperation = ui->cmbOperations->currentText();
@@ -162,5 +171,110 @@ void EditObjectDialog::on_btnDeleteOperation_clicked()
     this->operationMapGUI.remove(uoToBeRemoved);
     //reload cmb
     loadCmbOperations();
+}
+
+void EditObjectDialog::on_btnAddAttribute_clicked()
+{
+    QString attrName = ui->txtAttrName->toPlainText();
+    QString attrType = ui->txtAttrType->toPlainText();
+    QChar attrModifier = ui->cmbAttributeModifier->currentText()[0];
+
+    //if some of txt fields is empty then return
+    if (attrName == "" || attrType == "") return;
+
+    //create uml attribute
+    UMLAttribute newUmlAttr(attrModifier, attrName, attrType);
+    //try to add it
+    if(this->umlObject->addAttribute(newUmlAttr)){
+        //add it to the map and refresh
+        QString attrText = newUmlAttr.modifier + newUmlAttr.name + " : " + newUmlAttr.type;
+        this->attributesMapGUI.insert(newUmlAttr, attrText);
+        loadCmbAttributes();
+    } else {
+        std::cout << "failed adding attribute" << std::endl;
+    }
+}
+
+void EditObjectDialog::on_btnAddOperation_clicked()
+{
+    QString operationName = ui->txtOperationName->toPlainText();
+    QString operationType = ui->txtOperationType->toPlainText();
+    QChar operationModifier = ui->cmbAttrForOperationModifier->currentText()[0];
+
+    //create new uml operation
+    UMLOperation newUmlOperation(operationName, operationType, operationModifier);
+    //add all its attributes (previously added to the map)
+    QMapIterator<UMLAttribute, QString> attrMap(this->operationAttributesMapGUI);
+    while (attrMap.hasNext())
+    {
+        // get next attribute
+        attrMap.next();
+        //add the attribute to the operation and just for assuring check
+        if (!newUmlOperation.addOperationParameter(attrMap.key())){
+            std::cout << "failed adding operation (due to bad attributes)" << std::endl;
+            return;
+        }
+    }
+
+    //try to add this operation to the class object
+    //and check
+    if(!this->umlObject->addOperation(newUmlOperation)){
+        std::cout << "failed adding operation (due to bad its modifier/name/type)" << std::endl;
+        return;
+    }
+
+    //add the operation to the map and refresh
+    // build the operation text
+    QString operationText = newUmlOperation.modifier + newUmlOperation.name + "(";
+    foreach (UMLAttribute operationParam, newUmlOperation.parameterssOfOperationList)
+    {
+        operationText += operationParam.name + ":" + operationParam.type;
+    }
+    operationText += ") : " + newUmlOperation.type;
+
+    // add to the map
+    this->operationMapGUI.insert(newUmlOperation, operationText);
+
+    //remove all attributes
+    this->operationAttributesMapGUI.clear();
+
+    //refresh combobox
+    loadCmbOperations();
+}
+
+void EditObjectDialog::on_btnAddAttributeToOperation_clicked()
+{
+    QString attrName = ui->txtAttrForOperationName->toPlainText();
+    QString attrType = ui->txtAttrForOperationType->toPlainText();
+    QChar attrModifier = ui->cmbAttrForOperationModifier->currentText()[0];
+
+    //if some of txt fields is empty then return
+    if (attrName == "" || attrType == "") return;
+
+    //create uml attribute
+    UMLAttribute newUmlAttr(attrModifier, attrName, attrType);
+    //try to add it to the list of current operation
+
+    // check all already added attributes
+    QMapIterator<UMLAttribute, QString> attrMap(this->operationAttributesMapGUI);
+    while (attrMap.hasNext())
+    {
+        // get next attribute
+        attrMap.next();
+        //if same name as by the created one, then return
+        if(attrMap.value() == attrName){
+            std::cout << "failed adding attribute to operation" << std::endl;
+            return;
+        }
+    }
+    //if ok then add it to the operation attribute map
+    //the text serves for possible writeout to the listview of attributes of operation
+    QString attrText = newUmlAttr.modifier + newUmlAttr.name + " : " + newUmlAttr.type;
+    this->operationAttributesMapGUI.insert(newUmlAttr,attrText);
+}
+
+void EditObjectDialog::on_btnClearAllOperationAttributes_clicked()
+{
+    this->operationAttributesMapGUI.clear();
 }
 
