@@ -1,5 +1,7 @@
 #include "Message.hpp"
 
+Message::Message() {}
+
 Message::Message(double Ycoord, UMLClass umlClass, UMLOperation umlOperation, MessageType messageType) : Ycoord(Ycoord), umlClass(umlClass), umlOperation(umlOperation), messageType(messageType){};
 
 Message::~Message() {}

@@ -40,6 +40,11 @@ public:
     // TODO: Support return type
 
     /**
+     * @brief Default construct a new Message object
+     *
+     */
+    Message();
+    /**
      * @brief Construct a new Message object
      *
      * @param Ycoord
