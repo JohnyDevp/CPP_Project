@@ -75,3 +75,11 @@ void DiagramInterface::read(const QJsonObject &json)
 {
     // TODO:
 }
+
+void DiagramInterface::addObjectToObjectGuiList(ObjectGUI *objectGui){
+    this->guiObjectList.append(objectGui);
+}
+
+bool DiagramInterface::addObjectToClassDiagram(UMLClass umlClass){
+    return this->classDiagram->addClass(umlClass);
+}

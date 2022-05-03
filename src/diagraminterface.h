@@ -1,3 +1,4 @@
+#pragma once
 #ifndef DIAGRAMINTERFACE_H
 #define DIAGRAMINTERFACE_H
 
@@ -15,6 +16,9 @@ class DiagramInterface : public JsonPrintable
 {
 public:
     DiagramInterface();
+    void addObjectToObjectGuiList(ObjectGUI *objectGui);
+    bool addObjectToClassDiagram(UMLClass umlClass);
+    void removeObjectFromList();
 
 private:
     int relationIndex;
@@ -76,7 +80,7 @@ private:
     /**
      * @brief guiObjectList
      */
-    QList<ObjectGUI> guiObjectList;
+    QList<ObjectGUI*> guiObjectList;
 };
 
 #endif // DIAGRAMINTERFACE_H

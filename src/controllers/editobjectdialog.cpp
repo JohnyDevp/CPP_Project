@@ -12,3 +12,9 @@ EditObjectDialog::~EditObjectDialog()
 {
     delete ui;
 }
+
+void EditObjectDialog::on_btnRenameObject_clicked()
+{
+
+}
+

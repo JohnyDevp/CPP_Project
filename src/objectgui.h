@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef OBJECTGUI_H
 #define OBJECTGUI_H
 
@@ -6,6 +8,9 @@
 #include <QPainter>
 #include <QDebug>
 #include "cls/UMLClass.hpp"
+#include "diagraminterface.h"
+
+class DiagramInterface;
 
 class ObjectGUI : public QGraphicsItem
 {
@@ -14,21 +19,21 @@ public:
      * @brief ObjectGUI - constructor
      * @param umlClass
      */
-    ObjectGUI(UMLClass umlClass);
+    ObjectGUI(UMLClass umlClass, DiagramInterface * diagramInterface);
     ~ObjectGUI();
 
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     /**
-     * @brief isSelected
+     * @brief isSelected - whether the class is selected or not
      */
     bool isSelected = false;
 
     /**
-     * @brief umlObject
+     * @brief initGui
      */
-    UMLClass umlObject;
+    void initGui();
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -42,9 +47,43 @@ private:
     int boundingHeight;
 
     /**
-     * @brief umlClass
+     * @brief objectName
      */
-    UMLClass umlClass;
+    QString objectName;
+
+    /**
+     * @brief isInterface - defined, whether this object represents an interface or not
+     */
+    bool isInterface = false;
+
+    /**
+     * @brief umlObject - storing uml representation of this gui
+     */
+    UMLClass umlObject;
+
+    /**
+     * @brief operationMapGUI
+     * map for storing each operation and its string representation drawn in gui object
+     */
+    QMap<UMLOperation, QString> operationMapGUI;
+
+    /**
+     * @brief overrideOperations
+     * list of operation that are overrided from any of class, related to this class by generalization
+     */
+    QList<UMLOperation> overrideOperations;
+
+    /**
+     * @brief attributesMapGUI
+     * map for storing each attribute and its string representation drawn in gui object
+     */
+    QMap<UMLAttribute, QString> attributesMapGUI;
+
+    /**
+     * @brief diagramInterface
+     * pointer to middle part of program between inner and gui representation
+     */
+    DiagramInterface * diagramInterface;
 };
 
 #endif // OBJECTGUI_H

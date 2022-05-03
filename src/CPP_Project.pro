@@ -28,7 +28,8 @@ SOURCES += \
         main.cpp \
         controllers/mainwindow.cpp \
         controllers/classdiagramview.cpp \
-        objectgui.cpp
+        objectgui.cpp \
+        views/addclassdiagramobjectdialog.cpp
 
 HEADERS += \
         classobjectgui.h \
@@ -49,11 +50,12 @@ HEADERS += \
         dialogs/askdialog.h \
         interfaceobjectgui.h \
         jsonreader.h \
-        objectgui.h
+        objectgui.h \
+        views/addclassdiagramobjectdialog.h
 
 FORMS += \
     controllers/editobjectdialog.ui \
-    dialogs/askdialog.ui \
+    views/addclassdiagramobjectdialog.ui \
     views/sequencediagramview.ui \
     views/classdiagramview.ui \
     views/mainwindow.ui
