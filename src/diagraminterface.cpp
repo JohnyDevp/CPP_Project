@@ -21,9 +21,19 @@ void DiagramInterface::updateRelation(UMLRelation relation)
     classDiagram.relationList[relation.index] = relation;
 }
 
+UMLClass DiagramInterface::getUMLClass(QString &name)
+{
+    return classDiagram.classList[name];
+}
+
 bool DiagramInterface::existsClass(UMLClass &umlClass)
 {
     return classDiagram.existsClass(umlClass);
+}
+
+bool DiagramInterface::existsClass(QString &className)
+{
+    return classDiagram.existsClass(className);
 }
 
 void DiagramInterface::updateSeqClass(SequenceDiagram dia, UMLSeqClass seqClass)

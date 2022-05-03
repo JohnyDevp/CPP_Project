@@ -5,7 +5,7 @@
         {
             "attributeListName": [
             ],
-            "isInterfaceName": false,
+            "isInterfaceName": true,
             "name": "cl1",
             "operationListName": [
             ],

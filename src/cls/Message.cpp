@@ -18,14 +18,29 @@ void Message::write(QJsonObject &json) const
     json[ycoordName] = Ycoord;
 
     json[messageIndexName] = index;
+
     json[messageTypeName] = messageType;
 
     json[umlClassName] = className;
+
+    json[returnTextName] = returnText;
+
+    json[argumentTextName] = argumentText;
 
     json[umlOperationName] = operationName;
 }
 void Message::read(const QJsonObject &json)
 {
+    if (json.contains(returnTextName) && json[returnTextName].isString())
+    {
+        returnText = json[returnTextName].toString();
+    }
+
+    if (json.contains(argumentTextName) && json[argumentTextName].isString())
+    {
+        argumentText = json[argumentTextName].toString();
+    }
+
     if (json.contains(ycoordName) && json[ycoordName].isDouble())
     {
         Ycoord = json[ycoordName].toInt();

@@ -74,6 +74,11 @@ bool ClassDiagram::existsClass(UMLClass &umlClass)
     return classList.contains(umlClass.name);
 }
 
+bool ClassDiagram::existsClass(QString &className)
+{
+    return classList.contains(className);
+}
+
 bool ClassDiagram::addClass(UMLClass &umlClass)
 {
     if (classList.contains(umlClass.name))
