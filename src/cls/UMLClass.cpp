@@ -22,6 +22,18 @@ void UMLClass::deleteAttribute(const String &name)
     }
 }
 
+bool UMLClass::addOperation(UMLOperation operation)
+{
+    if (std::find(umlOperationsList.begin(), umlOperationsList.end(), operation) != umlOperationsList.end())
+    {
+        // if exists
+        return false;
+    }
+    // if not exists
+    umlOperationsList.push_back(operation);
+    return true;
+}
+
 UMLClass::UMLClass(String name) : Element(name), umlAttributesList(), umlOperationsList() {}
 UMLClass::UMLClass() {}
 

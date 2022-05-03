@@ -19,8 +19,7 @@ void EditObjectDialog::init(DiagramInterface * diagramInterface, UMLClass * umlC
 
     //turn off adding attributes if uml interface
     if (this->umlClass->isInterface){
-        ui->cmbAttributes->setEnabled(false);
-        ui->btnAddAttribute->setEnabled(false);
+
     }
 }
 
@@ -33,8 +32,8 @@ void EditObjectDialog::on_btnRenameObject_clicked()
     QRegExp rx("^\\S+$"); //without whitespace
     rx.setPatternSyntax(QRegExp::Wildcard);
 
-    QString newName = ui->txtObjectName->toPlainText();
-    if (!rx.exactMatch(newName)) return; //there cant be whitespace
+    //QString newName = ui->txtObjectName->toPlainText();
+   //if (!rx.exactMatch(newName)) return; //there cant be whitespace
 
     //ask diagram interface whether exists object with new name
 

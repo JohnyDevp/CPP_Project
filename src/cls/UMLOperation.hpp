@@ -82,11 +82,12 @@ public:
             thisText += operationParam.name + operationParam.type;
         }
         thisText += this->type;
+
         QString uoText = uo.modifier + uo.name;
-        foreach (UMLAttribute operationParam, this->parameterssOfOperationList){
-            thisText += uo.name + uo.type;
+        foreach (UMLAttribute operationParam, uo.parameterssOfOperationList){
+            uoText += uo.name + uo.type;
         }
-        thisText += uo.type;
+        uoText += uo.type;
         return (thisText < uoText);
     }
 };

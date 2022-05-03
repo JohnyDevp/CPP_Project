@@ -95,6 +95,7 @@ void ClassDiagramView::on_btnAddObject_clicked()
     newCls.addAttribute(attr);
     UMLOperation uo("operace", "navratovy typ", '+');
     newCls.addOperation(uo);
+    //newCls.addOperation(uo);
 
     // create new object - according to which has been specified in dialog
     ObjectGUI *newObj = new ObjectGUI(newCls, this->diagramInterface);
