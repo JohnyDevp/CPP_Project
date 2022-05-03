@@ -10,11 +10,10 @@ void ClassDiagram::write(QJsonObject &json) const
 {
     Element::write(json);
 
-
     json[relationIndexName] = relationIndex;
 
     QJsonArray classJsonList;
-    
+
     foreach (const UMLClass &uml, classList)
     {
         QJsonObject umlObject;
@@ -68,6 +67,11 @@ void ClassDiagram::read(const QJsonObject &json)
             relationList[rel.index] = rel;
         }
     }
+}
+
+bool ClassDiagram::existsClass(UMLClass &umlClass)
+{
+    return classList.contains(umlClass.name);
 }
 
 bool ClassDiagram::addClass(UMLClass &umlClass)

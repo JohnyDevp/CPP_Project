@@ -1,6 +1,15 @@
 #include "UMLClass.hpp"
 #include <QJsonArray>
 
+void UMLClass::deleteOperation(UMLOperation operation)
+{
+    auto pos = std::find(std::begin(umlOperationsList), std::end(umlOperationsList), operation);
+    if (pos != std::end(umlOperationsList))
+    {
+        umlOperationsList.erase(pos);
+    }
+}
+
 bool UMLClass::addAttribute(UMLAttribute &attr)
 {
     if (std::find(umlAttributesList.begin(), umlAttributesList.end(), attr) != umlAttributesList.end())

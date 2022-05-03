@@ -53,7 +53,7 @@ public:
      *
      * @param name
      */
-    void deleteOperation(QString name);
+    void deleteOperation(UMLOperation operation);
 
     /**
      * @brief adding an attribute (which is parameter) of this class
