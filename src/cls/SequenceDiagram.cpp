@@ -22,10 +22,6 @@ void SequenceDiagram::write(QJsonObject &json) const
 {
     json[lastTimeName] = lastTimeStamp;
 
-    json[messageIndexName] = messageIndex;
-
-    json[indexName] = index;
-
     // Classes
     QJsonArray classesJson;
     foreach (const UMLSeqClass &cl, classes)
@@ -47,14 +43,6 @@ void SequenceDiagram::write(QJsonObject &json) const
 
 void SequenceDiagram::read(const QJsonObject &json)
 {
-    if (json.contains(indexName) && json[indexName].isDouble())
-    {
-        index = json[indexName].toInt();
-    }
-    if (json.contains(messageIndexName) && json[messageIndexName].isDouble())
-    {
-        messageIndex = json[messageIndexName].toInt();
-    }
     if (json.contains(lastTimeName) && json[lastTimeName].isDouble())
     {
         lastTimeStamp = json[lastTimeName].toInt();
@@ -79,12 +67,16 @@ void SequenceDiagram::read(const QJsonObject &json)
     {
         QJsonArray messageArray = json[messagesName].toArray();
         messages.clear();
-        for (int messageIndex = 0; messageIndex < messageArray.size(); messageIndex++)
+
+        messageIndex = messageArray.size();
+
+        for (int i = 0; i < messageArray.size(); i++)
         {
-            QJsonObject messObj = messageArray[messageIndex].toObject();
+            QJsonObject messObj = messageArray[i].toObject();
             Message mess;
             mess.read(messObj);
-            messages[mess.index] = mess;
+            mess.index = i;
+            messages[i] = mess;
         }
     }
 }

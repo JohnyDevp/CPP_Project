@@ -47,6 +47,7 @@ void ClassDiagram::read(const QJsonObject &json)
     {
         QJsonArray classArray = json[classListName].toArray();
         classList.clear();
+
         for (int classIndex = 0; classIndex < classArray.size(); classIndex++)
         {
             QJsonObject classObject = classArray[classIndex].toObject();
@@ -60,12 +61,16 @@ void ClassDiagram::read(const QJsonObject &json)
     {
         QJsonArray array = json[interfaceListName].toArray();
         relationList.clear();
+
+        relationIndex = array.size();
+
         for (int index = 0; index < array.size(); index++)
         {
             QJsonObject relJson = array[index].toObject();
             UMLRelation rel;
             rel.read(relJson);
-            relationList[rel.index] = rel;
+            rel.index = index;
+            relationList[index] = rel;
         }
     }
 }

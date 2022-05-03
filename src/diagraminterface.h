@@ -1,6 +1,4 @@
 #pragma once
-#ifndef DIAGRAMINTERFACE_H
-#define DIAGRAMINTERFACE_H
 
 #include "cls/ClassDiagram.hpp"
 #include "cls/SequenceDiagram.hpp"
@@ -14,17 +12,19 @@
 
 class ObjectGUI;
 
+#define classDiagramName "classDiagram"
+#define sequenceDiagramsName "sequenceDiagrams"
+
 class DiagramInterface : public JsonPrintable
 {
 public:
-    DiagramInterface(QGraphicsScene * scene);
+    DiagramInterface(QGraphicsScene *scene);
     void addObjectToObjectGuiList(ObjectGUI *objectGui);
     void removeObjectFromGuiList(ObjectGUI *objectGui);
 
-    int relationIndex;
     int sequenceDiagramIndex;
     /**
-     * @brief
+     * @brief used to createRelation
      *
      */
     UMLRelation tempRelation;
@@ -94,7 +94,5 @@ private:
      */
     QList<ObjectGUI *> guiObjectList;
 
-    QGraphicsScene * scene;
+    QGraphicsScene *scene;
 };
-
-#endif // DIAGRAMINTERFACE_H

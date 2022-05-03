@@ -17,7 +17,7 @@ bool UMLOperation::addOperationParameter(UMLAttribute param)
 
 UMLOperation::UMLOperation() : parameterssOfOperationList() {}
 
-UMLOperation::UMLOperation(QString name) : UMLAttribute(name)
+UMLOperation::UMLOperation(QString name) : UMLAttribute(name), parameterssOfOperationList()
 {
 }
 UMLOperation::UMLOperation(QString name, QString returnType, QChar modifier) : UMLAttribute(modifier, name, returnType), parameterssOfOperationList() {}

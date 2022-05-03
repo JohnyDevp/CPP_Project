@@ -17,8 +17,6 @@ void Message::write(QJsonObject &json) const
 {
     json[ycoordName] = Ycoord;
 
-    json[messageIndexName] = index;
-
     json[messageTypeName] = messageType;
 
     json[umlClassName] = className;
@@ -46,10 +44,6 @@ void Message::read(const QJsonObject &json)
         Ycoord = json[ycoordName].toInt();
     }
 
-    if (json.contains(messageIndexName) && json[messageIndexName].isDouble())
-    {
-        index = json[messageIndexName].toInt();
-    }
     // TODO: Not sure about isDouble() but isInt() is not
     if (json.contains(messageTypeName) && json[messageTypeName].isDouble())
     {

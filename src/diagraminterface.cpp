@@ -7,7 +7,7 @@
  * interface for diagrams -> storing sequence diagrams, class diagram
  *                           gui objects lists, relations,...
  */
-DiagramInterface::DiagramInterface(QGraphicsScene * scene)
+DiagramInterface::DiagramInterface(QGraphicsScene *scene)
     : classDiagram(QString("ClassDiagram"))
 {
     this->scene = scene;
@@ -86,12 +86,48 @@ void DiagramInterface::removeRelation(UMLRelation relation)
 
 void DiagramInterface::write(QJsonObject &json) const
 {
-    // TODO:
+    QJsonArray sequenceDiaArray;
+
+    for (const SequenceDiagram &dia : sequenceDiagrams)
+    {
+        QJsonObject diaObject;
+        dia.write(diaObject);
+        sequenceDiaArray.append(diaObject);
+    }
+    json[sequenceDiagramsName] = sequenceDiaArray;
+
+    QJsonObject classDiaObject;
+    classDiagram.write(classDiaObject);
+
+    json[classDiagramName] = classDiaObject;
 }
 
 void DiagramInterface::read(const QJsonObject &json)
 {
-    // TODO:
+    if (json.contains(sequenceDiagramsName) && json[sequenceDiagramsName].isArray())
+    {
+        QJsonArray seqDiaArray = json[sequenceDiagramsName].toArray();
+        sequenceDiagrams.clear();
+
+        // Store sequenceDiagramIndex
+        sequenceDiagramIndex = seqDiaArray.size();
+
+        for (int i = 0; i < seqDiaArray.size(); i++)
+        {
+            QJsonObject seqObj = seqDiaArray[i].toObject();
+            SequenceDiagram seq;
+            seq.read(seqObj);
+            // Add index
+            seq.index = i;
+            sequenceDiagrams[i] = seq;
+        }
+    }
+
+    if (json.contains(classDiagramName) && json[classDiagramName].isObject())
+    {
+        QJsonObject clObj = json[classDiagramName].toObject();
+        classDiagram.read(clObj);
+    }
 }
 
 void DiagramInterface::addObjectToObjectGuiList(ObjectGUI *objectGui)
@@ -99,7 +135,8 @@ void DiagramInterface::addObjectToObjectGuiList(ObjectGUI *objectGui)
     this->guiObjectList.append(objectGui);
 }
 
-void DiagramInterface::removeObjectFromGuiList(ObjectGUI *objectGui){
+void DiagramInterface::removeObjectFromGuiList(ObjectGUI *objectGui)
+{
     this->scene->removeItem(objectGui);
 
     this->guiObjectList.removeOne(objectGui);

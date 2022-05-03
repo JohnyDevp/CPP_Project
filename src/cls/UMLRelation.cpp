@@ -31,7 +31,6 @@ void UMLRelation::write(QJsonObject &json) const
     json[endXName] = endX;
     json[endYName] = endY;
 
-    json[indexName] = index;
 }
 
 void UMLRelation::read(const QJsonObject &json)
@@ -42,10 +41,6 @@ void UMLRelation::read(const QJsonObject &json)
         relationFrom = json[relFromName].toString();
     }
 
-    if (json.contains(indexName) && json[indexName].isDouble())
-    {
-        index = json[indexName].toInt();
-    }
 
     if (json.contains(relToName) && json[relToName].isString())
     {
