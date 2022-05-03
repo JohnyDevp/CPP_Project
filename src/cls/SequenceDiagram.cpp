@@ -10,25 +10,41 @@
 //     listOfObjectParticipants.push_back(umlSeqClass);
 // }
 
-Message SequenceDiagram::createMessage(double Ycoord, UMLClass umlClass, UMLOperation umlOperation, Message::MessageType messageType)
+void SequenceDiagram::updateClass(UMLSeqClass seqClass)
 {
+    classes[seqClass.name] = seqClass;
+}
 
-    return Message(Ycoord, umlClass, umlOperation, messageType);
+Message SequenceDiagram::createMessage(Message &message)
+{
+    message.index = messageIndex;
+    messages[message.index] = message;
+    messageIndex++;
+    return message;
 }
 
 void SequenceDiagram::deleteMessage(Message &message)
 {
-    auto pos = std::find(messageList.begin(), messageList.end(), message);
-    if (pos != messageList.end())
-    {
-        // listOfObjectParticipants.erase(pos);
-    }
+    messages.remove(message.index);
 }
 
 void SequenceDiagram::write(QJsonObject &json) const
 {
     // TODO: Sequence write
     json[lastTimeName] = lastTimeStamp;
+
+    json[messageIndexName] = messageIndex;
+
+    json[indexName] = index;
+
+    // Classes
+    QJsonArray classesJson;
+    foreach (const UMLSeqClass &cl, classes)
+    {
+        QJsonObject clObj;
+        cl.write(clObj);
+        classesJson.append(clObj);
+    }
 }
 
 void SequenceDiagram::read(const QJsonObject &json)
@@ -38,7 +54,7 @@ void SequenceDiagram::read(const QJsonObject &json)
 
 SequenceDiagram::SequenceDiagram(QString name)
     : Element(name),
-      lastTimeStamp(0), listOfObjectParticipants(), messageList()
+      lastTimeStamp(0), classes(), messages()
 {
 }
 

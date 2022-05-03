@@ -15,6 +15,7 @@
 #define umlClassName "umlClassName"
 #define umlOperationName "umlOperationName"
 #define messageTypeName "messageTypeName"
+#define messageIndexName "index"
 
 class Message : public JsonPrintable
 {
@@ -31,11 +32,12 @@ public:
         CREATE,
         DESTROY
     };
-
+    int index;
     double Ycoord;
     UMLClass umlClass;
     UMLOperation umlOperation;
     MessageType messageType;
+    // TODO: Support return type
 
     /**
      * @brief Construct a new Message object

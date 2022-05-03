@@ -13,17 +13,25 @@
 #include "UMLSeqClass.hpp"
 #include "Message.hpp"
 #include <vector>
+#include <QMap>
+#include <QJsonArray>
 
-#define listPartiName "listPartiName"
-#define messageListName "messageListName"
-#define lastTimeName "lastTimeName"
+#define classesName "classes"
+#define messagesName "messages"
+#define lastTimeName "lastTimeStamp"
+#define messageIndexName "messageIndex"
+#define indexName "index"
 
 class SequenceDiagram : public Element
 {
 public:
-    QList<UMLSeqClass> listOfObjectParticipants;
+    int index;
 
-    QList<Message> messageList;
+    int messageIndex;
+
+    QMap<QString, UMLSeqClass> classes;
+
+    QMap<int, Message> messages;
 
     int lastTimeStamp;
 
@@ -31,12 +39,18 @@ public:
      * @param umlSeqClass class representing the object which takes part in the sequence diagram*/
     bool addObject(UMLSeqClass umlSewClass);
 
+    /**
+     * @brief Updae Seq Class
+     *
+     * @param name
+     */
+    void updateClass(UMLSeqClass seqClass);
     /**adding message to specific position - rest of messages will move forward +1
      * @param messageType type of the message (sync, async, ...)
      * @param Ycoord Y coordination on timeline of object
      * @param umlClass class which is sending the message
      * @param umlOperation operation representing the method which is called*/
-    Message createMessage(double Ycoord, UMLClass umlClass, UMLOperation umlOperation, Message::MessageType messageType);
+    Message createMessage(Message &message);
 
     /**delete message from diagram
      * @param message message object to be deleted*/

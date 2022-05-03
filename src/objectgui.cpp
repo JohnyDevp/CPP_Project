@@ -51,7 +51,7 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     }
     painter->fillRect(rec, brush);
 
-    painter->fillRect(10 + this->boundingX,this->boundingY + 10, this->boundingWidth - 10, this->boundingHeight-10, Qt::yellow);
+    painter->fillRect(10 + this->boundingX,this->boundingY + 10, this->boundingWidth - 10 - this->boundingX, this->boundingHeight-10 - this->boundingY, Qt::yellow);
 
     // draw name of the class/interface
     painter->drawText(this->boundingX + int(this->boundingWidth / 2) - 30, this->boundingY + 20, "First class");

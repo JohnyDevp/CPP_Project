@@ -24,9 +24,12 @@
 #define endXName "endXName"
 #define endYName "endYName"
 
+#define indexName "index"
+
 class UMLRelation : public Element
 {
 public:
+    int index;
     enum RelationType
     {
         ASSOCIATION,
