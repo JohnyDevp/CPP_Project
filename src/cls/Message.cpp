@@ -7,6 +7,8 @@ void Message::write(QJsonObject &json) const
 {
     json[ycoordName] = Ycoord;
 
+    json[messageIndexName] = index;
+
     json[messageTypeName] = messageType;
 
     QJsonObject classObject;
@@ -22,6 +24,11 @@ void Message::read(const QJsonObject &json)
     if (json.contains(ycoordName) && json[ycoordName].isDouble())
     {
         Ycoord = json[ycoordName].toDouble();
+    }
+
+    if (json.contains(messageIndexName) && json[messageIndexName].isDouble())
+    {
+        index = json[messageIndexName].toInt();
     }
     // TODO: Not sure about isDouble() but isInt() is not
     if (json.contains(messageTypeName) && json[messageTypeName].isDouble())

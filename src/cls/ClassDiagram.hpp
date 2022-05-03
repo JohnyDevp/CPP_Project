@@ -18,11 +18,13 @@
 #define interfaceListName "umlInterfaceList"
 #define relationListName "umlRelationList"
 #define isInterfaceName "isInterfaceName"
+#define relationIndexName "relationIndex"
 
 class ClassDiagram : public Element
 {
 
 public:
+    int relationIndex;
     /**
      * @brief list of all classes for diagram
      *
@@ -32,7 +34,7 @@ public:
      * @brief list of all relations in this diagram
      *
      */
-    QList<UMLRelation> relationList;
+    QMap<int, UMLRelation> relationList;
 
     /**
      * Creates an instance of UML class and inserts it into diagram
@@ -48,7 +50,7 @@ public:
      * @param umlRelation relation object
      * @return boolean according success of adding operation
      */
-    bool addRelation(UMLRelation &umlRelation);
+    UMLRelation addRelation(UMLRelation &umlRelation);
     /**
      * @param umlRelation relation object to be removed
      * */

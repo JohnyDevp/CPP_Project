@@ -6,7 +6,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QInputDialog>
 
-ObjectGUI::ObjectGUI(UMLClass umlClass, DiagramInterface * diagramInterface) : umlObject("")
+ObjectGUI::ObjectGUI(UMLClass umlClass, DiagramInterface *diagramInterface) : umlObject("")
 {
     // make the object movable
     setFlag(QGraphicsItem::ItemIsMovable);
@@ -14,43 +14,48 @@ ObjectGUI::ObjectGUI(UMLClass umlClass, DiagramInterface * diagramInterface) : u
     // set whether it is selected or not
     this->isSelected = false;
 
-    //set whether it is interface or class
+    // set whether it is interface or class
     this->isInterface = umlClass.isInterface;
 
     // set the uml class
     // there is a default initialize at the beggining of this function, but the class cant be without a name
     this->umlObject = umlClass;
 
-    //store diagram interface variable
+    // store diagram interface variable
     this->diagramInterface = diagramInterface;
 
-    //initialize gui representation of this object
+    // initialize gui representation of this object
     this->initGui();
 }
 
-void ObjectGUI::initGui(){
-    //set name
+void ObjectGUI::initGui()
+{
+    // set name
     this->objectName = this->umlObject.name;
 
-    //add all attributes (only if class) to the map with their string representation
-    if (!this->isInterface){
-        foreach(UMLAttribute umlAttribute, this->umlObject.umlAttributesList){
+    // add all attributes (only if class) to the map with their string representation
+    if (!this->isInterface)
+    {
+        foreach (UMLAttribute umlAttribute, this->umlObject.umlAttributesList)
+        {
             QString attrText = umlAttribute.modifier + umlAttribute.name + " : " + umlAttribute.type;
-            //add to the map
+            // add to the map
             this->attributesMapGUI.insert(umlAttribute, attrText);
         }
     }
 
-    //set all operations (both class and interface)
-    foreach(UMLOperation umlOperation, this->umlObject.umlOperationsList){
-        //build the operation text
+    // set all operations (both class and interface)
+    foreach (UMLOperation umlOperation, this->umlObject.umlOperationsList)
+    {
+        // build the operation text
         QString operationText = umlOperation.modifier + umlOperation.name + "(";
-        foreach (UMLAttribute operationParam, umlOperation.parameterssOfOperationList){
+        foreach (UMLAttribute operationParam, umlOperation.parameterssOfOperationList)
+        {
             operationText += operationParam.name + ":" + operationParam.type;
         }
         operationText += ") : " + umlOperation.type;
 
-        //add to the map
+        // add to the map
         this->operationMapGUI.insert(umlOperation, operationText);
     }
 
@@ -68,15 +73,15 @@ QRectF ObjectGUI::boundingRect() const
 
 void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    //variable for storing whether should be updated the gui if changed size during drawing
+    // variable for storing whether should be updated the gui if changed size during drawing
     bool hasChangedSize = false;
 
-    //get and set current font
+    // get and set current font
     QFont font("arial", 12); //-> for text length measure
     QFontMetrics fontMetrics(font);
     painter->setFont(font);
 
-    //get bounding rect
+    // get bounding rect
     QRectF rec = boundingRect();
     QBrush brush(Qt::blue);
     QPen pen(Qt::black);
@@ -91,13 +96,13 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         brush.setColor(Qt::blue);
     }
 
-    //fill the most back background (containing whole object)
+    // fill the most back background (containing whole object)
     painter->fillRect(rec, brush);
 
-    //fill the second background (making space for object contain)
-    painter->fillRect(10 + this->boundingX,this->boundingY + 10, this->boundingWidth - 20, this->boundingHeight-20, QColor(217,211,210));
+    // fill the second background (making space for object contain)
+    painter->fillRect(10 + this->boundingX, this->boundingY + 10, this->boundingWidth - 20, this->boundingHeight - 20, QColor(217, 211, 210));
 
-    //height, from which object contain (starting its name,..) starting draw
+    // height, from which object contain (starting its name,..) starting draw
     int currentHeight = 25;
 
     // draw name of the class/interface -> draw it on the middle
@@ -106,20 +111,26 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     {
         this->boundingWidth = fontMetrics.width(this->objectName) + 30;
         rec = boundingRect();
-        hasChangedSize = true; //design should be redrawn
+        hasChangedSize = true; // design should be redrawn
     }
-    painter->drawText(this->boundingX + int(this->boundingWidth / 2) - int(fontMetrics.width(this->objectName) /2), this->boundingY + currentHeight, this->objectName);
+    painter->drawText(this->boundingX + int(this->boundingWidth / 2) - int(fontMetrics.width(this->objectName) / 2), this->boundingY + currentHeight, this->objectName);
     currentHeight += 20;
 
+<<<<<<< HEAD
     //if interface -> draw "interface" label
     if (this->isInterface){
+=======
+    // if interface -> draw interface tag
+    if (this->isInterface)
+    {
+>>>>>>> fc2e6d3fbb283d2840063bb90bec5c12739bf1ab
         if (fontMetrics.width("<<interface>>") > boundingWidth - 30)
         {
             this->boundingWidth = fontMetrics.width("<<interface>>") + 30;
             rec = boundingRect();
-            hasChangedSize = true; //design should be redrawn
+            hasChangedSize = true; // design should be redrawn
         }
-        painter->drawText(this->boundingX + int(this->boundingWidth / 2) - int(fontMetrics.width("<<interface>>") /2),
+        painter->drawText(this->boundingX + int(this->boundingWidth / 2) - int(fontMetrics.width("<<interface>>") / 2),
                           this->boundingY + currentHeight,
                           "<<interface>>");
         currentHeight += 20;
@@ -129,10 +140,11 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->drawLine(this->boundingX + 10, this->boundingY + currentHeight, this->boundingX + this->boundingWidth - 10, this->boundingY + currentHeight);
     currentHeight += 20;
 
-    //add attributes
+    // add attributes
     QMapIterator<UMLAttribute, QString> attrMap(this->attributesMapGUI);
-    while (attrMap.hasNext()) {
-        //get next attribute
+    while (attrMap.hasNext())
+    {
+        // get next attribute
         attrMap.next();
 
         // resize the box if the attributes are widther
@@ -140,7 +152,7 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         {
             this->boundingWidth = fontMetrics.width(attrMap.value()) + 25;
             rec = boundingRect();
-            hasChangedSize = true; //design should be redrawn
+            hasChangedSize = true; // design should be redrawn
         }
 
         // draw the text of attr at sufficient possition
@@ -152,10 +164,11 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->drawLine(this->boundingX + 10, this->boundingY + currentHeight, this->boundingX + this->boundingWidth - 10, this->boundingY + currentHeight);
     currentHeight += 20;
 
-    //add operations
+    // add operations
     QMapIterator<UMLOperation, QString> operationMap(this->operationMapGUI);
-    while (operationMap.hasNext()) {
-        //get next attribute
+    while (operationMap.hasNext())
+    {
+        // get next attribute
         operationMap.next();
 
         // resize the box if the operations are widther
@@ -163,34 +176,35 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         {
             this->boundingWidth = fontMetrics.width(operationMap.value()) + 25;
             rec = boundingRect();
-            hasChangedSize = true; //design should be redrawn
+            hasChangedSize = true; // design should be redrawn
         }
 
-
         // draw the text of attr at sufficient possition
-        //if this operation is override, change color
-        if (this->overrideOperations.contains(operationMap.key())) {
-            painter->setPen(QColor(191,79,71));
+        // if this operation is override, change color
+        if (this->overrideOperations.contains(operationMap.key()))
+        {
+            painter->setPen(QColor(191, 79, 71));
         }
         painter->drawText(this->boundingX + 10, this->boundingY + currentHeight, operationMap.value());
         currentHeight += 15; // increase the Y axis, where the next element will be stored
 
-        //reset color
-        painter->setPen(QColor(0,0,0));
+        // reset color
+        painter->setPen(QColor(0, 0, 0));
     }
 
     // finally draw the main - bounding - rectangle
     painter->drawRect(rec);
 
-    //check height
+    // check height
     if (currentHeight >= this->boundingHeight)
     {
         this->boundingHeight = currentHeight + 30;
-        hasChangedSize = true; //design should be redrawn
+        hasChangedSize = true; // design should be redrawn
     }
 
-    //when some resizing has been done then update the design
-    if (hasChangedSize) update();
+    // when some resizing has been done then update the design
+    if (hasChangedSize)
+        update();
 }
 
 void ObjectGUI::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -205,30 +219,29 @@ void ObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
     int maxX = this->boundingWidth;
     int maxY = this->boundingHeight;
-    bool isInX = (((event->pos().x()-this->boundingX) >= 10) && ((maxX - 10) >= (event->pos().x()-this->boundingX)));
-    bool isInY = (((event->pos().y()-this->boundingY) >= 10) && ((maxY - 10) >= (event->pos().y() - this->boundingY)));
+    bool isInX = (((event->pos().x() - this->boundingX) >= 10) && ((maxX - 10) >= (event->pos().x() - this->boundingX)));
+    bool isInY = (((event->pos().y() - this->boundingY) >= 10) && ((maxY - 10) >= (event->pos().y() - this->boundingY)));
 
     if (!(isInX && isInY))
     {
-        //create dialog asking for desired type for new relation
+        // create dialog asking for desired type for new relation
 
-        //add relation types to the list -> future combobox items
+        // add relation types to the list -> future combobox items
         QStringList items;
-        items << QDialog::tr("ASSOCIATION") << QDialog::tr("GENERALIZATION") << QDialog::tr("COMPOSITION") << QDialog:: tr("AGGREGATION");
+        items << QDialog::tr("ASSOCIATION") << QDialog::tr("GENERALIZATION") << QDialog::tr("COMPOSITION") << QDialog::tr("AGGREGATION");
 
-        //create new dialog
+        // create new dialog
         bool ok; // variable storing whether ok has been pressed
         QString item = QInputDialog::getItem(event->widget(),
                                              QDialog::tr("Choose relation type"),
                                              QDialog::tr("Relation type"),
-                                             items,0,false,&ok);
+                                             items, 0, false, &ok);
 
-        //if ok pressed and item has been selected then start creating relation
+        // if ok pressed and item has been selected then start creating relation
         if (ok && !item.isEmpty())
             std::cout << qPrintable(item) << std::endl;
         else
             std::cout << "Relation type hasn't been selected - canceled" << std::endl;
-
     }
     else
     {

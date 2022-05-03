@@ -10,8 +10,11 @@ void ClassDiagram::write(QJsonObject &json) const
 {
     Element::write(json);
 
-    QJsonArray classJsonList;
 
+    json[relationIndexName] = relationIndex;
+
+    QJsonArray classJsonList;
+    
     foreach (const UMLClass &uml, classList)
     {
         QJsonObject umlObject;
@@ -34,6 +37,11 @@ void ClassDiagram::read(const QJsonObject &json)
 {
     Element::read(json);
 
+    if (json.contains(relationIndexName) && json[relationIndexName].isDouble())
+    {
+        relationIndex = json[relationIndexName].toInt();
+    }
+
     // Read UMLClass objects
     if (json.contains(classListName) && json[classListName].isArray())
     {
@@ -52,13 +60,12 @@ void ClassDiagram::read(const QJsonObject &json)
     {
         QJsonArray array = json[interfaceListName].toArray();
         relationList.clear();
-        relationList.reserve(array.size());
         for (int index = 0; index < array.size(); index++)
         {
             QJsonObject relJson = array[index].toObject();
             UMLRelation rel;
             rel.read(relJson);
-            relationList.append(rel);
+            relationList[rel.index] = rel;
         }
     }
 }
@@ -79,19 +86,17 @@ void ClassDiagram::updateClass(QString oldName, UMLClass &umlClass)
     classList[umlClass.name] = umlClass;
 }
 
-bool ClassDiagram::addRelation(UMLRelation &umlRelation)
+UMLRelation ClassDiagram::addRelation(UMLRelation &umlRelation)
 {
-    relationList.push_back(umlRelation);
-    return true;
+    umlRelation.index = relationIndex;
+    relationList[umlRelation.index] = umlRelation;
+    relationIndex++;
+
+    return umlRelation;
 }
 void ClassDiagram::removeRelation(UMLRelation &umlRelation)
 {
-    auto pos = std::find(std::begin(relationList), std::end(relationList), umlRelation);
-    if (pos != std::end(relationList))
-    {
-        // find it
-        relationList.erase(pos);
-    }
+    relationList.remove(umlRelation.index);
 }
 
 bool ClassDiagram::operator==(const ClassDiagram &other) const
