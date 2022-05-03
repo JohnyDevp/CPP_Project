@@ -116,14 +116,8 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->drawText(this->boundingX + int(this->boundingWidth / 2) - int(fontMetrics.width(this->objectName) / 2), this->boundingY + currentHeight, this->objectName);
     currentHeight += 20;
 
-<<<<<<< HEAD
     //if interface -> draw "interface" label
     if (this->isInterface){
-=======
-    // if interface -> draw interface tag
-    if (this->isInterface)
-    {
->>>>>>> fc2e6d3fbb283d2840063bb90bec5c12739bf1ab
         if (fontMetrics.width("<<interface>>") > boundingWidth - 30)
         {
             this->boundingWidth = fontMetrics.width("<<interface>>") + 30;

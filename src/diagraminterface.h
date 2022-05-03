@@ -17,10 +17,8 @@ class DiagramInterface : public JsonPrintable
 public:
     DiagramInterface();
     void addObjectToObjectGuiList(ObjectGUI *objectGui);
-    bool addObjectToClassDiagram(UMLClass umlClass);
     void removeObjectFromList();
 
-private:
     int relationIndex;
     int sequenceDiagramIndex;
     /**
