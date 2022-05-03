@@ -20,17 +20,19 @@ UMLOperation::UMLOperation() : parameterssOfOperationList() {}
 UMLOperation::UMLOperation(QString name) : UMLAttribute(name)
 {
 }
+UMLOperation::UMLOperation(QString name, QString returnType, QChar modifier) : UMLAttribute(modifier, name, returnType), parameterssOfOperationList() {}
+
+UMLOperation::~UMLOperation() {}
+
 bool UMLOperation::operator==(const UMLOperation &other) const
 {
-    return static_cast<const UMLAttribute &>(*this) == static_cast<const UMLAttribute &>(other);
+    return static_cast<const UMLAttribute &>(*this) == static_cast<const UMLAttribute &>(other) && parameterssOfOperationList == other.parameterssOfOperationList;
 }
+
 bool UMLOperation::operator!=(const UMLOperation &other) const
 {
     return !(*this == other);
 }
-UMLOperation::UMLOperation(QString name, QString returnType, QChar modifier) : UMLAttribute(modifier, name, returnType), parameterssOfOperationList() {}
-
-UMLOperation::~UMLOperation() {}
 
 void UMLOperation::write(QJsonObject &json) const
 {
