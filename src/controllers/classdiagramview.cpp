@@ -84,17 +84,21 @@ void ClassDiagramView::on_btnAddObject_clicked()
     // set whether the uml object is interface or not
     newCls.isInterface = addClassDlg->getIsInterface();
 
+    //when the class already exists
+    // and add this object to the list of objects in public place (diagraminterface)
+    if (!diagramInterface->createUMLClass(newCls)){
+        return;
+    }
+
     //test===========================
     UMLAttribute attr('+',"prvni", "atribute");
     newCls.addAttribute(attr);
     UMLOperation uo("operace", "navratovy typ", '+');
-    //newCls.addOperation(uo);
+    newCls.addOperation(uo);
 
     // create new object - according to which has been specified in dialog
     ObjectGUI *newObj = new ObjectGUI(newCls, this->diagramInterface);
 
-    // add this object to the list of objects in public place (diagraminterface)
-    this->diagramInterface->addObjectToClassDiagram(newCls);
     // add gui representation of this object to the list
     this->diagramInterface->addObjectToObjectGuiList(newObj);
 
