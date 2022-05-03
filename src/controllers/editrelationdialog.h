@@ -19,6 +19,15 @@ public:
     void init(UMLRelation * umlRelation);
     UMLRelation * getUpdatedUmlRelation();
 
+private slots:
+    void on_btnSetRelationName_clicked();
+
+    void on_btnSetCardinalityEnd_clicked();
+
+    void on_btnSetCardinalityStart_clicked();
+
+    void on_btnRemoveRelation_clicked();
+
 private:
     Ui::EditRelationDialog *ui;
 
