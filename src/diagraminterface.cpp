@@ -21,6 +21,11 @@ void DiagramInterface::updateRelation(UMLRelation relation)
     classDiagram.relationList[relation.index] = relation;
 }
 
+bool DiagramInterface::existsClass(UMLClass &umlClass)
+{
+    return classDiagram.existsClass(umlClass);
+}
+
 void DiagramInterface::updateSeqClass(SequenceDiagram dia, UMLSeqClass seqClass)
 {
     sequenceDiagrams[dia.index].classes[seqClass.name] = seqClass;
@@ -76,6 +81,7 @@ void DiagramInterface::read(const QJsonObject &json)
     // TODO:
 }
 
-void DiagramInterface::addObjectToObjectGuiList(ObjectGUI *objectGui){
+void DiagramInterface::addObjectToObjectGuiList(ObjectGUI *objectGui)
+{
     this->guiObjectList.append(objectGui);
 }

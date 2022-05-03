@@ -46,7 +46,7 @@ public:
      * @param seqClass
      */
 
-    void existsClass(QString &className);
+    bool existsClass(UMLClass &umlClass);
 
     void updateSeqClass(SequenceDiagram dia, UMLSeqClass seqClass);
 
