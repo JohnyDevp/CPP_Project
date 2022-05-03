@@ -64,12 +64,16 @@ void ClassDiagramView::on_btnClose_clicked()
     this->btnLoadExistingDiagram->setEnabled(true);
 
     // remove all tabs
+
     // TODO call close() of all sequence diagrams
     this->tabPane->removeTab(0);
 }
 
 void ClassDiagramView::on_btnAddObject_clicked()
 {
+    scene->removeItem(this->relation);
+    scene->addItem(this->relation);
+    relation->qpointStart.setX(relation->qpointStart.x() + 50);
 
     // raise a dialog => choose name and whether it will be an interface or not
     AddClassDiagramObjectDialog * addClassDlg = new AddClassDiagramObjectDialog();

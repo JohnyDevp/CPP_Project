@@ -21,6 +21,7 @@
 #include "./../interfaceobjectgui.h"
 
 #include "../diagraminterface.h"
+#include "relationgui.h"
 
 namespace Ui
 {
@@ -35,6 +36,7 @@ class ClassDiagramView : public QWidget
     Q_OBJECT
 
 public:
+    RelationGui * relation = new RelationGui();
     /**
      * @brief initializes the controller with path to file, if exists, link to tabcontainer,...
      * @param filePath
