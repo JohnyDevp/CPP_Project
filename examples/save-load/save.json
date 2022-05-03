@@ -7,23 +7,33 @@
                 "attributeListName": [
                     {
                         "modifierName": "+",
-                        "name": "call",
-                        "typeName": "int"
+                        "name": "neco",
+                        "typeName": "neco"
                     }
                 ],
                 "isInterfaceName": false,
-                "name": "Ahoj",
+                "name": "dfdsf",
                 "operationListName": [
                     {
                         "modifierName": "+",
-                        "name": "void",
+                        "name": "jinafsmfad",
                         "parametersName": [
                         ],
-                        "typeName": "int"
+                        "typeName": "wefewf"
                     }
                 ],
-                "xcoordName": 3,
-                "ycoordName": 0
+                "xcoordName": 264,
+                "ycoordName": 194
+            },
+            {
+                "attributeListName": [
+                ],
+                "isInterfaceName": false,
+                "name": "sdfsdf",
+                "operationListName": [
+                ],
+                "xcoordName": 508,
+                "ycoordName": 143
             }
         ],
         "umlRelationList": [

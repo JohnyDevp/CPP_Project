@@ -102,7 +102,8 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     // fill the most back background (containing whole object)
     painter->fillRect(rec, brush);
 
-    std::cout << this->boundingX << std::endl;
+    //std::cout << this->boundingX << std::endl;
+
     // fill the second background (making space for object contain)
     painter->fillRect(10 + this->boundingX, this->boundingY + 10, this->boundingWidth - 20, this->boundingHeight - 20, QColor(217, 211, 210));
 
@@ -285,12 +286,17 @@ void ObjectGUI::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
     this->prevMouseX = event->pos().x();
     this->prevMouseY = event->pos().y();
 
-    this->umlObject.Xcoord = this->boundingX;
-    this->umlObject.Ycoord = this->boundingY;
+    this->umlObject.Xcoord = event->scenePos().x();
+    this->umlObject.Ycoord = event->scenePos().y();
 
+    std::cout << this->umlObject.Xcoord << " " << this->umlObject.Ycoord << std::endl;
     QGraphicsItem::mouseMoveEvent(event);
 }
 
+void ObjectGUI::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
+    this->diagramInterface->updateUMLClass(this->objectName, this->umlObject);
+    QGraphicsItem:QGraphicsItem::mouseReleaseEvent(event);
+}
 ObjectGUI::~ObjectGUI()
 {
 }

@@ -61,6 +61,7 @@ void ClassDiagramView::parseFile()
 
     foreach (const UMLClass &cl, diagramInterface->classDiagram.classList)
     {
+        std::cout << cl.Xcoord << " "<< cl.Ycoord << std::endl;
         // create new object - according to which has been specified in dialog
         ObjectGUI *newObj = new ObjectGUI(cl, this->diagramInterface);
 
