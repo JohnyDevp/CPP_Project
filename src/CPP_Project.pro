@@ -22,6 +22,7 @@ SOURCES += \
         controllers/editobjectdialog.cpp \
         controllers/sequencediagramview.cpp \
         diagraminterface.cpp \
+        errors.cpp \
         interfaceobjectgui.cpp \
         jsonreader.cpp \
         main.cpp \
@@ -47,6 +48,7 @@ HEADERS += \
         controllers/classdiagramview.h \
         controllers/sequencediagramview.h \
         diagraminterface.h \
+        errors.h \
         interfaceobjectgui.h \
         jsonreader.h \
         objectgui.h \

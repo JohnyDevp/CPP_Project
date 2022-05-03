@@ -50,6 +50,7 @@ void ClassDiagramView::init(QString filePath, QPushButton *btn1, QPushButton *bt
 
 void ClassDiagramView::parseFile()
 {
+    //TODO
 }
 
 /*event handlers======================================================================================================================*/
@@ -69,6 +70,7 @@ void ClassDiagramView::on_btnClose_clicked()
 
 void ClassDiagramView::on_btnAddObject_clicked()
 {
+
     // raise a dialog => choose name and whether it will be an interface or not
     AddClassDiagramObjectDialog * addClassDlg = new AddClassDiagramObjectDialog();
     addClassDlg->exec();
@@ -77,7 +79,6 @@ void ClassDiagramView::on_btnAddObject_clicked()
         //if dialog was canceled or close or the input is invalid
         return;
     }
-
 
     // create umlinterface or umlclass
     UMLClass newCls(addClassDlg->getObjectName());
@@ -89,13 +90,6 @@ void ClassDiagramView::on_btnAddObject_clicked()
     if (!diagramInterface->createUMLClass(newCls)){
         return;
     }
-
-    //test===========================
-    UMLAttribute attr('+',"prvni", "atribute");
-    newCls.addAttribute(attr);
-    UMLOperation uo("operace", "navratovy typ", '+');
-    newCls.addOperation(uo);
-    //newCls.addOperation(uo);
 
     // create new object - according to which has been specified in dialog
     ObjectGUI *newObj = new ObjectGUI(newCls, this->diagramInterface);
@@ -115,3 +109,10 @@ void ClassDiagramView::on_btnCreateNewSequenceDiagram_clicked()
     // add class diagram canvas window -> in new tab
     this->tabPane->addTab(q, "Sequence diagram ");
 }
+
+//TODO
+void ClassDiagramView::on_btnSave_clicked()
+{
+
+}
+

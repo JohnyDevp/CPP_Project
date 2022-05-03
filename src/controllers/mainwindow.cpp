@@ -40,10 +40,12 @@ void MainWindow::on_btnLoadExistingDiagram_clicked()
     diagramTabConstructor(true);
 }
 
+//TODO
 void MainWindow::diagramTabConstructor(bool isLoadingFile){
     //load file if it should be loaded
+    QString fileName;
     if (isLoadingFile){
-        QString fileName = QFileDialog::getOpenFileName(this, "Open a file", QDir::homePath(), "JSON (*.json)");
+        fileName = QFileDialog::getOpenFileName(this, "Open a file", QDir::homePath(), "JSON (*.json)");
         //nothing has been selected -> prompt and return
         if (fileName == ""){
             std::cout << "nothing has been selected!" <<std::endl;
@@ -53,7 +55,7 @@ void MainWindow::diagramTabConstructor(bool isLoadingFile){
 
     //create new ClassDiagramView controller, init it and ad it as view to the tab
     ClassDiagramView * q = new ClassDiagramView();
-    q->init("this should be the path", ui->btnCreateNewDiagram, ui->btnLoadExistingDiagram, ui->tabWidget);
+    q->init(fileName, ui->btnCreateNewDiagram, ui->btnLoadExistingDiagram, ui->tabWidget);
 
     //add class diagram canvas window -> in new tab
     ui->tabWidget->addTab(q, "Class diagram ");

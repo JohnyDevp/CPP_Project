@@ -71,6 +71,8 @@ private slots:
      */
     void on_btnCreateNewSequenceDiagram_clicked();
 
+    void on_btnSave_clicked();
+
 private:
     Ui::ClassDiagramView *ui;
 
@@ -87,6 +89,7 @@ private:
     DiagramInterface *diagramInterface;
 
     /**
+     * //TODO
      * @brief filePath - path to file, if was loaded
      * otherwise should be empty string literal
      */
