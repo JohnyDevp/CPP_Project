@@ -1,15 +1,5 @@
 #include "SequenceDiagram.hpp"
 
-// bool SequenceDiagram::addObject(UMLSeqClass umlSeqClass)
-// {
-//     if (std::find(listOfObjectParticipants.begin(), listOfObjectParticipants.end(), umlSeqClass) != listOfObjectParticipants.end())
-//     {
-//         return false;
-//     }
-
-//     listOfObjectParticipants.push_back(umlSeqClass);
-// }
-
 void SequenceDiagram::updateClass(UMLSeqClass seqClass)
 {
     classes[seqClass.name] = seqClass;
@@ -30,7 +20,6 @@ void SequenceDiagram::deleteMessage(Message &message)
 
 void SequenceDiagram::write(QJsonObject &json) const
 {
-    // TODO: Sequence write
     json[lastTimeName] = lastTimeStamp;
 
     json[messageIndexName] = messageIndex;
@@ -58,7 +47,6 @@ void SequenceDiagram::write(QJsonObject &json) const
 
 void SequenceDiagram::read(const QJsonObject &json)
 {
-    // TODO: Sequence read
     if (json.contains(indexName) && json[indexName].isDouble())
     {
         index = json[indexName].toInt();
@@ -102,7 +90,7 @@ void SequenceDiagram::read(const QJsonObject &json)
 }
 
 SequenceDiagram::SequenceDiagram()
-    : lastTimeStamp(0), classes(), messages()
+    : lastTimeStamp(0), classes(), messages(), messageIndex(0)
 {
 }
 

@@ -16,6 +16,8 @@
 #define umlOperationName "operationName"
 #define messageTypeName "messageTypeName"
 #define messageIndexName "index"
+#define argumentTextName "argumentText"
+#define returnTextName "returnText"
 class Message : public JsonPrintable
 {
 public:
@@ -36,7 +38,11 @@ public:
     QString className;
     QString operationName;
     MessageType messageType;
+
     // TODO: Support return type
+
+    QString returnText;
+    QString argumentText;
 
     /**
      * @brief Default construct a new Message object
@@ -44,7 +50,7 @@ public:
      */
     Message();
     /**
-     * @brief Construct a new Message object
+     * @brief Construct a new Message object and custom messages set afterwards
      *
      * @param Ycoord
      * @param umlClass

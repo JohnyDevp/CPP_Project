@@ -13,34 +13,26 @@
 #include <string>
 #include "UMLClass.hpp"
 
+#define classNameName "className"
+#define xcoordName "Xcoord"
+
 class UMLSeqClass : public Element
 {
-    /**
-     * @brief Xcoord
-     *
-     */
-    double Xcoord;
+public:
+    int Xcoord;
     /**
      * @brief UMlClass instance
      *
      */
-    UMLClass umlClass;
+    QString className;
 
-public:
     /**
      * @brief Construct a new UMLSeqClass object
      *
      * @param name
      * @param Xcoord
      */
-    UMLSeqClass(QString name, double Xcoord);
-    /**
-     * @brief Construct a new UMLSeqClass object
-     *
-     * @param umlClass
-     * @param Xcoord
-     */
-    UMLSeqClass(UMLClass umlClass, double Xcoord);
+    UMLSeqClass(QString name, QString className, int Xcoord);
     /**
      * @brief Destroy the UMLSeqClass object
      *
