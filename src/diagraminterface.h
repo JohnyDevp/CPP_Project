@@ -9,6 +9,10 @@
 #include <iostream>
 #include <vector>
 #include <QMap>
+#include <QFile>
+#include <QFileDialog>
+#include <QByteArray>
+#include <QJsonDocument>
 
 class ObjectGUI;
 
@@ -19,6 +23,9 @@ class DiagramInterface : public JsonPrintable
 {
 public:
     DiagramInterface(QGraphicsScene *scene);
+
+    // DiagramInterface(QGraphicsScene *scene, DiagramInterface &inter);
+
     void addObjectToObjectGuiList(ObjectGUI *objectGui);
     void removeObjectFromGuiList(ObjectGUI *objectGui);
 
@@ -74,12 +81,10 @@ public:
     void removeUMLClass(UMLClass umlClass);
 
     void removeRelation(UMLRelation relation);
+    void updateSequenceDiagram(SequenceDiagram &dia);
 
-    /**
-     * @brief converts object to json
-     *
-     * @param json
-     */
+    SequenceDiagram createSequenceDiagram(SequenceDiagram &dia);
+
     void write(QJsonObject &json) const override;
     /**
      * @brief reads object from json
@@ -87,6 +92,37 @@ public:
      * @param json
      */
     void read(const QJsonObject &json);
+
+    bool load(QString filepath)
+    {
+        QFile loadFile(filepath);
+        if (!loadFile.open(QIODevice::ReadOnly))
+        {
+            return false;
+        }
+
+        QByteArray loadedData = loadFile.readAll();
+
+        QJsonDocument loadDoc(QJsonDocument::fromJson(loadedData));
+
+        read(loadDoc.object());
+        return true;
+    }
+
+    bool save(QString filepath)
+    {
+        QFile saveFile(filepath);
+        if (!saveFile.open(QIODevice::WriteOnly))
+        {
+            return false;
+        }
+
+        QJsonObject dataObj;
+        write(dataObj);
+        saveFile.write(QJsonDocument(dataObj).toJson());
+
+        return true;
+    }
 
 private:
     /**

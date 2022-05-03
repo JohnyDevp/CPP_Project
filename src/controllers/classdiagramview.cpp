@@ -42,7 +42,7 @@ void ClassDiagramView::init(QString filePath, QPushButton *btn1, QPushButton *bt
     this->diagramInterface = diagramInterface;
 
     // if the file path isnt empty then call file parser
-    if (filePath != "")
+    if (!filePath.isEmpty())
     {
         parseFile();
     }
@@ -50,6 +50,25 @@ void ClassDiagramView::init(QString filePath, QPushButton *btn1, QPushButton *bt
 
 void ClassDiagramView::parseFile()
 {
+    if (!diagramInterface->load(filePath))
+    {
+        // TODO: Loading was not succesfull
+
+        return;
+    }
+    // Creating GUI Objects
+
+    foreach (const UMLClass &cl, diagramInterface->classDiagram.classList)
+    {
+        // create new object - according to which has been specified in dialog
+        ObjectGUI *newObj = new ObjectGUI(cl, this->diagramInterface);
+
+        // add gui representation of this object to the list
+        this->diagramInterface->addObjectToObjectGuiList(newObj);
+
+        // newObjj = new ObjectGUI();
+        scene->addItem(newObj);
+    }
 }
 
 /*event handlers======================================================================================================================*/
@@ -70,32 +89,33 @@ void ClassDiagramView::on_btnClose_clicked()
 void ClassDiagramView::on_btnAddObject_clicked()
 {
     // raise a dialog => choose name and whether it will be an interface or not
-    AddClassDiagramObjectDialog * addClassDlg = new AddClassDiagramObjectDialog();
+    AddClassDiagramObjectDialog *addClassDlg = new AddClassDiagramObjectDialog();
     addClassDlg->exec();
 
-    if (!addClassDlg->isValid){
-        //if dialog was canceled or close or the input is invalid
+    if (!addClassDlg->isValid)
+    {
+        // if dialog was canceled or close or the input is invalid
         return;
     }
-
 
     // create umlinterface or umlclass
     UMLClass newCls(addClassDlg->getObjectName());
     // set whether the uml object is interface or not
     newCls.isInterface = addClassDlg->getIsInterface();
 
-    //when the class already exists
-    // and add this object to the list of objects in public place (diagraminterface)
-    if (!diagramInterface->createUMLClass(newCls)){
+    // when the class already exists
+    //  and add this object to the list of objects in public place (diagraminterface)
+    if (!diagramInterface->createUMLClass(newCls))
+    {
         return;
     }
 
-    //test===========================
-    UMLAttribute attr('+',"prvni", "atribute");
+    // test===========================
+    UMLAttribute attr('+', "prvni", "atribute");
     newCls.addAttribute(attr);
     UMLOperation uo("operace", "navratovy typ", '+');
     newCls.addOperation(uo);
-    //newCls.addOperation(uo);
+    // newCls.addOperation(uo);
 
     // create new object - according to which has been specified in dialog
     ObjectGUI *newObj = new ObjectGUI(newCls, this->diagramInterface);
@@ -114,4 +134,20 @@ void ClassDiagramView::on_btnCreateNewSequenceDiagram_clicked()
 
     // add class diagram canvas window -> in new tab
     this->tabPane->addTab(q, "Sequence diagram ");
+}
+
+void ClassDiagramView::on_btnSave_clicked()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, "Open a file", QDir::homePath(), "JSON (*.json)");
+    // nothing has been selected -> prompt and return
+    if (fileName.isEmpty())
+    {
+        std::cout << "nothing has been selected!" << std::endl;
+        return;
+    }
+
+    if (!diagramInterface->save(fileName))
+    {
+        // TODO: When saving error occured
+    }
 }

@@ -1,0 +1,22 @@
+{
+    "classDiagram": {
+        "name": "ClassDiagram",
+        "relationIndex": 0,
+        "umlClassList": [
+            {
+                "attributeListName": [
+                ],
+                "isInterfaceName": false,
+                "name": "Ahoj",
+                "operationListName": [
+                ],
+                "xcoordName": 0,
+                "ycoordName": 0
+            }
+        ],
+        "umlRelationList": [
+        ]
+    },
+    "sequenceDiagrams": [
+    ]
+}

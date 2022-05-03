@@ -71,6 +71,8 @@ private slots:
      */
     void on_btnCreateNewSequenceDiagram_clicked();
 
+    void on_btnSave_clicked();
+
 private:
     Ui::ClassDiagramView *ui;
 

@@ -13,6 +13,14 @@ DiagramInterface::DiagramInterface(QGraphicsScene *scene)
     this->scene = scene;
 }
 
+// DiagramInterface::DiagramInterface(QGraphicsScene *scene, DiagramInterface &inter)
+//     : sequenceDiagramIndex(inter.sequenceDiagramIndex),
+//       classDiagram(inter.classDiagram),
+//       sequenceDiagrams(inter.sequenceDiagrams)
+// {
+
+// }
+
 void DiagramInterface::updateUMLClass(QString oldName, UMLClass umlClass)
 {
     scene->update();
@@ -82,6 +90,19 @@ void DiagramInterface::removeUMLClass(UMLClass umlClass)
 void DiagramInterface::removeRelation(UMLRelation relation)
 {
     classDiagram.relationList.remove(relation.index);
+}
+
+void DiagramInterface::updateSequenceDiagram(SequenceDiagram &dia)
+{
+    sequenceDiagrams[dia.index] = dia;
+}
+
+SequenceDiagram DiagramInterface::createSequenceDiagram(SequenceDiagram &dia)
+{
+    dia.index = sequenceDiagramIndex;
+    sequenceDiagrams[dia.index] = dia;
+    sequenceDiagramIndex++;
+    return dia;
 }
 
 void DiagramInterface::write(QJsonObject &json) const
