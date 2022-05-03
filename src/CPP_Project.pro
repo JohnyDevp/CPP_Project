@@ -29,6 +29,7 @@ SOURCES += \
         controllers/mainwindow.cpp \
         controllers/classdiagramview.cpp \
         objectgui.cpp \
+        relationgui.cpp \
         views/addclassdiagramobjectdialog.cpp
 
 HEADERS += \
@@ -51,6 +52,7 @@ HEADERS += \
         interfaceobjectgui.h \
         jsonreader.h \
         objectgui.h \
+        relationgui.h \
         views/addclassdiagramobjectdialog.h
 
 FORMS += \
