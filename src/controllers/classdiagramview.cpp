@@ -12,6 +12,7 @@
 #include "diagraminterface.h"
 #include "../objectgui.h"
 #include "views/addclassdiagramobjectdialog.h"
+#include "errors.h"
 
 ClassDiagramView::ClassDiagramView(QWidget *parent) : QWidget(parent),
                                                       ui(new Ui::ClassDiagramView)
@@ -52,7 +53,7 @@ void ClassDiagramView::parseFile()
 {
     if (!diagramInterface->load(filePath))
     {
-        // TODO: Loading was not succesfull
+        Errors().raiseError("Error occured while loading. Please try again.");
 
         return;
     }
@@ -130,26 +131,17 @@ void ClassDiagramView::on_btnCreateNewSequenceDiagram_clicked()
     this->tabPane->addTab(q, "Sequence diagram ");
 }
 
-<<<<<<< HEAD
 void ClassDiagramView::on_btnSave_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(this, "Open a file", QDir::homePath(), "JSON (*.json)");
     // nothing has been selected -> prompt and return
     if (fileName.isEmpty())
     {
-        std::cout << "nothing has been selected!" << std::endl;
-        return;
+        Errors().raiseError("File was not selected.");
     }
 
     if (!diagramInterface->save(fileName))
     {
-        // TODO: When saving error occured
+        Errors().raiseError("Problem occured while saving. Please try again.");
     }
 }
-=======
-// TODO
-void ClassDiagramView::on_btnSave_clicked()
-{
-}
-
->>>>>>> origin/creatingDialogs

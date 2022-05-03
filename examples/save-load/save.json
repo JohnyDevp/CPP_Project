@@ -5,12 +5,24 @@
         "umlClassList": [
             {
                 "attributeListName": [
+                    {
+                        "modifierName": "+",
+                        "name": "call",
+                        "typeName": "int"
+                    }
                 ],
                 "isInterfaceName": false,
                 "name": "Ahoj",
                 "operationListName": [
+                    {
+                        "modifierName": "+",
+                        "name": "void",
+                        "parametersName": [
+                        ],
+                        "typeName": "int"
+                    }
                 ],
-                "xcoordName": 0,
+                "xcoordName": 3,
                 "ycoordName": 0
             }
         ],
