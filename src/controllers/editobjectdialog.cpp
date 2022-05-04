@@ -97,7 +97,7 @@ void EditObjectDialog::on_btnRenameObject_clicked()
     QRegExp rx("^\\S+$"); //without whitespace
     rx.setPatternSyntax(QRegExp::Wildcard);
 
-    QString newName = ui->txtObjectName->toPlainText();
+    QString newName = ui->txtObjectName->toPlainText().trimmed();
 
     //if (!rx.exactMatch(newName)) return; //there cant be whitespace
 

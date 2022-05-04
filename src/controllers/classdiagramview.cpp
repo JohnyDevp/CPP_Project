@@ -91,7 +91,9 @@ void ClassDiagramView::on_btnClose_clicked()
     // remove all tabs
 
     // TODO call close() of all sequence diagrams
-    this->tabPane->removeTab(0);
+    for (int i=tabPane->count()-1; i>=0; i--){
+        this->tabPane->removeTab(i);
+    }
 }
 
 void ClassDiagramView::on_btnAddObject_clicked()
@@ -134,7 +136,8 @@ void ClassDiagramView::on_btnCreateNewSequenceDiagram_clicked()
     SequenceDiagramView *q = new SequenceDiagramView();
 
     // add class diagram canvas window -> in new tab
-    this->tabPane->addTab(q, "Sequence diagram ");
+    int tabIndex = this->tabPane->addTab(q, "Sequence diagram ");
+    q->init(this->tabPane, tabIndex);
 }
 
 void ClassDiagramView::on_btnSave_clicked()

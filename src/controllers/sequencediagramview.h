@@ -21,13 +21,17 @@ public:
      * @brief init - initialize this sequence diagram
      * @param tabPane
      */
-    void init(QTabWidget *tabPane);
+    void init(QTabWidget *tabPane, int tabIndex);
 
 private slots:
     void on_btnClose_clicked();
 
 private:
     Ui::SequenceDiagramView *ui;
+
+    QTabWidget * tabPane;
+
+    int tabIndex;
 };
 
 #endif // SEQUENCEDIAGRAMVIEW_H

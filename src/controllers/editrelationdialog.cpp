@@ -26,6 +26,7 @@ UMLRelation *EditRelationDialog::getUpdatedUmlRelation()
 void EditRelationDialog::on_btnSetRelationName_clicked()
 {
     QString txtName = ui->txtRelationName->toPlainText().trimmed();
+
     if (!txtName.isEmpty()){
         this->umlRelation->name = txtName;
     }
