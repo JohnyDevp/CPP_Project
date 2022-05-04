@@ -171,9 +171,13 @@ void ClassDiagramView::on_btnCreateNewSequenceDiagram_clicked()
     // create new ClassDiagramView controller, init it and ad it as view to the tab
     SequenceDiagramView *q = new SequenceDiagramView();
 
+    //create interface for this class
+    //TODO add it to the class diagram interface
+    SequenceDiagramInterface seqDiagInterface(this->diagramInterface);
+
     // add class diagram canvas window -> in new tab
     int tabIndex = this->tabPane->addTab(q, "Sequence diagram ");
-    q->init(this->tabPane, tabIndex);
+    q->init(this->tabPane, tabIndex, &seqDiagInterface);
 }
 
 void ClassDiagramView::on_btnSave_clicked()
