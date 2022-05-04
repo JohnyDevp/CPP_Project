@@ -62,7 +62,9 @@ void ClassDiagramView::parseFile()
         Errors().raiseError("Cannot be loaded, cause invalid file structure.");
         return;
     }
-    // Creating GUI Objects
+
+    // TODO: Check for duplicates
+    //  Creating GUI Objects
 
     foreach (const UMLClass &cl, diagramInterface->classDiagram.classList)
     {
