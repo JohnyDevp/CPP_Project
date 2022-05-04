@@ -1,6 +1,13 @@
 #include "UMLAttribute.hpp"
 
 UMLAttribute::UMLAttribute(QString name) : Element(name) {}
+bool UMLAttribute::validate(UMLAttribute &attr)
+{
+    if (attr.name.isEmpty())
+        return false;
+    if (attr.type.isEmpty())
+        return false;
+}
 UMLAttribute::UMLAttribute() {}
 UMLAttribute::UMLAttribute(QString name, QString type) : Element(name), type(type) {}
 

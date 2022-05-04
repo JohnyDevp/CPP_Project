@@ -151,6 +151,37 @@ void DiagramInterface::read(const QJsonObject &json)
     }
 }
 
+bool DiagramInterface::load(QString filepath)
+{
+    QFile loadFile(filepath);
+    if (!loadFile.open(QIODevice::ReadOnly))
+    {
+        return false;
+    }
+
+    QByteArray loadedData = loadFile.readAll();
+
+    QJsonDocument loadDoc(QJsonDocument::fromJson(loadedData));
+
+    read(loadDoc.object());
+    return true;
+}
+
+bool DiagramInterface::save(QString filepath)
+{
+    QFile saveFile(filepath);
+    if (!saveFile.open(QIODevice::WriteOnly))
+    {
+        return false;
+    }
+
+    QJsonObject dataObj;
+    write(dataObj);
+    saveFile.write(QJsonDocument(dataObj).toJson());
+
+    return true;
+}
+
 void DiagramInterface::addObjectToObjectGuiList(ObjectGUI *objectGui)
 {
     this->guiObjectList.append(objectGui);

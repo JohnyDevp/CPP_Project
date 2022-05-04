@@ -14,12 +14,18 @@
 #include <QJsonDocument>
 #include <QFile>
 #include <QTextStream>
+#include <QString>
 
 int main(int argc, char *argv[])
 {
 
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-    return a.exec();
+    QString a;
+    if (a.isEmpty())
+    {
+        std::cout << "Is Empty" << std::endl;
+    }
+    if (a.isNull())
+    {
+        std::cout << "Is Null" << std::endl;
+    }
 }

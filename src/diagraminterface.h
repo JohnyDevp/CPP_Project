@@ -93,41 +93,10 @@ public:
      */
     void read(const QJsonObject &json);
 
-    bool load(QString filepath)
-    {
-        QFile loadFile(filepath);
-        if (!loadFile.open(QIODevice::ReadOnly))
-        {
-            return false;
-        }
+    bool load(QString filepath);
 
-        QByteArray loadedData = loadFile.readAll();
+    bool save(QString filepath);
 
-        QJsonDocument loadDoc(QJsonDocument::fromJson(loadedData));
-
-        read(loadDoc.object());
-        return true;
-    }
-
-    bool save(QString filepath)
-    {
-        QFile saveFile(filepath);
-        if (!saveFile.open(QIODevice::WriteOnly))
-        {
-            return false;
-        }
-
-        QJsonObject dataObj;
-        write(dataObj);
-        saveFile.write(QJsonDocument(dataObj).toJson());
-
-        return true;
-    }
-
-private:
-    /**
-     * @brief guiObjectList
-     */
     QList<ObjectGUI *> guiObjectList;
 
     QGraphicsScene *scene;
