@@ -5,6 +5,8 @@
 #include "cls/UMLRelation.hpp"
 #include "cls/UMLSeqClass.hpp"
 #include "objectgui.h"
+#include "relationgui.h"
+
 #include "cls/JsonPrintable.hpp"
 #include <iostream>
 #include <vector>
@@ -15,6 +17,7 @@
 #include <QJsonDocument>
 
 class ObjectGUI;
+class RelationGui;
 
 #define classDiagramName "classDiagram"
 #define sequenceDiagramsName "sequenceDiagrams"
@@ -34,7 +37,9 @@ public:
      * @brief used to createRelation
      *
      */
-    UMLRelation tempRelation;
+    UMLRelation tempUmlRelation;
+    RelationGui * tempRelationGui;
+    bool isRelationCreating = false;
 
     ClassDiagram classDiagram;
 
@@ -100,6 +105,7 @@ public:
     bool save(QString filepath);
 
     QList<ObjectGUI *> guiObjectList;
+    QList<RelationGui*> relationList;
 
     QGraphicsScene *scene;
 };

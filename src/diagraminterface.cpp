@@ -64,7 +64,25 @@ bool DiagramInterface::createUMLClass(UMLClass &umlClass)
 
 UMLRelation DiagramInterface::createRelation()
 {
-    return classDiagram.addRelation(tempRelation);
+    //create gui for the relation
+    RelationGui * newRelGui = new RelationGui(tempUmlRelation, this);
+
+    //bound related objects to this relation
+    foreach(ObjectGUI * obj, this->guiObjectList){
+        if (obj->objectName == tempUmlRelation.relationFrom){
+            obj->addRelatedRelation(newRelGui);
+            newRelGui->objectStart = obj;
+        } else if (obj->objectName == tempUmlRelation.relationTo){
+            obj->addRelatedRelation(newRelGui);
+            newRelGui->objectEnd = obj;
+        }
+    }
+
+    //add the relation gui to the scene and to the list of relations
+    this->relationList.append(newRelGui);
+    this->scene->addItem(newRelGui);
+
+    return classDiagram.addRelation(tempUmlRelation);
 }
 
 Message DiagramInterface::createMessage(SequenceDiagram dia, Message &message)

@@ -9,7 +9,9 @@
 #include <QDebug>
 #include "cls/UMLClass.hpp"
 #include "diagraminterface.h"
+#include "relationgui.h"
 
+class RelationGui;
 class DiagramInterface;
 
 class ObjectGUI : public QGraphicsItem
@@ -25,6 +27,8 @@ public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
+    void addRelatedRelation(RelationGui * relation);
+
     /**
      * @brief isSelected - whether the class is selected or not
      */
@@ -34,6 +38,11 @@ public:
      * @brief initGui
      */
     void initGui();
+
+    /**
+     * @brief objectName
+     */
+    QString objectName;
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -50,10 +59,6 @@ private:
     int boundingWidth;
     int boundingHeight;
 
-    /**
-     * @brief objectName
-     */
-    QString objectName;
 
     /**
      * @brief isInterface - defined, whether this object represents an interface or not
@@ -88,6 +93,12 @@ private:
      * pointer to middle part of program between inner and gui representation
      */
     DiagramInterface * diagramInterface;
+
+    /**
+     * @brief relatedRelation
+     * list of relations which there started or ended
+     */
+    QList<RelationGui*> relatedRelations;
 };
 
 #endif // OBJECTGUI_H

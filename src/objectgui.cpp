@@ -206,6 +206,11 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         update();
 }
 
+void ObjectGUI::addRelatedRelation(RelationGui * relation)
+{
+    this->relatedRelations.append(relation);
+}
+
 void ObjectGUI::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     this->prevMouseX = event->pos().x();
@@ -226,24 +231,50 @@ void ObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 
     if (!(isInX && isInY))
     {
-        // create dialog asking for desired type for new relation
+        if (diagramInterface->isRelationCreating){
+            this->diagramInterface->isRelationCreating = false;
+            this->diagramInterface->tempUmlRelation.relationTo = this->objectName;
+            this->diagramInterface->tempUmlRelation.endX = event->scenePos().x();
+            this->diagramInterface->tempUmlRelation.endY = event->scenePos().y();
+            //add the relation to the diagram
+            this->diagramInterface->createRelation();
 
-        // add relation types to the list -> future combobox items
-        QStringList items;
-        items << QDialog::tr("ASSOCIATION") << QDialog::tr("GENERALIZATION") << QDialog::tr("COMPOSITION") << QDialog::tr("AGGREGATION");
+        } else {
+            // create dialog asking for desired type for new relation
 
-        // create new dialog
-        bool ok; // variable storing whether ok has been pressed
-        QString item = QInputDialog::getItem(event->widget(),
-                                             QDialog::tr("Choose relation type"),
-                                             QDialog::tr("Relation type"),
-                                             items, 0, false, &ok);
+            // add relation types to the list -> future combobox items
+            QStringList items;
+            items << QDialog::tr("ASSOCIATION") << QDialog::tr("GENERALIZATION") << QDialog::tr("COMPOSITION") << QDialog::tr("AGGREGATION");
 
-        // if ok pressed and item has been selected then start creating relation
-        if (ok && !item.isEmpty())
-            std::cout << qPrintable(item) << std::endl;
-        else
-            std::cout << "Relation type hasn't been selected - canceled" << std::endl;
+            // create new dialog
+            bool ok; // variable storing whether ok has been pressed
+            QString item = QInputDialog::getItem(event->widget(),
+                                                 QDialog::tr("Choose relation type"),
+                                                 QDialog::tr("Relation type"),
+                                                 items, 0, false, &ok);
+
+            // if ok pressed and item has been selected then start creating relation
+            if (ok && !item.isEmpty()){
+                UMLRelation::RelationType relType = UMLRelation::ASSOCIATION; //default
+                if (item == "ASSOCIATION") relType = UMLRelation::ASSOCIATION;
+                else if (item == "GENERALIZATION") relType = UMLRelation::GENERALIZATION;
+                else if (item == "COMPOSITION") relType = UMLRelation::COMPOSITION;
+                else if (item == "AGGREGATION") relType = UMLRelation::AGGREGATION;
+
+                //create new uml relation, assign it to diagram interface and set creatingrelation variable to true
+                UMLRelation umlRelation("",this->objectName,"",relType);
+                umlRelation.startX = event->scenePos().x();
+                umlRelation.startY = event->scenePos().y();
+
+                this->diagramInterface->isRelationCreating = true;
+                this->diagramInterface->tempUmlRelation = umlRelation;
+
+                //std::cout << qPrintable(item) << std::endl;
+            }
+            else{
+                std::cout << "Relation type hasn't been selected - canceled" << std::endl;
+            }
+        }
     }
     else
     {
@@ -289,14 +320,23 @@ void ObjectGUI::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
     this->umlObject.Xcoord = event->scenePos().x();
     this->umlObject.Ycoord = event->scenePos().y();
 
-    std::cout << this->umlObject.Xcoord << " " << this->umlObject.Ycoord << std::endl;
+    //go through all related relations and notify them about moving
+    QListIterator<RelationGui*> itr(this->relatedRelations);
+    while(itr.hasNext()){
+        itr.next()->updatePosition(this->umlObject, QPointF(
+                                        event->pos().x() -  this->prevMouseX,
+                                        event->pos().y() -  this->prevMouseY)
+                                   );
+    }
+
     QGraphicsItem::mouseMoveEvent(event);
 }
 
 void ObjectGUI::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
     this->diagramInterface->updateUMLClass(this->objectName, this->umlObject);
-    QGraphicsItem:QGraphicsItem::mouseReleaseEvent(event);
+    QGraphicsItem::mouseReleaseEvent(event);
 }
+
 ObjectGUI::~ObjectGUI()
 {
 }

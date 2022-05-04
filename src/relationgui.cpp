@@ -5,7 +5,7 @@
 #include "qpainter.h"
 #include <iostream>
 
-RelationGui::RelationGui(UMLRelation umlRelation)
+RelationGui::RelationGui(UMLRelation umlRelation, DiagramInterface * diagramInterface)
 {
     setFlag(QGraphicsLineItem::ItemIsSelectable, true);
 
@@ -21,10 +21,13 @@ RelationGui::RelationGui(UMLRelation umlRelation)
     //set uml relation
     this->umlRelation = umlRelation;
 
+    this->diagramInterface = diagramInterface;
+
 }
 
 void RelationGui::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+     std::cout << "painting" << std::endl;
     //set the design of the relation
     QBrush brush(Qt::black);
     QPen pen(brush, 5);
@@ -35,7 +38,6 @@ void RelationGui::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
     //draw the line set above
     painter->drawLine(line());
 
-    //draw text name
     //computed values for choose the right place on the relation line for the text label
     //used parametric representation of line
     double lineLength =  qSqrt(qPow((this->qpointStart.y() - this->qpointEnd.y()), 2) + qPow((this->qpointStart.x() - this->qpointEnd.x()),2));
@@ -74,13 +76,58 @@ void RelationGui::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 
     //draw the arrow
     QPolygonF relLineEnd;
+    QLineF line1;
+    QLineF line2;
+
 
     switch(this->umlRelation.relationType){
         case UMLRelation::RelationType::AGGREGATION:
+            arrowAngle = this->qpointStart.x() > this->qpointEnd.x() ? qDegreesToRadians(45.0) : -qDegreesToRadians(225.0);
+            arrowLength = 15;
+            arrowWide = 8;
+            resultX = Ax - u1*(30/lineLength);
+            resultY = Ay - u2*(30/lineLength);
+            //the aim
+            relLineEnd << QPointF(this->qpointEnd.x(), this->qpointEnd.y());
+            //left corner
+            relLineEnd << QPointF(arrowLength * qCos(lineAngle-arrowAngle) + this->qpointEnd.x(),
+                                  arrowWide * qSin(lineAngle-arrowAngle) + this->qpointEnd.y());
+            //the last point
+            relLineEnd << QPointF(resultX, resultY);
+            //right corner
+            relLineEnd << QPointF(arrowLength * qCos(lineAngle+arrowAngle) + this->qpointEnd.x(),
+                                  arrowWide * qSin(lineAngle+arrowAngle) + this->qpointEnd.y());
+
+            painter->drawPolygon(relLineEnd);
 
             break;
+
         case UMLRelation::RelationType::ASSOCIATION:
+            arrowAngle = this->qpointStart.x() > this->qpointEnd.x() ? qDegreesToRadians(45.0) : -qDegreesToRadians(225.0);
+            arrowLength = 21;
+            arrowWide = 10;
+            line1.setP1(QPointF((
+                        arrowLength)*qCos(lineAngle-arrowAngle) +this->qpointEnd.x(),
+                        arrowWide*qSin(lineAngle-arrowAngle)+this->qpointEnd.y()
+                                ));
+            line1.setP2(QPointF(
+                            this->qpointEnd.x(),
+                            this->qpointEnd.y()
+                            ));
+            line2.setP1(QPointF((
+                        arrowLength)*qCos(lineAngle+arrowAngle) +this->qpointEnd.x(),
+                        arrowWide*qSin(lineAngle+arrowAngle)+this->qpointEnd.y()
+                                ));
+            line2.setP2(QPointF(
+                            this->qpointEnd.x(),
+                            this->qpointEnd.y()
+                            ));
+
+            painter->drawLine(line1);
+            painter->drawLine(line2);
+
             break;
+
         case UMLRelation::RelationType::GENERALIZATION:
             arrowAngle = this->qpointStart.x() > this->qpointEnd.x() ? qDegreesToRadians(45.0) : -qDegreesToRadians(225.0);
             arrowLength = 20;
@@ -95,19 +142,77 @@ void RelationGui::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 
             painter->drawPolygon(relLineEnd);
             break;
+
         case UMLRelation::RelationType::COMPOSITION:
+            arrowAngle = this->qpointStart.x() > this->qpointEnd.x() ? qDegreesToRadians(45.0) : -qDegreesToRadians(225.0);
+            arrowLength = 15;
+            arrowWide = 8;
+            resultX = Ax - u1*(30/lineLength);
+            resultY = Ay - u2*(30/lineLength);
+            //the aim
+            relLineEnd << QPointF(this->qpointEnd.x(), this->qpointEnd.y());
+            //left corner
+            relLineEnd << QPointF(arrowLength * qCos(lineAngle-arrowAngle) + this->qpointEnd.x(),
+                                  arrowWide * qSin(lineAngle-arrowAngle) + this->qpointEnd.y());
+            //the last point
+            relLineEnd << QPointF(resultX, resultY);
+            //right corner
+            relLineEnd << QPointF(arrowLength * qCos(lineAngle+arrowAngle) + this->qpointEnd.x(),
+                                  arrowWide   * qSin(lineAngle+arrowAngle) + this->qpointEnd.y());
+
+            painter->drawPolygon(relLineEnd);
             break;
     }
 
 }
 
 void RelationGui::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
+
     //raise a dialog
     EditRelationDialog * editRelationDlg = new EditRelationDialog();
     editRelationDlg->init(&this->umlRelation);
     editRelationDlg->exec();
 
+    if (editRelationDlg->getUpdatedUmlRelation() == NULL){
+        //if the relation was deleted
+        //remove it from scene and from the class diagram
+    } else {
+        this->umlRelation = *editRelationDlg->getUpdatedUmlRelation();
+        this->diagramInterface->updateRelation(this->umlRelation);
+
+        update();
+    }
 
     QGraphicsItem::mouseDoubleClickEvent(event);
+}
+
+void RelationGui::updatePosition(UMLClass umlObject, QPointF diffPoint){
+    //find which end of the relation should be updated nad update
+    if (umlObject.name == this->umlRelation.relationFrom){
+        this->qpointStart.setX( this->qpointStart.x() + diffPoint.x());
+        this->qpointStart.setY( this->qpointStart.y() + diffPoint.y());
+    } else {
+        this->qpointEnd.setX( this->qpointEnd.x() + diffPoint.x());
+        this->qpointEnd.setY( this->qpointEnd.y() + diffPoint.y());
+    }
+    std::cout << "updating position of relation" << std::endl;
+
+    setLine(this->qpointStart.x(), this->qpointStart.y(), this->qpointEnd.x(), this->qpointEnd.y());
+
+    update();
+}
+
+void RelationGui::setRelationStart(ObjectGUI * objectStart, QPointF startPoint)
+{
+    this->objectStart = objectStart;
+    this->qpointStart.setX(startPoint.x());
+    this->qpointStart.setY(startPoint.y());
+}
+
+void RelationGui::setRelationEnd(ObjectGUI * objectEnd, QPointF endPoint)
+{
+    this->objectEnd = objectEnd;
+    this->qpointEnd.setX(endPoint.x());
+    this->qpointStart.setY(endPoint.y());
 }
 
