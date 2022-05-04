@@ -105,19 +105,20 @@ void RelationGui::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
             break;
 
         case UMLRelation::RelationType::ASSOCIATION:
-            arrowAngle = this->qpointStart.x() > this->qpointEnd.x() ? qDegreesToRadians(45.0) : -qDegreesToRadians(225.0);
+            arrowAngle = this->qpointStart.x() > this->qpointEnd.x() ? qDegreesToRadians(45.0) : (-1)*qDegreesToRadians(225.0);
             arrowLength = 21;
             arrowWide = 10;
-            line1.setP1(QPointF((
-                        arrowLength)*qCos(lineAngle-arrowAngle) +this->qpointEnd.x(),
+
+            line1.setP1(QPointF(
+                        arrowLength*qCos(lineAngle-arrowAngle) +this->qpointEnd.x(),
                         arrowWide*qSin(lineAngle-arrowAngle)+this->qpointEnd.y()
                                 ));
             line1.setP2(QPointF(
                             this->qpointEnd.x(),
                             this->qpointEnd.y()
                             ));
-            line2.setP1(QPointF((
-                        arrowLength)*qCos(lineAngle+arrowAngle) +this->qpointEnd.x(),
+            line2.setP1(QPointF(
+                        arrowLength*qCos(lineAngle+arrowAngle) +this->qpointEnd.x(),
                         arrowWide*qSin(lineAngle+arrowAngle)+this->qpointEnd.y()
                                 ));
             line2.setP2(QPointF(

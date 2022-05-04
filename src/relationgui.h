@@ -35,11 +35,11 @@ private:
     /**
      * @brief qpointStart
      */
-    QPoint qpointStart;
+    QPointF qpointStart;
     /**
      * @brief qpointEnd
      */
-    QPoint qpointEnd;
+    QPointF qpointEnd;
 
 
     /**
