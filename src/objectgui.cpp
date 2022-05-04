@@ -204,6 +204,13 @@ void ObjectGUI::addRelatedRelation(RelationGui * relation)
     this->relatedRelations.append(relation);
 }
 
+void ObjectGUI::removeRelatedRelation(RelationGui *relation)
+{
+    this->relatedRelations.removeOne(relation);
+    //update - because of possible overriden operations
+    checkForOverrideOperationsNotification();
+}
+
 void ObjectGUI::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     this->prevMouseLocalX = event->pos().x();
@@ -228,8 +235,11 @@ void ObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
         if (diagramInterface->isRelationCreating){
             //raise dialog asking whether continue creating relation
             QMessageBox msgBox;
+            QPushButton *continueButton;
             msgBox.setText("Continue creating relation?");
-            QPushButton *continueButton = msgBox.addButton(QDialog::tr("Continue"), QMessageBox::ActionRole);
+            if (this->diagramInterface->tempUmlRelation.relationFrom != this->objectName){
+                continueButton = msgBox.addButton(QDialog::tr("Create relation here"), QMessageBox::ActionRole);
+            }
             QPushButton *abortButton = msgBox.addButton(QDialog::tr("Abort creating relation"),QMessageBox::ActionRole);
             QPushButton *cancelButton = msgBox.addButton(QMessageBox::Cancel);
             msgBox.exec();
@@ -298,8 +308,12 @@ void ObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
         dlg->exec();
 
         //update this object
+        //if the object is null -> has been just removed
         if (dlg->getUpdatedUmlObject() == NULL){
-
+            //notify relations about deletion
+            foreach(RelationGui * relation, this->relatedRelations){
+                relation->removeRelationNotification();
+            }
             //delete the class in diagraminterface and remove also object from
             diagramInterface->removeUMLClass(this->umlObject);
 
@@ -313,6 +327,17 @@ void ObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
             this->diagramInterface->updateUMLClass(this->objectName, this->umlObject);
             //newly init everything
             this->initGui();
+            //check for all overriden opeartions
+            this->checkForOverrideOperationsNotification();
+            //notify all other objects (related by the generalization) about possible overridness
+            //*objects which starts the relation
+            foreach(RelationGui * relation, this->relatedRelations){
+                if(relation->relType == UMLRelation::GENERALIZATION &&
+                    relation->objectEnd->objectName == this->objectName){
+                    relation->objectStart->checkForOverrideOperationsNotification();
+                }
+
+            }
 
             update();
         }
@@ -358,6 +383,35 @@ void ObjectGUI::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
 void ObjectGUI::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
     this->diagramInterface->updateUMLClass(this->objectName, this->umlObject);
     QGraphicsItem::mouseReleaseEvent(event);
+}
+
+void ObjectGUI::checkForOverrideOperationsNotification(){
+    //check for all generalized opearations
+    //firstly clear list with overridden opeartions
+    this->overrideOperations.clear();
+    //loop through the relation gui (related)
+    foreach(RelationGui * relation, this->relatedRelations){
+        if(relation->relType == UMLRelation::GENERALIZATION && relation->objectStart->objectName == this->objectName){
+            //when generalization takes part and this object takes part as starter of the relation
+            //iterate through all operations of the object, where the relation ends
+            QMapIterator<UMLOperation, QString> itr(relation->objectEnd->operationMapGUI);
+            while(itr.hasNext()){
+                itr.next();
+                //iterate through all operations of this object and look for the same operations
+                QMapIterator<UMLOperation, QString> itrThis(this->operationMapGUI);
+                while(itrThis.hasNext()){
+                    itrThis.next();
+                    //if found the same operation - OVERRIDE - add it to the list of overriden operations
+                    if (itrThis.value() == itr.value()) {
+                        this->overrideOperations.append(itrThis.key());
+                    }
+                }
+            }
+        }
+    }
+
+    //finally update
+    update();
 }
 
 ObjectGUI::~ObjectGUI()

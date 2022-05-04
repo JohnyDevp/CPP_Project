@@ -23,6 +23,10 @@ RelationGui::RelationGui(UMLRelation umlRelation, DiagramInterface * diagramInte
     //set uml relation
     this->umlRelation = umlRelation;
 
+    //set relation type
+    this->relType = this->umlRelation.relationType;
+
+    //set pointer to diagram interface
     this->diagramInterface = diagramInterface;
 
 }
@@ -169,6 +173,17 @@ void RelationGui::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 
 }
 
+void RelationGui::removeRelationNotification()
+{
+    //remove relation from scene and from the class diagram
+    this->diagramInterface->removeRelation(this->umlRelation);
+    this->diagramInterface->removeRelationFromGuiList(this);
+
+    //send message about deletion to both related objects
+    this->objectStart->removeRelatedRelation(this);
+    this->objectEnd->removeRelatedRelation(this);
+}
+
 void RelationGui::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
 
     //raise a dialog
@@ -179,6 +194,12 @@ void RelationGui::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
     if (editRelationDlg->getUpdatedUmlRelation() == NULL){
         //if the relation was deleted
         //remove it from scene and from the class diagram
+        this->diagramInterface->removeRelation(this->umlRelation);
+        this->diagramInterface->removeRelationFromGuiList(this);
+
+        //send message about deletion to both related objects
+        this->objectStart->removeRelatedRelation(this);
+        this->objectEnd->removeRelatedRelation(this);
     } else {
         this->umlRelation = *editRelationDlg->getUpdatedUmlRelation();
         this->diagramInterface->updateRelation(this->umlRelation);

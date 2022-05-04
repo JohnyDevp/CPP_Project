@@ -31,6 +31,7 @@ public:
 
     void addObjectToObjectGuiList(ObjectGUI *objectGui);
     void removeObjectFromGuiList(ObjectGUI *objectGui);
+    void removeRelationFromGuiList(RelationGui *relationGui);
 
     int sequenceDiagramIndex;
     /**
