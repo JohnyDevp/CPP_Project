@@ -91,10 +91,6 @@ void ClassDiagramView::on_btnClose_clicked()
 
 void ClassDiagramView::on_btnAddObject_clicked()
 {
-    scene->removeItem(this->relation);
-    scene->addItem(this->relation);
-    relation->qpointStart.setX(relation->qpointStart.x() + 50);
-
     // raise a dialog => choose name and whether it will be an interface or not
     AddClassDiagramObjectDialog *addClassDlg = new AddClassDiagramObjectDialog();
     addClassDlg->exec();
