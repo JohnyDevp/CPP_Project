@@ -69,6 +69,7 @@
         "cinttypes": "cpp",
         "variant": "cpp",
         "qbytearray": "cpp",
-        "qjsondocument": "cpp"
+        "qjsondocument": "cpp",
+        "valarray": "cpp"
     }
 }

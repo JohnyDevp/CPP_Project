@@ -2,6 +2,19 @@
 
 #include <QJsonArray>
 
+bool UMLOperation::isCorrect(const UMLOperation &op)
+{
+    if (!UMLAttribute::isCorrect(op))
+        return false;
+
+    foreach (const UMLAttribute &atr, op.parameterssOfOperationList)
+    {
+        if (!UMLAttribute::isCorrect(atr))
+            return false;
+    }
+    return true;
+}
+
 bool UMLOperation::addOperationParameter(UMLAttribute param)
 {
     // if attribute has been find with desired name then fail

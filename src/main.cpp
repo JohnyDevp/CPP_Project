@@ -14,12 +14,24 @@
 #include <QJsonDocument>
 #include <QFile>
 #include <QTextStream>
+#include <QString>
 
 int main(int argc, char *argv[])
 {
 
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-    return a.exec();
+    UMLAttribute a;
+    a.name = "ahoj tome";
+    a.type = "int a b";
+    if (a.isCorrect(a))
+    {
+        std::cout << "Element is correct" << std::endl;
+    }
+
+    a.name = "tom";
+    a.type = "int";
+
+    if (a.isCorrect(a))
+    {
+        std::cout << "Element is correct" << std::endl;
+    }
 }

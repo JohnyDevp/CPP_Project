@@ -48,6 +48,8 @@ public:
     double startX, startY;
     double endX, endY;
 
+    static bool isCorrect(const UMLRelation &rel);
+
     /**
      * @brief Default construct a new UMLRelation object
      *UMLClQass

@@ -18,7 +18,7 @@
 class UMLAttribute : public Element
 {
 public:
-  static bool validate(UMLAttribute &attr);
+  static bool isCorrect(const UMLAttribute &attr);
 
   QString type;
   QChar modifier;

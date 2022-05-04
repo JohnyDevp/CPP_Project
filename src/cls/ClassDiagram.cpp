@@ -80,6 +80,25 @@ bool ClassDiagram::existsClass(UMLClass &umlClass)
     return classList.contains(umlClass.name);
 }
 
+bool ClassDiagram::isCorrect(const ClassDiagram &dia)
+{
+    if (!Element::isCorrect(dia))
+        return false;
+
+    foreach (const UMLRelation &rel, dia.relationList)
+    {
+        if (!UMLRelation::isCorrect(rel))
+            return false;
+    }
+    foreach (const UMLClass &cl, dia.classList)
+    {
+        if (!UMLClass::isCorrect(cl))
+            return false;
+    }
+
+    return true;
+}
+
 bool ClassDiagram::existsClass(QString &className)
 {
     return classList.contains(className);

@@ -19,6 +19,8 @@
 class UMLSeqClass : public Element
 {
 public:
+    static bool isCorrect(const UMLSeqClass &cl);
+
     int Xcoord;
     /**
      * @brief UMlClass instance

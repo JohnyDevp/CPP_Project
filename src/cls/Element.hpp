@@ -21,6 +21,8 @@
 class Element : public JsonPrintable
 {
 public:
+    static bool isCorrect(const Element &el);
+
     QString name;
     /**
      * @brief Default construct a new Element object

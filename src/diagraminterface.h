@@ -99,6 +99,8 @@ public:
 
     bool save(QString filepath);
 
+    static bool isCorrect(const DiagramInterface &inter);
+
     QList<ObjectGUI *> guiObjectList;
 
     QGraphicsScene *scene;

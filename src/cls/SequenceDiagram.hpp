@@ -18,13 +18,14 @@
 
 #define classesName "classes"
 #define messagesName "messages"
-#define lastTimeName "lastTimeStamp"
 #define messageIndexName "messageIndex"
 #define indexName "index"
 
 class SequenceDiagram : public Element
 {
 public:
+    static bool isCorrect(const SequenceDiagram &seqDia);
+
     int index;
 
     int messageIndex;
@@ -32,8 +33,6 @@ public:
     QMap<QString, UMLSeqClass> classes;
 
     QMap<int, Message> messages;
-
-    int lastTimeStamp;
 
     /**method for adding new participated class in sequence diagram
      * @param umlSeqClass class representing the object which takes part in the sequence diagram*/

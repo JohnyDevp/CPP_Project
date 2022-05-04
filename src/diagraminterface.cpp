@@ -182,6 +182,20 @@ bool DiagramInterface::save(QString filepath)
     return true;
 }
 
+bool DiagramInterface::isCorrect(const DiagramInterface &inter)
+{
+    foreach (const SequenceDiagram &dia, inter.sequenceDiagrams)
+    {
+        if (!SequenceDiagram::isCorrect(dia))
+            return false;
+    }
+
+    if (!ClassDiagram::isCorrect(inter.classDiagram))
+        return false;
+
+    return true;
+}
+
 void DiagramInterface::addObjectToObjectGuiList(ObjectGUI *objectGui)
 {
     this->guiObjectList.append(objectGui);
