@@ -59,7 +59,7 @@ void ClassDiagram::read(const QJsonObject &json)
     // Read UMLRelation objects
     if (json.contains(relationListName) && json[relationListName].isArray())
     {
-        QJsonArray array = json[interfaceListName].toArray();
+        QJsonArray array = json[relationListName].toArray();
         relationList.clear();
 
         relationIndex = array.size();

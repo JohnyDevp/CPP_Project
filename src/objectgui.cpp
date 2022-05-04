@@ -363,9 +363,10 @@ void ObjectGUI::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
     this->prevMouseLocalX = event->pos().x();
     this->prevMouseLocalY = event->pos().y();
 
-    this->umlObject.Xcoord = event->scenePos().x();
-    this->umlObject.Ycoord = event->scenePos().y();
+    this->umlObject.Xcoord += diffX;
+    this->umlObject.Ycoord += diffY;
 
+    std::cout << "Object gui X Y: " << this->umlObject.Xcoord << " " << this->umlObject.Ycoord << std::endl;
 
     //go through all related relations and notify them about moving
     QListIterator<RelationGui*> itr(this->relatedRelations);

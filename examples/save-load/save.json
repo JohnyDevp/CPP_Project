@@ -1,39 +1,66 @@
 {
-  "classDiagram": {
-    "name": "ClassDiagram",
-    "relationIndex": 0,
-    "umlClassList": [
-      {
-        "attributeListName": [
-          {
-            "modifierName": "+",
-            "name": "neco",
-            "typeName": "neco"
-          }
+    "classDiagram": {
+        "name": "ClassDiagram",
+        "relationIndex": 2,
+        "umlClassList": [
+            {
+                "attributeListName": [
+                ],
+                "isInterfaceName": false,
+                "name": "asd",
+                "operationListName": [
+                ],
+                "xcoordName": 316,
+                "ycoordName": 79
+            },
+            {
+                "attributeListName": [
+                ],
+                "isInterfaceName": false,
+                "name": "effwef",
+                "operationListName": [
+                ],
+                "xcoordName": 61,
+                "ycoordName": 120
+            },
+            {
+                "attributeListName": [
+                ],
+                "isInterfaceName": false,
+                "name": "fefwef",
+                "operationListName": [
+                ],
+                "xcoordName": 570,
+                "ycoordName": 204
+            }
         ],
-        "isInterfaceName": false,
-        "name": "tomik",
-        "operationListName": [
-          {
-            "modifierName": "+",
-            "name": "jinafsmfad",
-            "parametersName": [],
-            "typeName": "int"
-          }
-        ],
-        "xcoordName": 264,
-        "ycoordName": 194
-      },
-      {
-        "attributeListName": [],
-        "isInterfaceName": false,
-        "name": "sdfsdf",
-        "operationListName": [],
-        "xcoordName": 508,
-        "ycoordName": 143
-      }
-    ],
-    "umlRelationList": []
-  },
-  "sequenceDiagrams": []
+        "umlRelationList": [
+            {
+                "cardiFromName": "",
+                "cardiToName": "",
+                "endXName": 323,
+                "endYName": 119,
+                "name": "",
+                "relFromName": "effwef",
+                "relToName": "asd",
+                "relTypeName": 0,
+                "startXName": 158,
+                "startYName": 152
+            },
+            {
+                "cardiFromName": "",
+                "cardiToName": "",
+                "endXName": 417,
+                "endYName": 161,
+                "name": "",
+                "relFromName": "fefwef",
+                "relToName": "asd",
+                "relTypeName": 3,
+                "startXName": 577,
+                "startYName": 237
+            }
+        ]
+    },
+    "sequenceDiagrams": [
+    ]
 }

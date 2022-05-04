@@ -36,6 +36,11 @@ public:
 
     UMLRelation::RelationType relType;
 
+    /**
+     * @brief umlRelation
+     */
+    UMLRelation umlRelation;
+
 protected:
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
 
@@ -50,10 +55,6 @@ private:
     QPointF qpointEnd;
 
 
-    /**
-     * @brief umlRelation
-     */
-    UMLRelation umlRelation;
 
     /**
      * @brief diagramInterface

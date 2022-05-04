@@ -85,7 +85,11 @@ UMLRelation DiagramInterface::createRelation()
     this->relationList.append(newRelGui);
     this->scene->addItem(newRelGui);
 
-    return classDiagram.addRelation(tempUmlRelation);
+    //reset newRelGui umlRelation
+    newRelGui->umlRelation = classDiagram.addRelation(tempUmlRelation);
+
+    //TODO -> not necessary to return anything
+    return newRelGui->umlRelation;
 }
 
 Message DiagramInterface::createMessage(SequenceDiagram dia, Message &message)
