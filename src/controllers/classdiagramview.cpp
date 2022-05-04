@@ -62,7 +62,9 @@ void ClassDiagramView::parseFile()
         Errors().raiseError("Cannot be loaded, cause invalid file structure.");
         return;
     }
-    // Creating GUI Objects
+
+    // TODO: Check for duplicates
+    //  Creating GUI Objects
 
     foreach (const UMLClass &cl, diagramInterface->classDiagram.classList)
     {
@@ -91,7 +93,8 @@ void ClassDiagramView::on_btnClose_clicked()
     // remove all tabs
 
     // TODO call close() of all sequence diagrams
-    for (int i=tabPane->count()-1; i>=0; i--){
+    for (int i = tabPane->count() - 1; i >= 0; i--)
+    {
         this->tabPane->removeTab(i);
     }
 }
@@ -109,7 +112,13 @@ void ClassDiagramView::on_btnAddObject_clicked()
     }
 
     // create umlinterface or umlclass
-    UMLClass newCls(addClassDlg->getObjectName());
+    UMLClass newCls(addClassDlg->getObjectName().trimmed());
+
+    if (!UMLClass::isCorrect(newCls))
+    {
+        Errors().raiseError("Invalid class name.");
+        return;
+    }
     // set whether the uml object is interface or not
     newCls.isInterface = addClassDlg->getIsInterface();
 

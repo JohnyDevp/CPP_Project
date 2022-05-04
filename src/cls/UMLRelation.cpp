@@ -1,16 +1,21 @@
 #include "UMLRelation.hpp"
 
-bool UMLRelation::isCorrect(const UMLRelation &rel)
+bool UMLRelation::isCardinalityCorrect(QString cardi)
 {
-
     QRegExp relReg("([0-9]+[\\.][\\.][0-9]+|[0-9]+[\\.][\\.][\\*]|[\\*]|[0-9]+)");
 
-    if (!relReg.exactMatch(rel.cardinalityByFromClass) && !rel.cardinalityByFromClass.isEmpty())
+    if (!relReg.exactMatch(cardi) && !cardi.isEmpty())
     {
         return false;
     }
+    return true;
+}
 
-    if (!relReg.exactMatch(rel.cardinalityByToClass) && !rel.cardinalityByToClass.isEmpty())
+bool UMLRelation::isCorrect(const UMLRelation &rel)
+{
+    if (!UMLRelation::isCardinalityCorrect(rel.cardinalityByFromClass))
+        return false;
+    if (!UMLRelation::isCardinalityCorrect(rel.cardinalityByToClass))
     {
         return false;
     }

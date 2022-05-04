@@ -16,7 +16,7 @@ bool UMLAttribute::isCorrect(const UMLAttribute &attr)
         return false;
     }
 
-    if (!QString(attr.modifier).contains(modifierRegex) && !attr.modifier.isNull())
+    if (!QString(attr.modifier).contains(modifierRegex))
     {
         return false;
     }

@@ -1,9 +1,9 @@
 #include "editobjectdialog.h"
 #include "ui_editobjectdialog.h"
+#include "errors.h"
 
-EditObjectDialog::EditObjectDialog(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::EditObjectDialog)
+EditObjectDialog::EditObjectDialog(QWidget *parent) : QDialog(parent),
+                                                      ui(new Ui::EditObjectDialog)
 {
     ui->setupUi(this);
 }
@@ -13,20 +13,27 @@ EditObjectDialog::~EditObjectDialog()
     delete ui;
 }
 
-void EditObjectDialog::init(DiagramInterface * diagramInterface, UMLClass * umlClass){
+void EditObjectDialog::init(DiagramInterface *diagramInterface, UMLClass *umlClass)
+{
     this->diagramInterface = diagramInterface;
     this->umlObject = umlClass;
 
-    //make list of modifiers -> they will be load into comboboxes for modifiers
+    // make list of modifiers -> they will be load into comboboxes for modifiers
     QStringList modifiers;
-    modifiers << "+" << "-" << "~" << "#";
+    modifiers << "+"
+              << "-"
+              << "~"
+              << "#";
 
-    //turn off adding attributes if uml interface
-    if (this->umlObject->isInterface){
+    // turn off adding attributes if uml interface
+    if (this->umlObject->isInterface)
+    {
         ui->cmbAttributes->setEnabled(false);
         ui->btnAddAttribute->setEnabled(false);
-    } else {
-        //otherwise map list of attributes
+    }
+    else
+    {
+        // otherwise map list of attributes
         foreach (UMLAttribute umlAttribute, this->umlObject->umlAttributesList)
         {
             QString attrText = umlAttribute.modifier + umlAttribute.name + " : " + umlAttribute.type;
@@ -35,7 +42,7 @@ void EditObjectDialog::init(DiagramInterface * diagramInterface, UMLClass * umlC
         }
         loadCmbAttributes();
 
-        //load attributes modifiers
+        // load attributes modifiers
         ui->cmbAttributeModifier->addItems(modifiers);
     }
 
@@ -56,14 +63,14 @@ void EditObjectDialog::init(DiagramInterface * diagramInterface, UMLClass * umlC
 
     loadCmbOperations();
 
-    //load operations modifiers
+    // load operations modifiers
     ui->cmbOperationModifier->addItems(modifiers);
-    //load operations attributes modifiers
+    // load operations attributes modifiers
     ui->cmbAttrForOperationModifier->addItems(modifiers);
-
 }
 
-void EditObjectDialog::loadCmbAttributes(){
+void EditObjectDialog::loadCmbAttributes()
+{
     ui->cmbAttributes->clear();
 
     // add attributes
@@ -76,7 +83,8 @@ void EditObjectDialog::loadCmbAttributes(){
     }
 }
 
-void EditObjectDialog::loadCmbOperations(){
+void EditObjectDialog::loadCmbOperations()
+{
     ui->cmbOperations->clear();
     // add attributes
     QMapIterator<UMLOperation, QString> operationMap(this->operationMapGUI);
@@ -88,88 +96,97 @@ void EditObjectDialog::loadCmbOperations(){
     }
 }
 
-UMLClass * EditObjectDialog::getUpdatedUmlObject(){
+UMLClass *EditObjectDialog::getUpdatedUmlObject()
+{
     return this->umlObject;
 }
 
 void EditObjectDialog::on_btnRenameObject_clicked()
 {
-    QRegExp rx("^\\S+$"); //without whitespace
-    rx.setPatternSyntax(QRegExp::Wildcard);
-
     QString newName = ui->txtObjectName->toPlainText().trimmed();
 
-    //if (!rx.exactMatch(newName)) return; //there cant be whitespace
-
-    //ask diagram interface whether exists object with new name
-    UMLClass tmp(newName);
-    if (diagramInterface->existsClass(tmp)){
-        std::cout << "class with that name already exists" << std::endl;
+    if (!Element::validName(newName))
+    {
+        Errors().raiseError("Invalid name.");
         return;
-    } else {
-        //if the class with that name doesnt exist yet then rename
+    }
+    // if (!rx.exactMatch(newName)) return; //there cant be whitespace
+
+    // ask diagram interface whether exists object with new name
+    UMLClass tmp(newName);
+    if (diagramInterface->existsClass(tmp))
+    {
+        Errors().raiseError("Class with that name already exists");
+        return;
+    }
+    else
+    {
+        // if the class with that name doesnt exist yet then rename
         this->umlObject->name = newName;
     }
-
 }
 
 void EditObjectDialog::on_btnRemoveObject_clicked()
 {
     this->umlObject = NULL;
 
-    //close this dialog
+    // close this dialog
     this->close();
 }
 
 void EditObjectDialog::on_btnDeleteAttribute_clicked()
 {
     QString selectedAttr = ui->cmbAttributes->currentText();
-    if (selectedAttr == "") return;
+    if (selectedAttr == "")
+        return;
 
     UMLAttribute uaToBeRemoved;
-    //iterate through attributes and find the text
+    // iterate through attributes and find the text
     QMapIterator<UMLAttribute, QString> attrMap(this->attributesMapGUI);
     while (attrMap.hasNext())
     {
         // get next attribute
         attrMap.next();
 
-        //attr text comparison
-        if (attrMap.value() == selectedAttr){
+        // attr text comparison
+        if (attrMap.value() == selectedAttr)
+        {
             uaToBeRemoved = attrMap.key();
         }
     }
 
-    //remove found attribute from umlclass and list
+    // remove found attribute from umlclass and list
     this->umlObject->deleteAttribute(uaToBeRemoved.name);
     this->attributesMapGUI.remove(uaToBeRemoved);
-    //reload cmb
+    // reload cmb
     loadCmbAttributes();
 }
 
 void EditObjectDialog::on_btnDeleteOperation_clicked()
 {
     QString selectedOperation = ui->cmbOperations->currentText();
-    if (selectedOperation == "") return;
+    if (selectedOperation == "")
+        return;
 
     UMLOperation uoToBeRemoved;
-    //iterate through attributes and find the text
+    // iterate through attributes and find the text
     QMapIterator<UMLOperation, QString> operationMap(this->operationMapGUI);
     while (operationMap.hasNext())
     {
         // get next attribute
         operationMap.next();
 
-        //attr text comparison
-        if (operationMap.value() == selectedOperation){
+        // attr text comparison
+        if (operationMap.value() == selectedOperation)
+        {
             uoToBeRemoved = operationMap.key();
         }
     }
 
-    //remove found attribute from umlclass and list
+    // remove found attribute from umlclass and list
     this->umlObject->deleteOperation(uoToBeRemoved);
     this->operationMapGUI.remove(uoToBeRemoved);
-    //reload cmb
+    // reload cmb
     loadCmbOperations();
 }
 
@@ -179,19 +196,29 @@ void EditObjectDialog::on_btnAddAttribute_clicked()
     QString attrType = ui->txtAttrType->toPlainText();
     QChar attrModifier = ui->cmbAttributeModifier->currentText()[0];
 
-    //if some of txt fields is empty then return
-    if (attrName == "" || attrType == "") return;
+    // if some of txt fields is empty then return
+    if (attrName == "" || attrType == "")
+        return;
 
-    //create uml attribute
+    // create uml attribute
     UMLAttribute newUmlAttr(attrModifier, attrName, attrType);
-    //try to add it
-    if(this->umlObject->addAttribute(newUmlAttr)){
-        //add it to the map and refresh
+
+    if (!UMLAttribute::isCorrect(newUmlAttr))
+    {
+        Errors().raiseError("Invalid attribute.");
+        return;
+    }
+    // try to add it
+    if (this->umlObject->addAttribute(newUmlAttr))
+    {
+        // add it to the map and refresh
         QString attrText = newUmlAttr.modifier + newUmlAttr.name + " : " + newUmlAttr.type;
         this->attributesMapGUI.insert(newUmlAttr, attrText);
         loadCmbAttributes();
-    } else {
-        std::cout << "failed adding attribute" << std::endl;
+    }
+    else
+    {
+        Errors().raiseError("Failed adding attribute.");
     }
 }
 
@@ -201,30 +228,37 @@ void EditObjectDialog::on_btnAddOperation_clicked()
     QString operationType = ui->txtOperationType->toPlainText();
     QChar operationModifier = ui->cmbAttrForOperationModifier->currentText()[0];
 
-    //create new uml operation
+    // create new uml operation
     UMLOperation newUmlOperation(operationName, operationType, operationModifier);
-    //add all its attributes (previously added to the map)
+    // add all its attributes (previously added to the map)
     QMapIterator<UMLAttribute, QString> attrMap(this->operationAttributesMapGUI);
     while (attrMap.hasNext())
     {
         // get next attribute
         attrMap.next();
-        //add the attribute to the operation and just for assuring check
-        if (!newUmlOperation.addOperationParameter(attrMap.key())){
-            std::cout << "failed adding operation (due to bad attributes)" << std::endl;
+        // add the attribute to the operation and just for assuring check
+        if (!newUmlOperation.addOperationParameter(attrMap.key()))
+        {
+            Errors().raiseError("Failed adding operation (due to bad attributes)");
             return;
         }
     }
 
-    //try to add this operation to the class object
-    //and check
-    if(!this->umlObject->addOperation(newUmlOperation)){
-        std::cout << "failed adding operation (due to bad its modifier/name/type)" << std::endl;
+    if (!UMLOperation::isCorrect(newUmlOperation))
+    {
+        Errors().raiseError("Invalid Operation.");
+        return;
+    }
+    // try to add this operation to the class object
+    // and check
+    if (!this->umlObject->addOperation(newUmlOperation))
+    {
+        Errors().raiseError("Failed adding operation (due to bad its modifier/name/type).");
         return;
     }
 
-    //add the operation to the map and refresh
-    // build the operation text
+    // add the operation to the map and refresh
+    //  build the operation text
     QString operationText = newUmlOperation.modifier + newUmlOperation.name + "(";
     foreach (UMLAttribute operationParam, newUmlOperation.parameterssOfOperationList)
     {
@@ -235,10 +269,10 @@ void EditObjectDialog::on_btnAddOperation_clicked()
     // add to the map
     this->operationMapGUI.insert(newUmlOperation, operationText);
 
-    //remove all attributes
+    // remove all attributes
     this->operationAttributesMapGUI.clear();
 
-    //refresh combobox
+    // refresh combobox
     loadCmbOperations();
 }
 
@@ -248,12 +282,19 @@ void EditObjectDialog::on_btnAddAttributeToOperation_clicked()
     QString attrType = ui->txtAttrForOperationType->toPlainText();
     QChar attrModifier = ui->cmbAttrForOperationModifier->currentText()[0];
 
-    //if some of txt fields is empty then return
-    if (attrName == "" || attrType == "") return;
+    // if some of txt fields is empty then return
+    if (attrName == "" || attrType == "")
+        return;
 
-    //create uml attribute
+    // create uml attribute
     UMLAttribute newUmlAttr(attrModifier, attrName, attrType);
-    //try to add it to the list of current operation
+    // try to add it to the list of current operation
+
+    if (!UMLAttribute::isCorrect(newUmlAttr))
+    {
+        Errors().raiseError("Invalid attribute.");
+        return;
+    }
 
     // check all already added attributes
     QMapIterator<UMLAttribute, QString> attrMap(this->operationAttributesMapGUI);
@@ -261,20 +302,20 @@ void EditObjectDialog::on_btnAddAttributeToOperation_clicked()
     {
         // get next attribute
         attrMap.next();
-        //if same name as by the created one, then return
-        if(attrMap.value() == attrName){
-            std::cout << "failed adding attribute to operation" << std::endl;
+        // if same name as by the created one, then return
+        if (attrMap.value() == attrName)
+        {
+            Errors().raiseError("failed adding attribute to operation");
             return;
         }
     }
-    //if ok then add it to the operation attribute map
-    //the text serves for possible writeout to the listview of attributes of operation
+    // if ok then add it to the operation attribute map
+    // the text serves for possible writeout to the listview of attributes of operation
     QString attrText = newUmlAttr.modifier + newUmlAttr.name + " : " + newUmlAttr.type;
-    this->operationAttributesMapGUI.insert(newUmlAttr,attrText);
+    this->operationAttributesMapGUI.insert(newUmlAttr, attrText);
 }
 
 void EditObjectDialog::on_btnClearAllOperationAttributes_clicked()
 {
     this->operationAttributesMapGUI.clear();
 }
-

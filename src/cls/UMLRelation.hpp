@@ -48,6 +48,7 @@ public:
     double startX, startY;
     double endX, endY;
 
+    static bool isCardinalityCorrect(QString cardi);
     static bool isCorrect(const UMLRelation &rel);
 
     /**

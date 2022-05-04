@@ -21,6 +21,7 @@
 class Element : public JsonPrintable
 {
 public:
+    static bool validName(const QString &name);
     static bool isCorrect(const Element &el);
 
     QString name;
