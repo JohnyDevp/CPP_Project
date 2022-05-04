@@ -54,14 +54,19 @@ void ClassDiagramView::parseFile()
     if (!diagramInterface->load(filePath))
     {
         Errors().raiseError("Error occured while loading. Please try again.");
+        return;
+    }
 
+    if (!diagramInterface->isCorrect())
+    {
+        Errors().raiseError("Cannot be loaded, cause invalid file structure.");
         return;
     }
     // Creating GUI Objects
 
     foreach (const UMLClass &cl, diagramInterface->classDiagram.classList)
     {
-        std::cout << cl.Xcoord << " "<< cl.Ycoord << std::endl;
+        std::cout << cl.Xcoord << " " << cl.Ycoord << std::endl;
         // create new object - according to which has been specified in dialog
         ObjectGUI *newObj = new ObjectGUI(cl, this->diagramInterface);
 

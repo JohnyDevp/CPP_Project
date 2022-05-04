@@ -1,44 +1,39 @@
 {
-    "classDiagram": {
-        "name": "ClassDiagram",
-        "relationIndex": 0,
-        "umlClassList": [
-            {
-                "attributeListName": [
-                    {
-                        "modifierName": "+",
-                        "name": "neco",
-                        "typeName": "neco"
-                    }
-                ],
-                "isInterfaceName": false,
-                "name": "dfdsf",
-                "operationListName": [
-                    {
-                        "modifierName": "+",
-                        "name": "jinafsmfad",
-                        "parametersName": [
-                        ],
-                        "typeName": "wefewf"
-                    }
-                ],
-                "xcoordName": 264,
-                "ycoordName": 194
-            },
-            {
-                "attributeListName": [
-                ],
-                "isInterfaceName": false,
-                "name": "sdfsdf",
-                "operationListName": [
-                ],
-                "xcoordName": 508,
-                "ycoordName": 143
-            }
+  "classDiagram": {
+    "name": "ClassDiagram",
+    "relationIndex": 0,
+    "umlClassList": [
+      {
+        "attributeListName": [
+          {
+            "modifierName": "+",
+            "name": "neco",
+            "typeName": "neco"
+          }
         ],
-        "umlRelationList": [
-        ]
-    },
-    "sequenceDiagrams": [
-    ]
+        "isInterfaceName": false,
+        "name": "tomik",
+        "operationListName": [
+          {
+            "modifierName": "+",
+            "name": "jinafsmfad",
+            "parametersName": [],
+            "typeName": "int"
+          }
+        ],
+        "xcoordName": 264,
+        "ycoordName": 194
+      },
+      {
+        "attributeListName": [],
+        "isInterfaceName": false,
+        "name": "sdfsdf",
+        "operationListName": [],
+        "xcoordName": 508,
+        "ycoordName": 143
+      }
+    ],
+    "umlRelationList": []
+  },
+  "sequenceDiagrams": []
 }

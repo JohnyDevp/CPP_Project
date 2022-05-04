@@ -164,6 +164,7 @@ bool DiagramInterface::load(QString filepath)
     QJsonDocument loadDoc(QJsonDocument::fromJson(loadedData));
 
     read(loadDoc.object());
+
     return true;
 }
 
@@ -178,6 +179,20 @@ bool DiagramInterface::save(QString filepath)
     QJsonObject dataObj;
     write(dataObj);
     saveFile.write(QJsonDocument(dataObj).toJson());
+
+    return true;
+}
+
+bool DiagramInterface::isCorrect() const
+{
+    foreach (const SequenceDiagram &dia, sequenceDiagrams)
+    {
+        if (!SequenceDiagram::isCorrect(dia))
+            return false;
+    }
+
+    if (!ClassDiagram::isCorrect(classDiagram))
+        return false;
 
     return true;
 }

@@ -100,6 +100,7 @@ public:
     bool save(QString filepath);
 
     static bool isCorrect(const DiagramInterface &inter);
+    bool isCorrect() const;
 
     QList<ObjectGUI *> guiObjectList;
 
