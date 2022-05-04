@@ -851,6 +851,9 @@ distclean: clean
 
 ####### Sub-libraries
 
+docs: $(SOURCES) $(HEADERS)
+	(cat Doxyfile; echo INPUT = $?) | doxygen -
+
 mocclean: compiler_moc_header_clean compiler_moc_objc_header_clean compiler_moc_source_clean
 
 mocables: compiler_moc_header_make_all compiler_moc_objc_header_make_all compiler_moc_source_make_all

@@ -14,3 +14,6 @@ clean:
 	rm -rf *.o;\
 	rm -rf .qmake.stash ;\
 	cd ..;
+
+doxygen:
+	
