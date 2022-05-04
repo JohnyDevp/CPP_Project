@@ -2,6 +2,7 @@
 #include "diagraminterface.h"
 #include "controllers/editobjectdialog.h"
 #include "errors.h"
+#include "qgraphicsscene.h"
 #include "qmessagebox.h"
 
 #include <QGraphicsSceneMouseEvent>
@@ -350,6 +351,7 @@ void ObjectGUI::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
                                    );
     }
 
+    this->diagramInterface->scene->update();
     QGraphicsItem::mouseMoveEvent(event);
 }
 
