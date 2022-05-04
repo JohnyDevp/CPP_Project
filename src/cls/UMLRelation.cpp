@@ -1,6 +1,26 @@
 #include "UMLRelation.hpp"
 
-UMLRelation::UMLRelation() {}
+bool UMLRelation::isCorrect(const UMLRelation &rel)
+{
+
+    QRegExp relReg("([0-9]+[\\.][\\.][0-9]+|[0-9]+[\\.][\\.][\\*]|[\\*]|[0-9]+)");
+
+    if (!relReg.exactMatch(rel.cardinalityByFromClass) && !rel.cardinalityByFromClass.isEmpty())
+    {
+        return false;
+    }
+
+    if (!relReg.exactMatch(rel.cardinalityByToClass) && !rel.cardinalityByToClass.isEmpty())
+    {
+        return false;
+    }
+
+    return true;
+}
+
+UMLRelation::UMLRelation()
+{
+}
 
 UMLRelation::UMLRelation(QString name) : Element(name), startX(-1.0), startY(-1.0), endX(-1.0), endY(-1.0) {}
 
@@ -30,7 +50,6 @@ void UMLRelation::write(QJsonObject &json) const
     json[startYName] = startY;
     json[endXName] = endX;
     json[endYName] = endY;
-
 }
 
 void UMLRelation::read(const QJsonObject &json)
@@ -40,7 +59,6 @@ void UMLRelation::read(const QJsonObject &json)
     {
         relationFrom = json[relFromName].toString();
     }
-
 
     if (json.contains(relToName) && json[relToName].isString())
     {

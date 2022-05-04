@@ -21,10 +21,8 @@
 class UMLOperation : public UMLAttribute
 {
 public:
-    /**
-     * @brief list of all parameters of this operation
-     *
-     */
+    static bool isCorrect(const UMLOperation &op);
+
     QList<UMLAttribute> parameterssOfOperationList;
 
     /**
@@ -76,15 +74,18 @@ public:
 
     bool operator==(const UMLOperation &other) const;
     bool operator!=(const UMLOperation &other) const;
-    bool operator<(const UMLOperation &uo) const{
+    bool operator<(const UMLOperation &uo) const
+    {
         QString thisText = this->modifier + this->name;
-        foreach (UMLAttribute operationParam, this->parameterssOfOperationList){
+        foreach (UMLAttribute operationParam, this->parameterssOfOperationList)
+        {
             thisText += operationParam.name + operationParam.type;
         }
         thisText += this->type;
 
         QString uoText = uo.modifier + uo.name;
-        foreach (UMLAttribute operationParam, uo.parameterssOfOperationList){
+        foreach (UMLAttribute operationParam, uo.parameterssOfOperationList)
+        {
             uoText += uo.name + uo.type;
         }
         uoText += uo.type;

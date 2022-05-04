@@ -1,5 +1,15 @@
 #include "SequenceDiagram.hpp"
 
+bool SequenceDiagram::isCorrect(const SequenceDiagram &seqDia)
+{
+    foreach (const UMLSeqClass &cl, seqDia.classes)
+    {
+        if (!UMLSeqClass::isCorrect(cl))
+            return false;
+    }
+    return true;
+}
+
 void SequenceDiagram::updateClass(UMLSeqClass seqClass)
 {
     classes[seqClass.name] = seqClass;
@@ -20,7 +30,6 @@ void SequenceDiagram::deleteMessage(Message &message)
 
 void SequenceDiagram::write(QJsonObject &json) const
 {
-    json[lastTimeName] = lastTimeStamp;
 
     // Classes
     QJsonArray classesJson;
@@ -43,11 +52,6 @@ void SequenceDiagram::write(QJsonObject &json) const
 
 void SequenceDiagram::read(const QJsonObject &json)
 {
-    if (json.contains(lastTimeName) && json[lastTimeName].isDouble())
-    {
-        lastTimeStamp = json[lastTimeName].toInt();
-    }
-
     // Read Classes
     if (json.contains(classesName) && json[classesName].isArray())
     {
@@ -82,7 +86,7 @@ void SequenceDiagram::read(const QJsonObject &json)
 }
 
 SequenceDiagram::SequenceDiagram()
-    : lastTimeStamp(0), classes(), messages(), messageIndex(0)
+    : classes(), messages(), messageIndex(0)
 {
 }
 

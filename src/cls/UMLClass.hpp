@@ -24,6 +24,8 @@ using String = QString;
 class UMLClass : public Element
 {
 public:
+    static bool isCorrect(const UMLClass &cl);
+
     bool isInterface = false;
     /**
      * @brief List of attributes of class

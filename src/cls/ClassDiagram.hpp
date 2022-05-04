@@ -24,6 +24,8 @@ class ClassDiagram : public Element
 {
 
 public:
+    static bool isCorrect(const ClassDiagram &dia);
+
     int relationIndex;
     /**
      * @brief list of all classes for diagram

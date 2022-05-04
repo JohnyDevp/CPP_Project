@@ -67,6 +67,11 @@ FORMS += \
 
 CONFIG += console
 
+docs.depends += $(SOURCES)
+docs.depends += $(HEADERS)
+docs.commands = (cat Doxyfile; echo "INPUT = $?") | doxygen -
+QMAKE_EXTRA_TARGETS += docs
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

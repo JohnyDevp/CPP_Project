@@ -1,5 +1,21 @@
 #include "UMLSeqClass.hpp"
 
+bool UMLSeqClass::isCorrect(const UMLSeqClass &cl)
+{
+    if (!Element::isCorrect(cl))
+        return false;
+
+    if (cl.className.isEmpty())
+        return false;
+
+    QRegExp rx("(\\s+)");
+    if (cl.className.contains(rx))
+    {
+        return false;
+    }
+    return true;
+}
+
 UMLSeqClass::UMLSeqClass(QString name, QString className, int Xcoord) : Element(name), className(className), Xcoord(Xcoord) {}
 
 UMLSeqClass::~UMLSeqClass() {}

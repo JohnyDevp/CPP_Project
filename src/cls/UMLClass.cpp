@@ -31,6 +31,26 @@ void UMLClass::deleteAttribute(const String &name)
     }
 }
 
+bool UMLClass::isCorrect(const UMLClass &cl)
+{
+    if (!Element::isCorrect(cl))
+        return false;
+
+    foreach (const UMLOperation &op, cl.umlOperationsList)
+    {
+        if (!UMLOperation::isCorrect(op))
+            return false;
+    }
+
+    foreach (const UMLAttribute &atr, cl.umlAttributesList)
+    {
+        if (!UMLAttribute::isCorrect(atr))
+            return false;
+    }
+
+    return true;
+}
+
 bool UMLClass::addOperation(UMLOperation operation)
 {
     if (std::find(umlOperationsList.begin(), umlOperationsList.end(), operation) != umlOperationsList.end())

@@ -1,13 +1,29 @@
 #include "UMLAttribute.hpp"
 
 UMLAttribute::UMLAttribute(QString name) : Element(name) {}
-bool UMLAttribute::validate(UMLAttribute &attr)
+bool UMLAttribute::isCorrect(const UMLAttribute &attr)
 {
-    if (attr.name.isEmpty())
+    if (!Element::isCorrect(attr))
         return false;
     if (attr.type.isEmpty())
         return false;
+
+    QRegExp rx("(\\s+)");
+    QRegExp modifierRegex("([\\#\\+\\-\\~])");
+
+    if (attr.type.contains(rx))
+    {
+        return false;
+    }
+
+    if (!QString(attr.modifier).contains(modifierRegex) && !attr.modifier.isNull())
+    {
+        return false;
+    }
+
+    return true;
 }
+
 UMLAttribute::UMLAttribute() {}
 UMLAttribute::UMLAttribute(QString name, QString type) : Element(name), type(type) {}
 
