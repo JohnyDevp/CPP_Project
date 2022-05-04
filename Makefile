@@ -13,7 +13,13 @@ clean:
 	rm -rf moc_*;\
 	rm -rf *.o;\
 	rm -rf .qmake.stash ;\
+	cd ..; \
+	cd docs/;\
+	rm -rf html;\
 	cd ..;
 
 doxygen:
-	
+	cd docs/;\
+	doxygen Doxyfile;\
+	cd ..;
+
