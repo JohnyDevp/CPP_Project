@@ -1,3 +1,7 @@
+/**
+ * @author xholan11
+ * graphical representation of uml object (inner representation)
+*/
 #include "objectgui.h"
 #include "diagraminterface.h"
 #include "controllers/editobjectdialog.h"

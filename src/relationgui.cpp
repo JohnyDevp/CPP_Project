@@ -1,6 +1,7 @@
 #include "relationgui.h"
 #include "controllers/editrelationdialog.h"
 #include "qbrush.h"
+#include "qgraphicsscene.h"
 #include "qmath.h"
 #include "qpainter.h"
 #include <iostream>
@@ -166,7 +167,7 @@ void RelationGui::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
             path.addPolygon(relLineEnd);
             painter->fillPath(path, Qt::white);
             painter->setPen(penArrow);
-            painter->drawPath(path);
+            painter->drawPolygon(relLineEnd);
             break;
 
         case UMLRelation::RelationType::COMPOSITION:
@@ -190,11 +191,11 @@ void RelationGui::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
             path.addPolygon(relLineEnd);
             painter->fillPath(path, Qt::white);
             painter->setPen(penArrow);
-            painter->drawPath(path);
+            painter->drawPolygon(relLineEnd);
 
             break;
     }
-
+    this->diagramInterface->scene->update();
 }
 
 void RelationGui::removeRelationNotification()
@@ -246,7 +247,7 @@ void RelationGui::updatePosition(UMLClass umlObject, QPointF diffPoint){
 
     setLine(this->qpointStart.x(), this->qpointStart.y(), this->qpointEnd.x(), this->qpointEnd.y());
 
-    std::cout << this->qpointStart.x()<< " " << this->qpointStart.y()<< " " << this->qpointEnd.x() << " " << this->qpointEnd.y() << std::endl;
+    //std::cout << this->qpointStart.x()<< " " << this->qpointStart.y()<< " " << this->qpointEnd.x() << " " << this->qpointEnd.y() << std::endl;
     //save new coords to the umlRelation
     this->umlRelation.startX = this->qpointStart.x();
     this->umlRelation.startY = this->qpointStart.y();
