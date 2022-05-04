@@ -26,16 +26,23 @@ bool Element::operator==(const Element &other) const
     return name == other.name;
 }
 
-bool Element::isCorrect(const Element &el)
+bool Element::validName(const QString &name)
 {
-    if (el.name.isEmpty())
+    if (name.isEmpty())
         return false;
 
     QRegExp rx("(\\s+)");
-    if (el.name.contains(rx))
+    if (name.contains(rx))
     {
         return false;
     }
+    return true;
+}
+
+bool Element::isCorrect(const Element &el)
+{
+    if (!Element::validName(el.name))
+        return false;
     return true;
 }
 
