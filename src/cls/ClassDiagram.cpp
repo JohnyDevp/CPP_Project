@@ -2,8 +2,8 @@
 #include "ClassDiagram.hpp"
 #include <QJsonArray>
 
-ClassDiagram::ClassDiagram() : classList(), relationList() {}
-ClassDiagram::ClassDiagram(QString name) : Element(name), classList(), relationList() {}
+ClassDiagram::ClassDiagram() : classList(), relationList(), relationIndex(0) {}
+ClassDiagram::ClassDiagram(QString name) : Element(name), classList(), relationList(), relationIndex(0) {}
 
 ClassDiagram::~ClassDiagram() {}
 
