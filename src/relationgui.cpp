@@ -15,8 +15,10 @@ RelationGui::RelationGui(UMLRelation umlRelation, DiagramInterface * diagramInte
     qpointEnd.setX(umlRelation.endX);
     qpointEnd.setY(umlRelation.endY);
 
+    setLine(this->qpointStart.x(), this->qpointStart.y(), this->qpointEnd.x(), this->qpointEnd.y());
+
     //set the Z value -> not overdrawing the other objects
-    setZValue(-1);
+    setZValue(5);
 
     //set uml relation
     this->umlRelation = umlRelation;
@@ -27,7 +29,7 @@ RelationGui::RelationGui(UMLRelation umlRelation, DiagramInterface * diagramInte
 
 void RelationGui::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-     std::cout << "painting" << std::endl;
+     //std::cout << "painting " << this->qpointStart.x() << " " << this->qpointEnd.x() << std::endl;
     //set the design of the relation
     QBrush brush(Qt::black);
     QPen pen(brush, 5);
@@ -189,30 +191,23 @@ void RelationGui::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event){
 void RelationGui::updatePosition(UMLClass umlObject, QPointF diffPoint){
     //find which end of the relation should be updated nad update
     if (umlObject.name == this->umlRelation.relationFrom){
+        std::cout << "update start 1 " << this->qpointStart.x() + diffPoint.x()<< std::endl;
         this->qpointStart.setX( this->qpointStart.x() + diffPoint.x());
         this->qpointStart.setY( this->qpointStart.y() + diffPoint.y());
     } else {
+        std::cout << "update end 1 " << this->qpointEnd.x() + diffPoint.x()<< std::endl;
         this->qpointEnd.setX( this->qpointEnd.x() + diffPoint.x());
         this->qpointEnd.setY( this->qpointEnd.y() + diffPoint.y());
     }
-    std::cout << "updating position of relation" << std::endl;
+
+    std::cout << "update 2 " << this->qpointStart.x() + diffPoint.x()<< std::endl;
+    //std::cout << "updating position of relation " << this->qpointStart.x() << " " << this->qpointEnd.x() << std::endl;
+    //std::cout << "diff " << diffPoint.x() << " " << diffPoint.y() << std::endl;
 
     setLine(this->qpointStart.x(), this->qpointStart.y(), this->qpointEnd.x(), this->qpointEnd.y());
 
     update();
 }
 
-void RelationGui::setRelationStart(ObjectGUI * objectStart, QPointF startPoint)
-{
-    this->objectStart = objectStart;
-    this->qpointStart.setX(startPoint.x());
-    this->qpointStart.setY(startPoint.y());
-}
 
-void RelationGui::setRelationEnd(ObjectGUI * objectEnd, QPointF endPoint)
-{
-    this->objectEnd = objectEnd;
-    this->qpointEnd.setX(endPoint.x());
-    this->qpointStart.setY(endPoint.y());
-}
 

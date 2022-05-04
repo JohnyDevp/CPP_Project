@@ -23,10 +23,6 @@ public:
      */
     void updatePosition(UMLClass umlObject, QPointF diffPoint);
 
-    void setRelationStart(ObjectGUI * objectStart, QPointF startPoint);
-
-    void setRelationEnd(ObjectGUI * objectEnd, QPointF endPoint);
-
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     ObjectGUI * objectStart;

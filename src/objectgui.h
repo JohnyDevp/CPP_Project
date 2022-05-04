@@ -30,11 +30,6 @@ public:
     void addRelatedRelation(RelationGui * relation);
 
     /**
-     * @brief isSelected - whether the class is selected or not
-     */
-    bool isSelected = false;
-
-    /**
      * @brief initGui
      */
     void initGui();
@@ -51,8 +46,12 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
 private:
-    int prevMouseX;
-    int prevMouseY;
+    qreal prevMouseLocalX;
+    qreal prevMouseLocalY;
+
+    qreal prevMouseSceneX;
+    qreal prevMouseSceneY;
+
     // variables for default coords of bounding rectangle
     int boundingX;
     int boundingY;

@@ -1,6 +1,8 @@
 #include "objectgui.h"
 #include "diagraminterface.h"
 #include "controllers/editobjectdialog.h"
+#include "errors.h"
+#include "qmessagebox.h"
 
 #include <QGraphicsSceneMouseEvent>
 #include <QInputDialog>
@@ -10,8 +12,8 @@ ObjectGUI::ObjectGUI(UMLClass umlClass, DiagramInterface *diagramInterface) : um
     // make the object movable
     setFlag(QGraphicsItem::ItemIsMovable);
 
-    // set whether it is selected or not
-    this->isSelected = false;
+    //set Z value
+    setZValue(10);
 
     // set whether it is interface or class
     this->isInterface = umlClass.isInterface;
@@ -88,16 +90,6 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     QRectF rec = boundingRect();
     QBrush brush(Qt::blue);
     QPen pen(Qt::black);
-
-    // handle whether it is selected or not
-    if (this->isSelected)
-    {
-        brush.setColor(Qt::red);
-    }
-    else
-    {
-        brush.setColor(Qt::blue);
-    }
 
     // fill the most back background (containing whole object)
     painter->fillRect(rec, brush);
@@ -213,10 +205,11 @@ void ObjectGUI::addRelatedRelation(RelationGui * relation)
 
 void ObjectGUI::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    this->prevMouseX = event->pos().x();
-    this->prevMouseY = event->pos().y();
+    this->prevMouseLocalX = event->pos().x();
+    this->prevMouseLocalY = event->pos().y();
 
-    this->isSelected = !isSelected;
+    this->prevMouseSceneX = event->scenePos().x();
+    this->prevMouseSceneY = event->scenePos().y();
 
     update();
     QGraphicsItem::mousePressEvent(event);
@@ -232,12 +225,32 @@ void ObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
     if (!(isInX && isInY))
     {
         if (diagramInterface->isRelationCreating){
-            this->diagramInterface->isRelationCreating = false;
-            this->diagramInterface->tempUmlRelation.relationTo = this->objectName;
-            this->diagramInterface->tempUmlRelation.endX = event->scenePos().x();
-            this->diagramInterface->tempUmlRelation.endY = event->scenePos().y();
-            //add the relation to the diagram
-            this->diagramInterface->createRelation();
+            //raise dialog asking whether continue creating relation
+            QMessageBox msgBox;
+            msgBox.setText("Continue creating relation?");
+            QPushButton *continueButton = msgBox.addButton(QDialog::tr("Continue"), QMessageBox::ActionRole);
+            QPushButton *abortButton = msgBox.addButton(QDialog::tr("Abort creating relation"),QMessageBox::ActionRole);
+            QPushButton *cancelButton = msgBox.addButton(QMessageBox::Cancel);
+            msgBox.exec();
+
+            if (msgBox.clickedButton() == (QAbstractButton*)continueButton) {
+
+                this->diagramInterface->isRelationCreating = false;
+                this->diagramInterface->tempUmlRelation.relationTo = this->objectName;
+                this->diagramInterface->tempUmlRelation.endX = event->scenePos().x();
+                this->diagramInterface->tempUmlRelation.endY = event->scenePos().y();
+                //add the relation to the diagram
+                this->diagramInterface->createRelation();
+
+            } else if (msgBox.clickedButton() == (QAbstractButton*)abortButton) {
+                // abort creating -
+                this->diagramInterface->isRelationCreating = false;
+            } else if (msgBox.clickedButton() == (QAbstractButton*)cancelButton) {
+                //do nothing
+                return;
+            }
+
+
 
         } else {
             // create dialog asking for desired type for new relation
@@ -311,21 +324,29 @@ void ObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 
 void ObjectGUI::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
 
-    this->boundingX += event->pos().x() -  this->prevMouseX;
-    this->boundingY += event->pos().y() -  this->prevMouseY;
+    int diffX = event->scenePos().x() -  this->prevMouseSceneX;
+    int diffY = event->scenePos().y() -  this->prevMouseSceneY;
 
-    this->prevMouseX = event->pos().x();
-    this->prevMouseY = event->pos().y();
+
+    this->boundingX += event->pos().x() -  this->prevMouseLocalX;
+    this->boundingY += event->pos().y() -  this->prevMouseLocalY;
+
+    this->prevMouseSceneX = event->scenePos().x();
+    this->prevMouseSceneY = event->scenePos().y();
+
+    this->prevMouseLocalX = event->pos().x();
+    this->prevMouseLocalY = event->pos().y();
 
     this->umlObject.Xcoord = event->scenePos().x();
     this->umlObject.Ycoord = event->scenePos().y();
+
 
     //go through all related relations and notify them about moving
     QListIterator<RelationGui*> itr(this->relatedRelations);
     while(itr.hasNext()){
         itr.next()->updatePosition(this->umlObject, QPointF(
-                                        event->pos().x() -  this->prevMouseX,
-                                        event->pos().y() -  this->prevMouseY)
+                                        diffX,
+                                        diffY)
                                    );
     }
 
