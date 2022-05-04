@@ -27,10 +27,23 @@ public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
+    /**
+     * @brief add newly created realtion to the list of relations related to this object
+     * @param relation - newly created relation gui
+     */
     void addRelatedRelation(RelationGui * relation);
+    void removeRelatedRelation(RelationGui * relation);
+
+    /**
+     * @brief function for check whether some of related objects by generalization doesnt include same operation as
+     * this operation, if so, then that operation is added to the list of overriden operations
+     * @param operationsForCheck
+     */
+    void checkForOverrideOperationsNotification();
 
     /**
      * @brief initGui
+     * this function initialize all the lists of attributes, operations (build them to the strings), sets coords,...
      */
     void initGui();
 
@@ -38,6 +51,12 @@ public:
      * @brief objectName
      */
     QString objectName;
+
+    /**
+     * @brief operationMapGUI
+     * map for storing each operation and its string representation drawn in gui object
+     */
+    QMap<UMLOperation, QString> operationMapGUI;
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -69,11 +88,6 @@ private:
      */
     UMLClass umlObject;
 
-    /**
-     * @brief operationMapGUI
-     * map for storing each operation and its string representation drawn in gui object
-     */
-    QMap<UMLOperation, QString> operationMapGUI;
 
     /**
      * @brief overrideOperations

@@ -18,15 +18,23 @@ public:
 
     /**
      * @brief updatePosition
-     * @param umlObject
-     * @param diffPoint
+     * @param umlObject - which object does the notification comes from
+     * @param diffPoint - consists of difference X coord and difference Y coord - the value, by which has the object moved
      */
     void updatePosition(UMLClass umlObject, QPointF diffPoint);
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
+    /**
+     * @brief removeRelation - called when some of related objects is deleted
+     * @param which object does send this message
+     */
+    void removeRelationNotification();
+
     ObjectGUI * objectStart;
     ObjectGUI * objectEnd;
+
+    UMLRelation::RelationType relType;
 
 protected:
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);

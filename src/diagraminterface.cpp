@@ -78,6 +78,9 @@ UMLRelation DiagramInterface::createRelation()
         }
     }
 
+    //check for override of operation
+    newRelGui->objectStart->checkForOverrideOperationsNotification();
+
     //add the relation gui to the scene and to the list of relations
     this->relationList.append(newRelGui);
     this->scene->addItem(newRelGui);
@@ -239,4 +242,14 @@ void DiagramInterface::removeObjectFromGuiList(ObjectGUI *objectGui)
     this->scene->removeItem(objectGui);
 
     this->guiObjectList.removeOne(objectGui);
+
+    this->scene->update();
+}
+
+void DiagramInterface::removeRelationFromGuiList(RelationGui *relationGui)
+{
+    this->scene->removeItem(relationGui);
+    this->relationList.removeOne(relationGui);
+
+    this->scene->update();
 }
