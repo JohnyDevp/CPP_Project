@@ -21,15 +21,13 @@ bool SequenceDiagram::isCorrect(const SequenceDiagram &seqDia)
 
 UMLSeqClass SequenceDiagram::addSeqClass(UMLSeqClass &umlSewClass)
 {
-    umlSewClass.index = classIndex;
-    classes[umlSewClass.index] = umlSewClass;
-    classIndex++;
+    classes[umlSewClass.getUniqueName()] = umlSewClass;
     return umlSewClass;
 }
 
 void SequenceDiagram::updateSeqClass(UMLSeqClass &seqClass)
 {
-    classes[seqClass.index] = seqClass;
+    classes[seqClass.getUniqueName()] = seqClass;
 }
 
 Message SequenceDiagram::createMessage(Message &message)
@@ -42,7 +40,7 @@ Message SequenceDiagram::createMessage(Message &message)
 
 bool SequenceDiagram::existsSeqClass(UMLSeqClass &cl)
 {
-    return classes.contains(cl.index);
+    return classes.contains(cl.getUniqueName());
 }
 
 void SequenceDiagram::updateMessage(Message &mes)
@@ -52,7 +50,7 @@ void SequenceDiagram::updateMessage(Message &mes)
 
 void SequenceDiagram::deleteUMLSeqClass(UMLSeqClass &cl)
 {
-    classes.remove(cl.index);
+    classes.remove(cl.getUniqueName());
 }
 
 void SequenceDiagram::deleteMessage(Message &message)
@@ -90,7 +88,6 @@ void SequenceDiagram::read(const QJsonObject &json)
         QJsonArray classArray = json[classesName].toArray();
 
         classes.clear();
-        classIndex = classArray.size();
 
         for (int i = 0; i < classArray.size(); i++)
         {
@@ -98,7 +95,7 @@ void SequenceDiagram::read(const QJsonObject &json)
             UMLSeqClass cla;
             cla.index = i;
             cla.read(classObject);
-            classes[i] = cla;
+            classes[cla.getUniqueName()] = cla;
         }
     }
 
