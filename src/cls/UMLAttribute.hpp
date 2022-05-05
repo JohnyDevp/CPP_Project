@@ -72,11 +72,11 @@ public:
    */
   void read(const QJsonObject &json);
 
-  bool operator==(const UMLAttribute &other) const;
-  bool operator!=(const UMLAttribute &other) const;
-
   bool operator<(const UMLAttribute &ua) const
   {
     return this->name < ua.name;
   };
+
+  bool operator==(const UMLAttribute &other) const;
+  bool operator!=(const UMLAttribute &other) const;
 };

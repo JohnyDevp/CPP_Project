@@ -42,6 +42,13 @@ UMLClass DiagramInterface::getUMLClass(QString &name)
     return classDiagram.classList[name];
 }
 
+bool DiagramInterface::existsOperation(UMLClass &cl, UMLOperation &operation)
+{
+
+    // TODO:
+    return classDiagram.classList[cl.name].umlOperationsList.contains(operation);
+}
+
 bool DiagramInterface::existsClass(UMLClass &umlClass)
 {
     return classDiagram.existsClass(umlClass);

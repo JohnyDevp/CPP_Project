@@ -37,16 +37,6 @@ bool UMLAttribute::isCorrect(const UMLAttribute &attr)
 UMLAttribute::UMLAttribute() {}
 UMLAttribute::UMLAttribute(QString name, QString type) : Element(name), type(type) {}
 
-bool UMLAttribute::operator==(const UMLAttribute &other) const
-{
-    return static_cast<const Element &>(*this) == static_cast<const Element &>(other);
-}
-
-bool UMLAttribute::operator!=(const UMLAttribute &other) const
-{
-    return !(*this == other);
-}
-
 UMLAttribute::UMLAttribute(QChar modifier, QString name, QString type) : Element(name), type(type), modifier(modifier) {}
 
 UMLAttribute::~UMLAttribute() {}
@@ -58,6 +48,16 @@ void UMLAttribute::write(QJsonObject &json) const
     json[typeName] = type;
 
     json[modifierName] = QString(modifier);
+}
+
+bool UMLAttribute::operator==(const UMLAttribute &other) const
+{
+    return static_cast<const Element &>(*this) == static_cast<const Element &>(other) && type == other.type && modifier == other.modifier;
+}
+
+bool UMLAttribute::operator!=(const UMLAttribute &other) const
+{
+    return !(*this == other);
 }
 
 void UMLAttribute::read(const QJsonObject &json)

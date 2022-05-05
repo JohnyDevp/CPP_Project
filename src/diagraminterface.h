@@ -62,6 +62,8 @@ public:
      */
     UMLClass getUMLClass(QString &name);
 
+    bool existsOperation(UMLClass &cl, UMLOperation &operation);
+
     bool existsClass(QString &className);
 
     bool existsClass(UMLClass &umlClass);

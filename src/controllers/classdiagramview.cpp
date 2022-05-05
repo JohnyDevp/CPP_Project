@@ -109,6 +109,16 @@ void ClassDiagramView::parseFile()
         this->diagramInterface->relationList.append(newRelGui);
         this->scene->addItem(newRelGui);
     }
+
+    // Open tabs for all sequence diagrams
+    foreach (SequenceDiagramInterface *seqInt, diagramInterface->sequenceDiagramInterfaceList)
+    {
+        // create new ClassDiagramView controller, init it and ad it as view to the tab
+        SequenceDiagramView *q = new SequenceDiagramView();
+
+        int tabIndex = this->tabPane->addTab(q, "Sequence diagram ");
+        q->init(this->tabPane, tabIndex, seqInt);
+    }
 }
 
 /*event handlers======================================================================================================================*/
