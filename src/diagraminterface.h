@@ -100,6 +100,8 @@ public:
      */
     void removeUMLClass(UMLClass umlClass);
 
+    void removeUMLClass(QString className);
+
     void removeRelation(UMLRelation relation);
 
     void updateSequenceDiagram(SequenceDiagram &dia);
