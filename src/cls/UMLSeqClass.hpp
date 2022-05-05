@@ -40,7 +40,8 @@ public:
     /**
      * @brief Construct a new UMLSeqClass object
      *
-     * @param name
+     * @param name - serves only if there is an instance
+     * @param className - the uml class representation - the "root"
      * @param Xcoord
      */
     UMLSeqClass(QString name, QString className, int Xcoord);
