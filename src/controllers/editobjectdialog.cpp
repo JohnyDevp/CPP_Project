@@ -196,10 +196,6 @@ void EditObjectDialog::on_btnAddAttribute_clicked()
     QString attrType = ui->txtAttrType->toPlainText();
     QChar attrModifier = ui->cmbAttributeModifier->currentText()[0];
 
-    // if some of txt fields is empty then return
-    if (attrName == "" || attrType == "")
-        return;
-
     // create uml attribute
     UMLAttribute newUmlAttr(attrModifier, attrName, attrType);
 
