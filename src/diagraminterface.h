@@ -7,7 +7,6 @@
 #include "objectgui.h"
 #include "relationgui.h"
 
-#include "cls/JsonPrintable.hpp"
 #include <iostream>
 #include <vector>
 #include <QMap>
@@ -22,7 +21,7 @@ class RelationGui;
 #define classDiagramName "classDiagram"
 #define sequenceDiagramsName "sequenceDiagrams"
 
-class DiagramInterface : public JsonPrintable
+class DiagramInterface
 {
 public:
     DiagramInterface(QGraphicsScene *scene);
@@ -39,7 +38,7 @@ public:
      * @brief used to createRelation
      */
     UMLRelation tempUmlRelation;
-    RelationGui * tempRelationGui;
+    RelationGui *tempRelationGui;
     bool isRelationCreating = false;
 
     ClassDiagram classDiagram;
@@ -93,7 +92,7 @@ public:
 
     SequenceDiagram createSequenceDiagram(SequenceDiagram &dia);
 
-    void write(QJsonObject &json) const override;
+    void write(QJsonObject &json) const;
     /**
      * @brief reads object from json
      *
@@ -109,7 +108,7 @@ public:
     bool isCorrect() const;
 
     QList<ObjectGUI *> guiObjectList;
-    QList<RelationGui*> relationList;
+    QList<RelationGui *> relationList;
 
     QGraphicsScene *scene;
 };

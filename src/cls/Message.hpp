@@ -18,7 +18,7 @@
 #define messageIndexName "index"
 #define argumentTextName "argumentText"
 #define returnTextName "returnText"
-class Message : public JsonPrintable
+class Message
 {
 public:
     /**
@@ -69,7 +69,7 @@ public:
      *
      * @param json
      */
-    void write(QJsonObject &json) const override;
+    void write(QJsonObject &json) const;
     /**
      * @brief reads object from json
      *

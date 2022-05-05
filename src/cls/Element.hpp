@@ -14,11 +14,10 @@
 
 //#include "qlist.h"
 #include <QList>
-#include "JsonPrintable.hpp"
 #include <string>
 #include <QString>
-
-class Element : public JsonPrintable
+#include <QJsonObject>
+class Element
 {
 public:
     static bool validName(const QString &name);
@@ -42,13 +41,13 @@ public:
      *
      * @param json
      */
-    void write(QJsonObject &json) const override;
+    void write(QJsonObject &json) const;
     /**
      * @brief reads object from json
      *
      * @param json
      */
-    void read(const QJsonObject &json) override;
+    void read(const QJsonObject &json);
 
     bool operator==(const Element &other) const;
     bool operator!=(const Element &other) const;

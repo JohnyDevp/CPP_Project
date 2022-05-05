@@ -12,3 +12,4 @@ The application can either create a whole new project or load one from an existi
 
 [ ] Do we need an interface? If so, then we need to call virtual destructors.
 [ ] Readme must be .txt
+[ ] Add sources

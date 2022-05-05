@@ -91,13 +91,13 @@ public:
      *
      * @param json
      */
-    virtual void write(QJsonObject &json) const override;
+    void write(QJsonObject &json) const;
     /**
      * @brief reads object from json
      *
      * @param json
      */
-    virtual void read(const QJsonObject &json);
+    void read(const QJsonObject &json);
 
     bool operator==(const UMLClass &other) const;
     bool operator!=(const UMLClass &other) const;

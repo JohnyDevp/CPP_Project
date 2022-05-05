@@ -70,6 +70,7 @@
         "variant": "cpp",
         "qbytearray": "cpp",
         "qjsondocument": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "qlist": "cpp"
     }
 }
