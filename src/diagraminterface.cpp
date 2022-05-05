@@ -2,6 +2,11 @@
 #include "objectgui.h"
 #include <QGraphicsScene>
 
+DiagramInterface::~DiagramInterface()
+{
+    // TODO: Clean all pointers
+}
+
 /**
  * @brief DiagramInterface::DiagramInterface
  * interface for diagrams -> storing sequence diagrams, class diagram
@@ -54,31 +59,35 @@ bool DiagramInterface::createUMLClass(UMLClass &umlClass)
 
 UMLRelation DiagramInterface::createRelation()
 {
-    //create gui for the relation
-    RelationGui * newRelGui = new RelationGui(tempUmlRelation, this);
+    // create gui for the relation
+    RelationGui *newRelGui = new RelationGui(tempUmlRelation, this);
 
-    //bound related objects to this relation
-    foreach(ObjectGUI * obj, this->guiObjectList){
-        if (obj->objectName == tempUmlRelation.relationFrom){
+    // bound related objects to this relation
+    foreach (ObjectGUI *obj, this->guiObjectList)
+    {
+        if (obj->objectName == tempUmlRelation.relationFrom)
+        {
             obj->addRelatedRelation(newRelGui);
             newRelGui->objectStart = obj;
-        } else if (obj->objectName == tempUmlRelation.relationTo){
+        }
+        else if (obj->objectName == tempUmlRelation.relationTo)
+        {
             obj->addRelatedRelation(newRelGui);
             newRelGui->objectEnd = obj;
         }
     }
 
-    //check for override of operation
+    // check for override of operation
     newRelGui->objectStart->checkForOverrideOperationsNotification();
 
-    //add the relation gui to the scene and to the list of relations
+    // add the relation gui to the scene and to the list of relations
     this->relationList.append(newRelGui);
     this->scene->addItem(newRelGui);
 
-    //reset newRelGui umlRelation
+    // reset newRelGui umlRelation
     newRelGui->umlRelation = classDiagram.addRelation(tempUmlRelation);
 
-    //TODO -> not necessary to return anything
+    // TODO -> not necessary to return anything
     return newRelGui->umlRelation;
 }
 
@@ -92,27 +101,19 @@ void DiagramInterface::removeRelation(UMLRelation relation)
     classDiagram.relationList.remove(relation.index);
 }
 
-void DiagramInterface::updateSequenceDiagram(SequenceDiagram &dia)
+void DiagramInterface::addSequenceDiagramInterface(SequenceDiagramInterface *diaInter)
 {
-    sequenceDiagrams[dia.index] = dia;
-}
-
-SequenceDiagram DiagramInterface::createSequenceDiagram(SequenceDiagram &dia)
-{
-    dia.index = sequenceDiagramIndex;
-    sequenceDiagrams[dia.index] = dia;
-    sequenceDiagramIndex++;
-    return dia;
+    sequenceDiagramInterfaceList.append(diaInter);
 }
 
 void DiagramInterface::write(QJsonObject &json) const
 {
     QJsonArray sequenceDiaArray;
 
-    for (const SequenceDiagram &dia : sequenceDiagrams)
+    for (SequenceDiagramInterface *dia : sequenceDiagramInterfaceList)
     {
         QJsonObject diaObject;
-        dia.write(diaObject);
+        dia->sequenceDiagram.write(diaObject);
         sequenceDiaArray.append(diaObject);
     }
     json[sequenceDiagramsName] = sequenceDiaArray;
@@ -128,19 +129,15 @@ void DiagramInterface::read(const QJsonObject &json)
     if (json.contains(sequenceDiagramsName) && json[sequenceDiagramsName].isArray())
     {
         QJsonArray seqDiaArray = json[sequenceDiagramsName].toArray();
-        sequenceDiagrams.clear();
-
-        // Store sequenceDiagramIndex
-        sequenceDiagramIndex = seqDiaArray.size();
+        sequenceDiagramInterfaceList.clear();
 
         for (int i = 0; i < seqDiaArray.size(); i++)
         {
             QJsonObject seqObj = seqDiaArray[i].toObject();
             SequenceDiagram seq;
             seq.read(seqObj);
-            // Add index
-            seq.index = i;
-            sequenceDiagrams[i] = seq;
+            SequenceDiagramInterface *seqInter = new SequenceDiagramInterface(this, seq);
+            addSequenceDiagramInterface(seqInter);
         }
     }
 
@@ -185,9 +182,9 @@ bool DiagramInterface::save(QString filepath)
 
 bool DiagramInterface::isCorrect() const
 {
-    foreach (const SequenceDiagram &dia, sequenceDiagrams)
+    foreach (const SequenceDiagramInterface *dia, sequenceDiagramInterfaceList)
     {
-        if (!SequenceDiagram::isCorrect(dia))
+        if (!SequenceDiagram::isCorrect(dia->sequenceDiagram))
             return false;
     }
 
@@ -199,9 +196,9 @@ bool DiagramInterface::isCorrect() const
 
 bool DiagramInterface::isCorrect(const DiagramInterface &inter)
 {
-    foreach (const SequenceDiagram &dia, inter.sequenceDiagrams)
+    foreach (const SequenceDiagramInterface *dia, inter.sequenceDiagramInterfaceList)
     {
-        if (!SequenceDiagram::isCorrect(dia))
+        if (!SequenceDiagram::isCorrect(dia->sequenceDiagram))
             return false;
     }
 

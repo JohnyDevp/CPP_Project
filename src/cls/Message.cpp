@@ -11,7 +11,7 @@
 
 Message::Message() {}
 
-Message::Message(int Ycoord, QString classSender, QString umlOperation, MessageType messageType) : Ycoord(Ycoord), classSender(classSender), operationName(umlOperation), messageType(messageType){};
+Message::Message(int Ycoord, QString classSender, QString umlOperation, MessageType messageType) : Ycoord(Ycoord), classSender(classSender), operation(umlOperation), messageType(messageType){};
 
 Message::~Message() {}
 bool Message::operator==(const Message &other) const
@@ -36,7 +36,9 @@ void Message::write(QJsonObject &json) const
 
     json[argumentTextName] = argumentText;
 
-    json[umlOperationName] = operationName;
+    QJsonObject operObj;
+    operation.write(operObj);
+    json[umlOperationName] = operObj;
 }
 void Message::read(const QJsonObject &json)
 {
@@ -73,6 +75,7 @@ void Message::read(const QJsonObject &json)
 
     if (json.contains(umlOperationName) && json[umlOperationName].isObject())
     {
-        operationName = json[umlOperationName].toString();
+        QJsonObject operObj = json[umlOperationName].toObject();
+        operation.read(operObj);
     }
 }

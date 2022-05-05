@@ -52,7 +52,8 @@ public:
      * @brief
      *
      */
-    QString operationName;
+    UMLOperation operation;
+
     MessageType messageType;
 
     /**

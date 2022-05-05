@@ -3,7 +3,6 @@
 #ifndef SEQUENCEDIAGRAMINTERFACE_H
 #define SEQUENCEDIAGRAMINTERFACE_H
 
-
 #include "cls/SequenceDiagram.hpp"
 #include "diagraminterface.h"
 #include "qgraphicsscene.h"
@@ -11,22 +10,21 @@
 #include "sequencemessagegui.h"
 #include "sequenceobjectgui.h"
 
-
 class SequenceDiagramInterface
 {
 public:
-    SequenceDiagramInterface(DiagramInterface * diagramInterface, SequenceDiagram sequenceDiagram);
+    SequenceDiagramInterface(DiagramInterface *diagramInterface, SequenceDiagram sequenceDiagram);
 
     /**
      * @brief scene for this sequence diagram
      */
-    QGraphicsScene * scene;
+    QGraphicsScene *scene;
 
     /**
      * @brief pointer to interface for class diagram
      * for possibllities of check whether umloperation or umlclass exists or not
      */
-    DiagramInterface * diagramInterface;
+    DiagramInterface *diagramInterface;
 
     /**
      * @brief sequenceDiagram for this interface and controller

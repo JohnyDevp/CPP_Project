@@ -1,6 +1,6 @@
 #include "sequencediagraminterface.h"
 
-SequenceDiagramInterface::SequenceDiagramInterface(DiagramInterface * diagramInterface, SequenceDiagram &sequenceDiagram) : sequenceDiagram()
+SequenceDiagramInterface::SequenceDiagramInterface(DiagramInterface *diagramInterface, SequenceDiagram sequenceDiagram) : sequenceDiagram(sequenceDiagram)
 {
     this->diagramInterface = diagramInterface;
     this->sequenceDiagram = sequenceDiagram;
@@ -16,27 +16,27 @@ void SequenceDiagramInterface::removeSequenceObjectGUIFromList(SequenceObjectGUI
     this->sequenceObjectGUIList.removeOne(seqObjGUI);
 }
 
-void DiagramInterface::updateSeqClass(SequenceDiagram dia, UMLSeqClass seqClass)
+void SequenceDiagramInterface::updateSeqClass(SequenceDiagram dia, UMLSeqClass seqClass)
 {
-    sequenceDiagrams[dia.index].classes[seqClass.name] = seqClass;
+    sequenceDiagram.classes[seqClass.name] = seqClass;
 }
 
-void DiagramInterface::updateMessage(SequenceDiagram dia, Message message)
+void SequenceDiagramInterface::updateMessage(SequenceDiagram dia, Message message)
 {
-    sequenceDiagrams[dia.index].messages[message.index] = message;
+    sequenceDiagram.messages[message.index] = message;
 }
 
-Message DiagramInterface::createMessage(SequenceDiagram dia, Message &message)
+Message SequenceDiagramInterface::createMessage(SequenceDiagram dia, Message &message)
 {
-    return sequenceDiagrams[dia.index].createMessage(message);
+    return sequenceDiagram.createMessage(message);
 }
 
-void DiagramInterface::removeMessage(SequenceDiagram dia, Message &message)
+void SequenceDiagramInterface::removeMessage(SequenceDiagram dia, Message &message)
 {
-    sequenceDiagrams[dia.index].messages.remove(message.index);
+    sequenceDiagram.messages.remove(message.index);
 }
 
-void DiagramInterface::removeSeqClass(SequenceDiagram dia, UMLSeqClass seqClass)
+void SequenceDiagramInterface::removeSeqClass(SequenceDiagram dia, UMLSeqClass seqClass)
 {
-    sequenceDiagrams[dia.index].classes.remove(seqClass.name);
+    sequenceDiagram.classes.remove(seqClass.name);
 }

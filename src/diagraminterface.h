@@ -26,6 +26,7 @@ class SequenceDiagramInterface;
 class DiagramInterface
 {
 public:
+    ~DiagramInterface();
     DiagramInterface(QGraphicsScene *scene);
 
     // DiagramInterface(QGraphicsScene *scene, DiagramInterface &inter);
@@ -45,8 +46,7 @@ public:
 
     ClassDiagram classDiagram;
 
-    QList<SequenceDiagramInterface*> sequenceDiagramInterfaceList;
-    QMap<int, SequenceDiagram> sequenceDiagrams;
+    QList<SequenceDiagramInterface *> sequenceDiagramInterfaceList;
 
     // Interface functions for more cleaner code
 
@@ -95,6 +95,8 @@ public:
     void updateSequenceDiagram(SequenceDiagram &dia);
 
     SequenceDiagram createSequenceDiagram(SequenceDiagram &dia);
+
+    void addSequenceDiagramInterface(SequenceDiagramInterface *diaInter);
 
     void write(QJsonObject &json) const;
     /**
