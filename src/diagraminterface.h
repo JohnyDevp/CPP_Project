@@ -47,7 +47,6 @@ public:
     ClassDiagram classDiagram;
 
     QList<SequenceDiagramInterface *> sequenceDiagramInterfaceList;
-    QMap<int, SequenceDiagram> sequenceDiagrams;
 
     // Interface functions for more cleaner code
 

@@ -123,10 +123,10 @@ void DiagramInterface::write(QJsonObject &json) const
 {
     QJsonArray sequenceDiaArray;
 
-    for (const SequenceDiagram &dia : sequenceDiagrams)
+    for (SequenceDiagramInterface *dia : sequenceDiagramInterfaceList)
     {
         QJsonObject diaObject;
-        dia.write(diaObject);
+        dia->sequenceDiagram.write(diaObject);
         sequenceDiaArray.append(diaObject);
     }
     json[sequenceDiagramsName] = sequenceDiaArray;
@@ -142,19 +142,15 @@ void DiagramInterface::read(const QJsonObject &json)
     if (json.contains(sequenceDiagramsName) && json[sequenceDiagramsName].isArray())
     {
         QJsonArray seqDiaArray = json[sequenceDiagramsName].toArray();
-        sequenceDiagrams.clear();
-
-        // Store sequenceDiagramIndex
-        sequenceDiagramIndex = seqDiaArray.size();
+        sequenceDiagramInterfaceList.clear();
 
         for (int i = 0; i < seqDiaArray.size(); i++)
         {
             QJsonObject seqObj = seqDiaArray[i].toObject();
             SequenceDiagram seq;
             seq.read(seqObj);
-            // Add index
-            seq.index = i;
-            sequenceDiagrams[i] = seq;
+            SequenceDiagramInterface *seqInter = new SequenceDiagramInterface(this, seq);
+            addSequenceDiagramInterface(seqInter);
         }
     }
 
