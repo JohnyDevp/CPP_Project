@@ -119,6 +119,8 @@ private:
      * list of relations which there started or ended
      */
     QList<RelationGui *> relatedRelations;
+
+    void normalizePointToEdge(QPointF * point);
 };
 
 #endif // OBJECTGUI_H
