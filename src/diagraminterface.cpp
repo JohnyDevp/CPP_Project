@@ -1,10 +1,34 @@
+/**
+ * @file diagraminterface.cpp
+ * @author xholan11, xzimol04
+ * @brief Interface for all data
+ * @date 2022-05-05
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
 #include "diagraminterface.h"
 #include "objectgui.h"
 #include <QGraphicsScene>
 
 DiagramInterface::~DiagramInterface()
 {
-    // TODO: Clean all pointers
+    foreach (SequenceDiagramInterface *seqInt, sequenceDiagramInterfaceList)
+    {
+        delete seqInt;
+    }
+
+    foreach (ObjectGUI *obj, guiObjectList)
+    {
+        delete obj;
+    }
+
+    foreach (RelationGui *rel, relationList)
+
+    {
+        delete rel;
+    }
 }
 
 /**
@@ -28,6 +52,11 @@ DiagramInterface::DiagramInterface(QGraphicsScene *scene)
 
 void DiagramInterface::updateUMLClass(QString oldName, UMLClass umlClass)
 {
+    // notify sequence diagrams about updates
+    foreach (SequenceDiagramInterface *seqDiagInter, this->sequenceDiagramInterfaceList)
+    {
+        seqDiagInter->notifyUmlClassUpdate(oldName, umlClass);
+    }
     scene->update();
     classDiagram.updateClass(oldName, umlClass);
 }
@@ -61,7 +90,18 @@ bool DiagramInterface::existsClass(QString &className)
 
 bool DiagramInterface::createUMLClass(UMLClass &umlClass)
 {
-    return classDiagram.addClass(umlClass);
+    bool success = classDiagram.addClass(umlClass);
+
+    // notify sequence diagrams about updates - if the operation was successfull
+    if (success)
+    {
+        foreach (SequenceDiagramInterface *seqDiagInter, this->sequenceDiagramInterfaceList)
+        {
+            seqDiagInter->updateEverything();
+        }
+    }
+
+    return success;
 }
 
 UMLRelation DiagramInterface::createRelation()
@@ -101,6 +141,12 @@ UMLRelation DiagramInterface::createRelation()
 void DiagramInterface::removeUMLClass(UMLClass umlClass)
 {
     classDiagram.classList.remove(umlClass.name);
+
+    // notify sequence diagrams about updates
+    foreach (SequenceDiagramInterface *seqDiagInter, this->sequenceDiagramInterfaceList)
+    {
+        seqDiagInter->updateEverything();
+    }
 }
 
 void DiagramInterface::removeRelation(UMLRelation relation)

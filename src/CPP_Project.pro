@@ -2,14 +2,17 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+
+# TODO: remove -g
 CONFIG += c++17
+QMAKE_CXXFLAGS += -g
+
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        classobjectgui.cpp \
         cls/Element.cpp \
         cls/UMLClass.cpp \
         cls/UMLAttribute.cpp \
@@ -24,8 +27,6 @@ SOURCES += \
         controllers/sequencediagramview.cpp \
         diagraminterface.cpp \
         errors.cpp \
-        interfaceobjectgui.cpp \
-        jsonreader.cpp \
         main.cpp \
         controllers/mainwindow.cpp \
         controllers/classdiagramview.cpp \
@@ -38,7 +39,6 @@ SOURCES += \
         views/addclassdiagramobjectdialog.cpp
 
 HEADERS += \
-        classobjectgui.h \
         cls/Element.hpp \
         cls/UMLClass.hpp \
         cls/UMLAttribute.hpp \
@@ -55,8 +55,6 @@ HEADERS += \
         controllers/sequencediagramview.h \
         diagraminterface.h \
         errors.h \
-        interfaceobjectgui.h \
-        jsonreader.h \
         objectgui.h \
         relationgui.h \
         sequencediagraminterface.h \

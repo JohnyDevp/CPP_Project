@@ -1,10 +1,21 @@
+/**
+ * @file addclassdiagramobjectdialog.h
+ * @author xholan11
+ * @brief Header file for addclassdiagramobjectdialog.cpp
+ * @date 2022-05-02
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
 #ifndef ADDCLASSDIAGRAMOBJECTDIALOG_H
 #define ADDCLASSDIAGRAMOBJECTDIALOG_H
 
 #include <QDialog>
 
-namespace Ui {
-class AddClassDiagramObjectDialog;
+namespace Ui
+{
+    class AddClassDiagramObjectDialog;
 }
 
 class AddClassDiagramObjectDialog : public QDialog
