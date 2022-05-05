@@ -92,16 +92,30 @@ bool DiagramInterface::createUMLClass(UMLClass &umlClass)
 {
     bool success = classDiagram.addClass(umlClass);
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
     // notify sequence diagrams about updates - if the operation was successfull
     if (success)
     {
         foreach (SequenceDiagramInterface *seqDiagInter, this->sequenceDiagramInterfaceList)
         {
-            seqDiagInter->updateEverything();
-        }
-    }
+=======
+>>>>>>> 6c9aa71dc05b2ae926b173ab18a25e23e79a1d36
+            // notify sequence diagrams about updates - if the operation was successfull
+            if (success)
+            {
+                foreach (SequenceDiagramInterface *seqDiagInter, this->sequenceDiagramInterfaceList)
+                {
+<<<<<<< HEAD
+=======
+>>>>>>> sequence2
+>>>>>>> 6c9aa71dc05b2ae926b173ab18a25e23e79a1d36
+    seqDiagInter->updateEverything();
+}
+}
 
-    return success;
+return success;
 }
 
 UMLRelation DiagramInterface::createRelation()
@@ -142,9 +156,21 @@ void DiagramInterface::removeUMLClass(UMLClass umlClass)
 {
     classDiagram.classList.remove(umlClass.name);
 
+<<<<<<< HEAD
     // notify sequence diagrams about updates
     foreach (SequenceDiagramInterface *seqDiagInter, this->sequenceDiagramInterfaceList)
     {
+=======
+<<<<<<< HEAD
+            // notify sequence diagrams about updates
+            foreach (SequenceDiagramInterface *seqDiagInter, this->sequenceDiagramInterfaceList)
+            {
+=======
+    // notify sequence diagrams about updates
+    foreach (SequenceDiagramInterface *seqDiagInter, this->sequenceDiagramInterfaceList)
+    {
+>>>>>>> sequence2
+>>>>>>> 6c9aa71dc05b2ae926b173ab18a25e23e79a1d36
         seqDiagInter->updateEverything();
     }
 }
