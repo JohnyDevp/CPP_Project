@@ -33,9 +33,22 @@ public:
         CREATE,
         DESTROY
     };
+    /**
+     * @brief Index of the message used to be uniqly identified
+     *
+     */
     int index;
+    /**
+     * @brief Y positions of the message
+     *
+     */
     int Ycoord;
+
     QString className;
+    /**
+     * @brief 
+     * 
+     */
     QString operationName;
     MessageType messageType;
 
