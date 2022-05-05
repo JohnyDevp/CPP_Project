@@ -18,6 +18,13 @@ public:
 
     UMLSeqClass umlSeqClass;
 
+    QString objectName;
+
+    /**
+     * @brief variable storing, whether there is no background for this umlSeqClass (as umlclass) or there is
+     */
+    bool umlClassExists = true;
+
 private:
 
     // variables for default coords of bounding rectangle
