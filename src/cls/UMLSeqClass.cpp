@@ -1,3 +1,13 @@
+
+/**
+ * @file UMLSeqClass.cpp
+ * @author Jan Zimola (xzimol04)
+ * @brief
+ * @date 2022-05-05
+ * @sources: https://doc.qt.io/qt-5/qtcore-serialization-savegame-example.html
+ * @copyright Copyright (c) 2022
+ *
+ */
 #include "UMLSeqClass.hpp"
 
 bool UMLSeqClass::isCorrect(const UMLSeqClass &cl)
