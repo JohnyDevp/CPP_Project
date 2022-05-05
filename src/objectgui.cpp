@@ -86,6 +86,9 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     // variable for storing whether should be updated the gui if changed size during drawing
     bool hasChangedSize = false;
 
+    int prevWidth = this->boundingWidth;
+    int prevHeight = this->boundingHeight;
+
     // get and set current font
     QFont font("arial", 12); //-> for text length measure
     QFontMetrics fontMetrics(font);
@@ -199,7 +202,35 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     }
 
     // when some resizing has been done then update the design
-    if (hasChangedSize)
+    if (hasChangedSize){
+        foreach(RelationGui * relation, this->relatedRelations){
+            if(relation->objectEnd->objectName == this->objectName){
+                QPointF diff(0,0);
+                //if the relation ends at the edge
+                if (relation->umlRelation.endX > this->boundingX+prevWidth-10){
+                    diff.setX(this->boundingWidth - prevWidth);
+                }
+                if (relation->umlRelation.endY > this->boundingY+prevHeight-10){
+                    diff.setY(this->boundingHeight - prevHeight);
+                }
+                //update the relation
+                relation->updatePosition(this->umlObject, diff);
+            }else if(relation->objectStart->objectName == this->objectName){
+                QPointF diff(0,0);
+                //if the relation ends at the edge
+                if (relation->umlRelation.startX > this->boundingX+prevWidth-10){
+                    diff.setX(this->boundingWidth - prevWidth);
+                }
+                if (relation->umlRelation.startY > this->boundingY+prevHeight-10){
+                    diff.setY(this->boundingHeight - prevHeight);
+                }
+                //update the relation
+                relation->updatePosition(this->umlObject, diff);
+            }
+
+
+        }
+    }
         update();
 }
 
@@ -254,8 +285,15 @@ void ObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 
                 this->diagramInterface->isRelationCreating = false;
                 this->diagramInterface->tempUmlRelation.relationTo = this->objectName;
-                this->diagramInterface->tempUmlRelation.endX = event->scenePos().x();
-                this->diagramInterface->tempUmlRelation.endY = event->scenePos().y();
+
+                QPointF point(event->scenePos().x(), event->scenePos().y());
+                //std::cout << point.x() << " " << point.y() << std::endl;
+
+                //normalizePointToEdge(&point);
+
+                this->diagramInterface->tempUmlRelation.endX = point.x();
+                this->diagramInterface->tempUmlRelation.endY = point.y();
+
                 //add the relation to the diagram
                 this->diagramInterface->createRelation();
 
@@ -372,7 +410,7 @@ void ObjectGUI::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
     this->umlObject.Xcoord += diffX;
     this->umlObject.Ycoord += diffY;
 
-    std::cout << "Object gui X Y: " << this->umlObject.Xcoord << " " << this->umlObject.Ycoord << std::endl;
+    //std::cout << "Object gui X Y: " << this->umlObject.Xcoord << " " << this->umlObject.Ycoord << std::endl;
 
     //go through all related relations and notify them about moving
     QListIterator<RelationGui*> itr(this->relatedRelations);
@@ -419,6 +457,58 @@ void ObjectGUI::checkForOverrideOperationsNotification(){
 
     //finally update
     update();
+}
+
+void ObjectGUI::normalizePointToEdge(QPointF * point){
+    //intersects question
+    //TODO
+    bool end = false;
+    int prevX = point->x();
+    int prevY = point->y();
+
+    bool leftEdgeX = false, rightEdgeX = false;
+    bool upperEdgeY = false, bottomEdgeY = false;
+
+    if (point->x() < this->umlObject.Xcoord + 10){
+        point->setX(this->umlObject.Xcoord);
+        leftEdgeX = true;
+    } else if (point->x() > this->umlObject.Xcoord + this->boundingWidth - 10){
+        point->setX(this->boundingX+this->boundingWidth);
+        rightEdgeX = true;
+    }
+
+    if (end) return;
+
+    if (point->y() < this->umlObject.Ycoord + 10){
+        point->setY(this->umlObject.Ycoord);
+        upperEdgeY = true;
+    } else if (point->y() > this->umlObject.Ycoord + this->boundingHeight - 10){
+        point->setY(this->umlObject.Ycoord+this->boundingHeight);
+        bottomEdgeY = true;
+    }
+
+
+    if (leftEdgeX && upperEdgeY){
+        if (point->x() - this->umlObject.Xcoord > point->y() - this->umlObject.Ycoord)
+            point->setX(prevX);
+        else
+            point->setY(prevY);
+    } else if (leftEdgeX && bottomEdgeY){
+        if (point->x() - this->boundingX > point->y() - this->boundingY + this->boundingHeight)
+            point->setX(prevX);
+        else
+            point->setY(prevY);
+    } else if (rightEdgeX && upperEdgeY){
+        if (point->x() - this->umlObject.Xcoord + this->boundingWidth > point->y() - this->umlObject.Ycoord)
+            point->setX(prevX);
+        else
+            point->setY(prevY);
+    } else if (rightEdgeX && bottomEdgeY) {
+        if (point->x() - this->umlObject.Xcoord + this->boundingWidth > point->y() - this->umlObject.Ycoord + this->boundingHeight)
+            point->setX(prevX);
+        else
+            point->setY(prevY);
+    }
 }
 
 ObjectGUI::~ObjectGUI()
