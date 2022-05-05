@@ -20,7 +20,21 @@
 class Element
 {
 public:
+    /**
+     * @brief Checks if the name is not empty and do not contains spaces
+     *
+     * @param name
+     * @return true
+     * @return false
+     */
     static bool validName(const QString &name);
+    /**
+     * @brief returns if all is correcly set from the view of the class
+     *
+     * @param el
+     * @return true
+     * @return false
+     */
     static bool isCorrect(const Element &el);
 
     QString name;
@@ -49,6 +63,7 @@ public:
      */
     void read(const QJsonObject &json);
 
+    // Automaticly generated comparisons
     bool operator==(const Element &other) const;
     bool operator!=(const Element &other) const;
 };

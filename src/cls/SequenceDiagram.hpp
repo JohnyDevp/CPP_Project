@@ -24,6 +24,13 @@
 class SequenceDiagram : public Element
 {
 public:
+    /**
+     * @brief returns if all is correcly set from the view of the class
+     *
+     * @param seqDia
+     * @return true
+     * @return false
+     */
     static bool isCorrect(const SequenceDiagram &seqDia);
 
     int index;

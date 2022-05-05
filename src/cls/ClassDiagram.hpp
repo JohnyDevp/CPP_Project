@@ -26,6 +26,10 @@ class ClassDiagram : public Element
 public:
     static bool isCorrect(const ClassDiagram &dia);
 
+    /**
+     * @brief Keep track of index that will have a new UMLRelation
+     *
+     */
     int relationIndex = 0;
     /**
      * @brief list of all classes for diagram
@@ -38,22 +42,45 @@ public:
      */
     QMap<int, UMLRelation> relationList;
 
+    /**
+     * @brief Returns if UMLClass exists using name
+     *
+     * @param className
+     * @return true
+     * @return false
+     */
     bool existsClass(QString &className);
 
+    /**
+     * @brief Returns if UMLClass exists UMLClass instance
+     *
+     * @param umlClass
+     * @return true
+     * @return false
+     */
     bool existsClass(UMLClass &umlClass);
     /**
      * Creates an instance of UML class and inserts it into diagram
-     * If the name already exists returns null
      * @param name Name of the class
-     * @return object representing class, if class already exists returns null
+     * @return bool if the class was added
      */
     bool addClass(UMLClass &umlClass);
 
+    /**
+     * @brief If the class changed name, it deletes the previeos map instance and creates new one using the new
+     * name as a key
+     *
+     * @param oldName
+     * @param umlClass
+     */
     void updateClass(QString oldName, UMLClass &umlClass);
 
     /**
-     * @param umlRelation relation object
-     * @return boolean according success of adding operation
+     * @brief Adds relation to the relatinList map and returns updates instance with
+     * correct index
+     *
+     * @param umlRelation
+     * @return UMLRelation
      */
     UMLRelation addRelation(UMLRelation &umlRelation);
     /**
@@ -61,6 +88,10 @@ public:
      * */
     void removeRelation(UMLRelation &umlRelation);
 
+    /**
+     * @brief Default Construct a new Class Diagram object
+     *
+     */
     ClassDiagram();
     /**
      * @brief Construct a new Class Diagram object
@@ -86,6 +117,8 @@ public:
      * @param json
      */
     void read(const QJsonObject &json);
+
+    // Automacly generated comparisons using name
 
     bool operator==(const ClassDiagram &other) const;
     bool operator!=(const ClassDiagram &other) const;

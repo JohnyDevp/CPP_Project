@@ -39,9 +39,15 @@ public:
     QString operationName;
     MessageType messageType;
 
-    // TODO: Support return type
-
+    /**
+     * @brief Text used by RETURN type message
+     *
+     */
     QString returnText;
+    /**
+     * @brief User written arguments of functions
+     *
+     */
     QString argumentText;
 
     /**

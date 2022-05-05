@@ -48,7 +48,21 @@ public:
     double startX, startY;
     double endX, endY;
 
+    /**
+     * @brief Checks if cardinality is correctly entered
+     *
+     * @param cardi
+     * @return true
+     * @return false
+     */
     static bool isCardinalityCorrect(QString cardi);
+    /**
+     * @brief returns if all is correcly set from the view of the class
+     *
+     * @param rel
+     * @return true
+     * @return false
+     */
     static bool isCorrect(const UMLRelation &rel);
 
     /**

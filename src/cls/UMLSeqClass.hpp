@@ -19,6 +19,13 @@
 class UMLSeqClass : public Element
 {
 public:
+    /**
+     * @brief returns if all is correcly set from the view of the class
+     *
+     * @param cl
+     * @return true
+     * @return false
+     */
     static bool isCorrect(const UMLSeqClass &cl);
 
     int Xcoord;

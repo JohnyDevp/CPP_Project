@@ -21,6 +21,13 @@
 class UMLOperation : public UMLAttribute
 {
 public:
+    /**
+     * @brief returns if all is correcly set from the view of the class
+     *
+     * @param op
+     * @return true
+     * @return false
+     */
     static bool isCorrect(const UMLOperation &op);
 
     QList<UMLAttribute> parameterssOfOperationList;
