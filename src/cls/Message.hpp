@@ -12,7 +12,8 @@
 #include "UMLClass.hpp"
 
 #define ycoordName "ycoordName"
-#define umlClassName "className"
+#define recieverName "classReceiver"
+#define senderName "classSender"
 #define umlOperationName "operationName"
 #define messageTypeName "messageTypeName"
 #define messageIndexName "index"
@@ -44,10 +45,12 @@ public:
      */
     int Ycoord;
 
-    QString className;
+    QString classReceiver;
+
+    QString classSender;
     /**
-     * @brief 
-     * 
+     * @brief
+     *
      */
     QString operationName;
     MessageType messageType;

@@ -10,6 +10,7 @@ qmake:
 clean:
 	rm -rf build-CPP_Project-Desktop-Debug;\
 	rm -rf build-CPP_Project-Desktop-Debug;\
+	rm -rf .qt_for_python;\
 	cd src/;\
 	rm CPP_Project;\
 	rm -rf ui_*;\
@@ -31,5 +32,6 @@ run:
 	./CPP_Project;\
 	cd ..;
 
+# TODO: Change reame to txt
 pack:
-	zip -r  n-xzimol04-xholan11.zip ../CPP_Project
+	zip -r  n-xzimol04-xholan11.zip docs examples src Makefile README.md
