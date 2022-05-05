@@ -2,6 +2,11 @@
 #include "objectgui.h"
 #include <QGraphicsScene>
 
+DiagramInterface::~DiagramInterface()
+{
+    // TODO: Clean all pointers
+}
+
 /**
  * @brief DiagramInterface::DiagramInterface
  * interface for diagrams -> storing sequence diagrams, class diagram
@@ -54,31 +59,35 @@ bool DiagramInterface::createUMLClass(UMLClass &umlClass)
 
 UMLRelation DiagramInterface::createRelation()
 {
-    //create gui for the relation
-    RelationGui * newRelGui = new RelationGui(tempUmlRelation, this);
+    // create gui for the relation
+    RelationGui *newRelGui = new RelationGui(tempUmlRelation, this);
 
-    //bound related objects to this relation
-    foreach(ObjectGUI * obj, this->guiObjectList){
-        if (obj->objectName == tempUmlRelation.relationFrom){
+    // bound related objects to this relation
+    foreach (ObjectGUI *obj, this->guiObjectList)
+    {
+        if (obj->objectName == tempUmlRelation.relationFrom)
+        {
             obj->addRelatedRelation(newRelGui);
             newRelGui->objectStart = obj;
-        } else if (obj->objectName == tempUmlRelation.relationTo){
+        }
+        else if (obj->objectName == tempUmlRelation.relationTo)
+        {
             obj->addRelatedRelation(newRelGui);
             newRelGui->objectEnd = obj;
         }
     }
 
-    //check for override of operation
+    // check for override of operation
     newRelGui->objectStart->checkForOverrideOperationsNotification();
 
-    //add the relation gui to the scene and to the list of relations
+    // add the relation gui to the scene and to the list of relations
     this->relationList.append(newRelGui);
     this->scene->addItem(newRelGui);
 
-    //reset newRelGui umlRelation
+    // reset newRelGui umlRelation
     newRelGui->umlRelation = classDiagram.addRelation(tempUmlRelation);
 
-    //TODO -> not necessary to return anything
+    // TODO -> not necessary to return anything
     return newRelGui->umlRelation;
 }
 
@@ -103,6 +112,11 @@ SequenceDiagram DiagramInterface::createSequenceDiagram(SequenceDiagram &dia)
     sequenceDiagrams[dia.index] = dia;
     sequenceDiagramIndex++;
     return dia;
+}
+
+void DiagramInterface::addSequenceDiagramInterface(SequenceDiagramInterface *diaInter)
+{
+    sequenceDiagramInterfaceList.append(diaInter);
 }
 
 void DiagramInterface::write(QJsonObject &json) const
