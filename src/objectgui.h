@@ -1,3 +1,13 @@
+/**
+ * @file objectgui.h
+ * @author xholan11
+ * @brief Header file for objectgui.cpp
+ * @date 2022-05-01
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
 #pragma once
 
 #ifndef OBJECTGUI_H
@@ -21,7 +31,7 @@ public:
      * @brief ObjectGUI - constructor
      * @param umlClass
      */
-    ObjectGUI(UMLClass umlClass, DiagramInterface * diagramInterface);
+    ObjectGUI(UMLClass umlClass, DiagramInterface *diagramInterface);
     ~ObjectGUI();
 
     QRectF boundingRect() const;
@@ -31,8 +41,8 @@ public:
      * @brief add newly created realtion to the list of relations related to this object
      * @param relation - newly created relation gui
      */
-    void addRelatedRelation(RelationGui * relation);
-    void removeRelatedRelation(RelationGui * relation);
+    void addRelatedRelation(RelationGui *relation);
+    void removeRelatedRelation(RelationGui *relation);
 
     /**
      * @brief function for check whether some of related objects by generalization doesnt include same operation as
@@ -77,7 +87,6 @@ private:
     int boundingWidth;
     int boundingHeight;
 
-
     /**
      * @brief isInterface - defined, whether this object represents an interface or not
      */
@@ -87,7 +96,6 @@ private:
      * @brief umlObject - storing uml representation of this gui
      */
     UMLClass umlObject;
-
 
     /**
      * @brief overrideOperations
@@ -105,13 +113,13 @@ private:
      * @brief diagramInterface
      * pointer to middle part of program between inner and gui representation
      */
-    DiagramInterface * diagramInterface;
+    DiagramInterface *diagramInterface;
 
     /**
      * @brief relatedRelation
      * list of relations which there started or ended
      */
-    QList<RelationGui*> relatedRelations;
+    QList<RelationGui *> relatedRelations;
 };
 
 #endif // OBJECTGUI_H

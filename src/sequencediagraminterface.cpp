@@ -1,4 +1,27 @@
+/**
+ * @file sequencediagraminterface.cpp
+ * @author xholan11, xzimol04
+ * @brief Interface specific for Sequence diagram
+ * @date 2022-05-05
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
 #include "sequencediagraminterface.h"
+
+SequenceDiagramInterface::~SequenceDiagramInterface()
+{
+    foreach (SequenceObjectGUI *obj, sequenceObjectGUIList)
+    {
+        delete obj;
+    }
+
+    foreach (SequenceMessageGUI *mes, sequenceMessageGUIList)
+    {
+        delete mes;
+    }
+}
 
 SequenceDiagramInterface::SequenceDiagramInterface(DiagramInterface *diagramInterface, SequenceDiagram sequenceDiagram) : sequenceDiagram(sequenceDiagram)
 {
@@ -22,15 +45,17 @@ void SequenceDiagramInterface::removeSequenceObjectGUI(SequenceObjectGUI *seqObj
 
 void SequenceDiagramInterface::notifyUmlClassUpdate(QString classOldName, UMLClass updatedClass)
 {
-    //loop through sequence gui objects and look at their classes, whether they fit to this name or not
-    foreach(SequenceObjectGUI * seqObjGUI, this->sequenceObjectGUIList){
-        //update seq class of that object
-        if (seqObjGUI->umlSeqClass.className == classOldName){
-            //update the umlclass name stored in umlSeqClass for the new one
+    // loop through sequence gui objects and look at their classes, whether they fit to this name or not
+    foreach (SequenceObjectGUI *seqObjGUI, this->sequenceObjectGUIList)
+    {
+        // update seq class of that object
+        if (seqObjGUI->umlSeqClass.className == classOldName)
+        {
+            // update the umlclass name stored in umlSeqClass for the new one
             seqObjGUI->umlSeqClass.className = updatedClass.name;
-            //update the seq class in the sequence diagram
+            // update the seq class in the sequence diagram
             this->sequenceDiagram.updateSeqClass(seqObjGUI->umlSeqClass);
-            //update the gui
+            // update the gui
             seqObjGUI->update();
         }
     }
@@ -38,20 +63,24 @@ void SequenceDiagramInterface::notifyUmlClassUpdate(QString classOldName, UMLCla
 
 void SequenceDiagramInterface::updateEverything()
 {
-    //check all sequence gui objects
-    foreach(SequenceObjectGUI * seqObjGUI, this->sequenceObjectGUIList){
-        //check for existing in class diagram
-        if(!this->diagramInterface->existsClass(seqObjGUI->umlSeqClass.className)){
-            //class doesnt exists in class diagram
+    // check all sequence gui objects
+    foreach (SequenceObjectGUI *seqObjGUI, this->sequenceObjectGUIList)
+    {
+        // check for existing in class diagram
+        if (!this->diagramInterface->existsClass(seqObjGUI->umlSeqClass.className))
+        {
+            // class doesnt exists in class diagram
             //->notify sequence gui object and all related messages
             seqObjGUI->umlClassExists = false;
 
-            //TODO - notify messages
+            // TODO - notify messages
 
-            //update gui
+            // update gui
             seqObjGUI->update();
-        } else {
-            //if the class exists, set it in seq obj gui
+        }
+        else
+        {
+            // if the class exists, set it in seq obj gui
             seqObjGUI->umlClassExists = true;
         }
     }
@@ -92,7 +121,8 @@ void SequenceDiagramInterface::removeSeqClass(UMLSeqClass &seqClass)
     sequenceDiagram.deleteUMLSeqClass(seqClass);
 }
 
-void SequenceDiagramInterface::updateScene(){
+void SequenceDiagramInterface::updateScene()
+{
     this->scene->update();
 }
 

@@ -1,10 +1,34 @@
+/**
+ * @file diagraminterface.cpp
+ * @author xholan11, xzimol04
+ * @brief Interface for all data
+ * @date 2022-05-05
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
 #include "diagraminterface.h"
 #include "objectgui.h"
 #include <QGraphicsScene>
 
 DiagramInterface::~DiagramInterface()
 {
-    // TODO: Clean all pointers
+    foreach (SequenceDiagramInterface *seqInt, sequenceDiagramInterfaceList)
+    {
+        delete seqInt;
+    }
+
+    foreach (ObjectGUI *obj, guiObjectList)
+    {
+        delete obj;
+    }
+
+    foreach (RelationGui *rel, relationList)
+
+    {
+        delete rel;
+    }
 }
 
 /**

@@ -1,3 +1,13 @@
+/**
+ * @file editrelationdialog.cpp
+ * @author xholan11
+ * @brief Dialog used for editing relations
+ * @date 2022-05-05
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
 #include "editrelationdialog.h"
 #include "ui_editrelationdialog.h"
 #include "errors.h"

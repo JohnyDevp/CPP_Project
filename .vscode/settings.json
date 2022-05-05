@@ -71,6 +71,8 @@
         "qbytearray": "cpp",
         "qjsondocument": "cpp",
         "valarray": "cpp",
-        "qlist": "cpp"
+        "qlist": "cpp",
+        "qgraphicsscene": "cpp",
+        "qmessagebox": "cpp"
     }
 }

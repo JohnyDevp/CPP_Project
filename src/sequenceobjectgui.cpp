@@ -1,3 +1,13 @@
+/**
+ * @file sequenceobjectgui.cpp
+ * @author xholan11
+ * @brief Represents class in sequence diagram
+ * @date 2022-05-05
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #include "sequenceobjectgui.h"
 #include "controllers/addmessagedialog.h"
 #include "qabstractbutton.h"

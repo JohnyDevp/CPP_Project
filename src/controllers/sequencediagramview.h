@@ -1,3 +1,13 @@
+/**
+ * @file sequencediagramview.h
+ * @author xholan11
+ * @brief Header file for sequencediagram.cpp
+ * @date 2022-05-05
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
 #ifndef SEQUENCEDIAGRAMVIEW_H
 #define SEQUENCEDIAGRAMVIEW_H
 
@@ -24,7 +34,7 @@ public:
      * @param tabIndex
      * @param sequenceDiagramInterface
      */
-    void init(QTabWidget *tabPane, int tabIndex, SequenceDiagramInterface * sequenceDiagramInterface);
+    void init(QTabWidget *tabPane, int tabIndex, SequenceDiagramInterface *sequenceDiagramInterface);
 
 private slots:
     void on_btnClose_clicked();
@@ -34,17 +44,17 @@ private slots:
 private:
     Ui::SequenceDiagramView *ui;
 
-    QGraphicsScene * scene;
+    QGraphicsScene *scene;
 
     /**
      * @brief tabPane
      */
-    QTabWidget * tabPane;
+    QTabWidget *tabPane;
 
     /**
      * @brief sequenceDiagramInterface
      */
-    SequenceDiagramInterface * sequenceDiagramInterface;
+    SequenceDiagramInterface *sequenceDiagramInterface;
 
     int tabIndex;
 };
