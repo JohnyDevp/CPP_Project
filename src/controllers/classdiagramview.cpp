@@ -1,5 +1,5 @@
 /** @file classdiagramview.cpp
- *  @author xholan11
+ *  @author xholan11, xzimol04
  *  @brief Controller for view for class diagram
  */
 
@@ -27,6 +27,7 @@ ClassDiagramView::ClassDiagramView(QWidget *parent) : QWidget(parent),
 ClassDiagramView::~ClassDiagramView()
 {
     delete ui;
+    delete scene;
 }
 
 /*functions for this class======================================================================================================================*/
@@ -129,6 +130,7 @@ void ClassDiagramView::on_btnClose_clicked()
 
     // enabling buttons
     this->btnCreateNewDiagram->setEnabled(true);
+
     this->btnLoadExistingDiagram->setEnabled(true);
 
     // remove all tabs
@@ -138,6 +140,8 @@ void ClassDiagramView::on_btnClose_clicked()
     {
         this->tabPane->removeTab(i);
     }
+    // TODO: Clean data, check
+    delete diagramInterface;
 }
 
 void ClassDiagramView::on_btnAddObject_clicked()

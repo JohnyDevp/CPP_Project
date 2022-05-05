@@ -1,10 +1,34 @@
+/**
+ * @file diagraminterface.cpp
+ * @author xholan11, xzimol04
+ * @brief Interface for all data
+ * @date 2022-05-05
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
 #include "diagraminterface.h"
 #include "objectgui.h"
 #include <QGraphicsScene>
 
 DiagramInterface::~DiagramInterface()
 {
-    // TODO: Clean all pointers
+    foreach (SequenceDiagramInterface *seqInt, sequenceDiagramInterfaceList)
+    {
+        delete seqInt;
+    }
+
+    foreach (ObjectGUI *obj, guiObjectList)
+    {
+        delete obj;
+    }
+
+    foreach (RelationGui *rel, relationList)
+
+    {
+        delete rel;
+    }
 }
 
 /**
@@ -67,9 +91,17 @@ bool DiagramInterface::createUMLClass(UMLClass &umlClass)
 {
     bool success = classDiagram.addClass(umlClass);
 
+<<<<<<< HEAD
     //notify sequence diagrams about updates - if the operation was successfull
     if (success) {
         foreach(SequenceDiagramInterface * seqDiagInter, this->sequenceDiagramInterfaceList){
+=======
+    // notify sequence diagrams about updates - if the operation was successfull
+    if (success)
+    {
+        foreach (SequenceDiagramInterface *seqDiagInter, this->sequenceDiagramInterfaceList)
+        {
+>>>>>>> sequence2
             seqDiagInter->updateEverything();
         }
     }
@@ -115,8 +147,14 @@ void DiagramInterface::removeUMLClass(UMLClass umlClass)
 {
     classDiagram.classList.remove(umlClass.name);
 
+<<<<<<< HEAD
     //notify sequence diagrams about updates
     foreach(SequenceDiagramInterface * seqDiagInter, this->sequenceDiagramInterfaceList){
+=======
+    // notify sequence diagrams about updates
+    foreach (SequenceDiagramInterface *seqDiagInter, this->sequenceDiagramInterfaceList)
+    {
+>>>>>>> sequence2
         seqDiagInter->updateEverything();
     }
 }

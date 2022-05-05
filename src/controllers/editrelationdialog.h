@@ -1,11 +1,22 @@
+/**
+ * @file editrelationdialog.h
+ * @author xholan11
+ * @brief Header file for editrelationdialog.cpp
+ * @date 2022-05-05
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
 #ifndef EDITRELATIONDIALOG_H
 #define EDITRELATIONDIALOG_H
 
 #include "cls/UMLRelation.hpp"
 #include <QDialog>
 
-namespace Ui {
-class EditRelationDialog;
+namespace Ui
+{
+    class EditRelationDialog;
 }
 
 class EditRelationDialog : public QDialog
@@ -16,8 +27,8 @@ public:
     explicit EditRelationDialog(QWidget *parent = nullptr);
     ~EditRelationDialog();
 
-    void init(UMLRelation * umlRelation);
-    UMLRelation * getUpdatedUmlRelation();
+    void init(UMLRelation *umlRelation);
+    UMLRelation *getUpdatedUmlRelation();
 
 private slots:
     void on_btnSetRelationName_clicked();
@@ -31,7 +42,7 @@ private slots:
 private:
     Ui::EditRelationDialog *ui;
 
-    UMLRelation * umlRelation;
+    UMLRelation *umlRelation;
 };
 
 #endif // EDITRELATIONDIALOG_H

@@ -1,4 +1,27 @@
+/**
+ * @file sequencediagraminterface.cpp
+ * @author xholan11, xzimol04
+ * @brief Interface specific for Sequence diagram
+ * @date 2022-05-05
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
 #include "sequencediagraminterface.h"
+
+SequenceDiagramInterface::~SequenceDiagramInterface()
+{
+    foreach (SequenceObjectGUI *obj, sequenceObjectGUIList)
+    {
+        delete obj;
+    }
+
+    foreach (SequenceMessageGUI *mes, sequenceMessageGUIList)
+    {
+        delete mes;
+    }
+}
 
 SequenceDiagramInterface::SequenceDiagramInterface(DiagramInterface *diagramInterface, SequenceDiagram sequenceDiagram) : sequenceDiagram(sequenceDiagram)
 {
@@ -92,7 +115,8 @@ void SequenceDiagramInterface::removeSeqClass(UMLSeqClass &seqClass)
     sequenceDiagram.deleteUMLSeqClass(seqClass);
 }
 
-void SequenceDiagramInterface::updateScene(){
+void SequenceDiagramInterface::updateScene()
+{
     this->scene->update();
 }
 

@@ -1,3 +1,13 @@
+/**
+ * @file errors.h
+ * @author xholan11
+ * @brief Header file for errors.cpp
+ * @date 2022-05-02
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
 #ifndef ERRORS_H
 #define ERRORS_H
 

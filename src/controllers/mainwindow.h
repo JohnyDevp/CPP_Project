@@ -1,7 +1,7 @@
 /** @file mainwindow.h
  *  @author xholan11
  *  @brief Header file for controller of mainwindow.cpp
-*/
+ */
 
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
@@ -15,9 +15,11 @@
 #include "ui_mainwindow.h"
 #include <iostream>
 
-
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui
+{
+    class MainWindow;
+}
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
@@ -51,6 +53,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-
+    ClassDiagramView *q;
 };
 #endif // MAINWINDOW_H
