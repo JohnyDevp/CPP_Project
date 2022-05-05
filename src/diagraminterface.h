@@ -18,6 +18,7 @@
 
 class ObjectGUI;
 class RelationGui;
+class SequenceDiagramInterface;
 
 #define classDiagramName "classDiagram"
 #define sequenceDiagramsName "sequenceDiagrams"
@@ -43,7 +44,8 @@ public:
     bool isRelationCreating = false;
 
     ClassDiagram classDiagram;
-    //QMap<int, SequenceDiagramInterface*> sequenceDiagramInterfaces;
+
+    QList<SequenceDiagramInterface*> sequenceDiagramInterfaceList;
     QMap<int, SequenceDiagram> sequenceDiagrams;
 
     // Interface functions for more cleaner code

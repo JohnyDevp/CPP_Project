@@ -1,6 +1,6 @@
 #include "sequencediagraminterface.h"
 
-SequenceDiagramInterface::SequenceDiagramInterface(DiagramInterface * diagramInterface) : sequenceDiagram()
+SequenceDiagramInterface::SequenceDiagramInterface(DiagramInterface * diagramInterface, SequenceDiagram sequenceDiagram) : sequenceDiagram()
 {
     this->diagramInterface = diagramInterface;
 }

@@ -44,10 +44,18 @@ public:
      * @param tabPane
      */
     void init(QString filePath, QPushButton *btn1, QPushButton *btn2, QTabWidget *tabPane);
+
     /**
      * @brief parseFile - function parsing file of existing diagram (if set)
      */
     void parseFile();
+
+    /**
+     * @brief createSequenceDiagramTab
+     * @param sequenceDiagram
+     * @return pointer to the interface for newly created sequence diagram
+     */
+    SequenceDiagramInterface * createSequenceDiagramTab(SequenceDiagram &sequenceDiagram);
 
     explicit ClassDiagramView(QWidget *parent = nullptr);
 
