@@ -1,7 +1,10 @@
 #include "sequenceobjectgui.h"
+#include "controllers/addmessagedialog.h"
+#include "qabstractbutton.h"
 #include "qfont.h"
 #include "qfontmetrics.h"
 #include "qgraphicssceneevent.h"
+#include "qmessagebox.h"
 #include "qpainter.h"
 #include <iostream>
 
@@ -103,12 +106,33 @@ void SequenceObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
     qreal curX = event->scenePos().x();
     qreal curY = event->scenePos().y();
 
-    //if the click was on the line
     if (curX >= this->boundingX+this->boundingWidth/2 - 3 &&
         curX <= this->boundingX+this->boundingWidth/2 + 3 &&
         curY >  this->boundingY + 50){
+        //if the click was on the class time-line
 
-        std::cout << "line click" << std::endl;
+        AddMessageDialog * addMessageDlg = new AddMessageDialog();
+        addMessageDlg->init(&this->umlSeqClass, this->seqDiagInterface);
+        addMessageDlg->exec();
+
+
+    } else if (curY <= this->boundingY + 50){
+        //if the click was on the background rectangle
+        //ask for delete
+
+        QMessageBox msgBox;
+        QPushButton *deleteButton = nullptr;
+        msgBox.setText("Remove class?");
+        QPushButton *cancelButton = msgBox.addButton(QMessageBox::Cancel);
+        msgBox.exec();
+
+        if (msgBox.clickedButton() == (QAbstractButton*)deleteButton) {
+            this->seqDiagInterface->removeSeqClass(this->umlSeqClass);
+            this->seqDiagInterface->removeSequenceObjectGUI(this);
+        } else if (msgBox.clickedButton() == (QAbstractButton*)cancelButton) {
+            //do nothing
+            return;
+        }
     }
 
     QGraphicsItem::mouseDoubleClickEvent(event);

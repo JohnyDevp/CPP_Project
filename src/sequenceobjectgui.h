@@ -29,6 +29,11 @@ public:
      */
     bool umlClassExists = true;
 
+    /**
+     * @brief objectName - build object name, ready to be displayed
+     */
+    QString objectName;
+
 protected:
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -38,7 +43,6 @@ private:
     qreal mousePrevSceneX;
     qreal mousePrevSceneY;
 
-    QString objectName;
 
     // variables for default coords of bounding rectangle
     int boundingX;

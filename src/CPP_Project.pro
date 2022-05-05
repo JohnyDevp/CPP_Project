@@ -19,6 +19,7 @@ SOURCES += \
         cls/UMLSeqClass.cpp \
         cls/ClassDiagram.cpp \
         cls/SequenceDiagram.cpp \
+        controllers/addmessagedialog.cpp \
         controllers/editobjectdialog.cpp \
         controllers/editrelationdialog.cpp \
         controllers/sequencediagramview.cpp \
@@ -48,6 +49,7 @@ HEADERS += \
         cls/UMLSeqClass.hpp \
         cls/ClassDiagram.hpp \
         cls/SequenceDiagram.hpp \
+        controllers/addmessagedialog.h \
         controllers/editobjectdialog.h \
         controllers/editrelationdialog.h \
         controllers/mainwindow.h \
@@ -66,6 +68,7 @@ HEADERS += \
         views/addclassdiagramobjectdialog.h
 
 FORMS += \
+    controllers/addmessagedialog.ui \
     controllers/editobjectdialog.ui \
     controllers/editrelationdialog.ui \
     views/addclassdiagramobjectdialog.ui \
