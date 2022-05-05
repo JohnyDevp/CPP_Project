@@ -51,6 +51,14 @@ public:
      */
     ~UMLSeqClass();
 
+    /**
+     * @brief Get the Unique Name object
+     *
+     * @return true
+     * @return false
+     */
+    QString getUniqueName();
+
     UMLSeqClass();
 
     /**

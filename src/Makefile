@@ -61,6 +61,7 @@ SOURCES       = cls/Element.cpp \
 		cls/UMLSeqClass.cpp \
 		cls/ClassDiagram.cpp \
 		cls/SequenceDiagram.cpp \
+		controllers/addmessagedialog.cpp \
 		controllers/editobjectdialog.cpp \
 		controllers/editrelationdialog.cpp \
 		controllers/sequencediagramview.cpp \
@@ -75,7 +76,8 @@ SOURCES       = cls/Element.cpp \
 		sequencemessagegui.cpp \
 		sequenceobjectgui.cpp \
 		undo.cpp \
-		views/addclassdiagramobjectdialog.cpp moc_editobjectdialog.cpp \
+		views/addclassdiagramobjectdialog.cpp moc_addmessagedialog.cpp \
+		moc_editobjectdialog.cpp \
 		moc_editrelationdialog.cpp \
 		moc_mainwindow.cpp \
 		moc_classdiagramview.cpp \
@@ -90,6 +92,7 @@ OBJECTS       = Element.o \
 		UMLSeqClass.o \
 		ClassDiagram.o \
 		SequenceDiagram.o \
+		addmessagedialog.o \
 		editobjectdialog.o \
 		editrelationdialog.o \
 		sequencediagramview.o \
@@ -105,6 +108,7 @@ OBJECTS       = Element.o \
 		sequenceobjectgui.o \
 		undo.o \
 		addclassdiagramobjectdialog.o \
+		moc_addmessagedialog.o \
 		moc_editobjectdialog.o \
 		moc_editrelationdialog.o \
 		moc_mainwindow.o \
@@ -306,6 +310,7 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/qt_config.prf \
 		/usr/lib/qt/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/qt/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/qt/mkspecs/features/toolchain.prf \
 		/usr/lib/qt/mkspecs/features/default_pre.prf \
@@ -336,6 +341,7 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		cls/UMLSeqClass.hpp \
 		cls/ClassDiagram.hpp \
 		cls/SequenceDiagram.hpp \
+		controllers/addmessagedialog.h \
 		controllers/editobjectdialog.h \
 		controllers/editrelationdialog.h \
 		controllers/mainwindow.h \
@@ -358,6 +364,7 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		cls/UMLSeqClass.cpp \
 		cls/ClassDiagram.cpp \
 		cls/SequenceDiagram.cpp \
+		controllers/addmessagedialog.cpp \
 		controllers/editobjectdialog.cpp \
 		controllers/editrelationdialog.cpp \
 		controllers/sequencediagramview.cpp \
@@ -381,7 +388,7 @@ TARGET        = CPP_Project
 first: all
 ####### Build rules
 
-CPP_Project: ui_editobjectdialog.h ui_editrelationdialog.h ui_addclassdiagramobjectdialog.h ui_sequencediagramview.h ui_classdiagramview.h ui_mainwindow.h $(OBJECTS)  
+CPP_Project: ui_addmessagedialog.h ui_editobjectdialog.h ui_editrelationdialog.h ui_addclassdiagramobjectdialog.h ui_sequencediagramview.h ui_classdiagramview.h ui_mainwindow.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: CPP_Project.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/mkspecs/features/spec_pre.prf \
@@ -579,6 +586,7 @@ Makefile: CPP_Project.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/m
 		/usr/lib/qt/mkspecs/features/qt_config.prf \
 		/usr/lib/qt/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/qt/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/qt/mkspecs/features/toolchain.prf \
 		/usr/lib/qt/mkspecs/features/default_pre.prf \
@@ -797,6 +805,7 @@ Makefile: CPP_Project.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/m
 /usr/lib/qt/mkspecs/features/qt_config.prf:
 /usr/lib/qt/mkspecs/linux-g++/qmake.conf:
 /usr/lib/qt/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/lib/qt/mkspecs/features/exclusive_builds.prf:
 /usr/lib/qt/mkspecs/features/toolchain.prf:
 /usr/lib/qt/mkspecs/features/default_pre.prf:
@@ -834,9 +843,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents cls/Element.hpp cls/UMLClass.hpp cls/UMLAttribute.hpp cls/UMLOperation.hpp cls/UMLRelation.hpp cls/Message.hpp cls/UMLSeqClass.hpp cls/ClassDiagram.hpp cls/SequenceDiagram.hpp controllers/editobjectdialog.h controllers/editrelationdialog.h controllers/mainwindow.h controllers/classdiagramview.h controllers/sequencediagramview.h diagraminterface.h errors.h objectgui.h relationgui.h sequencediagraminterface.h sequencemessagegui.h sequenceobjectgui.h undo.h views/addclassdiagramobjectdialog.h $(DISTDIR)/
-	$(COPY_FILE) --parents cls/Element.cpp cls/UMLClass.cpp cls/UMLAttribute.cpp cls/UMLOperation.cpp cls/UMLRelation.cpp cls/Message.cpp cls/UMLSeqClass.cpp cls/ClassDiagram.cpp cls/SequenceDiagram.cpp controllers/editobjectdialog.cpp controllers/editrelationdialog.cpp controllers/sequencediagramview.cpp diagraminterface.cpp errors.cpp main.cpp controllers/mainwindow.cpp controllers/classdiagramview.cpp objectgui.cpp relationgui.cpp sequencediagraminterface.cpp sequencemessagegui.cpp sequenceobjectgui.cpp undo.cpp views/addclassdiagramobjectdialog.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents controllers/editobjectdialog.ui controllers/editrelationdialog.ui views/addclassdiagramobjectdialog.ui views/sequencediagramview.ui views/classdiagramview.ui views/mainwindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents cls/Element.hpp cls/UMLClass.hpp cls/UMLAttribute.hpp cls/UMLOperation.hpp cls/UMLRelation.hpp cls/Message.hpp cls/UMLSeqClass.hpp cls/ClassDiagram.hpp cls/SequenceDiagram.hpp controllers/addmessagedialog.h controllers/editobjectdialog.h controllers/editrelationdialog.h controllers/mainwindow.h controllers/classdiagramview.h controllers/sequencediagramview.h diagraminterface.h errors.h objectgui.h relationgui.h sequencediagraminterface.h sequencemessagegui.h sequenceobjectgui.h undo.h views/addclassdiagramobjectdialog.h $(DISTDIR)/
+	$(COPY_FILE) --parents cls/Element.cpp cls/UMLClass.cpp cls/UMLAttribute.cpp cls/UMLOperation.cpp cls/UMLRelation.cpp cls/Message.cpp cls/UMLSeqClass.cpp cls/ClassDiagram.cpp cls/SequenceDiagram.cpp controllers/addmessagedialog.cpp controllers/editobjectdialog.cpp controllers/editrelationdialog.cpp controllers/sequencediagramview.cpp diagraminterface.cpp errors.cpp main.cpp controllers/mainwindow.cpp controllers/classdiagramview.cpp objectgui.cpp relationgui.cpp sequencediagraminterface.cpp sequencemessagegui.cpp sequenceobjectgui.cpp undo.cpp views/addclassdiagramobjectdialog.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents controllers/addmessagedialog.ui controllers/editobjectdialog.ui controllers/editrelationdialog.ui views/addclassdiagramobjectdialog.ui views/sequencediagramview.ui views/classdiagramview.ui views/mainwindow.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -871,9 +880,30 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/qt/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -O2 -std=gnu++1z -flto -fno-fat-lto-objects -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_editobjectdialog.cpp moc_editrelationdialog.cpp moc_mainwindow.cpp moc_classdiagramview.cpp moc_sequencediagramview.cpp moc_addclassdiagramobjectdialog.cpp
+compiler_moc_header_make_all: moc_addmessagedialog.cpp moc_editobjectdialog.cpp moc_editrelationdialog.cpp moc_mainwindow.cpp moc_classdiagramview.cpp moc_sequencediagramview.cpp moc_addclassdiagramobjectdialog.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_editobjectdialog.cpp moc_editrelationdialog.cpp moc_mainwindow.cpp moc_classdiagramview.cpp moc_sequencediagramview.cpp moc_addclassdiagramobjectdialog.cpp
+	-$(DEL_FILE) moc_addmessagedialog.cpp moc_editobjectdialog.cpp moc_editrelationdialog.cpp moc_mainwindow.cpp moc_classdiagramview.cpp moc_sequencediagramview.cpp moc_addclassdiagramobjectdialog.cpp
+moc_addmessagedialog.cpp: controllers/addmessagedialog.h \
+		cls/UMLSeqClass.hpp \
+		cls/UMLClass.hpp \
+		cls/UMLAttribute.hpp \
+		cls/Element.hpp \
+		cls/UMLOperation.hpp \
+		sequencediagraminterface.h \
+		cls/SequenceDiagram.hpp \
+		cls/Message.hpp \
+		diagraminterface.h \
+		cls/ClassDiagram.hpp \
+		cls/UMLRelation.hpp \
+		objectgui.h \
+		relationgui.h \
+		undo.h \
+		sequencemessagegui.h \
+		sequenceobjectgui.h \
+		moc_predefs.h \
+		/usr/bin/moc
+	/usr/bin/moc $(DEFINES) --include /home/musta-pollo/VUT/ICP_COL/CPP_Project/src/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/musta-pollo/VUT/ICP_COL/CPP_Project/src -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/11.2.0 -I/usr/include/c++/11.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/11.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include-fixed -I/usr/include controllers/addmessagedialog.h -o moc_addmessagedialog.cpp
+
 moc_editobjectdialog.cpp: controllers/editobjectdialog.h \
 		diagraminterface.h \
 		cls/ClassDiagram.hpp \
@@ -890,6 +920,7 @@ moc_editobjectdialog.cpp: controllers/editobjectdialog.h \
 		sequencediagraminterface.h \
 		sequencemessagegui.h \
 		sequenceobjectgui.h \
+		undo.h \
 		moc_predefs.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include /home/musta-pollo/VUT/ICP_COL/CPP_Project/src/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/musta-pollo/VUT/ICP_COL/CPP_Project/src -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/11.2.0 -I/usr/include/c++/11.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/11.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include-fixed -I/usr/include controllers/editobjectdialog.h -o moc_editobjectdialog.cpp
@@ -921,6 +952,7 @@ moc_mainwindow.cpp: controllers/mainwindow.h \
 		sequencediagraminterface.h \
 		sequencemessagegui.h \
 		sequenceobjectgui.h \
+		undo.h \
 		ui_mainwindow.h \
 		moc_predefs.h \
 		/usr/bin/moc
@@ -942,6 +974,7 @@ moc_classdiagramview.cpp: controllers/classdiagramview.h \
 		sequencediagraminterface.h \
 		sequencemessagegui.h \
 		sequenceobjectgui.h \
+		undo.h \
 		moc_predefs.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include /home/musta-pollo/VUT/ICP_COL/CPP_Project/src/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/musta-pollo/VUT/ICP_COL/CPP_Project/src -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/11.2.0 -I/usr/include/c++/11.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/11.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include-fixed -I/usr/include controllers/classdiagramview.h -o moc_classdiagramview.cpp
@@ -960,6 +993,7 @@ moc_sequencediagramview.cpp: controllers/sequencediagramview.h \
 		cls/UMLRelation.hpp \
 		objectgui.h \
 		relationgui.h \
+		undo.h \
 		sequencemessagegui.h \
 		sequenceobjectgui.h \
 		moc_predefs.h \
@@ -975,9 +1009,13 @@ compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_editobjectdialog.h ui_editrelationdialog.h ui_addclassdiagramobjectdialog.h ui_sequencediagramview.h ui_classdiagramview.h ui_mainwindow.h
+compiler_uic_make_all: ui_addmessagedialog.h ui_editobjectdialog.h ui_editrelationdialog.h ui_addclassdiagramobjectdialog.h ui_sequencediagramview.h ui_classdiagramview.h ui_mainwindow.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_editobjectdialog.h ui_editrelationdialog.h ui_addclassdiagramobjectdialog.h ui_sequencediagramview.h ui_classdiagramview.h ui_mainwindow.h
+	-$(DEL_FILE) ui_addmessagedialog.h ui_editobjectdialog.h ui_editrelationdialog.h ui_addclassdiagramobjectdialog.h ui_sequencediagramview.h ui_classdiagramview.h ui_mainwindow.h
+ui_addmessagedialog.h: controllers/addmessagedialog.ui \
+		/usr/bin/uic
+	/usr/bin/uic controllers/addmessagedialog.ui -o ui_addmessagedialog.h
+
 ui_editobjectdialog.h: controllers/editobjectdialog.ui \
 		/usr/bin/uic
 	/usr/bin/uic controllers/editobjectdialog.ui -o ui_editobjectdialog.h
@@ -1068,6 +1106,26 @@ SequenceDiagram.o: cls/SequenceDiagram.cpp cls/SequenceDiagram.hpp \
 		cls/Message.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SequenceDiagram.o cls/SequenceDiagram.cpp
 
+addmessagedialog.o: controllers/addmessagedialog.cpp controllers/addmessagedialog.h \
+		cls/UMLSeqClass.hpp \
+		cls/UMLClass.hpp \
+		cls/UMLAttribute.hpp \
+		cls/Element.hpp \
+		cls/UMLOperation.hpp \
+		sequencediagraminterface.h \
+		cls/SequenceDiagram.hpp \
+		cls/Message.hpp \
+		diagraminterface.h \
+		cls/ClassDiagram.hpp \
+		cls/UMLRelation.hpp \
+		objectgui.h \
+		relationgui.h \
+		undo.h \
+		sequencemessagegui.h \
+		sequenceobjectgui.h \
+		ui_addmessagedialog.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o addmessagedialog.o controllers/addmessagedialog.cpp
+
 editobjectdialog.o: controllers/editobjectdialog.cpp controllers/editobjectdialog.h \
 		diagraminterface.h \
 		cls/ClassDiagram.hpp \
@@ -1084,6 +1142,7 @@ editobjectdialog.o: controllers/editobjectdialog.cpp controllers/editobjectdialo
 		sequencediagraminterface.h \
 		sequencemessagegui.h \
 		sequenceobjectgui.h \
+		undo.h \
 		ui_editobjectdialog.h \
 		errors.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o editobjectdialog.o controllers/editobjectdialog.cpp
@@ -1112,6 +1171,7 @@ sequencediagramview.o: controllers/sequencediagramview.cpp controllers/sequenced
 		cls/UMLRelation.hpp \
 		objectgui.h \
 		relationgui.h \
+		undo.h \
 		sequencemessagegui.h \
 		sequenceobjectgui.h \
 		ui_sequencediagramview.h
@@ -1131,7 +1191,8 @@ diagraminterface.o: diagraminterface.cpp diagraminterface.h \
 		relationgui.h \
 		sequencediagraminterface.h \
 		sequencemessagegui.h \
-		sequenceobjectgui.h
+		sequenceobjectgui.h \
+		undo.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o diagraminterface.o diagraminterface.cpp
 
 errors.o: errors.cpp errors.h
@@ -1154,6 +1215,7 @@ main.o: main.cpp controllers/mainwindow.h \
 		sequencediagraminterface.h \
 		sequencemessagegui.h \
 		sequenceobjectgui.h \
+		undo.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
@@ -1174,6 +1236,7 @@ mainwindow.o: controllers/mainwindow.cpp controllers/mainwindow.h \
 		sequencediagraminterface.h \
 		sequencemessagegui.h \
 		sequenceobjectgui.h \
+		undo.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o controllers/mainwindow.cpp
 
@@ -1193,6 +1256,7 @@ classdiagramview.o: controllers/classdiagramview.cpp controllers/classdiagramvie
 		sequencediagraminterface.h \
 		sequencemessagegui.h \
 		sequenceobjectgui.h \
+		undo.h \
 		controllers/sequencediagramview.h \
 		ui_classdiagramview.h \
 		views/addclassdiagramobjectdialog.h \
@@ -1214,6 +1278,7 @@ objectgui.o: objectgui.cpp objectgui.h \
 		sequencediagraminterface.h \
 		sequencemessagegui.h \
 		sequenceobjectgui.h \
+		undo.h \
 		controllers/editobjectdialog.h \
 		errors.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o objectgui.o objectgui.cpp
@@ -1233,6 +1298,7 @@ relationgui.o: relationgui.cpp relationgui.h \
 		sequencediagraminterface.h \
 		sequencemessagegui.h \
 		sequenceobjectgui.h \
+		undo.h \
 		controllers/editrelationdialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o relationgui.o relationgui.cpp
 
@@ -1249,6 +1315,7 @@ sequencediagraminterface.o: sequencediagraminterface.cpp sequencediagraminterfac
 		cls/UMLRelation.hpp \
 		objectgui.h \
 		relationgui.h \
+		undo.h \
 		sequencemessagegui.h \
 		sequenceobjectgui.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sequencediagraminterface.o sequencediagraminterface.cpp
@@ -1270,15 +1337,35 @@ sequenceobjectgui.o: sequenceobjectgui.cpp sequenceobjectgui.h \
 		cls/UMLRelation.hpp \
 		objectgui.h \
 		relationgui.h \
-		sequencemessagegui.h
+		undo.h \
+		sequencemessagegui.h \
+		controllers/addmessagedialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sequenceobjectgui.o sequenceobjectgui.cpp
 
-undo.o: undo.cpp undo.h
+undo.o: undo.cpp undo.h \
+		objectgui.h \
+		cls/UMLClass.hpp \
+		cls/UMLAttribute.hpp \
+		cls/Element.hpp \
+		cls/UMLOperation.hpp \
+		diagraminterface.h \
+		cls/ClassDiagram.hpp \
+		cls/UMLRelation.hpp \
+		cls/SequenceDiagram.hpp \
+		cls/UMLSeqClass.hpp \
+		cls/Message.hpp \
+		relationgui.h \
+		sequencediagraminterface.h \
+		sequencemessagegui.h \
+		sequenceobjectgui.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o undo.o undo.cpp
 
 addclassdiagramobjectdialog.o: views/addclassdiagramobjectdialog.cpp views/addclassdiagramobjectdialog.h \
 		ui_addclassdiagramobjectdialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o addclassdiagramobjectdialog.o views/addclassdiagramobjectdialog.cpp
+
+moc_addmessagedialog.o: moc_addmessagedialog.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_addmessagedialog.o moc_addmessagedialog.cpp
 
 moc_editobjectdialog.o: moc_editobjectdialog.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_editobjectdialog.o moc_editobjectdialog.cpp

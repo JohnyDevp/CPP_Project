@@ -13,7 +13,7 @@
 bool Undo::doUndo()
 {
     // check whether the object gui still exists in diagram
-    if (diagraminterface->existsClass(guiObject->objectName))
+    if (!diagraminterface->existsClass(guiObject->objectName))
     {
         return false;
     }
@@ -30,9 +30,17 @@ bool Undo::doUndo()
         return doUndoAddRemovedOperation();
     case REMOVEOPERATION:
         return doUndoRemoveAddedOperation();
+    case REMOVEOBJECT:
+        return doUndoRemoveAddedClass();
+    case ADDOBJECT:
+        return doUndoAddRemovedClass();
     }
 
     return false; // when operation is unknown
+}
+
+Undo::~Undo()
+{
 }
 
 /**
@@ -106,6 +114,31 @@ bool Undo::doUndoRemoveAddedOperation()
     return false;
 }
 
+bool Undo::doUndoAddRemovedClass()
+{
+    // Add the attribute and update the ui if not exists
+    if (!diagraminterface->existsClass(umlClass))
+    {
+        diagraminterface->createUMLClass(umlClass);
+        update();
+        return true;
+    }
+
+    return false;
+}
+
+bool Undo::doUndoRemoveAddedClass()
+{
+    // Try to delete
+    if (diagraminterface->removeUMLClass(umlClass))
+    {
+        update();
+        return true;
+    }
+
+    return false;
+}
+
 /**
  * @brief Updates the data in the interface
  *
@@ -139,5 +172,13 @@ Undo::Undo(UndoOperation operationType, DiagramInterface *interface, ObjectGUI *
       guiObject(guiObject),
       diagraminterface(interface),
       umlOperation(oper)
+{
+}
+
+Undo::Undo(UndoOperation operationType, DiagramInterface *interface, ObjectGUI *guiObject, UMLClass classObject)
+    : operationType(operationType),
+      guiObject(guiObject),
+      diagraminterface(interface),
+      umlClass(classObject)
 {
 }

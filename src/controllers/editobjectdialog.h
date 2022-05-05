@@ -27,7 +27,7 @@ public:
     explicit EditObjectDialog(QWidget *parent = nullptr);
     ~EditObjectDialog();
 
-    void init(DiagramInterface *diagramInterface, UMLClass *umlObject);
+    void init(DiagramInterface *diagramInterface, UMLClass *umlObject, ObjectGUI *gui);
     /**
      * @brief getUpdatedUmlObject
      * @return poiter to updated class by this dialog, when returned nullptr then it signs that this object has been removed
@@ -66,6 +66,8 @@ private:
      * @brief umlClass
      */
     UMLClass *umlObject;
+
+    ObjectGUI *guiObject;
 
     /**
      * @brief operationMapGUI
