@@ -19,7 +19,6 @@
 #define classesName "classes"
 #define messagesName "messages"
 #define messageIndexName "messageIndex"
-#define indexName "index"
 
 class SequenceDiagram : public Element
 {
@@ -33,24 +32,24 @@ public:
      */
     static bool isCorrect(const SequenceDiagram &seqDia);
 
-    int index;
+    int classIndex;
 
     int messageIndex;
 
-    QMap<QString, UMLSeqClass> classes;
+    QMap<int, UMLSeqClass> classes;
 
     QMap<int, Message> messages;
 
     /**method for adding new participated class in sequence diagram
      * @param umlSeqClass class representing the object which takes part in the sequence diagram*/
-    bool addObject(UMLSeqClass umlSewClass);
+    UMLSeqClass addSeqClass(UMLSeqClass &umlSewClass);
 
     /**
      * @brief Updae Seq Class or create new one
      *
      * @param name
      */
-    void updateClass(UMLSeqClass seqClass);
+    void updateSeqClass(UMLSeqClass &seqClass);
 
     /**adding message to specific position - rest of messages will move forward +1
      * @param messageType type of the message (sync, async, ...)
@@ -59,6 +58,11 @@ public:
      * @param umlOperation operation representing the method which is called*/
     Message createMessage(Message &message);
 
+    bool existsSeqClass(UMLSeqClass &cl);
+
+    void updateMessage(Message &mes);
+
+    void deleteUMLSeqClass(UMLSeqClass &cl);
     /**delete message from diagram
      * @param message message object to be deleted*/
     void deleteMessage(Message &message);
