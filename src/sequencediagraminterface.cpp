@@ -1,8 +1,19 @@
 #include "sequencediagraminterface.h"
 
-SequenceDiagramInterface::SequenceDiagramInterface(DiagramInterface * diagramInterface, SequenceDiagram sequenceDiagram) : sequenceDiagram()
+SequenceDiagramInterface::SequenceDiagramInterface(DiagramInterface * diagramInterface, SequenceDiagram &sequenceDiagram) : sequenceDiagram()
 {
     this->diagramInterface = diagramInterface;
+    this->sequenceDiagram = sequenceDiagram;
+}
+
+void SequenceDiagramInterface::addNewSequenceObjectGUIToList(SequenceObjectGUI *seqObjGUI)
+{
+    this->sequenceObjectGUIList.append(seqObjGUI);
+}
+
+void SequenceDiagramInterface::removeSequenceObjectGUIFromList(SequenceObjectGUI *seqObjGUI)
+{
+    this->sequenceObjectGUIList.removeOne(seqObjGUI);
 }
 
 void DiagramInterface::updateSeqClass(SequenceDiagram dia, UMLSeqClass seqClass)

@@ -1,6 +1,7 @@
 #include "sequencediagramview.h"
 #include "ui_sequencediagramview.h"
 #include <iostream>
+#include <QInputDialog>
 
 SequenceDiagramView::SequenceDiagramView(QWidget *parent) : QWidget(parent),
                                                             ui(new Ui::SequenceDiagramView)
@@ -36,6 +37,27 @@ void SequenceDiagramView::on_btnClose_clicked()
 
 void SequenceDiagramView::on_btnAddObject_clicked()
 {
-    //this->sequenceDiagramInterface->diagramInterface->guiObjectList
+    //collect name of all classes
+    QStringList listOfClasses;
+    foreach(UMLClass umlClass, this->sequenceDiagramInterface->diagramInterface->classDiagram.classList){
+        listOfClasses << umlClass.name;
+    }
+
+    //raise a choice dialog for choose a class to create
+    // create new dialog
+    bool ok; // variable storing whether ok has been pressed
+    QString item = QInputDialog::getItem(this,
+                                         QDialog::tr("Choose relation type"),
+                                         QDialog::tr("Relation type"),
+                                         listOfClasses, 0, false, &ok);
+
+    if (ok && !item.isEmpty()){
+        //if the class has been chosen then find class according to the chosen name
+        //and create umlseqclass and its gui
+        UMLClass umlClass = this->sequenceDiagramInterface->diagramInterface->getUMLClass(item);
+        UMLSeqClass umlSeqClass(umlClass.name, umlClass.name, 0);
+        SequenceObjectGUI sequenceObjectGUI();
+
+    }
 }
 

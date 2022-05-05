@@ -4,10 +4,12 @@
 #include "cls/UMLSeqClass.hpp"
 #include <QGraphicsItem>
 
+#define TOP_Y_COORD 30
+
 class SequenceObjectGUI : public QGraphicsItem
 {
 public:
-    SequenceObjectGUI();
+    SequenceObjectGUI(UMLSeqClass umlSeqClass);
 
     ~SequenceObjectGUI();
 
@@ -17,6 +19,12 @@ public:
     UMLSeqClass umlSeqClass;
 
 private:
+
+    // variables for default coords of bounding rectangle
+    int boundingX;
+    int boundingY = TOP_Y_COORD;
+    int boundingWidth;
+    int boundingHeight;
 
 };
 

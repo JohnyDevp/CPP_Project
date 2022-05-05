@@ -31,7 +31,7 @@ public:
     /**
      * @brief sequenceDiagram for this interface and controller
      */
-    SequenceDiagram * sequenceDiagram;
+    SequenceDiagram sequenceDiagram;
 
     /**
      * @brief Create or update SeqClass
@@ -41,15 +41,21 @@ public:
      */
     void updateSeqClass(SequenceDiagram dia, UMLSeqClass seqClass);
 
-    void updateMessage(SequenceDiagram dia, Message message);
+    void removeSeqClass(SequenceDiagram dia, UMLSeqClass seqClass);
 
     Message createMessage(SequenceDiagram dia, Message &message);
 
+    void updateMessage(SequenceDiagram dia, Message message);
+
     void removeMessage(SequenceDiagram dia, Message &message);
 
-    void removeSeqClass(SequenceDiagram dia, UMLSeqClass seqClass);
+
 
     void sendUpdateNotification();
+
+    void addNewSequenceObjectGUIToList(SequenceObjectGUI * seqObjGUI);
+
+    void removeSequenceObjectGUIFromList(SequenceObjectGUI * seqObjGUI);
 
     QList<SequenceObjectGUI*> sequenceObjectGUIList;
     QList<SequenceMessageGUI*> sequenceMessageGUIList;

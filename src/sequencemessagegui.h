@@ -1,8 +1,9 @@
 #ifndef SEQUENCEMESSAGEGUI_H
 #define SEQUENCEMESSAGEGUI_H
 
+#include <QGraphicsLineItem>
 
-class SequenceMessageGUI
+class SequenceMessageGUI : public QGraphicsLineItem
 {
 public:
     SequenceMessageGUI();
