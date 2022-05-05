@@ -1,7 +1,7 @@
 /**
  * @author xholan11
  * graphical representation of uml object (inner representation)
-*/
+ */
 #include "objectgui.h"
 #include "diagraminterface.h"
 #include "controllers/editobjectdialog.h"
@@ -17,7 +17,7 @@ ObjectGUI::ObjectGUI(UMLClass umlClass, DiagramInterface *diagramInterface) : um
     // make the object movable
     setFlag(QGraphicsItem::ItemIsMovable);
 
-    //set Z value
+    // set Z value
     setZValue(10);
 
     // set whether it is interface or class
@@ -44,7 +44,7 @@ void ObjectGUI::initGui()
 {
     // set name
     this->objectName = this->umlObject.name;
-    //reset maps
+    // reset maps
     this->attributesMapGUI.clear();
     this->operationMapGUI.clear();
 
@@ -73,7 +73,6 @@ void ObjectGUI::initGui()
         // add to the map
         this->operationMapGUI.insert(umlOperation, operationText);
     }
-
 }
 
 QRectF ObjectGUI::boundingRect() const
@@ -102,7 +101,7 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     // fill the most back background (containing whole object)
     painter->fillRect(rec, brush);
 
-    //std::cout << this->boundingX << std::endl;
+    // std::cout << this->boundingX << std::endl;
 
     // fill the second background (making space for object contain)
     painter->fillRect(10 + this->boundingX, this->boundingY + 10, this->boundingWidth - 20, this->boundingHeight - 20, QColor(217, 211, 210));
@@ -121,8 +120,9 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->drawText(this->boundingX + int(this->boundingWidth / 2) - int(fontMetrics.width(this->objectName) / 2), this->boundingY + currentHeight, this->objectName);
     currentHeight += 20;
 
-    //if interface -> draw "interface" label
-    if (this->isInterface){
+    // if interface -> draw "interface" label
+    if (this->isInterface)
+    {
         if (fontMetrics.width("<<interface>>") > boundingWidth - 30)
         {
             this->boundingWidth = fontMetrics.width("<<interface>>") + 30;
@@ -234,7 +234,7 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         update();
 }
 
-void ObjectGUI::addRelatedRelation(RelationGui * relation)
+void ObjectGUI::addRelatedRelation(RelationGui *relation)
 {
     this->relatedRelations.append(relation);
 }
@@ -242,7 +242,7 @@ void ObjectGUI::addRelatedRelation(RelationGui * relation)
 void ObjectGUI::removeRelatedRelation(RelationGui *relation)
 {
     this->relatedRelations.removeOne(relation);
-    //update - because of possible overriden operations
+    // update - because of possible overriden operations
     checkForOverrideOperationsNotification();
 }
 
@@ -265,23 +265,26 @@ void ObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
     bool isInX = (((event->pos().x() - this->boundingX) >= 10) && ((maxX - 10) >= (event->pos().x() - this->boundingX)));
     bool isInY = (((event->pos().y() - this->boundingY) >= 10) && ((maxY - 10) >= (event->pos().y() - this->boundingY)));
 
-    //check whether the click was inside the object or on the edges of the object
+    // check whether the click was inside the object or on the edges of the object
     if (!(isInX && isInY))
     {
-        if (diagramInterface->isRelationCreating){
-            //raise dialog asking whether continue creating relation
+        if (diagramInterface->isRelationCreating)
+        {
+            // raise dialog asking whether continue creating relation
             QMessageBox msgBox;
-            //this button is added only if the clicked object is different from object where the relation started
+            // this button is added only if the clicked object is different from object where the relation started
             QPushButton *continueButton = nullptr;
             msgBox.setText("Continue creating relation?");
-            if (this->diagramInterface->tempUmlRelation.relationFrom != this->objectName){
+            if (this->diagramInterface->tempUmlRelation.relationFrom != this->objectName)
+            {
                 continueButton = msgBox.addButton(QDialog::tr("Create relation here"), QMessageBox::ActionRole);
             }
-            QPushButton *abortButton = msgBox.addButton(QDialog::tr("Abort creating relation"),QMessageBox::ActionRole);
+            QPushButton *abortButton = msgBox.addButton(QDialog::tr("Abort creating relation"), QMessageBox::ActionRole);
             QPushButton *cancelButton = msgBox.addButton(QMessageBox::Cancel);
             msgBox.exec();
 
-            if (msgBox.clickedButton() == (QAbstractButton*)continueButton) {
+            if (msgBox.clickedButton() == (QAbstractButton *)continueButton)
+            {
 
                 this->diagramInterface->isRelationCreating = false;
                 this->diagramInterface->tempUmlRelation.relationTo = this->objectName;
@@ -296,18 +299,20 @@ void ObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 
                 //add the relation to the diagram
                 this->diagramInterface->createRelation();
-
-            } else if (msgBox.clickedButton() == (QAbstractButton*)abortButton) {
+            }
+            else if (msgBox.clickedButton() == (QAbstractButton *)abortButton)
+            {
                 // abort creating -
                 this->diagramInterface->isRelationCreating = false;
-            } else if (msgBox.clickedButton() == (QAbstractButton*)cancelButton) {
-                //do nothing
+            }
+            else if (msgBox.clickedButton() == (QAbstractButton *)cancelButton)
+            {
+                // do nothing
                 return;
             }
-
-
-
-        } else {
+        }
+        else
+        {
             // create dialog asking for desired type for new relation
 
             // add relation types to the list -> future combobox items
@@ -322,84 +327,93 @@ void ObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
                                                  items, 0, false, &ok);
 
             // if ok pressed and item has been selected then start creating relation
-            if (ok && !item.isEmpty()){
-                UMLRelation::RelationType relType = UMLRelation::ASSOCIATION; //default
-                if (item == "ASSOCIATION") relType = UMLRelation::ASSOCIATION;
-                else if (item == "GENERALIZATION") relType = UMLRelation::GENERALIZATION;
-                else if (item == "COMPOSITION") relType = UMLRelation::COMPOSITION;
-                else if (item == "AGGREGATION") relType = UMLRelation::AGGREGATION;
+            if (ok && !item.isEmpty())
+            {
+                UMLRelation::RelationType relType = UMLRelation::ASSOCIATION; // default
+                if (item == "ASSOCIATION")
+                    relType = UMLRelation::ASSOCIATION;
+                else if (item == "GENERALIZATION")
+                    relType = UMLRelation::GENERALIZATION;
+                else if (item == "COMPOSITION")
+                    relType = UMLRelation::COMPOSITION;
+                else if (item == "AGGREGATION")
+                    relType = UMLRelation::AGGREGATION;
 
-                //create new uml relation, assign it to diagram interface and set creatingrelation variable to true
-                UMLRelation umlRelation("",this->objectName,"",relType);
+                // create new uml relation, assign it to diagram interface and set creatingrelation variable to true
+                UMLRelation umlRelation("", this->objectName, "", relType);
                 umlRelation.startX = event->scenePos().x();
                 umlRelation.startY = event->scenePos().y();
 
                 this->diagramInterface->isRelationCreating = true;
                 this->diagramInterface->tempUmlRelation = umlRelation;
 
-                //std::cout << qPrintable(item) << std::endl;
+                // std::cout << qPrintable(item) << std::endl;
             }
-            else{
+            else
+            {
                 std::cout << "Relation type hasn't been selected - canceled" << std::endl;
             }
         }
     }
     else
     {
-        //create new dialog, wait for response
+        // create new dialog, wait for response
         EditObjectDialog *dlg = new EditObjectDialog();
         dlg->init(this->diagramInterface, &this->umlObject);
         dlg->exec();
 
-        //update this object
-        //if the object is null -> has been just removed
-        if (dlg->getUpdatedUmlObject() == NULL){
-            //notify relations about deletion
-            foreach(RelationGui * relation, this->relatedRelations){
+        // update this object
+        // if the object is null -> has been just removed
+        if (dlg->getUpdatedUmlObject() == NULL)
+        {
+            // notify relations about deletion
+            foreach (RelationGui *relation, this->relatedRelations)
+            {
                 relation->removeRelationNotification();
             }
-            //delete the class in diagraminterface and remove also object from
+            // delete the class in diagraminterface and remove also object from
             diagramInterface->removeUMLClass(this->umlObject);
 
-            //remove from gui
+            // remove from gui
             diagramInterface->removeObjectFromGuiList(this);
 
-            return; //this is the end of this object
-        } else {
+            return; // this is the end of this object
+        }
+        else
+        {
             this->umlObject = *dlg->getUpdatedUmlObject();
-            //update the class in class diagram
+            // update the class in class diagram
             this->diagramInterface->updateUMLClass(this->objectName, this->umlObject);
-            //newly init everything
+            // newly init everything
             this->initGui();
-            //check for all overriden opeartions
+            // check for all overriden opeartions
             this->checkForOverrideOperationsNotification();
-            //notify all other objects (related by the generalization) about possible overridness
+            // notify all other objects (related by the generalization) about possible overridness
             //*objects which starts the relation
-            foreach(RelationGui * relation, this->relatedRelations){
-                if(relation->relType == UMLRelation::GENERALIZATION &&
-                    relation->objectEnd->objectName == this->objectName){
+            foreach (RelationGui *relation, this->relatedRelations)
+            {
+                if (relation->relType == UMLRelation::GENERALIZATION &&
+                    relation->objectEnd->objectName == this->objectName)
+                {
                     relation->objectStart->checkForOverrideOperationsNotification();
                 }
-
             }
 
             update();
         }
-
-
     }
 
     QGraphicsItem::mouseDoubleClickEvent(event);
 }
 
-void ObjectGUI::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
+void ObjectGUI::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
 
-    int diffX = event->scenePos().x() -  this->prevMouseSceneX;
-    int diffY = event->scenePos().y() -  this->prevMouseSceneY;
+    int diffX = event->scenePos().x() - this->prevMouseSceneX;
+    int diffY = event->scenePos().y() - this->prevMouseSceneY;
 
-
-    this->boundingX += event->pos().x() -  this->prevMouseLocalX;
-    this->boundingY += event->pos().y() -  this->prevMouseLocalY;
+    this->boundingX += event->pos().x() - this->prevMouseLocalX;
+    this->boundingY += event->pos().y() - this->prevMouseLocalY;
 
     this->prevMouseSceneX = event->scenePos().x();
     this->prevMouseSceneY = event->scenePos().y();
@@ -412,42 +426,49 @@ void ObjectGUI::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
 
     //std::cout << "Object gui X Y: " << this->umlObject.Xcoord << " " << this->umlObject.Ycoord << std::endl;
 
-    //go through all related relations and notify them about moving
-    QListIterator<RelationGui*> itr(this->relatedRelations);
-    while(itr.hasNext()){
+    // go through all related relations and notify them about moving
+    QListIterator<RelationGui *> itr(this->relatedRelations);
+    while (itr.hasNext())
+    {
         itr.next()->updatePosition(this->umlObject, QPointF(
-                                        diffX,
-                                        diffY)
-                                   );
+                                                        diffX,
+                                                        diffY));
     }
 
     this->diagramInterface->scene->update();
     QGraphicsItem::mouseMoveEvent(event);
 }
 
-void ObjectGUI::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
+void ObjectGUI::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
     this->diagramInterface->updateUMLClass(this->objectName, this->umlObject);
     QGraphicsItem::mouseReleaseEvent(event);
 }
 
-void ObjectGUI::checkForOverrideOperationsNotification(){
-    //check for all generalized opearations
-    //firstly clear list with overridden opeartions
+void ObjectGUI::checkForOverrideOperationsNotification()
+{
+    // check for all generalized opearations
+    // firstly clear list with overridden opeartions
     this->overrideOperations.clear();
-    //loop through the relation gui (related)
-    foreach(RelationGui * relation, this->relatedRelations){
-        if(relation->relType == UMLRelation::GENERALIZATION && relation->objectStart->objectName == this->objectName){
-            //when generalization takes part and this object takes part as starter of the relation
-            //iterate through all operations of the object, where the relation ends
+    // loop through the relation gui (related)
+    foreach (RelationGui *relation, this->relatedRelations)
+    {
+        if (relation->relType == UMLRelation::GENERALIZATION && relation->objectStart->objectName == this->objectName)
+        {
+            // when generalization takes part and this object takes part as starter of the relation
+            // iterate through all operations of the object, where the relation ends
             QMapIterator<UMLOperation, QString> itr(relation->objectEnd->operationMapGUI);
-            while(itr.hasNext()){
+            while (itr.hasNext())
+            {
                 itr.next();
-                //iterate through all operations of this object and look for the same operations
+                // iterate through all operations of this object and look for the same operations
                 QMapIterator<UMLOperation, QString> itrThis(this->operationMapGUI);
-                while(itrThis.hasNext()){
+                while (itrThis.hasNext())
+                {
                     itrThis.next();
-                    //if found the same operation - OVERRIDE - add it to the list of overriden operations
-                    if (itrThis.value() == itr.value()) {
+                    // if found the same operation - OVERRIDE - add it to the list of overriden operations
+                    if (itrThis.value() == itr.value())
+                    {
                         this->overrideOperations.append(itrThis.key());
                     }
                 }
@@ -455,7 +476,7 @@ void ObjectGUI::checkForOverrideOperationsNotification(){
         }
     }
 
-    //finally update
+    // finally update
     update();
 }
 

@@ -67,6 +67,10 @@ public:
      * map for storing each operation and its string representation drawn in gui object
      */
     QMap<UMLOperation, QString> operationMapGUI;
+    /**
+     * @brief umlObject - storing uml representation of this gui
+     */
+    UMLClass umlObject;
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -91,11 +95,6 @@ private:
      * @brief isInterface - defined, whether this object represents an interface or not
      */
     bool isInterface = false;
-
-    /**
-     * @brief umlObject - storing uml representation of this gui
-     */
-    UMLClass umlObject;
 
     /**
      * @brief overrideOperations

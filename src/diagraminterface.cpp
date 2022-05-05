@@ -52,8 +52,9 @@ DiagramInterface::DiagramInterface(QGraphicsScene *scene)
 
 void DiagramInterface::updateUMLClass(QString oldName, UMLClass umlClass)
 {
-    //notify sequence diagrams about updates
-    foreach(SequenceDiagramInterface * seqDiagInter, this->sequenceDiagramInterfaceList){
+    // notify sequence diagrams about updates
+    foreach (SequenceDiagramInterface *seqDiagInter, this->sequenceDiagramInterfaceList)
+    {
         seqDiagInter->notifyUmlClassUpdate(oldName, umlClass);
     }
     scene->update();
@@ -91,9 +92,11 @@ bool DiagramInterface::createUMLClass(UMLClass &umlClass)
 {
     bool success = classDiagram.addClass(umlClass);
 
-    //notify sequence diagrams about updates - if the operation was successfull
-    if (success) {
-        foreach(SequenceDiagramInterface * seqDiagInter, this->sequenceDiagramInterfaceList){
+    // notify sequence diagrams about updates - if the operation was successfull
+    if (success)
+    {
+        foreach (SequenceDiagramInterface *seqDiagInter, this->sequenceDiagramInterfaceList)
+        {
             seqDiagInter->updateEverything();
         }
     }
@@ -139,8 +142,20 @@ void DiagramInterface::removeUMLClass(UMLClass umlClass)
 {
     classDiagram.classList.remove(umlClass.name);
 
-    //notify sequence diagrams about updates
-    foreach(SequenceDiagramInterface * seqDiagInter, this->sequenceDiagramInterfaceList){
+    // notify sequence diagrams about updates
+    foreach (SequenceDiagramInterface *seqDiagInter, this->sequenceDiagramInterfaceList)
+    {
+        seqDiagInter->updateEverything();
+    }
+}
+
+void DiagramInterface::removeUMLClass(QString className)
+{
+    classDiagram.classList.remove(className);
+
+    // notify sequence diagrams about updates
+    foreach (SequenceDiagramInterface *seqDiagInter, this->sequenceDiagramInterfaceList)
+    {
         seqDiagInter->updateEverything();
     }
 }
