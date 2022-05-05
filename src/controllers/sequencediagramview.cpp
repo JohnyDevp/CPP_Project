@@ -33,3 +33,9 @@ void SequenceDiagramView::on_btnClose_clicked()
 {
     this->tabPane->removeTab(this->tabIndex);
 }
+
+void SequenceDiagramView::on_btnAddObject_clicked()
+{
+    //this->sequenceDiagramInterface->diagramInterface->guiObjectList
+}
+

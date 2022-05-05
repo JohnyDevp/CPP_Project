@@ -6,6 +6,7 @@
 #include "cls/UMLSeqClass.hpp"
 #include "objectgui.h"
 #include "relationgui.h"
+#include "sequencediagraminterface.h"
 
 #include <iostream>
 #include <vector>
@@ -42,7 +43,7 @@ public:
     bool isRelationCreating = false;
 
     ClassDiagram classDiagram;
-
+    //QMap<int, SequenceDiagramInterface*> sequenceDiagramInterfaces;
     QMap<int, SequenceDiagram> sequenceDiagrams;
 
     // Interface functions for more cleaner code

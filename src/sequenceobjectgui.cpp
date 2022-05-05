@@ -12,5 +12,6 @@ QRectF SequenceObjectGUI::boundingRect() const {
 void SequenceObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
 
 }
+
 SequenceObjectGUI::~SequenceObjectGUI(){
 }
