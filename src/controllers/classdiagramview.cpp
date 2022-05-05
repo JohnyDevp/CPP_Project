@@ -81,30 +81,34 @@ void ClassDiagramView::parseFile()
 
     // Creating GUI Relations
 
-    foreach (const UMLRelation &ur, diagramInterface->classDiagram.relationList){
+    foreach (const UMLRelation &ur, diagramInterface->classDiagram.relationList)
+    {
         std::cout << "nonnononon" << std::endl;
-        //create gui for the relation
-        RelationGui * newRelGui = new RelationGui(ur, diagramInterface);
+        // create gui for the relation
+        RelationGui *newRelGui = new RelationGui(ur, diagramInterface);
 
-        //bound related objects to this relation
-        foreach(ObjectGUI * obj, this->diagramInterface->guiObjectList){
-            if (obj->objectName == ur.relationFrom){
+        // bound related objects to this relation
+        foreach (ObjectGUI *obj, this->diagramInterface->guiObjectList)
+        {
+            if (obj->objectName == ur.relationFrom)
+            {
                 obj->addRelatedRelation(newRelGui);
                 newRelGui->objectStart = obj;
-            } else if (obj->objectName == ur.relationTo){
+            }
+            else if (obj->objectName == ur.relationTo)
+            {
                 obj->addRelatedRelation(newRelGui);
                 newRelGui->objectEnd = obj;
             }
         }
 
-        //check for override of operation
+        // check for override of operation
         newRelGui->objectStart->checkForOverrideOperationsNotification();
 
-        //add the relation gui to the scene and to the list of relations
+        // add the relation gui to the scene and to the list of relations
         this->diagramInterface->relationList.append(newRelGui);
         this->scene->addItem(newRelGui);
     }
-
 }
 
 /*event handlers======================================================================================================================*/
@@ -169,8 +173,14 @@ void ClassDiagramView::on_btnAddObject_clicked()
 void ClassDiagramView::on_btnCreateNewSequenceDiagram_clicked()
 {
     SequenceDiagram sequenceDiagram;
+    SequenceDiagramInterface *seqInter = new SequenceDiagramInterface(this->diagramInterface, sequenceDiagram);
+    diagramInterface->addSequenceDiagramInterface(seqInter);
 
-    //diagramInterface->addSequenceDiagramInterface(createSequenceDiagramTab(sequenceDiagram));
+    // create new ClassDiagramView controller, init it and ad it as view to the tab
+    SequenceDiagramView *q = new SequenceDiagramView();
+
+    int tabIndex = this->tabPane->addTab(q, "Sequence diagram ");
+    q->init(this->tabPane, tabIndex, seqInter);
 }
 
 void ClassDiagramView::on_btnSave_clicked()
@@ -187,19 +197,3 @@ void ClassDiagramView::on_btnSave_clicked()
         Errors().raiseError("Problem occured while saving. Please try again.");
     }
 }
-
-/*===================================================================*/
-
-SequenceDiagramInterface * ClassDiagramView::createSequenceDiagramTab(SequenceDiagram &sequenceDiagram){
-    // create new ClassDiagramView controller, init it and ad it as view to the tab
-    SequenceDiagramView *q = new SequenceDiagramView();
-
-    //create interface for this class
-    //TODO add it to the class diagram interface
-    SequenceDiagramInterface seqDiagInterface(this->diagramInterface, sequenceDiagram);
-
-    // add class diagram canvas window -> in new tab
-    int tabIndex = this->tabPane->addTab(q, "Sequence diagram ");
-    q->init(this->tabPane, tabIndex, &seqDiagInterface);
-}
-
