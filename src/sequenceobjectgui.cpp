@@ -156,6 +156,10 @@ void SequenceObjectGUI::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
     this->boundingX += diffX;
 
+    //load the new coords to the umlseq class and upload it
+    this->umlSeqClass.Xcoord += diffX;
+    this->seqDiagInterface->updateSeqClass(this->umlSeqClass);
+
     update();
     this->seqDiagInterface->updateScene();
 

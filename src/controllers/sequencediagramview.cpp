@@ -51,7 +51,9 @@ void SequenceDiagramView::on_btnAddObject_clicked()
     QStringList listOfClasses;
     foreach (UMLClass umlClass, this->sequenceDiagramInterface->diagramInterface->classDiagram.classList)
     {
-        listOfClasses << umlClass.name;
+        if (!umlClass.isInterface){
+            listOfClasses << umlClass.name;
+        }
     }
 
     // raise a choice dialog for choose a class to create

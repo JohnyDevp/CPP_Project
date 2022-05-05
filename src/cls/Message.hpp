@@ -80,7 +80,7 @@ public:
      * @param umlOperation
      * @param messageType
      */
-    Message(int Ycoord, QString className, QString operationName, MessageType messageType);
+    Message(int Ycoord, QString className, QString classReceiver, QString operationName, MessageType messageType);
     /**
      * @brief Destroy the Message object
      *

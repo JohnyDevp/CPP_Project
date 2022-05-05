@@ -8,8 +8,8 @@ AddMessageDialog::AddMessageDialog(QWidget *parent) :
     ui->setupUi(this);
 }
 
-void AddMessageDialog::init(UMLSeqClass * umlSeqClass, SequenceDiagramInterface * seqDiagInterface){
-    this->umlSeqClassSender = umlSeqClass;
+void AddMessageDialog::init(SequenceObjectGUI * seqObjGuiSender, SequenceDiagramInterface * seqDiagInterface){
+    this->seqObjGuiSender = seqObjGuiSender;
     this->seqDiagInterface = seqDiagInterface;
 
     //load cmbReceiver with all possible classes
@@ -25,10 +25,40 @@ AddMessageDialog::~AddMessageDialog()
 
 void AddMessageDialog::on_buttonBox_accepted()
 {
-    this->dataValid = dataValid;
+    //build a message
+
+    QString messageReceiver = ui->cmbMessageReceiver->currentText();
+    QString messageOperation = ui->cmbMessageOperation->currentText();
+    bool messageIsOnlyReturn = ui->checkBoxReturnMessage->isChecked();
+    bool addReturnedMessage = ui->checkBoxAddReturnMessage->isChecked();
+    QString messageType = ui->cmbOperationType->currentText();
+    Message::MessageType msgType;
+    if (messageType == "SYNC") msgType = Message::SYNC;
+    if (messageType == "ASYNC") msgType = Message::ASYNC;
+    if (messageType == "DESTROY") msgType = Message::DESTROY;
+    if (messageType == "CREATE") msgType = Message::CREATE;
+
+    //decide what will be created
+    if (messageIsOnlyReturn){
+        //create only return message
+        Message msg(
+                    -1,
+                    this->seqObjGuiSender->objectName,
+                    this->seqObjGuiReceiver->objectName,
+                    messageOperation,
+                    msgType
+                    );
+    } else {
+
+    }
+
+    this->dataValid = true;
 }
 
+Message AddMessageDialog::getCreatedMessage(){
 
+
+}
 void AddMessageDialog::on_cmbMessageReceiver_currentTextChanged(const QString &arg1)
 {
     QString chosenClass = arg1;
@@ -43,12 +73,16 @@ void AddMessageDialog::on_cmbMessageReceiver_currentTextChanged(const QString &a
     //find this class and its operation
     foreach(SequenceObjectGUI *seqObjGui, seqDiagInterface->sequenceObjectGUIList){
         if (chosenClass == seqObjGui->objectName){
+            //set it as receiver
+            this->seqObjGuiReceiver = seqObjGui;
+
             //load operations
             //get class of object which receiving the message -> firstly check whether it exists
             if (!seqObjGui->umlClassExists) return;
 
             //no there is certainity of filling the combobox with new operations related to currently selected class
             ui->cmbMessageOperation->clear(); //clear the combobox
+            this->cmbOperationList.clear(); //clear list with loaded operations
 
             UMLClass umlClass = seqDiagInterface->diagramInterface->getUMLClass(seqObjGui->umlSeqClass.className);
             foreach (UMLOperation umlOperation, umlClass.umlOperationsList)

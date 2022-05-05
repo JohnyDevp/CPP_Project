@@ -30,7 +30,8 @@ UMLSeqClass::UMLSeqClass(QString name, QString className, int Xcoord) : Element(
 
 UMLSeqClass::~UMLSeqClass() {}
 
-UMLSeqClass::UMLSeqClass() : Element(DEFAULT_NAME) {}
+UMLSeqClass::UMLSeqClass() : Element(DEFAULT_NAME) {
+}
 
 void UMLSeqClass::write(QJsonObject &json) const
 {

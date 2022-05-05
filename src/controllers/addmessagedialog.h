@@ -22,9 +22,10 @@ public:
      */
     bool dataValid = false;
 
-    void init(UMLSeqClass * umlSeqClass, SequenceDiagramInterface * seqDiagInterface);
+    void init(SequenceObjectGUI * seqObjGuiSender, SequenceDiagramInterface * seqDiagInterface);
 
 
+    Message getCreatedMessage();
 private slots:
     void on_buttonBox_accepted();
 
@@ -35,7 +36,8 @@ private slots:
 private:
     Ui::AddMessageDialog *ui;
 
-    UMLSeqClass * umlSeqClassSender;
+    SequenceObjectGUI * seqObjGuiSender;
+    SequenceObjectGUI * seqObjGuiReceiver;
 
     SequenceDiagramInterface * seqDiagInterface;
 
