@@ -2,8 +2,8 @@
 /**
  * @file UMLSeqClass.cpp
  * @author Jan Zimola (xzimol04)
- * @brief
- * @date 2022-05-05
+ * @brief Source file for UMLSeqClass.hpp
+ * @date 2022-04-28
  * @sources: https://doc.qt.io/qt-5/qtcore-serialization-savegame-example.html
  * @copyright Copyright (c) 2022
  *

@@ -1,11 +1,22 @@
+/**
+ * @file editobjectdialog.h
+ * @author xholan11
+ * @brief Header file for editobjectdialog.cpp
+ * @date 2022-05-05
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
 #ifndef EDITOBJECTDIALOG_H
 #define EDITOBJECTDIALOG_H
 
 #include "diagraminterface.h"
 #include <QDialog>
 
-namespace Ui {
-class EditObjectDialog;
+namespace Ui
+{
+    class EditObjectDialog;
 }
 
 class EditObjectDialog : public QDialog
@@ -16,12 +27,12 @@ public:
     explicit EditObjectDialog(QWidget *parent = nullptr);
     ~EditObjectDialog();
 
-    void init(DiagramInterface * diagramInterface, UMLClass * umlObject);
+    void init(DiagramInterface *diagramInterface, UMLClass *umlObject);
     /**
      * @brief getUpdatedUmlObject
      * @return poiter to updated class by this dialog, when returned nullptr then it signs that this object has been removed
      */
-    UMLClass * getUpdatedUmlObject();
+    UMLClass *getUpdatedUmlObject();
 
     void loadCmbAttributes();
     void loadCmbOperations();
@@ -49,12 +60,12 @@ private:
     /**
      * @brief diagramInterface
      */
-    DiagramInterface * diagramInterface;
+    DiagramInterface *diagramInterface;
 
     /**
      * @brief umlClass
      */
-    UMLClass * umlObject;
+    UMLClass *umlObject;
 
     /**
      * @brief operationMapGUI
@@ -68,8 +79,6 @@ private:
      * map for storing each attribute and its string representation drawn in gui object
      */
     QMap<UMLAttribute, QString> attributesMapGUI;
-
-
 };
 
 #endif // EDITOBJECTDIALOG_H

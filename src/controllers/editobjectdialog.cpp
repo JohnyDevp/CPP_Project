@@ -1,3 +1,13 @@
+/**
+ * @file editobjectdialog.cpp
+ * @author xholan11
+ * @brief Dialog used for editing object
+ * @date 2022-05-05
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
 #include "editobjectdialog.h"
 #include "ui_editobjectdialog.h"
 #include "errors.h"
