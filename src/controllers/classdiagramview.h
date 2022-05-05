@@ -1,5 +1,5 @@
 /** @file classdiagramview.h
- *  @author xholan11
+ *  @author xholan11, xzimol04
  *  @brief Header file for controller of classdiagramview.cpp
  */
 
@@ -17,8 +17,6 @@
 #include <QCursor>
 
 // include the objects which will be drawn on canvas
-#include "./../classobjectgui.h"
-#include "./../interfaceobjectgui.h"
 
 #include "../diagraminterface.h"
 #include "relationgui.h"
@@ -55,7 +53,7 @@ public:
      * @param sequenceDiagram
      * @return pointer to the interface for newly created sequence diagram
      */
-    SequenceDiagramInterface * createSequenceDiagramTab(SequenceDiagram &sequenceDiagram);
+    SequenceDiagramInterface *createSequenceDiagramTab(SequenceDiagram &sequenceDiagram);
 
     explicit ClassDiagramView(QWidget *parent = nullptr);
 

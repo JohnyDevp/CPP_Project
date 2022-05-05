@@ -1,3 +1,13 @@
+/**
+ * @file relationgui.h
+ * @author xholan11
+ * @brief Header file for relationgui.cpp
+ * @date 2022-05-05
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
 #pragma once
 #ifndef RELATIONGUI_H
 #define RELATIONGUI_H
@@ -14,7 +24,7 @@ class ObjectGUI;
 class RelationGui : public QGraphicsLineItem
 {
 public:
-    RelationGui(UMLRelation umlRelation, DiagramInterface * diagramInterface);
+    RelationGui(UMLRelation umlRelation, DiagramInterface *diagramInterface);
 
     /**
      * @brief updatePosition
@@ -31,8 +41,8 @@ public:
      */
     void removeRelationNotification();
 
-    ObjectGUI * objectStart;
-    ObjectGUI * objectEnd;
+    ObjectGUI *objectStart;
+    ObjectGUI *objectEnd;
 
     UMLRelation::RelationType relType;
 
@@ -54,12 +64,10 @@ private:
      */
     QPointF qpointEnd;
 
-
-
     /**
      * @brief diagramInterface
      */
-    DiagramInterface * diagramInterface;
+    DiagramInterface *diagramInterface;
 };
 
 #endif // RELATIONGUI_H

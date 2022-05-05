@@ -1,3 +1,13 @@
+/**
+ * @file diagraminterface.h
+ * @author xholan11, xzimol04
+ * @brief Header file for diagraminterface.cpp
+ * @date 2022-05-05
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
 #pragma once
 
 #include "cls/ClassDiagram.hpp"
@@ -29,8 +39,6 @@ public:
     ~DiagramInterface();
     DiagramInterface(QGraphicsScene *scene);
 
-    // DiagramInterface(QGraphicsScene *scene, DiagramInterface &inter);
-
     void addObjectToObjectGuiList(ObjectGUI *objectGui);
     void removeObjectFromGuiList(ObjectGUI *objectGui);
     void removeRelationFromGuiList(RelationGui *relationGui);
@@ -41,7 +49,7 @@ public:
      * @brief used to createRelation
      */
     UMLRelation tempUmlRelation;
-    RelationGui *tempRelationGui;
+
     bool isRelationCreating = false;
 
     ClassDiagram classDiagram;

@@ -1,3 +1,13 @@
+/**
+ * @file sequencediagraminterface.h
+ * @author xholan11, xzimol04
+ * @brief Header file for sequencediagraminterface.cpp
+ * @date 2022-05-05
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
 #pragma once
 
 #ifndef SEQUENCEDIAGRAMINTERFACE_H
@@ -15,9 +25,8 @@ class SequenceObjectGUI;
 class SequenceDiagramInterface
 {
 public:
+    ~SequenceDiagramInterface();
     SequenceDiagramInterface(DiagramInterface *diagramInterface, SequenceDiagram sequenceDiagram);
-
-
 
     /**
      * @brief pointer to interface for class diagram
@@ -59,13 +68,20 @@ public:
     QList<SequenceObjectGUI *> sequenceObjectGUIList;
     QList<SequenceMessageGUI *> sequenceMessageGUIList;
 
+    /*updates======================================*/
+    // communication from diagramInterface -> SequenceDiagramInterface
+    void notifyUmlClassUpdate(QString classOldName, UMLClass updatedClass);
+
+    void updateEverything();
+    /*================================*/
+
     /**
      * @brief updateScene
      * triggering scene update (for this sequence diagram)
      */
     void updateScene();
 
-    void setScene(QGraphicsScene * scene);
+    void setScene(QGraphicsScene *scene);
 
 private:
     /**

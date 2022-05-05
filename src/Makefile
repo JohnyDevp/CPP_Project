@@ -16,7 +16,7 @@ CC            = gcc
 CXX           = g++
 DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -flto -fno-fat-lto-objects -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
-CXXFLAGS      = -pipe -O2 -std=gnu++1z -flto -fno-fat-lto-objects -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
+CXXFLAGS      = -pipe -g -O2 -std=gnu++1z -flto -fno-fat-lto-objects -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
 INCPATH       = -I. -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I. -I/usr/lib/qt/mkspecs/linux-g++
 QMAKE         = /usr/bin/qmake
 DEL_FILE      = rm -f
@@ -39,7 +39,7 @@ COMPRESS      = gzip -9f
 DISTNAME      = CPP_Project1.0.0
 DISTDIR = /home/musta-pollo/VUT/ICP_COL/CPP_Project/src/.tmp/CPP_Project1.0.0
 LINK          = g++
-LFLAGS        = -Wl,-O1 -pipe -O2 -std=gnu++1z -flto=6 -fno-fat-lto-objects -fuse-linker-plugin -fPIC
+LFLAGS        = -Wl,-O1 -pipe -g -O2 -std=gnu++1z -flto=6 -fno-fat-lto-objects -fuse-linker-plugin -fPIC
 LIBS          = $(SUBLIBS) /usr/lib/libQt5Widgets.so /usr/lib/libQt5Gui.so /usr/lib/libQt5Core.so -lGL -lpthread   
 AR            = gcc-ar cqs
 RANLIB        = 
@@ -52,8 +52,7 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = classobjectgui.cpp \
-		cls/Element.cpp \
+SOURCES       = cls/Element.cpp \
 		cls/UMLClass.cpp \
 		cls/UMLAttribute.cpp \
 		cls/UMLOperation.cpp \
@@ -67,8 +66,6 @@ SOURCES       = classobjectgui.cpp \
 		controllers/sequencediagramview.cpp \
 		diagraminterface.cpp \
 		errors.cpp \
-		interfaceobjectgui.cpp \
-		jsonreader.cpp \
 		main.cpp \
 		controllers/mainwindow.cpp \
 		controllers/classdiagramview.cpp \
@@ -84,8 +81,7 @@ SOURCES       = classobjectgui.cpp \
 		moc_classdiagramview.cpp \
 		moc_sequencediagramview.cpp \
 		moc_addclassdiagramobjectdialog.cpp
-OBJECTS       = classobjectgui.o \
-		Element.o \
+OBJECTS       = Element.o \
 		UMLClass.o \
 		UMLAttribute.o \
 		UMLOperation.o \
@@ -99,8 +95,6 @@ OBJECTS       = classobjectgui.o \
 		sequencediagramview.o \
 		diagraminterface.o \
 		errors.o \
-		interfaceobjectgui.o \
-		jsonreader.o \
 		main.o \
 		mainwindow.o \
 		classdiagramview.o \
@@ -312,6 +306,7 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/qt_config.prf \
 		/usr/lib/qt/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/qt/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/qt/mkspecs/features/toolchain.prf \
 		/usr/lib/qt/mkspecs/features/default_pre.prf \
@@ -333,8 +328,7 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/exceptions.prf \
 		/usr/lib/qt/mkspecs/features/yacc.prf \
 		/usr/lib/qt/mkspecs/features/lex.prf \
-		CPP_Project.pro classobjectgui.h \
-		cls/Element.hpp \
+		CPP_Project.pro cls/Element.hpp \
 		cls/UMLClass.hpp \
 		cls/UMLAttribute.hpp \
 		cls/UMLOperation.hpp \
@@ -350,16 +344,13 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		controllers/sequencediagramview.h \
 		diagraminterface.h \
 		errors.h \
-		interfaceobjectgui.h \
-		jsonreader.h \
 		objectgui.h \
 		relationgui.h \
 		sequencediagraminterface.h \
 		sequencemessagegui.h \
 		sequenceobjectgui.h \
 		undo.h \
-		views/addclassdiagramobjectdialog.h classobjectgui.cpp \
-		cls/Element.cpp \
+		views/addclassdiagramobjectdialog.h cls/Element.cpp \
 		cls/UMLClass.cpp \
 		cls/UMLAttribute.cpp \
 		cls/UMLOperation.cpp \
@@ -373,8 +364,6 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		controllers/sequencediagramview.cpp \
 		diagraminterface.cpp \
 		errors.cpp \
-		interfaceobjectgui.cpp \
-		jsonreader.cpp \
 		main.cpp \
 		controllers/mainwindow.cpp \
 		controllers/classdiagramview.cpp \
@@ -591,6 +580,7 @@ Makefile: CPP_Project.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/m
 		/usr/lib/qt/mkspecs/features/qt_config.prf \
 		/usr/lib/qt/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/qt/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/qt/mkspecs/features/toolchain.prf \
 		/usr/lib/qt/mkspecs/features/default_pre.prf \
@@ -809,6 +799,7 @@ Makefile: CPP_Project.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/m
 /usr/lib/qt/mkspecs/features/qt_config.prf:
 /usr/lib/qt/mkspecs/linux-g++/qmake.conf:
 /usr/lib/qt/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/lib/qt/mkspecs/features/exclusive_builds.prf:
 /usr/lib/qt/mkspecs/features/toolchain.prf:
 /usr/lib/qt/mkspecs/features/default_pre.prf:
@@ -846,8 +837,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents classobjectgui.h cls/Element.hpp cls/UMLClass.hpp cls/UMLAttribute.hpp cls/UMLOperation.hpp cls/UMLRelation.hpp cls/Message.hpp cls/UMLSeqClass.hpp cls/ClassDiagram.hpp cls/SequenceDiagram.hpp controllers/editobjectdialog.h controllers/editrelationdialog.h controllers/mainwindow.h controllers/classdiagramview.h controllers/sequencediagramview.h diagraminterface.h errors.h interfaceobjectgui.h jsonreader.h objectgui.h relationgui.h sequencediagraminterface.h sequencemessagegui.h sequenceobjectgui.h undo.h views/addclassdiagramobjectdialog.h $(DISTDIR)/
-	$(COPY_FILE) --parents classobjectgui.cpp cls/Element.cpp cls/UMLClass.cpp cls/UMLAttribute.cpp cls/UMLOperation.cpp cls/UMLRelation.cpp cls/Message.cpp cls/UMLSeqClass.cpp cls/ClassDiagram.cpp cls/SequenceDiagram.cpp controllers/editobjectdialog.cpp controllers/editrelationdialog.cpp controllers/sequencediagramview.cpp diagraminterface.cpp errors.cpp interfaceobjectgui.cpp jsonreader.cpp main.cpp controllers/mainwindow.cpp controllers/classdiagramview.cpp objectgui.cpp relationgui.cpp sequencediagraminterface.cpp sequencemessagegui.cpp sequenceobjectgui.cpp undo.cpp views/addclassdiagramobjectdialog.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents cls/Element.hpp cls/UMLClass.hpp cls/UMLAttribute.hpp cls/UMLOperation.hpp cls/UMLRelation.hpp cls/Message.hpp cls/UMLSeqClass.hpp cls/ClassDiagram.hpp cls/SequenceDiagram.hpp controllers/editobjectdialog.h controllers/editrelationdialog.h controllers/mainwindow.h controllers/classdiagramview.h controllers/sequencediagramview.h diagraminterface.h errors.h objectgui.h relationgui.h sequencediagraminterface.h sequencemessagegui.h sequenceobjectgui.h undo.h views/addclassdiagramobjectdialog.h $(DISTDIR)/
+	$(COPY_FILE) --parents cls/Element.cpp cls/UMLClass.cpp cls/UMLAttribute.cpp cls/UMLOperation.cpp cls/UMLRelation.cpp cls/Message.cpp cls/UMLSeqClass.cpp cls/ClassDiagram.cpp cls/SequenceDiagram.cpp controllers/editobjectdialog.cpp controllers/editrelationdialog.cpp controllers/sequencediagramview.cpp diagraminterface.cpp errors.cpp main.cpp controllers/mainwindow.cpp controllers/classdiagramview.cpp objectgui.cpp relationgui.cpp sequencediagraminterface.cpp sequencemessagegui.cpp sequenceobjectgui.cpp undo.cpp views/addclassdiagramobjectdialog.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents controllers/editobjectdialog.ui controllers/editrelationdialog.ui views/addclassdiagramobjectdialog.ui views/sequencediagramview.ui views/classdiagramview.ui views/mainwindow.ui $(DISTDIR)/
 
 
@@ -881,7 +872,7 @@ compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) moc_predefs.h
 moc_predefs.h: /usr/lib/qt/mkspecs/features/data/dummy.cpp
-	g++ -pipe -O2 -std=gnu++1z -flto -fno-fat-lto-objects -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/qt/mkspecs/features/data/dummy.cpp
+	g++ -pipe -g -O2 -std=gnu++1z -flto -fno-fat-lto-objects -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/qt/mkspecs/features/data/dummy.cpp
 
 compiler_moc_header_make_all: moc_editobjectdialog.cpp moc_editrelationdialog.cpp moc_mainwindow.cpp moc_classdiagramview.cpp moc_sequencediagramview.cpp moc_addclassdiagramobjectdialog.cpp
 compiler_moc_header_clean:
@@ -918,8 +909,6 @@ moc_editrelationdialog.cpp: controllers/editrelationdialog.h \
 
 moc_mainwindow.cpp: controllers/mainwindow.h \
 		controllers/classdiagramview.h \
-		classobjectgui.h \
-		interfaceobjectgui.h \
 		diagraminterface.h \
 		cls/ClassDiagram.hpp \
 		cls/UMLRelation.hpp \
@@ -941,8 +930,6 @@ moc_mainwindow.cpp: controllers/mainwindow.h \
 	/usr/bin/moc $(DEFINES) --include /home/musta-pollo/VUT/ICP_COL/CPP_Project/src/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/musta-pollo/VUT/ICP_COL/CPP_Project/src -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/11.2.0 -I/usr/include/c++/11.2.0/x86_64-pc-linux-gnu -I/usr/include/c++/11.2.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/11.2.0/include-fixed -I/usr/include controllers/mainwindow.h -o moc_mainwindow.cpp
 
 moc_classdiagramview.cpp: controllers/classdiagramview.h \
-		classobjectgui.h \
-		interfaceobjectgui.h \
 		diagraminterface.h \
 		cls/ClassDiagram.hpp \
 		cls/UMLRelation.hpp \
@@ -1027,9 +1014,6 @@ compiler_lex_clean:
 compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
-
-classobjectgui.o: classobjectgui.cpp classobjectgui.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o classobjectgui.o classobjectgui.cpp
 
 Element.o: cls/Element.cpp cls/Element.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Element.o cls/Element.cpp
@@ -1156,16 +1140,8 @@ diagraminterface.o: diagraminterface.cpp diagraminterface.h \
 errors.o: errors.cpp errors.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o errors.o errors.cpp
 
-interfaceobjectgui.o: interfaceobjectgui.cpp interfaceobjectgui.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o interfaceobjectgui.o interfaceobjectgui.cpp
-
-jsonreader.o: jsonreader.cpp jsonreader.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o jsonreader.o jsonreader.cpp
-
 main.o: main.cpp controllers/mainwindow.h \
 		controllers/classdiagramview.h \
-		classobjectgui.h \
-		interfaceobjectgui.h \
 		diagraminterface.h \
 		cls/ClassDiagram.hpp \
 		cls/UMLRelation.hpp \
@@ -1186,8 +1162,6 @@ main.o: main.cpp controllers/mainwindow.h \
 
 mainwindow.o: controllers/mainwindow.cpp controllers/mainwindow.h \
 		controllers/classdiagramview.h \
-		classobjectgui.h \
-		interfaceobjectgui.h \
 		diagraminterface.h \
 		cls/ClassDiagram.hpp \
 		cls/UMLRelation.hpp \
@@ -1207,8 +1181,6 @@ mainwindow.o: controllers/mainwindow.cpp controllers/mainwindow.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o controllers/mainwindow.cpp
 
 classdiagramview.o: controllers/classdiagramview.cpp controllers/classdiagramview.h \
-		classobjectgui.h \
-		interfaceobjectgui.h \
 		diagraminterface.h \
 		cls/ClassDiagram.hpp \
 		cls/UMLRelation.hpp \
@@ -1292,7 +1264,16 @@ sequenceobjectgui.o: sequenceobjectgui.cpp sequenceobjectgui.h \
 		cls/UMLClass.hpp \
 		cls/UMLAttribute.hpp \
 		cls/Element.hpp \
-		cls/UMLOperation.hpp
+		cls/UMLOperation.hpp \
+		sequencediagraminterface.h \
+		cls/SequenceDiagram.hpp \
+		cls/Message.hpp \
+		diagraminterface.h \
+		cls/ClassDiagram.hpp \
+		cls/UMLRelation.hpp \
+		objectgui.h \
+		relationgui.h \
+		sequencemessagegui.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sequenceobjectgui.o sequenceobjectgui.cpp
 
 undo.o: undo.cpp undo.h
