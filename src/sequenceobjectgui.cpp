@@ -1,5 +1,6 @@
 #include "sequenceobjectgui.h"
 #include "qfont.h"
+#include "qfontmetrics.h"
 
 SequenceObjectGUI::SequenceObjectGUI(UMLSeqClass umlSeqClass)
 {
@@ -15,7 +16,13 @@ QRectF SequenceObjectGUI::boundingRect() const {
 }
 
 void SequenceObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
-    QFont font("arial")
+    QFont font("arial", 15);
+    QFontMetrics metr(font);
+    //plus one, because there is added ":"
+    int width = metr.width(this->umlSeqClass.name) + 1;
+
+    if (width > this->boundingWidth) boundingWidth = width;
+
 }
 
 SequenceObjectGUI::~SequenceObjectGUI(){

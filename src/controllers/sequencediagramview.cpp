@@ -58,6 +58,7 @@ void SequenceDiagramView::on_btnAddObject_clicked()
         UMLSeqClass umlSeqClass(umlClass.name, umlClass.name, 0);
         SequenceObjectGUI sequenceObjectGUI();
 
+
     }
 }
 
