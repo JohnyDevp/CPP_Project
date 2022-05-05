@@ -29,6 +29,8 @@ public:
 private slots:
     void on_btnClose_clicked();
 
+    void on_btnAddObject_clicked();
+
 private:
     Ui::SequenceDiagramView *ui;
 

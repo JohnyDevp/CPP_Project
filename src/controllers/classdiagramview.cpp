@@ -168,16 +168,9 @@ void ClassDiagramView::on_btnAddObject_clicked()
 
 void ClassDiagramView::on_btnCreateNewSequenceDiagram_clicked()
 {
-    // create new ClassDiagramView controller, init it and ad it as view to the tab
-    SequenceDiagramView *q = new SequenceDiagramView();
+    SequenceDiagram sequenceDiagram;
 
-    //create interface for this class
-    //TODO add it to the class diagram interface
-    SequenceDiagramInterface seqDiagInterface(this->diagramInterface);
-
-    // add class diagram canvas window -> in new tab
-    int tabIndex = this->tabPane->addTab(q, "Sequence diagram ");
-    q->init(this->tabPane, tabIndex, &seqDiagInterface);
+    //diagramInterface->addSequenceDiagramInterface(createSequenceDiagramTab(sequenceDiagram));
 }
 
 void ClassDiagramView::on_btnSave_clicked()
@@ -194,3 +187,19 @@ void ClassDiagramView::on_btnSave_clicked()
         Errors().raiseError("Problem occured while saving. Please try again.");
     }
 }
+
+/*===================================================================*/
+
+SequenceDiagramInterface * ClassDiagramView::createSequenceDiagramTab(SequenceDiagram &sequenceDiagram){
+    // create new ClassDiagramView controller, init it and ad it as view to the tab
+    SequenceDiagramView *q = new SequenceDiagramView();
+
+    //create interface for this class
+    //TODO add it to the class diagram interface
+    SequenceDiagramInterface seqDiagInterface(this->diagramInterface, sequenceDiagram);
+
+    // add class diagram canvas window -> in new tab
+    int tabIndex = this->tabPane->addTab(q, "Sequence diagram ");
+    q->init(this->tabPane, tabIndex, &seqDiagInterface);
+}
+

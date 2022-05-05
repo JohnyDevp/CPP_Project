@@ -6,6 +6,7 @@
 #include "cls/UMLSeqClass.hpp"
 #include "objectgui.h"
 #include "relationgui.h"
+#include "sequencediagraminterface.h"
 
 #include <iostream>
 #include <vector>
@@ -17,6 +18,7 @@
 
 class ObjectGUI;
 class RelationGui;
+class SequenceDiagramInterface;
 
 #define classDiagramName "classDiagram"
 #define sequenceDiagramsName "sequenceDiagrams"
@@ -43,6 +45,7 @@ public:
 
     ClassDiagram classDiagram;
 
+    QList<SequenceDiagramInterface*> sequenceDiagramInterfaceList;
     QMap<int, SequenceDiagram> sequenceDiagrams;
 
     // Interface functions for more cleaner code

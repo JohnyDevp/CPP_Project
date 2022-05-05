@@ -15,7 +15,7 @@
 class SequenceDiagramInterface
 {
 public:
-    SequenceDiagramInterface(DiagramInterface * diagramInterface);
+    SequenceDiagramInterface(DiagramInterface * diagramInterface, SequenceDiagram sequenceDiagram);
 
     /**
      * @brief scene for this sequence diagram
@@ -31,7 +31,7 @@ public:
     /**
      * @brief sequenceDiagram for this interface and controller
      */
-    SequenceDiagram sequenceDiagram;
+    SequenceDiagram * sequenceDiagram;
 
     /**
      * @brief Create or update SeqClass
