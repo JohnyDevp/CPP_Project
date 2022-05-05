@@ -6,13 +6,17 @@ SequenceDiagramInterface::SequenceDiagramInterface(DiagramInterface *diagramInte
     this->sequenceDiagram = sequenceDiagram;
 }
 
-void SequenceDiagramInterface::addNewSequenceObjectGUIToList(SequenceObjectGUI *seqObjGUI)
+void SequenceDiagramInterface::addNewSequenceObjectGUI(SequenceObjectGUI *seqObjGUI)
 {
+    this->scene->addItem(seqObjGUI);
+
     this->sequenceObjectGUIList.append(seqObjGUI);
 }
 
-void SequenceDiagramInterface::removeSequenceObjectGUIFromList(SequenceObjectGUI *seqObjGUI)
+void SequenceDiagramInterface::removeSequenceObjectGUI(SequenceObjectGUI *seqObjGUI)
 {
+    this->scene->removeItem(seqObjGUI);
+
     this->sequenceObjectGUIList.removeOne(seqObjGUI);
 }
 
@@ -49,4 +53,13 @@ void SequenceDiagramInterface::removeMessage(Message &message)
 void SequenceDiagramInterface::removeSeqClass(UMLSeqClass &seqClass)
 {
     sequenceDiagram.deleteUMLSeqClass(seqClass);
+}
+
+void SequenceDiagramInterface::updateScene(){
+    this->scene->update();
+}
+
+void SequenceDiagramInterface::setScene(QGraphicsScene *scene)
+{
+    this->scene = scene;
 }

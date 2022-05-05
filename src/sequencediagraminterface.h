@@ -10,15 +10,14 @@
 #include "sequencemessagegui.h"
 #include "sequenceobjectgui.h"
 
+class SequenceObjectGUI;
+
 class SequenceDiagramInterface
 {
 public:
     SequenceDiagramInterface(DiagramInterface *diagramInterface, SequenceDiagram sequenceDiagram);
 
-    /**
-     * @brief scene for this sequence diagram
-     */
-    QGraphicsScene *scene;
+
 
     /**
      * @brief pointer to interface for class diagram
@@ -53,12 +52,26 @@ public:
 
     void sendUpdateNotification();
 
-    void addNewSequenceObjectGUIToList(SequenceObjectGUI *seqObjGUI);
+    void addNewSequenceObjectGUI(SequenceObjectGUI *seqObjGUI);
 
-    void removeSequenceObjectGUIFromList(SequenceObjectGUI *seqObjGUI);
+    void removeSequenceObjectGUI(SequenceObjectGUI *seqObjGUI);
 
     QList<SequenceObjectGUI *> sequenceObjectGUIList;
     QList<SequenceMessageGUI *> sequenceMessageGUIList;
+
+    /**
+     * @brief updateScene
+     * triggering scene update (for this sequence diagram)
+     */
+    void updateScene();
+
+    void setScene(QGraphicsScene * scene);
+
+private:
+    /**
+     * @brief scene for this sequence diagram
+     */
+    QGraphicsScene *scene;
 };
 
 #endif // SEQUENCEDIAGRAMINTERFACE_H

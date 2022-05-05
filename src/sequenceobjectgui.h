@@ -1,15 +1,21 @@
+#pragma once
+
 #ifndef SEQUENCEOBJECTGUI_H
 #define SEQUENCEOBJECTGUI_H
 
 #include "cls/UMLSeqClass.hpp"
+#include "sequencediagraminterface.h"
+#include "diagraminterface.h"
 #include <QGraphicsItem>
 
 #define TOP_Y_COORD 30
 
+class SequenceDiagramInterface;
+
 class SequenceObjectGUI : public QGraphicsItem
 {
 public:
-    SequenceObjectGUI(UMLSeqClass umlSeqClass);
+    SequenceObjectGUI(UMLSeqClass umlSeqClass, SequenceDiagramInterface * seqDiagInterface);
 
     ~SequenceObjectGUI();
 
@@ -25,13 +31,22 @@ public:
      */
     bool umlClassExists = true;
 
+protected:
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+
 private:
+    qreal mousePrevSceneX;
+    qreal mousePrevSceneY;
 
     // variables for default coords of bounding rectangle
     int boundingX;
     int boundingY = TOP_Y_COORD;
     int boundingWidth;
     int boundingHeight;
+
+    SequenceDiagramInterface * seqDiagInterface;
 
 };
 

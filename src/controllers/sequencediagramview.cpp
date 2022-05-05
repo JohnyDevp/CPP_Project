@@ -21,7 +21,7 @@ void SequenceDiagramView::init(QTabWidget *tabPane, int tabIndex, SequenceDiagra
     this->sequenceDiagramInterface = sequenceDiagramInterface;
 
     //set scene for the seauence diagram interface
-    this->sequenceDiagramInterface->scene = this->scene;
+    this->sequenceDiagramInterface->setScene(this->scene);
 
 }
 
@@ -55,9 +55,12 @@ void SequenceDiagramView::on_btnAddObject_clicked()
         //if the class has been chosen then find class according to the chosen name
         //and create umlseqclass and its gui
         UMLClass umlClass = this->sequenceDiagramInterface->diagramInterface->getUMLClass(item);
-        UMLSeqClass umlSeqClass(umlClass.name, umlClass.name, 0);
-        SequenceObjectGUI sequenceObjectGUI();
+        UMLSeqClass umlSeqClass("", umlClass.name, 10);
+        SequenceObjectGUI * sequenceObjectGUI = new SequenceObjectGUI(umlSeqClass, this->sequenceDiagramInterface);
 
+        this->sequenceDiagramInterface->addSeqClas(umlSeqClass);
+        //this method also add the gui to the scene
+        this->sequenceDiagramInterface->addNewSequenceObjectGUI(sequenceObjectGUI);
 
     }
 }
