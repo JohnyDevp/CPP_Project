@@ -89,6 +89,7 @@ public:
     void removeUMLClass(UMLClass umlClass);
 
     void removeRelation(UMLRelation relation);
+
     void updateSequenceDiagram(SequenceDiagram &dia);
 
     SequenceDiagram createSequenceDiagram(SequenceDiagram &dia);
@@ -109,6 +110,7 @@ public:
     bool isCorrect() const;
 
     QList<ObjectGUI *> guiObjectList;
+
     QList<RelationGui *> relationList;
 
     QGraphicsScene *scene;

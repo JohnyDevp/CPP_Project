@@ -1,17 +1,17 @@
 /**
  * @file Message.cpp
  * @author Jan Zimola (xzimol04)
- * @brief 
+ * @brief
  * @date 2022-05-05
  * @sources: https://doc.qt.io/qt-5/qtcore-serialization-savegame-example.html
  * @copyright Copyright (c) 2022
- * 
+ *
  */
 #include "Message.hpp"
 
 Message::Message() {}
 
-Message::Message(int Ycoord, QString umlClass, QString umlOperation, MessageType messageType) : Ycoord(Ycoord), className(umlClass), operationName(umlOperation), messageType(messageType){};
+Message::Message(int Ycoord, QString classSender, QString umlOperation, MessageType messageType) : Ycoord(Ycoord), classSender(classSender), operationName(umlOperation), messageType(messageType){};
 
 Message::~Message() {}
 bool Message::operator==(const Message &other) const
@@ -28,7 +28,9 @@ void Message::write(QJsonObject &json) const
 
     json[messageTypeName] = messageType;
 
-    json[umlClassName] = className;
+    json[recieverName] = classReceiver;
+
+    json[senderName] = classSender;
 
     json[returnTextName] = returnText;
 
@@ -59,9 +61,14 @@ void Message::read(const QJsonObject &json)
         messageType = static_cast<MessageType>(json[messageTypeName].toInt());
     }
 
-    if (json.contains(umlClassName) && json[umlClassName].isObject())
+    if (json.contains(senderName) && json[senderName].isString())
     {
-        className = json[umlClassName].toString();
+        classSender = json[senderName].toString();
+    }
+
+    if (json.contains(recieverName) && json[recieverName].isString())
+    {
+        classReceiver = json[recieverName].toString();
     }
 
     if (json.contains(umlOperationName) && json[umlOperationName].isObject())
