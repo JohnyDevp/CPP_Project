@@ -15,10 +15,6 @@ SequenceObjectGUI::SequenceObjectGUI(UMLSeqClass umlSeqClass, SequenceDiagramInt
 
     setFlag(QGraphicsItem::ItemIsMovable);
 
-    //build displayed name
-    //it is build from [name of instance][:][umlClassName]
-    this->objectName = umlSeqClass.name + ":" + umlSeqClass.className;
-
     //set umlSeqClass
     this->umlSeqClass = umlSeqClass;
 
@@ -33,6 +29,10 @@ QRectF SequenceObjectGUI::boundingRect() const {
 void SequenceObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
     //note - number 50 here represents the height of text-background rectangle
 
+    //build displayed name
+    //it is build from [name of instance][:][umlClassName]
+    this->objectName = umlSeqClass.name + ":" + umlSeqClass.className;
+
     //variable for knowledge, if it is necessary to update bounding rectangle after this drawing
     bool widthChanged = false;
 
@@ -41,7 +41,7 @@ void SequenceObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem 
     painter->setFont(font);
 
     QFontMetrics metr(font);
-    int txtWidth = metr.width(objectName);
+    int txtWidth = metr.width(this->objectName);
 
     if (txtWidth > this->boundingWidth + 10) {
         boundingWidth = txtWidth + 10;
@@ -114,7 +114,6 @@ void SequenceObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
     QGraphicsItem::mouseDoubleClickEvent(event);
 }
 
-
 void SequenceObjectGUI::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     qreal diffX = event->scenePos().x() - this->mousePrevSceneX;
@@ -131,5 +130,8 @@ void SequenceObjectGUI::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 }
 
+void updateClass(){
+
+}
 SequenceObjectGUI::~SequenceObjectGUI(){
 }

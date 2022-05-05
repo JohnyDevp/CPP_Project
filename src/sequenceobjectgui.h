@@ -24,8 +24,6 @@ public:
 
     UMLSeqClass umlSeqClass;
 
-    QString objectName;
-
     /**
      * @brief variable storing, whether there is no background for this umlSeqClass (as umlclass) or there is
      */
@@ -39,6 +37,8 @@ protected:
 private:
     qreal mousePrevSceneX;
     qreal mousePrevSceneY;
+
+    QString objectName;
 
     // variables for default coords of bounding rectangle
     int boundingX;

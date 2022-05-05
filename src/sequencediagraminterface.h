@@ -59,6 +59,13 @@ public:
     QList<SequenceObjectGUI *> sequenceObjectGUIList;
     QList<SequenceMessageGUI *> sequenceMessageGUIList;
 
+    /*updates======================================*/
+    //communication from diagramInterface -> SequenceDiagramInterface
+    void notifyUmlClassUpdate(QString classOldName, UMLClass updatedClass);
+
+    void updateEverything();
+    /*================================*/
+
     /**
      * @brief updateScene
      * triggering scene update (for this sequence diagram)
