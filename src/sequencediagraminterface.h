@@ -39,18 +39,25 @@ public:
      */
     void updateSeqClass(SequenceDiagram dia, UMLSeqClass seqClass);
 
-    void updateMessage(SequenceDiagram dia, Message message);
+    void removeSeqClass(SequenceDiagram dia, UMLSeqClass seqClass);
 
     Message createMessage(SequenceDiagram dia, Message &message);
 
+    void updateMessage(SequenceDiagram dia, Message message);
+
     void removeMessage(SequenceDiagram dia, Message &message);
 
-    void removeSeqClass(SequenceDiagram dia, UMLSeqClass seqClass);
+
 
     void sendUpdateNotification();
 
-    QList<SequenceObjectGUI *> sequenceObjectGUIList;
-    QList<SequenceMessageGUI *> sequenceMessageGUIList;
+    void addNewSequenceObjectGUIToList(SequenceObjectGUI * seqObjGUI);
+
+    void removeSequenceObjectGUIFromList(SequenceObjectGUI * seqObjGUI);
+
+    QList<SequenceObjectGUI*> sequenceObjectGUIList;
+    QList<SequenceMessageGUI*> sequenceMessageGUIList;
+
 };
 
 #endif // SEQUENCEDIAGRAMINTERFACE_H

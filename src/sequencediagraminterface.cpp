@@ -3,6 +3,17 @@
 SequenceDiagramInterface::SequenceDiagramInterface(DiagramInterface *diagramInterface, SequenceDiagram sequenceDiagram) : sequenceDiagram(sequenceDiagram)
 {
     this->diagramInterface = diagramInterface;
+    this->sequenceDiagram = sequenceDiagram;
+}
+
+void SequenceDiagramInterface::addNewSequenceObjectGUIToList(SequenceObjectGUI *seqObjGUI)
+{
+    this->sequenceObjectGUIList.append(seqObjGUI);
+}
+
+void SequenceDiagramInterface::removeSequenceObjectGUIFromList(SequenceObjectGUI *seqObjGUI)
+{
+    this->sequenceObjectGUIList.removeOne(seqObjGUI);
 }
 
 void SequenceDiagramInterface::updateSeqClass(SequenceDiagram dia, UMLSeqClass seqClass)

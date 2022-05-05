@@ -234,12 +234,14 @@ void ObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
     bool isInX = (((event->pos().x() - this->boundingX) >= 10) && ((maxX - 10) >= (event->pos().x() - this->boundingX)));
     bool isInY = (((event->pos().y() - this->boundingY) >= 10) && ((maxY - 10) >= (event->pos().y() - this->boundingY)));
 
+    //check whether the click was inside the object or on the edges of the object
     if (!(isInX && isInY))
     {
         if (diagramInterface->isRelationCreating){
             //raise dialog asking whether continue creating relation
             QMessageBox msgBox;
-            QPushButton *continueButton;
+            //this button is added only if the clicked object is different from object where the relation started
+            QPushButton *continueButton = nullptr;
             msgBox.setText("Continue creating relation?");
             if (this->diagramInterface->tempUmlRelation.relationFrom != this->objectName){
                 continueButton = msgBox.addButton(QDialog::tr("Create relation here"), QMessageBox::ActionRole);
