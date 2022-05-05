@@ -28,6 +28,8 @@ public:
      */
     static bool isCorrect(const UMLSeqClass &cl);
 
+    int index;
+
     int Xcoord;
     /**
      * @brief UMlClass instance

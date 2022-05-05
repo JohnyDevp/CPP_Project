@@ -37,27 +37,28 @@ public:
      * @param dia
      * @param seqClass
      */
-    void updateSeqClass(SequenceDiagram dia, UMLSeqClass seqClass);
+    void updateSeqClass(UMLSeqClass &seqClass);
 
-    void removeSeqClass(SequenceDiagram dia, UMLSeqClass seqClass);
+    bool existsSeqClass(UMLSeqClass &seqClass);
 
-    Message createMessage(SequenceDiagram dia, Message &message);
+    UMLSeqClass addSeqClas(UMLSeqClass &seqClass);
 
-    void updateMessage(SequenceDiagram dia, Message message);
+    void removeSeqClass(UMLSeqClass &seqClass);
 
-    void removeMessage(SequenceDiagram dia, Message &message);
+    Message createMessage(Message &message);
 
+    void updateMessage(Message &message);
 
+    void removeMessage(Message &message);
 
     void sendUpdateNotification();
 
-    void addNewSequenceObjectGUIToList(SequenceObjectGUI * seqObjGUI);
+    void addNewSequenceObjectGUIToList(SequenceObjectGUI *seqObjGUI);
 
-    void removeSequenceObjectGUIFromList(SequenceObjectGUI * seqObjGUI);
+    void removeSequenceObjectGUIFromList(SequenceObjectGUI *seqObjGUI);
 
-    QList<SequenceObjectGUI*> sequenceObjectGUIList;
-    QList<SequenceMessageGUI*> sequenceMessageGUIList;
-
+    QList<SequenceObjectGUI *> sequenceObjectGUIList;
+    QList<SequenceMessageGUI *> sequenceMessageGUIList;
 };
 
 #endif // SEQUENCEDIAGRAMINTERFACE_H

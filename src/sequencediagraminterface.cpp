@@ -16,27 +16,37 @@ void SequenceDiagramInterface::removeSequenceObjectGUIFromList(SequenceObjectGUI
     this->sequenceObjectGUIList.removeOne(seqObjGUI);
 }
 
-void SequenceDiagramInterface::updateSeqClass(SequenceDiagram dia, UMLSeqClass seqClass)
+void SequenceDiagramInterface::updateSeqClass(UMLSeqClass &seqClass)
 {
-    sequenceDiagram.classes[seqClass.name] = seqClass;
+    sequenceDiagram.updateSeqClass(seqClass);
 }
 
-void SequenceDiagramInterface::updateMessage(SequenceDiagram dia, Message message)
+bool SequenceDiagramInterface::existsSeqClass(UMLSeqClass &seqClass)
 {
-    sequenceDiagram.messages[message.index] = message;
+    return sequenceDiagram.existsSeqClass(seqClass);
 }
 
-Message SequenceDiagramInterface::createMessage(SequenceDiagram dia, Message &message)
+UMLSeqClass SequenceDiagramInterface::addSeqClas(UMLSeqClass &seqClass)
+{
+    return sequenceDiagram.addSeqClass(seqClass);
+}
+
+void SequenceDiagramInterface::updateMessage(Message &message)
+{
+    sequenceDiagram.updateMessage(message);
+}
+
+Message SequenceDiagramInterface::createMessage(Message &message)
 {
     return sequenceDiagram.createMessage(message);
 }
 
-void SequenceDiagramInterface::removeMessage(SequenceDiagram dia, Message &message)
+void SequenceDiagramInterface::removeMessage(Message &message)
 {
-    sequenceDiagram.messages.remove(message.index);
+    sequenceDiagram.deleteMessage(message);
 }
 
-void SequenceDiagramInterface::removeSeqClass(SequenceDiagram dia, UMLSeqClass seqClass)
+void SequenceDiagramInterface::removeSeqClass(UMLSeqClass &seqClass)
 {
-    sequenceDiagram.classes.remove(seqClass.name);
+    sequenceDiagram.deleteUMLSeqClass(seqClass);
 }
