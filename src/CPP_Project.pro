@@ -31,6 +31,10 @@ SOURCES += \
         controllers/classdiagramview.cpp \
         objectgui.cpp \
         relationgui.cpp \
+        sequencediagraminterface.cpp \
+        sequencemessagegui.cpp \
+        sequenceobjectgui.cpp \
+        undo.cpp \
         views/addclassdiagramobjectdialog.cpp
 
 HEADERS += \
@@ -55,6 +59,10 @@ HEADERS += \
         jsonreader.h \
         objectgui.h \
         relationgui.h \
+        sequencediagraminterface.h \
+        sequencemessagegui.h \
+        sequenceobjectgui.h \
+        undo.h \
         views/addclassdiagramobjectdialog.h
 
 FORMS += \

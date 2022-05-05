@@ -34,9 +34,9 @@ public:
     void removeRelationFromGuiList(RelationGui *relationGui);
 
     int sequenceDiagramIndex;
+
     /**
      * @brief used to createRelation
-     *
      */
     UMLRelation tempUmlRelation;
     RelationGui * tempRelationGui;

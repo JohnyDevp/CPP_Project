@@ -53,8 +53,6 @@ public:
 
     ~ClassDiagramView();
 
-    ObjectGUI *newObj;
-
 private slots:
     /**
      * @brief on_btnClose_clicked - handling all closing events

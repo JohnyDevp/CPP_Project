@@ -2,8 +2,8 @@
 #include "ClassDiagram.hpp"
 #include <QJsonArray>
 
-ClassDiagram::ClassDiagram() : classList(), relationList(), relationIndex(0) {}
-ClassDiagram::ClassDiagram(QString name) : Element(name), classList(), relationList(), relationIndex(0) {}
+ClassDiagram::ClassDiagram() : relationIndex(0), classList(), relationList() {}
+ClassDiagram::ClassDiagram(QString name) : Element(name), relationIndex(0), classList(), relationList() {}
 
 ClassDiagram::~ClassDiagram() {}
 
@@ -59,7 +59,7 @@ void ClassDiagram::read(const QJsonObject &json)
     // Read UMLRelation objects
     if (json.contains(relationListName) && json[relationListName].isArray())
     {
-        QJsonArray array = json[interfaceListName].toArray();
+        QJsonArray array = json[relationListName].toArray();
         relationList.clear();
 
         relationIndex = array.size();
