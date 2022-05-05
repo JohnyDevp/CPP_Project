@@ -25,9 +25,11 @@
 #include <QFileDialog>
 #include <QByteArray>
 #include <QJsonDocument>
+#include "undo.h"
 
 class ObjectGUI;
 class RelationGui;
+class Undo;
 class SequenceDiagramInterface;
 
 #define classDiagramName "classDiagram"
@@ -44,6 +46,12 @@ public:
     void removeRelationFromGuiList(RelationGui *relationGui);
 
     int sequenceDiagramIndex;
+
+    /**
+     * @brief List of undos
+     *
+     */
+    QList<Undo> listOfUndos;
 
     /**
      * @brief used to createRelation
@@ -98,9 +106,9 @@ public:
      * @brief removeUMLClass
      * @param umlClass
      */
-    void removeUMLClass(UMLClass umlClass);
+    bool removeUMLClass(UMLClass umlClass);
 
-    void removeUMLClass(QString className);
+    bool removeUMLClass(QString className);
 
     void removeRelation(UMLRelation relation);
 

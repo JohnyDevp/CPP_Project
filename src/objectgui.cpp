@@ -359,7 +359,7 @@ void ObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
     {
         // create new dialog, wait for response
         EditObjectDialog *dlg = new EditObjectDialog();
-        dlg->init(this->diagramInterface, &this->umlObject);
+        dlg->init(this->diagramInterface, &this->umlObject, this);
         dlg->exec();
 
         // update this object

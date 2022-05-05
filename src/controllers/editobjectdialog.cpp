@@ -11,6 +11,7 @@
 #include "editobjectdialog.h"
 #include "ui_editobjectdialog.h"
 #include "errors.h"
+#include "undo.h"
 
 EditObjectDialog::EditObjectDialog(QWidget *parent) : QDialog(parent),
                                                       ui(new Ui::EditObjectDialog)
@@ -23,10 +24,11 @@ EditObjectDialog::~EditObjectDialog()
     delete ui;
 }
 
-void EditObjectDialog::init(DiagramInterface *diagramInterface, UMLClass *umlClass)
+void EditObjectDialog::init(DiagramInterface *diagramInterface, UMLClass *umlClass, ObjectGUI *gui)
 {
     this->diagramInterface = diagramInterface;
     this->umlObject = umlClass;
+    this->guiObject = gui;
 
     // make list of modifiers -> they will be load into comboboxes for modifiers
     QStringList modifiers;
@@ -131,6 +133,11 @@ void EditObjectDialog::on_btnRenameObject_clicked()
     }
     else
     {
+        // create Undo
+        Undo newUndo = Undo(Undo::RENAMEOBJECT, diagramInterface, guiObject, this->umlObject->name);
+        // Store undo
+        diagramInterface->listOfUndos.append(newUndo);
+
         // if the class with that name doesnt exist yet then rename
         this->umlObject->name = newName;
     }
@@ -138,6 +145,11 @@ void EditObjectDialog::on_btnRenameObject_clicked()
 
 void EditObjectDialog::on_btnRemoveObject_clicked()
 {
+    // create undo
+    Undo newUndo = Undo(Undo::REMOVEOBJECT, diagramInterface, guiObject, *this->umlObject);
+    // Store undo
+    diagramInterface->listOfUndos.append(newUndo);
+
     this->umlObject = NULL;
 
     // close this dialog
@@ -164,6 +176,11 @@ void EditObjectDialog::on_btnDeleteAttribute_clicked()
             uaToBeRemoved = attrMap.key();
         }
     }
+
+    // create undo
+    Undo newUndo = Undo(Undo::REMOVEATTRIBUTE, diagramInterface, guiObject, uaToBeRemoved);
+    // Store undo
+    diagramInterface->listOfUndos.append(newUndo);
 
     // remove found attribute from umlclass and list
     this->umlObject->deleteAttribute(uaToBeRemoved.name);
@@ -193,6 +210,11 @@ void EditObjectDialog::on_btnDeleteOperation_clicked()
         }
     }
 
+    // create undo
+    Undo newUndo = Undo(Undo::REMOVEOPERATION, diagramInterface, guiObject, uoToBeRemoved);
+    // Store undo
+    diagramInterface->listOfUndos.append(newUndo);
+
     // remove found attribute from umlclass and list
     this->umlObject->deleteOperation(uoToBeRemoved);
     this->operationMapGUI.remove(uoToBeRemoved);
@@ -217,6 +239,12 @@ void EditObjectDialog::on_btnAddAttribute_clicked()
     // try to add it
     if (this->umlObject->addAttribute(newUmlAttr))
     {
+
+        // create undo
+        Undo newUndo = Undo(Undo::ADDATTRIBUTE, diagramInterface, guiObject, newUmlAttr);
+        // Store undo
+        diagramInterface->listOfUndos.append(newUndo);
+
         // add it to the map and refresh
         QString attrText = newUmlAttr.modifier + newUmlAttr.name + " : " + newUmlAttr.type;
         this->attributesMapGUI.insert(newUmlAttr, attrText);
@@ -262,6 +290,11 @@ void EditObjectDialog::on_btnAddOperation_clicked()
         Errors().raiseError("Failed adding operation (due to bad its modifier/name/type).");
         return;
     }
+
+    // create undo
+    Undo newUndo = Undo(Undo::ADDOPERATION, diagramInterface, guiObject, newUmlOperation);
+    // Store undo
+    diagramInterface->listOfUndos.append(newUndo);
 
     // add the operation to the map and refresh
     //  build the operation text
@@ -315,8 +348,10 @@ void EditObjectDialog::on_btnAddAttributeToOperation_clicked()
             return;
         }
     }
-    // if ok then add it to the operation attribute map
-    // the text serves for possible writeout to the listview of attributes of operation
+
+    // TODO: Add undo?
+    //  if ok then add it to the operation attribute map
+    //  the text serves for possible writeout to the listview of attributes of operation
     QString attrText = newUmlAttr.modifier + newUmlAttr.name + " : " + newUmlAttr.type;
     this->operationAttributesMapGUI.insert(newUmlAttr, attrText);
 }

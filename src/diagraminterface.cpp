@@ -138,26 +138,29 @@ UMLRelation DiagramInterface::createRelation()
     return newRelGui->umlRelation;
 }
 
-void DiagramInterface::removeUMLClass(UMLClass umlClass)
+bool DiagramInterface::removeUMLClass(UMLClass umlClass)
 {
-    classDiagram.classList.remove(umlClass.name);
+    int deleted = classDiagram.classList.remove(umlClass.name);
 
     // notify sequence diagrams about updates
     foreach (SequenceDiagramInterface *seqDiagInter, this->sequenceDiagramInterfaceList)
     {
         seqDiagInter->updateEverything();
     }
+    return deleted == 1;
 }
 
-void DiagramInterface::removeUMLClass(QString className)
+bool DiagramInterface::removeUMLClass(QString className)
 {
-    classDiagram.classList.remove(className);
+    int deleted = classDiagram.classList.remove(className);
 
     // notify sequence diagrams about updates
     foreach (SequenceDiagramInterface *seqDiagInter, this->sequenceDiagramInterfaceList)
     {
         seqDiagInter->updateEverything();
     }
+
+    return deleted == 1;
 }
 
 void DiagramInterface::removeRelation(UMLRelation relation)

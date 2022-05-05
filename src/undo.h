@@ -1,3 +1,5 @@
+#pragma once
+
 /**
  * @file undo.h
  * @author Jan Zimola (xzimol04), xholan11
@@ -19,7 +21,9 @@ public:
         ADDATTRIBUTE,
         ADDOPERATION,
         REMOVEATTRIBUTE,
-        REMOVEOPERATION
+        REMOVEOPERATION,
+        REMOVEOBJECT,
+        ADDOBJECT,
     };
 
 private:
@@ -36,6 +40,7 @@ private:
     QString prevObjectName;
     UMLOperation umlOperation;
     UMLAttribute umlAttribute;
+    UMLClass umlClass;
 
 public:
     Undo(UndoOperation operationType, DiagramInterface *interface, ObjectGUI *guiObject, QString prevObjectName);
@@ -50,7 +55,19 @@ public:
      * */
     Undo(UndoOperation operationType, DiagramInterface *interface, ObjectGUI *guiObject, UMLOperation umlOperation);
 
+    /**
+     * constructor - adding or removing UMLClasss
+     * */
+    Undo(UndoOperation operationType, DiagramInterface *interface, ObjectGUI *guiObject, UMLClass umlClass);
+    /**
+     * @brief Process undo
+     *
+     * @return true
+     * @return false
+     */
     bool doUndo();
+
+    ~Undo();
 
 private:
     bool doUndoRenameObject();
@@ -83,9 +100,22 @@ private:
     bool doUndoRemoveAddedOperation();
 
     /**
-     * @brief Updates UI and interface
+     * method for adding class, that has been removed
+     * @return if class could have been done
+     */
+
+    bool doUndoAddRemovedClass();
+
+    /**
+     * method for removing class, that has been previously addded
+     * @return if class could have been done
+     */
+
+    bool doUndoRemoveAddedClass();
+
+    /**
+     * @brief Updates UI and Interface
      *
      */
     void update();
-    ~Undo();
 };

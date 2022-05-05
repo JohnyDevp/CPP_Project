@@ -28,8 +28,6 @@ public:
      */
     static bool isCorrect(const UMLSeqClass &cl);
 
-    int index;
-
     int Xcoord;
     /**
      * @brief UMlClass instance
@@ -50,6 +48,14 @@ public:
      *
      */
     ~UMLSeqClass();
+
+    /**
+     * @brief Get the Unique Name object
+     *
+     * @return true
+     * @return false
+     */
+    QString getUniqueName();
 
     UMLSeqClass();
 

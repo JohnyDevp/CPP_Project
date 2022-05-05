@@ -69,7 +69,7 @@ public:
     QList<SequenceMessageGUI *> sequenceMessageGUIList;
 
     /*updates======================================*/
-    //communication from diagramInterface -> SequenceDiagramInterface
+    // communication from diagramInterface -> SequenceDiagramInterface
     void notifyUmlClassUpdate(QString classOldName, UMLClass updatedClass);
 
     void updateEverything();

@@ -32,11 +32,9 @@ public:
      */
     static bool isCorrect(const SequenceDiagram &seqDia);
 
-    int classIndex;
-
     int messageIndex;
 
-    QMap<int, UMLSeqClass> classes;
+    QMap<QString, UMLSeqClass> classes;
 
     QMap<int, Message> messages;
 

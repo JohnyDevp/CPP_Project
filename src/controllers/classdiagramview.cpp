@@ -13,6 +13,8 @@
 #include "../objectgui.h"
 #include "views/addclassdiagramobjectdialog.h"
 #include "errors.h"
+#include "undo.h"
+#include <QList>
 
 ClassDiagramView::ClassDiagramView(QWidget *parent) : QWidget(parent),
                                                       ui(new Ui::ClassDiagramView)
@@ -180,6 +182,11 @@ void ClassDiagramView::on_btnAddObject_clicked()
     // add gui representation of this object to the list
     this->diagramInterface->addObjectToObjectGuiList(newObj);
 
+    // create undo
+    Undo newUndo = Undo(Undo::ADDOBJECT, diagramInterface, newObj, newCls);
+    // Store undo
+    diagramInterface->listOfUndos.append(newUndo);
+
     // newObjj = new ObjectGUI();
     scene->addItem(newObj);
 }
@@ -209,5 +216,23 @@ void ClassDiagramView::on_btnSave_clicked()
     if (!diagramInterface->save(fileName))
     {
         Errors().raiseError("Problem occured while saving. Please try again.");
+    }
+}
+
+void ClassDiagramView::on_btnUndo_clicked()
+{
+    if (diagramInterface->listOfUndos.isEmpty())
+    {
+        Errors().raiseInformation("Nothing to be undone!");
+        return;
+    }
+
+    // Pop last undo
+    Undo lastUndo = diagramInterface->listOfUndos.takeLast();
+
+    // Do undo
+    if (!lastUndo.doUndo())
+    {
+        Errors().raiseWarning("Operation cannot by undone.");
     }
 }
