@@ -1,0 +1,15 @@
+APP USAGE
+
+In main window you can either load new class diagram from json file (example in /data folder) or
+create new one.
+
+You can add new class by clicking on ADD CLASS button.
+
+Adding new attributes and operations to currently selected class (red sign) by clicking on
+two times double clicking on the class, which will raise up new dialog where you can remove or add these attributes
+or operations.
+
+Close all diagrams by clicking on CLOSE button.
+
+
+APP MADE BY: Jan ZIMOLA (xzimol04); Jan HOLAN (xholan11)

@@ -145,11 +145,6 @@ void EditObjectDialog::on_btnRenameObject_clicked()
 
 void EditObjectDialog::on_btnRemoveObject_clicked()
 {
-    // create undo
-    Undo newUndo = Undo(Undo::REMOVEOBJECT, diagramInterface, guiObject, *this->umlObject);
-    // Store undo
-    diagramInterface->listOfUndos.append(newUndo);
-
     this->umlObject = NULL;
 
     // close this dialog

@@ -23,17 +23,13 @@ bool Undo::doUndo()
     case RENAMEOBJECT:
         return doUndoRenameObject();
     case ADDATTRIBUTE:
-        return doUndoAddRemovedAttribute();
-    case REMOVEATTRIBUTE:
         return doUndoRemoveAddedAttribute();
+    case REMOVEATTRIBUTE:
+        return doUndoAddRemovedAttribute();
     case ADDOPERATION:
-        return doUndoAddRemovedOperation();
-    case REMOVEOPERATION:
         return doUndoRemoveAddedOperation();
-    case REMOVEOBJECT:
-        return doUndoRemoveAddedClass();
-    case ADDOBJECT:
-        return doUndoAddRemovedClass();
+    case REMOVEOPERATION:
+        return doUndoAddRemovedOperation();
     }
 
     return false; // when operation is unknown
@@ -105,32 +101,7 @@ bool Undo::doUndoAddRemovedOperation()
 bool Undo::doUndoRemoveAddedOperation()
 {
     // Try to delete
-    if (guiObject->umlObject.umlAttributesList.removeOne(umlOperation))
-    {
-        update();
-        return true;
-    }
-
-    return false;
-}
-
-bool Undo::doUndoAddRemovedClass()
-{
-    // Add the attribute and update the ui if not exists
-    if (!diagraminterface->existsClass(umlClass))
-    {
-        diagraminterface->createUMLClass(umlClass);
-        update();
-        return true;
-    }
-
-    return false;
-}
-
-bool Undo::doUndoRemoveAddedClass()
-{
-    // Try to delete
-    if (diagraminterface->removeUMLClass(umlClass))
+    if (guiObject->umlObject.umlOperationsList.removeOne(umlOperation))
     {
         update();
         return true;

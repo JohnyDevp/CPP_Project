@@ -93,7 +93,6 @@ void SequenceDiagram::read(const QJsonObject &json)
         {
             QJsonObject classObject = classArray[i].toObject();
             UMLSeqClass cla;
-            cla.index = i;
             cla.read(classObject);
             classes[cla.getUniqueName()] = cla;
         }

@@ -182,11 +182,6 @@ void ClassDiagramView::on_btnAddObject_clicked()
     // add gui representation of this object to the list
     this->diagramInterface->addObjectToObjectGuiList(newObj);
 
-    // create undo
-    Undo newUndo = Undo(Undo::ADDOBJECT, diagramInterface, newObj, newCls);
-    // Store undo
-    diagramInterface->listOfUndos.append(newUndo);
-
     // newObjj = new ObjectGUI();
     scene->addItem(newObj);
 }

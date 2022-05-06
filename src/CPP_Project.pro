@@ -37,7 +37,8 @@ SOURCES += \
         sequencemessagegui.cpp \
         sequenceobjectgui.cpp \
         undo.cpp \
-        views/addclassdiagramobjectdialog.cpp
+        views/addclassdiagramobjectdialog.cpp \
+        views/infodialog.cpp
 
 HEADERS += \
         cls/Element.hpp \
@@ -63,13 +64,15 @@ HEADERS += \
         sequencemessagegui.h \
         sequenceobjectgui.h \
         undo.h \
-        views/addclassdiagramobjectdialog.h
+        views/addclassdiagramobjectdialog.h \
+        views/infodialog.h
 
 FORMS += \
     controllers/addmessagedialog.ui \
     controllers/editobjectdialog.ui \
     controllers/editrelationdialog.ui \
     views/addclassdiagramobjectdialog.ui \
+    views/infodialog.ui \
     views/sequencediagramview.ui \
     views/classdiagramview.ui \
     views/mainwindow.ui
