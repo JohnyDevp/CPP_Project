@@ -51,6 +51,8 @@ private slots:
      */
     void on_btnLoadExistingDiagram_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     ClassDiagramView *q;
