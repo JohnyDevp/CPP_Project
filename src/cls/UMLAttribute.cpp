@@ -1,6 +1,6 @@
 /**
  * @file UMLAttribute.cpp
- * @author Jan Zimola (xzimol04)
+ * @author xzimol04
  * @brief Source file for UMLAttribute.hpp
  * @date 2022-04-28
  * @sources: https://doc.qt.io/qt-5/qtcore-serialization-savegame-example.html
@@ -21,11 +21,12 @@ bool UMLAttribute::isCorrect(const UMLAttribute &attr)
     QRegExp rx("(\\s+)");
     QRegExp modifierRegex("([\\#\\+\\-\\~])");
 
+    // check if the type contains spaces
     if (attr.type.contains(rx))
     {
         return false;
     }
-
+    // check if the modifier is one of: #, +, -, ~
     if (!QString(attr.modifier).contains(modifierRegex))
     {
         return false;
@@ -35,6 +36,7 @@ bool UMLAttribute::isCorrect(const UMLAttribute &attr)
 }
 
 UMLAttribute::UMLAttribute() {}
+
 UMLAttribute::UMLAttribute(QString name, QString type) : Element(name), type(type) {}
 
 UMLAttribute::UMLAttribute(QChar modifier, QString name, QString type) : Element(name), type(type), modifier(modifier) {}
@@ -43,6 +45,7 @@ UMLAttribute::~UMLAttribute() {}
 
 void UMLAttribute::write(QJsonObject &json) const
 {
+    // Writting like in the provided source
     Element::write(json);
 
     json[typeName] = type;
@@ -62,6 +65,7 @@ bool UMLAttribute::operator!=(const UMLAttribute &other) const
 
 void UMLAttribute::read(const QJsonObject &json)
 {
+    // Reading like in the provided source
     Element::read(json);
 
     if (json.contains(typeName) && json[typeName].isString())

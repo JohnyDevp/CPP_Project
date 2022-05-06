@@ -73,8 +73,6 @@ UMLClass DiagramInterface::getUMLClass(QString &name)
 
 bool DiagramInterface::existsOperation(UMLClass &cl, UMLOperation &operation)
 {
-
-    // TODO:
     return classDiagram.classList[cl.name].umlOperationsList.contains(operation);
 }
 
@@ -134,7 +132,6 @@ UMLRelation DiagramInterface::createRelation()
     // reset newRelGui umlRelation
     newRelGui->umlRelation = classDiagram.addRelation(tempUmlRelation);
 
-    // TODO -> not necessary to return anything
     return newRelGui->umlRelation;
 }
 

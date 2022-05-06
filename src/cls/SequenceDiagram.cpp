@@ -1,6 +1,6 @@
 /**
  * @file SequenceDiagram.cpp
- * @author Jan Zimola (xzimol04)
+ * @author xzimol04
  * @brief Source file for SequenceDiagram.hpp
  * @date 2022-04-28
  * @sources: https://doc.qt.io/qt-5/qtcore-serialization-savegame-example.html
@@ -60,8 +60,8 @@ void SequenceDiagram::deleteMessage(Message &message)
 
 void SequenceDiagram::write(QJsonObject &json) const
 {
-
-    // Classes
+    // Writting like in the provided source
+    //  Classes
     QJsonArray classesJson;
     foreach (const UMLSeqClass &cl, classes)
     {
@@ -82,7 +82,8 @@ void SequenceDiagram::write(QJsonObject &json) const
 
 void SequenceDiagram::read(const QJsonObject &json)
 {
-    // Read Classes
+    // Reading like in the provided source
+    //  Read Classes
     if (json.contains(classesName) && json[classesName].isArray())
     {
         QJsonArray classArray = json[classesName].toArray();

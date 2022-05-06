@@ -1,6 +1,6 @@
 /**
  * @file UMLClass.cpp
- * @author Jan Zimola (xzimol04)
+ * @author xzimol04
  * @brief Source file for UMLClass.hpp
  * @date 2022-04-28
  * @sources: https://doc.qt.io/qt-5/qtcore-serialization-savegame-example.html
@@ -13,6 +13,8 @@
 
 void UMLClass::deleteOperation(UMLOperation operation)
 {
+
+    // If operation exists delete it
     auto pos = std::find(std::begin(umlOperationsList), std::end(umlOperationsList), operation);
     if (pos != std::end(umlOperationsList))
     {
@@ -33,6 +35,7 @@ bool UMLClass::addAttribute(UMLAttribute &attr)
 }
 void UMLClass::deleteAttribute(const String &name)
 {
+    // if attribute exists
     auto pos = std::find_if(std::begin(umlAttributesList), std::end(umlAttributesList), [&name](UMLAttribute &attr)
                             { return name == attr.name; });
     if (pos != std::end(umlAttributesList))
@@ -46,12 +49,13 @@ bool UMLClass::isCorrect(const UMLClass &cl)
     if (!Element::isCorrect(cl))
         return false;
 
+    // check if all operations are correct
     foreach (const UMLOperation &op, cl.umlOperationsList)
     {
         if (!UMLOperation::isCorrect(op))
             return false;
     }
-
+    // check if all attributes are correct
     foreach (const UMLAttribute &atr, cl.umlAttributesList)
     {
         if (!UMLAttribute::isCorrect(atr))
@@ -78,6 +82,7 @@ UMLClass::UMLClass() {}
 
 void UMLClass::write(QJsonObject &json) const
 {
+    // Writting like in the provided source
     Element::write(json);
 
     json[isInterfaceName] = isInterface;
@@ -105,6 +110,7 @@ void UMLClass::write(QJsonObject &json) const
 
 void UMLClass::read(const QJsonObject &json)
 {
+    // Reading like in the provided source
     Element::read(json);
 
     if (json.contains(isInterfaceName) && json[isInterfaceName].isBool())

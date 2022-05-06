@@ -1,6 +1,6 @@
 /**
  * @file UMLClass.hpp
- * @author Jan Zimola (xzimol04) and dr. Koci
+ * @author xzimol04 and dr. Koci
  * @brief class representing UML class
  * @date 2022-04-28
  *
@@ -106,6 +106,7 @@ public:
      */
     void read(const QJsonObject &json);
 
+    // Automaticly generated
     bool operator==(const UMLClass &other) const;
     bool operator!=(const UMLClass &other) const;
 };

@@ -43,7 +43,6 @@ void MainWindow::on_btnLoadExistingDiagram_clicked()
     diagramTabConstructor(true);
 }
 
-// TODO
 void MainWindow::diagramTabConstructor(bool isLoadingFile)
 {
     // load file if it should be loaded

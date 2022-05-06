@@ -1,6 +1,6 @@
 /**
  * @file UMLRelation.cpp
- * @author Jan Zimola (xzimol04)
+ * @author xzimol04
  * @brief Source file for UMLRelation.hpp
  * @date 2022-04-28
  * @sources: https://doc.qt.io/qt-5/qtcore-serialization-savegame-example.html
@@ -12,8 +12,10 @@
 
 bool UMLRelation::isCardinalityCorrect(QString cardi)
 {
+    // Regex that represents correct cardinality
     QRegExp relReg("([0-9]+[\\.][\\.][0-9]+|[0-9]+[\\.][\\.][\\*]|[\\*]|[0-9]+)");
 
+    // Check if the cardinality is incorrect
     if (!relReg.exactMatch(cardi) && !cardi.isEmpty())
     {
         return false;
@@ -53,6 +55,8 @@ UMLRelation::~UMLRelation()
 
 void UMLRelation::write(QJsonObject &json) const
 {
+    // Writting like in the provided source
+
     Element::write(json);
 
     json[relFromName] = relationFrom;
@@ -69,7 +73,8 @@ void UMLRelation::write(QJsonObject &json) const
 
 void UMLRelation::read(const QJsonObject &json)
 {
-    // TODO: UMLRelation read
+    // Reading like in the provided source
+
     if (json.contains(relFromName) && json[relFromName].isString())
     {
         relationFrom = json[relFromName].toString();

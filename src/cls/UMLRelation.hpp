@@ -1,6 +1,6 @@
 /**
  * @file UMLRelation.hpp
- * @author Jan Zimola (xzimol04)
+ * @author xzimol04
  * @brief  Class that defines relationship between UML classes
  * @date 2022-04-28
  *
@@ -37,10 +37,20 @@ public:
         GENERALIZATION,
         COMPOSITION
     };
-
+    /**
+     * @brief Name of UMLClass at the start of relation
+     *
+     */
     QString relationFrom;
+    /**
+     * @brief Name of UMLClass at the end of relation
+     *
+     */
     QString relationTo;
+
     RelationType relationType;
+
+    // Cardinalities at the sides of the relation
     QString cardinalityByFromClass;
     QString cardinalityByToClass;
 
@@ -70,7 +80,7 @@ public:
      *UMLClQass
      */
     UMLRelation();
-
+    // Constructors
     UMLRelation(QString name);
     UMLRelation(QString name,
                 QString relationFrom,

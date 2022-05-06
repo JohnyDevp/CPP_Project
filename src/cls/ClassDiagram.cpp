@@ -1,6 +1,6 @@
 /**
  * @file ClassDiagram.cpp
- * @author Jan Zimola (xzimol04)
+ * @author xzimol04
  * @brief Source file for ClassDiagram.hpp
  * @date 2022-04-28
  * @sources: https://doc.qt.io/qt-5/qtcore-serialization-savegame-example.html
@@ -11,18 +11,21 @@
 #include <QJsonArray>
 
 ClassDiagram::ClassDiagram() : relationIndex(0), classList(), relationList() {}
+
 ClassDiagram::ClassDiagram(QString name) : Element(name), relationIndex(0), classList(), relationList() {}
 
 ClassDiagram::~ClassDiagram() {}
 
 void ClassDiagram::write(QJsonObject &json) const
 {
+    // Writting like in the provided source
     Element::write(json);
 
     json[relationIndexName] = relationIndex;
 
     QJsonArray classJsonList;
 
+    // converts relations to json array
     foreach (const UMLClass &uml, classList)
     {
         QJsonObject umlObject;
@@ -31,6 +34,7 @@ void ClassDiagram::write(QJsonObject &json) const
     }
     json[classListName] = classJsonList;
 
+    // Convert relations to json array
     QJsonArray relationJsonList;
     for (const UMLRelation &relation : relationList)
     {
@@ -43,8 +47,10 @@ void ClassDiagram::write(QJsonObject &json) const
 
 void ClassDiagram::read(const QJsonObject &json)
 {
+    // Delegating reading to parent
     Element::read(json);
 
+    // Reading values like in the provided source
     if (json.contains(relationIndexName) && json[relationIndexName].isDouble())
     {
         relationIndex = json[relationIndexName].toInt();
@@ -90,14 +96,17 @@ bool ClassDiagram::existsClass(UMLClass &umlClass)
 
 bool ClassDiagram::isCorrect(const ClassDiagram &dia)
 {
+    // check if the Element values are correct
     if (!Element::isCorrect(dia))
         return false;
 
+    // check if all relations are valid
     foreach (const UMLRelation &rel, dia.relationList)
     {
         if (!UMLRelation::isCorrect(rel))
             return false;
     }
+    // check if all classes are valid
     foreach (const UMLClass &cl, dia.classList)
     {
         if (!UMLClass::isCorrect(cl))

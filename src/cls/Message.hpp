@@ -1,6 +1,6 @@
 /**
  * @file Message.hpp
- * @author Jan Zimola (xzimol04)
+ * @author xzimol04
  * @brief Class that represents message in sequence diagram
  * @date 2022-04-28
  *

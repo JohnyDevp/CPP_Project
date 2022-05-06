@@ -3,9 +3,7 @@ QT       += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 
-# TODO: remove -g
 CONFIG += c++17
-QMAKE_CXXFLAGS += -g
 
 
 # You can make your code fail to compile if it uses deprecated APIs.

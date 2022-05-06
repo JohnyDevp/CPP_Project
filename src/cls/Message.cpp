@@ -1,6 +1,6 @@
 /**
  * @file Message.cpp
- * @author Jan Zimola (xzimol04)
+ * @author xzimol04
  * @brief Source file for Message.hpp
  * @date 2022-04-28
  * @sources: https://doc.qt.io/qt-5/qtcore-serialization-savegame-example.html
@@ -24,6 +24,7 @@ bool Message::operator!=(const Message &other) const
 }
 void Message::write(QJsonObject &json) const
 {
+    // Writting like in the provided source
     json[ycoordName] = Ycoord;
 
     json[messageTypeName] = messageType;
@@ -42,6 +43,7 @@ void Message::write(QJsonObject &json) const
 }
 void Message::read(const QJsonObject &json)
 {
+    // Reading like in the provided source
     if (json.contains(returnTextName) && json[returnTextName].isString())
     {
         returnText = json[returnTextName].toString();
@@ -60,6 +62,7 @@ void Message::read(const QJsonObject &json)
     // TODO: Not sure about isDouble() but isInt() is not
     if (json.contains(messageTypeName) && json[messageTypeName].isDouble())
     {
+        // create Enum from int
         messageType = static_cast<MessageType>(json[messageTypeName].toInt());
     }
 

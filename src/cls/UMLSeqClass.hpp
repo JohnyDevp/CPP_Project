@@ -1,6 +1,6 @@
 /**
  * @file UMLSeqClass.hpp
- * @author Jan Zimola (xzimol04)
+ * @author xzimol04
  * @brief Class that represents class in Sequence Diagram
  * @date 2022-04-28
  *
@@ -57,6 +57,10 @@ public:
      */
     QString getUniqueName();
 
+    /**
+     * @brief Default construct a new UMLSeqClass object
+     *
+     */
     UMLSeqClass();
 
     /**

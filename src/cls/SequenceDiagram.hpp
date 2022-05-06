@@ -1,6 +1,6 @@
 /**
  * @file SequenceDiagram.hpp
- * @author Jan Zimola (xzimol04)
+ * @author xzimol04
  * @brief Class that represents sequence diagram
  * @date 2022-04-28
  *
@@ -32,10 +32,22 @@ public:
      */
     static bool isCorrect(const SequenceDiagram &seqDia);
 
+    /**
+     * @brief Index for Message when will be added
+     *
+     */
     int messageIndex;
 
+    /**
+     * @brief Map of classes, key is their name
+     *
+     */
     QMap<QString, UMLSeqClass> classes;
 
+    /**
+     * @brief Map of messages, key is their index created on their creation
+     *
+     */
     QMap<int, Message> messages;
 
     /**method for adding new participated class in sequence diagram
@@ -56,10 +68,26 @@ public:
      * @param umlOperation operation representing the method which is called*/
     Message createMessage(Message &message);
 
+    /**
+     * @brief returns is UMLSeqClass exists
+     *
+     * @param cl
+     * @return true
+     * @return false
+     */
     bool existsSeqClass(UMLSeqClass &cl);
 
+    /**
+     * @brief Updates message
+     *
+     * @param mes
+     */
     void updateMessage(Message &mes);
-
+    /**
+     * @brief Deletes UMLSeqClass
+     *
+     * @param cl
+     */
     void deleteUMLSeqClass(UMLSeqClass &cl);
     /**delete message from diagram
      * @param message message object to be deleted*/
@@ -77,7 +105,14 @@ public:
      * @param json
      */
     void read(const QJsonObject &json);
-
+    /**
+     * @brief Construct a new Sequence Diagram object
+     *
+     */
     SequenceDiagram();
+    /**
+     * @brief Destroy the Sequence Diagram object
+     *
+     */
     ~SequenceDiagram();
 };

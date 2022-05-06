@@ -1,6 +1,6 @@
 /**
  * @file Element.hpp
- * @author Jan Zimola (xzimol04) and dr. Koci
+ * @author xzimol04 and dr. Koci
  * @brief Class representing element in string format - to be inherited
  * @date 2022-04-28
  *

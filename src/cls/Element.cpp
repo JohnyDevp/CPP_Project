@@ -1,6 +1,6 @@
 /**
  * @file Element.cpp
- * @author Jan Zimola (xzimol04)
+ * @author xzimol04
  * @brief Source file for Element.hpp
  * @date 2022-04-28
  * @sources: https://doc.qt.io/qt-5/qtcore-serialization-savegame-example.html
@@ -39,6 +39,7 @@ bool Element::validName(const QString &name)
     if (name.isEmpty())
         return false;
 
+    // check if the name contains spaces
     QRegExp rx("(\\s+)");
     if (name.contains(rx))
     {

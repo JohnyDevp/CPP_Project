@@ -1,6 +1,6 @@
 /**
  * @file UMLAttribute.hpp
- * @author Jan Zimola (xzimol04) and dr.Koci
+ * @author xzimol04 and dr.Koci
  * @brief Class representing uml attribute
  * @date 2022-04-28
  *
@@ -77,6 +77,7 @@ public:
     return this->name < ua.name;
   };
 
+  // Automaticly generated files
   bool operator==(const UMLAttribute &other) const;
   bool operator!=(const UMLAttribute &other) const;
 };

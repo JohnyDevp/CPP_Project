@@ -96,7 +96,6 @@ private:
     DiagramInterface *diagramInterface;
 
     /**
-     * //TODO
      * @brief filePath - path to file, if was loaded
      * otherwise should be empty string literal
      */

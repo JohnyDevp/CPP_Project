@@ -344,7 +344,6 @@ void EditObjectDialog::on_btnAddAttributeToOperation_clicked()
         }
     }
 
-    // TODO: Add undo?
     //  if ok then add it to the operation attribute map
     //  the text serves for possible writeout to the listview of attributes of operation
     QString attrText = newUmlAttr.modifier + newUmlAttr.name + " : " + newUmlAttr.type;

@@ -1,6 +1,6 @@
 /**
  * @file UMLOperation.cpp
- * @author Jan Zimola (xzimol04)
+ * @author xzimol04
  * @brief Source file for UMLOperation.hpp
  * @date 2022-04-28
  * @sources: https://doc.qt.io/qt-5/qtcore-serialization-savegame-example.html
@@ -59,6 +59,8 @@ bool UMLOperation::operator!=(const UMLOperation &other) const
 
 void UMLOperation::write(QJsonObject &json) const
 {
+    // Writting like in the provided source
+
     UMLAttribute::write(json);
 
     QJsonArray attrArray;
@@ -74,6 +76,8 @@ void UMLOperation::write(QJsonObject &json) const
 
 void UMLOperation::read(const QJsonObject &json)
 {
+    // Reading like in the provided source
+
     UMLAttribute::read(json);
 
     if (json.contains(parametersName) && json[parametersName].isArray())

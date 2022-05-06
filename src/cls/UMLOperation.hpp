@@ -1,6 +1,6 @@
 /**
  * @file UMLOperation.hpp
- * @author Jan Zimola (xzimol04) and dr. Koci
+ * @author xzimol04, xholan11, dr. Koci
  * @brief Class for representing uml operation for both interface and class
  * @date 2022-04-28
  *
@@ -30,6 +30,10 @@ public:
      */
     static bool isCorrect(const UMLOperation &op);
 
+    /**
+     * @brief List of operation attributes
+     *
+     */
     QList<UMLAttribute> parameterssOfOperationList;
 
     /**
@@ -79,8 +83,16 @@ public:
      */
     void read(const QJsonObject &json);
 
+    // Automaticly generated
     bool operator==(const UMLOperation &other) const;
     bool operator!=(const UMLOperation &other) const;
+    /**
+     * @brief Conparison of UMLOperations
+     *
+     * @param uo
+     * @return true
+     * @return false
+     */
     bool operator<(const UMLOperation &uo) const
     {
         QString thisText = this->modifier + this->name;

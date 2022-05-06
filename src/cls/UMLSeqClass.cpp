@@ -1,7 +1,7 @@
 
 /**
  * @file UMLSeqClass.cpp
- * @author Jan Zimola (xzimol04)
+ * @author xzimol04
  * @brief Source file for UMLSeqClass.hpp
  * @date 2022-04-28
  * @sources: https://doc.qt.io/qt-5/qtcore-serialization-savegame-example.html
@@ -18,6 +18,7 @@ bool UMLSeqClass::isCorrect(const UMLSeqClass &cl)
     if (cl.className.isEmpty())
         return false;
 
+    // Check if the class name does not contains spaces
     QRegExp rx("(\\s+)");
     if (cl.className.contains(rx))
     {
@@ -39,6 +40,8 @@ UMLSeqClass::UMLSeqClass() : Element(DEFAULT_NAME) {}
 
 void UMLSeqClass::write(QJsonObject &json) const
 {
+    // Writting like in the provided source
+
     Element::write(json);
 
     json[classNameName] = className;
@@ -48,6 +51,7 @@ void UMLSeqClass::write(QJsonObject &json) const
 
 void UMLSeqClass::read(const QJsonObject &json)
 {
+    // Reading like in the provided source
 
     Element::read(json);
 

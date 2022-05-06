@@ -6,13 +6,14 @@ qmake:
 	qmake;\
 	make;\
 	cd ..;
-# TODO: Add to be removed .vscode and gitignore
 clean:
+	# TODO: Remove gitignores
 	rm -rf build-CPP_Project-Desktop-Debug;\
 	rm -rf build-CPP_Project-Desktop-Debug;\
 	rm -rf .qt_for_python;\
 	cd src/;\
 	rm CPP_Project;\
+	rm CPP_Project.pro.*;\
 	rm -rf ui_*;\
 	rm -rf moc_*;\
 	rm -rf *.o;\
@@ -34,4 +35,5 @@ run:
 
 # TODO: Change reame to txt
 pack:
-	zip -r  n-xzimol04-xholan11.zip docs examples src Makefile README.md
+	make clean;\
+	zip -r  n-xzimol04-xholan11.zip docs examples src Makefile README.md;

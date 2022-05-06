@@ -2,7 +2,7 @@
 
 ## AUTHORS
 Jan Holáň (xholan11) \
-Jan Zimola (xzimol04)
+xzimol04
 
 ## DESCRIPTION
 This program represents a tool for creating class diagrams and related sequence diagrams.

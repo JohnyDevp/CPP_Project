@@ -1,6 +1,6 @@
 /**
  * @file ClassDiagram.hpp
- * @author Jan Zimola (xzimol04)
+ * @author xzimol04
  * @brief Class representing the whole class diagram with its items
  * @date 2022-04-28
  *
@@ -32,12 +32,12 @@ public:
      */
     int relationIndex = 0;
     /**
-     * @brief list of all classes for diagram
+     * @brief map of all classes for diagram, the class name is used as a key
      *
      */
     QMap<QString, UMLClass> classList;
     /**
-     * @brief list of all relations in this diagram
+     * @brief map of all relations in this diagram, index is created to uniqly identify
      *
      */
     QMap<int, UMLRelation> relationList;
@@ -119,7 +119,6 @@ public:
     void read(const QJsonObject &json);
 
     // Automacly generated comparisons using name
-
     bool operator==(const ClassDiagram &other) const;
     bool operator!=(const ClassDiagram &other) const;
 };
