@@ -21,6 +21,7 @@
 #include "sequenceobjectgui.h"
 
 class SequenceObjectGUI;
+class SequenceMessageGUI;
 
 class SequenceDiagramInterface
 {
@@ -65,8 +66,8 @@ public:
 
     void removeSequenceObjectGUI(SequenceObjectGUI *seqObjGUI);
 
-    QList<SequenceObjectGUI *> sequenceObjectGUIList;
-    QList<SequenceMessageGUI *> sequenceMessageGUIList;
+    QList<SequenceObjectGUI*> sequenceObjectGUIList;
+    QList<SequenceMessageGUI*> sequenceMessageGUIList;
 
     /*updates======================================*/
     // communication from diagramInterface -> SequenceDiagramInterface
@@ -83,6 +84,8 @@ public:
 
     void setScene(QGraphicsScene *scene);
 
+    void addNewSequenceMessageGUI(SequenceMessageGUI *msgGui);
+    void removeSequenceMessageGUI(SequenceMessageGUI *msgGui);
 private:
     /**
      * @brief scene for this sequence diagram

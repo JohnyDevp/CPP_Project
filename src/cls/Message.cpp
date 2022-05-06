@@ -11,7 +11,7 @@
 
 Message::Message() {}
 
-Message::Message(int Ycoord, QString classSender, QString classReceiver, QString umlOperation, MessageType messageType) : Ycoord(Ycoord), classSender(classSender), operation(umlOperation), messageType(messageType){};
+Message::Message(int Ycoord, QString classSender, QString classReceiver, QString umlOperation, MessageType messageType) : Ycoord(Ycoord), classSender(classSender), classReceiver(classReceiver), operation(umlOperation), messageType(messageType){};
 
 Message::~Message() {}
 bool Message::operator==(const Message &other) const

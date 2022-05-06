@@ -124,7 +124,7 @@
     <string>Add return message</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="cmbOperationType">
+  <widget class="QComboBox" name="cmbMessageType">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -144,7 +144,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Set message receiver class</string>
+    <string>Set message type</string>
    </property>
   </widget>
  </widget>
