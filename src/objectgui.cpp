@@ -408,6 +408,7 @@ void ObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 
             update();
         }
+        // TODO: Maybe delete dlg;
     }
 
     QGraphicsItem::mouseDoubleClickEvent(event);

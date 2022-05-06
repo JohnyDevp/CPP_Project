@@ -6,6 +6,7 @@
  */
 
 #include "mainwindow.h"
+#include "../views/infodialog.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -13,6 +14,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     // remove default tab of QTabWidget -> maybe //FIXME
     ui->tabWidget->removeTab(0);
+
+    InfoDialog *dlg = new InfoDialog();
+    dlg->exec();
+    delete dlg;
 
     // add actions to buttons -> early version - now replaced - rather again this????
     //    QPushButton * b_cnd = ui->btnCreateNewDiagram;
@@ -64,4 +69,11 @@ void MainWindow::diagramTabConstructor(bool isLoadingFile)
     // disable buttons for creating diagram
     ui->btnCreateNewDiagram->setEnabled(false);
     ui->btnLoadExistingDiagram->setEnabled(false);
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    InfoDialog *dlg = new InfoDialog();
+    dlg->exec();
+    delete dlg;
 }
