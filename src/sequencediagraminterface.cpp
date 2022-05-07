@@ -41,6 +41,8 @@ void SequenceDiagramInterface::removeSequenceObjectGUI(SequenceObjectGUI *seqObj
     this->scene->removeItem(seqObjGUI);
 
     this->sequenceObjectGUIList.removeOne(seqObjGUI);
+
+    updateScene();
 }
 
 void SequenceDiagramInterface::addNewSequenceMessageGUI(SequenceMessageGUI *msgGui)
@@ -55,6 +57,7 @@ void SequenceDiagramInterface::removeSequenceMessageGUI(SequenceMessageGUI *msgG
 {
     this->scene->removeItem(msgGui);
     this->sequenceMessageGUIList.removeOne(msgGui);
+    updateScene();
 }
 
 void SequenceDiagramInterface::notifyUmlClassUpdate(QString classOldName, UMLClass updatedClass)

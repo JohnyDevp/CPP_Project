@@ -44,7 +44,6 @@ QRectF SequenceObjectGUI::boundingRect() const
     return QRectF(this->boundingX, this->boundingY, this->boundingWidth, this->boundingHeight);
 }
 
-
 void SequenceObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     // note - number 50 here represents the height of text-background rectangle
@@ -101,7 +100,7 @@ void SequenceObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem 
     );
     QPointF lineEndPoint(
         this->boundingX + this->boundingWidth / 2,
-        this->boundingY + this->boundingHeight);
+        this->boundingY + this->objectDestroyPoint - this->boundingY);
     painter->drawLine(lineStartPoint, lineEndPoint);
 
     // draw all active rectangles
@@ -155,7 +154,7 @@ void SequenceObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
         // ask for delete
 
         QMessageBox msgBox;
-        QPushButton *deleteButton = nullptr;
+        QPushButton *deleteButton = msgBox.addButton("Remove",QMessageBox::ActionRole);
         msgBox.setText("Remove class?");
         QPushButton *cancelButton = msgBox.addButton(QMessageBox::Cancel);
         msgBox.exec();
@@ -164,6 +163,15 @@ void SequenceObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
         {
             this->seqDiagInterface->removeSeqClass(this->umlSeqClass);
             this->seqDiagInterface->removeSequenceObjectGUI(this);
+
+            //go through all the messages and notify them about this removal
+            foreach(SequenceMessageGUI *seqMsgGui, this->seqReceivingMsgGuiList){
+                seqMsgGui->removeMessageNotification();
+            }
+
+            foreach(SequenceMessageGUI *seqMsgGui, this->seqSendingMsgGuiList){
+                seqMsgGui->removeMessageNotification();
+            }
         }
         else if (msgBox.clickedButton() == (QAbstractButton *)cancelButton)
         {
@@ -207,9 +215,16 @@ void SequenceObjectGUI::updateActiveRectangles()
     // clear all rectangles
     this->activeRectangles.clear();
 
+
     // firstly build all activated objects
     foreach (SequenceMessageGUI *seqMsgGui, this->seqReceivingMsgGuiList)
     {
+        if (seqMsgGui->isDeactivatingReceiver &&
+            seqMsgGui->message.messageType == Message::DESTROY)
+        {
+            this->objectDestroyPoint = seqMsgGui->message.Ycoord;
+        }
+
         if (!seqMsgGui->isDeactivatingReceiver)
         {
             QRectF rec(this->boundingX + this->boundingWidth / 2 - 6, seqMsgGui->message.Ycoord, 10, this->objectDestroyPoint - seqMsgGui->message.Ycoord);
@@ -226,24 +241,36 @@ void SequenceObjectGUI::updateActiveRectangles()
         }
     }
 
-    // then shortened already build rectangles to the deactivating points
-    //    foreach (SequenceMessageGUI * seqMsgGui, this->seqReceivingMsgGuiList){
-    //        if(seqMsgGui->isDeactivatingReceiver){
-    //            foreach(QRectF * rec, this->activeRectangles){
-    //                if (seqMsgGui->message.Ycoord < rec->y() &&
-    //                    seqMsgGui->message.Ycoord > rec->y()+rec->height()){
-    //                    rec->setHeight(seqMsgGui->message.Ycoord - rec->y());
-    //                }
-    //            }
+     //then shortened already build rectangles to the deactivating points
+    foreach (SequenceMessageGUI * seqMsgGui, this->seqReceivingMsgGuiList){
+        if(seqMsgGui->isDeactivatingReceiver){
+            foreach(QRectF rec, this->activeRectangles){
+                if (seqMsgGui->message.Ycoord > rec.y() &&
+                    seqMsgGui->message.Ycoord < rec.y()+rec.height()){
+                    //update this rectangle (its height)
+                    this->activeRectangles.removeOne(rec);
+                    rec.setHeight(seqMsgGui->message.Ycoord - rec.y());
+                    this->activeRectangles.append(rec);
+                }
+            }
 
-    //        }
-    //    }
+        }
+    }
 
-    //    foreach (SequenceMessageGUI * seqMsgGui, this->seqSendingMsgGuiList){
-    //        if(seqMsgGui->isDeactivatingSender){
+    foreach (SequenceMessageGUI * seqMsgGui, this->seqSendingMsgGuiList){
+        if(seqMsgGui->isDeactivatingSender){
+            foreach(QRectF rec, this->activeRectangles){
+                if (seqMsgGui->message.Ycoord > rec.y() &&
+                    seqMsgGui->message.Ycoord < rec.y()+rec.height()){
+                    //update this rectangle (its height)
+                    this->activeRectangles.removeOne(rec);
+                    rec.setHeight(seqMsgGui->message.Ycoord - rec.y());
+                    this->activeRectangles.append(rec);
+                }
+            }
 
-    //        }
-    //    }
+        }
+    }
 }
 
 void SequenceObjectGUI::addRelatedReceivingMessage(SequenceMessageGUI *seqMsgGui)
@@ -256,6 +283,16 @@ void SequenceObjectGUI::addRelatedSendingMessage(SequenceMessageGUI *seqMsgGui)
 {
     this->seqSendingMsgGuiList.append(seqMsgGui);
     updateActiveRectangles();
+}
+
+void SequenceObjectGUI::removeRelatedReceivingMessage(SequenceMessageGUI *seqMsgGui){
+    this->seqReceivingMsgGuiList.removeOne(seqMsgGui);
+    update();
+}
+
+void SequenceObjectGUI::removeRelatedSendingMessage(SequenceMessageGUI *seqMsgGui){
+    this->seqSendingMsgGuiList.removeOne(seqMsgGui);
+    update();
 }
 
 SequenceObjectGUI::~SequenceObjectGUI()

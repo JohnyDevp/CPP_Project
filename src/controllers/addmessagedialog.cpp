@@ -21,6 +21,7 @@ void AddMessageDialog::init(SequenceObjectGUI * seqObjGuiSender, SequenceDiagram
     QStringList typeList;
     typeList << "SYNC" << "ASYNC" << "CREATE" << "DESTROY";
     ui->cmbMessageType->addItems(typeList);
+
 }
 
 AddMessageDialog::~AddMessageDialog()
@@ -142,6 +143,17 @@ void AddMessageDialog::on_checkBoxReturnMessage_toggled(bool checked)
         ui->checkBoxAddReturnMessage->setEnabled(true);
 
         ui->cmbMessageOperation->setEnabled(true);
+    }
+}
+
+
+void AddMessageDialog::on_cmbMessageOperation_currentTextChanged(const QString &arg1)
+{
+    //check whether is there any operation to be choosed
+    //if not and if checkbox, saying whether it is returned message or not, is unchecked
+    // then disable OK button
+    if (ui->cmbMessageOperation->count() == 0 && !ui->checkBoxReturnMessage->isChecked()){
+        ui->buttonBox->setEnabled(false);
     }
 }
 
