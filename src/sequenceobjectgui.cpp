@@ -52,6 +52,13 @@ void SequenceObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem 
 {
     // note - number 50 here represents the height of text-background rectangle
 
+    // draw all active rectangles
+    updateActiveRectangles();
+    foreach (QRectF rec, this->activeRectangles)
+    {
+        painter->fillRect(rec, QColor(85, 230, 237));
+    }
+
     // build displayed name
     // it is build from [name of instance][:][umlClassName]
     this->objectName = umlSeqClass.name + ":" + umlSeqClass.className;
@@ -61,6 +68,7 @@ void SequenceObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem 
 
     // set font and measure its width
     QFont font("arial", 10);
+    font.setBold(true);
     painter->setFont(font);
 
     QFontMetrics metr(font);
@@ -106,13 +114,6 @@ void SequenceObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem 
         this->boundingX + this->boundingWidth / 2,
         this->boundingY + this->objectDestroyPoint - this->boundingY);
     painter->drawLine(lineStartPoint, lineEndPoint);
-
-    // draw all active rectangles
-    updateActiveRectangles();
-    foreach (QRectF rec, this->activeRectangles)
-    {
-        painter->fillRect(rec, QColor(85, 230, 237));
-    }
 
     if (widthChanged)
         update();
@@ -245,7 +246,7 @@ void SequenceObjectGUI::updateActiveRectangles()
     // clear all rectangles
     this->activeRectangles.clear();
 
-
+    //note: -6 here represents small correction of rectangle begin, due to rectangle width (and also width of the line)
     // firstly build all activated objects
     foreach (SequenceMessageGUI *seqMsgGui, this->seqReceivingMsgGuiList)
     {
@@ -257,7 +258,7 @@ void SequenceObjectGUI::updateActiveRectangles()
 
         if (!seqMsgGui->isDeactivatingReceiver)
         {
-            QRectF rec(this->boundingX + this->boundingWidth / 2 - 6, seqMsgGui->message.Ycoord, 10, this->objectDestroyPoint - seqMsgGui->message.Ycoord);
+            QRectF rec(this->boundingX + this->boundingWidth / 2 - 6, seqMsgGui->message.Ycoord, 15, this->objectDestroyPoint - seqMsgGui->message.Ycoord);
             this->activeRectangles.append(rec);
         }
     }
@@ -266,7 +267,7 @@ void SequenceObjectGUI::updateActiveRectangles()
     {
         if (!seqMsgGui->isDeactivatingSender)
         {
-            QRectF rec(this->boundingX + this->boundingWidth / 2 - 6, seqMsgGui->message.Ycoord, 10, this->objectDestroyPoint - seqMsgGui->message.Ycoord);
+            QRectF rec(this->boundingX + this->boundingWidth / 2 - 6, seqMsgGui->message.Ycoord, 15, this->objectDestroyPoint - seqMsgGui->message.Ycoord);
             this->activeRectangles.append(rec);
         }
     }
@@ -316,6 +317,10 @@ void SequenceObjectGUI::addRelatedSendingMessage(SequenceMessageGUI *seqMsgGui)
 }
 
 void SequenceObjectGUI::removeRelatedReceivingMessage(SequenceMessageGUI *seqMsgGui){
+    //whether the message was DESTROY then reset the stop coords
+    if (seqMsgGui->message.messageType == Message::DESTROY){
+        this->objectDestroyPoint = 800;
+    }
     this->seqReceivingMsgGuiList.removeOne(seqMsgGui);
     update();
 }

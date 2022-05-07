@@ -22,6 +22,11 @@ namespace Ui
 }
 QT_END_NAMESPACE
 
+/**
+ * @brief The MainWindow class
+ * handle start step for creating or loading class diagram and its sequence diagrams - according to
+ * which button is pressed
+ */
 class MainWindow : public QMainWindow
 {
     Q_OBJECT

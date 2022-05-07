@@ -1,4 +1,5 @@
 #include "addmessagedialog.h"
+#include "errors.h"
 #include "ui_addmessagedialog.h"
 
 AddMessageDialog::AddMessageDialog(QWidget *parent) : QDialog(parent),
@@ -6,7 +7,6 @@ AddMessageDialog::AddMessageDialog(QWidget *parent) : QDialog(parent),
 {
     ui->setupUi(this);
 }
-
 void AddMessageDialog::init(SequenceObjectGUI *seqObjGuiSender, SequenceDiagramInterface *seqDiagInterface)
 {
     this->seqObjGuiSender = seqObjGuiSender;
@@ -23,7 +23,8 @@ void AddMessageDialog::init(SequenceObjectGUI *seqObjGuiSender, SequenceDiagramI
     typeList << "SYNC"
              << "ASYNC"
              << "CREATE"
-             << "DESTROY";
+             << "DESTROY"
+             << "RETURN";
     ui->cmbMessageType->addItems(typeList);
 }
 
@@ -38,6 +39,19 @@ void AddMessageDialog::on_buttonBox_accepted()
 
     QString messageReceiver = ui->cmbMessageReceiver->currentText();
     QString messageOperation = ui->cmbMessageOperation->currentText();
+
+    //check for input
+    if (
+        ((ui->cmbMessageType->currentText() == "SYNC" ||
+         ui->cmbMessageType->currentText() == "ASYNC") &&
+            !messageOperation.isEmpty())
+            ||
+        (ui->cmbMessageType->currentText() == "DESTROY" ||
+            ui->cmbMessageType->currentText() == "CREATE" ||
+            ui->cmbMessageType->currentText() == "RETURN")
+            ) { }
+    else {Errors().raiseError("Bad input!"); return;}
+
     //find the UMLOperation for the message
     UMLOperation umlOperation;
     QMapIterator<UMLOperation, QString> i(this->cmbOperationList);
@@ -48,8 +62,7 @@ void AddMessageDialog::on_buttonBox_accepted()
         }
     }
 
-    bool messageIsOnlyReturn = ui->checkBoxReturnMessage->isChecked();
-    // bool addReturnedMessage = ui->checkBoxAddReturnMessage->isChecked();
+    //get and transfer message type and get message paramy
     QString messageType = ui->cmbMessageType->currentText();
     QString messageParams = ui->txtMessageParams->toPlainText();
 
@@ -57,31 +70,35 @@ void AddMessageDialog::on_buttonBox_accepted()
 
     if (messageType == "SYNC")
         msgType = Message::SYNC;
-    if (messageType == "ASYNC")
+    else if (messageType == "ASYNC")
         msgType = Message::ASYNC;
-    if (messageType == "DESTROY")
+    else if (messageType == "DESTROY")
         msgType = Message::DESTROY;
-    if (messageType == "CREATE")
+    else if (messageType == "CREATE")
         msgType = Message::CREATE;
+    if (messageType == "RETURN"){
+        msgType = Message::RETURN;
+    }
 
     // decide what will be created
-    if (messageIsOnlyReturn)
+    if (messageType == "DESTROY" || messageType == "CREATE" || messageType == "RETURN")
     {
+        // create message just with text (empty operation)
+        //DESTROY & CREATE & RETURN
         UMLOperation uo("");
-        // create only return message
         Message msg(
             -1,
             this->seqObjGuiSender->umlSeqClass.getUniqueName(),
             this->seqObjGuiReceiver->umlSeqClass.getUniqueName(),
             uo,
-            Message::RETURN);
-        msg.returnText = messageParams;
+            msgType);
+        msg.argumentText = messageParams;
         this->createdMessage = msg;
     }
     else
     {
-
-        // create only return message
+        //otherwise create message with declared operation
+        //SYNC & ASYNC
         Message msg(
             -1,
             this->seqObjGuiSender->umlSeqClass.getUniqueName(),
@@ -155,37 +172,3 @@ void AddMessageDialog::on_cmbMessageReceiver_currentTextChanged(const QString &a
     }
 }
 
-void AddMessageDialog::on_checkBoxReturnMessage_toggled(bool checked)
-{
-    // if only RETURN message is added (according to the checkbox)
-    //  then there cant be other return message and also no operation can be chosen
-    if (checked)
-    {
-        // for adding another return message
-        ui->checkBoxAddReturnMessage->setChecked(false);
-        ui->checkBoxAddReturnMessage->setEnabled(false);
-
-        ui->cmbMessageOperation->setEnabled(false);
-
-        // for
-    }
-    else
-    {
-        // for adding another return message
-        ui->checkBoxAddReturnMessage->setChecked(false);
-        ui->checkBoxAddReturnMessage->setEnabled(true);
-
-        ui->cmbMessageOperation->setEnabled(true);
-    }
-}
-
-void AddMessageDialog::on_cmbMessageOperation_currentTextChanged(const QString &arg1)
-{
-    // check whether is there any operation to be choosed
-    // if not and if checkbox, saying whether it is returned message or not, is unchecked
-    //  then disable OK button
-    if (ui->cmbMessageOperation->count() == 0 && !ui->checkBoxReturnMessage->isChecked())
-    {
-        //ui->buttonBox->setEnabled(false);
-    }
-}

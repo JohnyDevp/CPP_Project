@@ -21,6 +21,10 @@
 class DiagramInterface;
 class ObjectGUI;
 
+/**
+ * @brief The RelationGui class
+ * class for graphical representation of relation in class diagram
+ */
 class RelationGui : public QGraphicsLineItem
 {
 public:
@@ -41,13 +45,24 @@ public:
      */
     void removeRelationNotification();
 
+    /**
+     * @brief objectStart pointer to the object, where the relation starts
+     */
     ObjectGUI *objectStart;
+    /**
+     * @brief objectEnd pointer to the object, where the relation starts
+     */
     ObjectGUI *objectEnd;
 
+    /**
+     * @brief relType type of the relation
+     * it is here for purpose, when generalization functions of relation are controlled
+     */
     UMLRelation::RelationType relType;
 
     /**
      * @brief umlRelation
+     * inner representation of this relation
      */
     UMLRelation umlRelation;
 
@@ -57,10 +72,12 @@ protected:
 private:
     /**
      * @brief qpointStart
+     * start point of this relation
      */
     QPointF qpointStart;
     /**
      * @brief qpointEnd
+     * end point of this relation
      */
     QPointF qpointEnd;
 

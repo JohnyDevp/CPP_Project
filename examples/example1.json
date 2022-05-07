@@ -1,0 +1,494 @@
+{
+    "classDiagram": {
+        "name": "ClassDiagram",
+        "relationIndex": 7,
+        "umlClassList": [
+            {
+                "attributeListName": [
+                    {
+                        "modifierName": "+",
+                        "name": "classes",
+                        "typeName": "List<UMLClassifier>"
+                    }
+                ],
+                "isInterfaceName": false,
+                "name": "ClassDiagram",
+                "operationListName": [
+                    {
+                        "modifierName": "+",
+                        "name": "classifierForName",
+                        "parametersName": [
+                            {
+                                "modifierName": "+",
+                                "name": "name",
+                                "typeName": "String"
+                            }
+                        ],
+                        "typeName": "UMLClassifier"
+                    },
+                    {
+                        "modifierName": "+",
+                        "name": "createClass",
+                        "parametersName": [
+                            {
+                                "modifierName": "+",
+                                "name": "name",
+                                "typeName": "String"
+                            }
+                        ],
+                        "typeName": "UMLClass"
+                    }
+                ],
+                "xcoordName": 1140,
+                "ycoordName": 350
+            },
+            {
+                "attributeListName": [
+                    {
+                        "modifierName": "+",
+                        "name": "name",
+                        "typeName": "String"
+                    }
+                ],
+                "isInterfaceName": false,
+                "name": "Element",
+                "operationListName": [
+                    {
+                        "modifierName": "+",
+                        "name": "Element",
+                        "parametersName": [
+                            {
+                                "modifierName": "+",
+                                "name": "name",
+                                "typeName": "String"
+                            }
+                        ],
+                        "typeName": "void"
+                    },
+                    {
+                        "modifierName": "+",
+                        "name": "getName",
+                        "parametersName": [
+                        ],
+                        "typeName": "String"
+                    },
+                    {
+                        "modifierName": "+",
+                        "name": "rename",
+                        "parametersName": [
+                            {
+                                "modifierName": "+",
+                                "name": "name",
+                                "typeName": "String"
+                            }
+                        ],
+                        "typeName": "void"
+                    }
+                ],
+                "xcoordName": 605,
+                "ycoordName": 30
+            },
+            {
+                "attributeListName": [
+                    {
+                        "modifierName": "+",
+                        "name": "type",
+                        "typeName": "UMLClassifier"
+                    }
+                ],
+                "isInterfaceName": false,
+                "name": "UMLAttribute",
+                "operationListName": [
+                    {
+                        "modifierName": "+",
+                        "name": "getType",
+                        "parametersName": [
+                        ],
+                        "typeName": "UMLClassifier"
+                    },
+                    {
+                        "modifierName": "+",
+                        "name": "isAbstract",
+                        "parametersName": [
+                        ],
+                        "typeName": "boolean"
+                    }
+                ],
+                "xcoordName": 165,
+                "ycoordName": 345
+            },
+            {
+                "attributeListName": [
+                    {
+                        "modifierName": "+",
+                        "name": "attributes",
+                        "typeName": "List<UMLAttributes>"
+                    }
+                ],
+                "isInterfaceName": false,
+                "name": "UMLClass",
+                "operationListName": [
+                    {
+                        "modifierName": "+",
+                        "name": "addAttribute",
+                        "parametersName": [
+                            {
+                                "modifierName": "+",
+                                "name": "attr",
+                                "typeName": "UMLAttribute"
+                            }
+                        ],
+                        "typeName": "boolean"
+                    },
+                    {
+                        "modifierName": "+",
+                        "name": "getAttrPosition",
+                        "parametersName": [
+                            {
+                                "modifierName": "+",
+                                "name": "attr",
+                                "typeName": "UMLAttribute"
+                            }
+                        ],
+                        "typeName": "int"
+                    }
+                ],
+                "xcoordName": 568,
+                "ycoordName": 662
+            },
+            {
+                "attributeListName": [
+                ],
+                "isInterfaceName": false,
+                "name": "UMLClassifier",
+                "operationListName": [
+                    {
+                        "modifierName": "+",
+                        "name": "UMLClassifier",
+                        "parametersName": [
+                            {
+                                "modifierName": "+",
+                                "name": "name",
+                                "typeName": "String"
+                            }
+                        ],
+                        "typeName": "void"
+                    },
+                    {
+                        "modifierName": "+",
+                        "name": "isUserDefined",
+                        "parametersName": [
+                        ],
+                        "typeName": "boolean"
+                    }
+                ],
+                "xcoordName": 577,
+                "ycoordName": 338
+            },
+            {
+                "attributeListName": [
+                ],
+                "isInterfaceName": false,
+                "name": "main",
+                "operationListName": [
+                ],
+                "xcoordName": 18,
+                "ycoordName": 11
+            }
+        ],
+        "umlRelationList": [
+            {
+                "cardiFromName": "",
+                "cardiToName": "",
+                "endXName": 726,
+                "endYName": 200,
+                "name": "",
+                "relFromName": "UMLClassifier",
+                "relToName": "Element",
+                "relTypeName": 2,
+                "startXName": 725,
+                "startYName": 342
+            },
+            {
+                "cardiFromName": "",
+                "cardiToName": "",
+                "endXName": 609,
+                "endYName": 158,
+                "name": "",
+                "relFromName": "UMLAttribute",
+                "relToName": "Element",
+                "relTypeName": 2,
+                "startXName": 318,
+                "startYName": 354
+            },
+            {
+                "cardiFromName": "",
+                "cardiToName": "",
+                "endXName": 836,
+                "endYName": 159,
+                "name": "",
+                "relFromName": "ClassDiagram",
+                "relToName": "Element",
+                "relTypeName": 2,
+                "startXName": 1208,
+                "startYName": 355
+            },
+            {
+                "cardiFromName": "",
+                "cardiToName": "",
+                "endXName": 710,
+                "endYName": 479,
+                "name": "",
+                "relFromName": "UMLClass",
+                "relToName": "UMLClassifier",
+                "relTypeName": 2,
+                "startXName": 723,
+                "startYName": 665
+            },
+            {
+                "cardiFromName": "",
+                "cardiToName": "",
+                "endXName": 847,
+                "endYName": 403,
+                "name": "",
+                "relFromName": "ClassDiagram",
+                "relToName": "UMLClassifier",
+                "relTypeName": 0,
+                "startXName": 1146,
+                "startYName": 429
+            },
+            {
+                "cardiFromName": "",
+                "cardiToName": "",
+                "endXName": 581,
+                "endYName": 419,
+                "name": "",
+                "relFromName": "UMLAttribute",
+                "relToName": "UMLClassifier",
+                "relTypeName": 0,
+                "startXName": 377,
+                "startYName": 431
+            },
+            {
+                "cardiFromName": "",
+                "cardiToName": "",
+                "endXName": 319,
+                "endYName": 489,
+                "name": "",
+                "relFromName": "UMLClass",
+                "relToName": "UMLAttribute",
+                "relTypeName": 0,
+                "startXName": 576,
+                "startYName": 715
+            }
+        ]
+    },
+    "sequenceDiagrams": [
+        {
+            "classes": [
+                {
+                    "Xcoord": 373,
+                    "className": "ClassDiagram",
+                    "name": ""
+                },
+                {
+                    "Xcoord": 984,
+                    "className": "UMLAttribute",
+                    "name": "a1"
+                },
+                {
+                    "Xcoord": 768,
+                    "className": "UMLClass",
+                    "name": "c1"
+                },
+                {
+                    "Xcoord": 37,
+                    "className": "main",
+                    "name": ""
+                }
+            ],
+            "messages": [
+                {
+                    "argumentText": "int",
+                    "classReceiver": "ClassDiagram",
+                    "classSender": "main",
+                    "messageTypeName": 0,
+                    "operationName": {
+                        "modifierName": "+",
+                        "name": "classifierForName",
+                        "parametersName": [
+                            {
+                                "modifierName": "+",
+                                "name": "name",
+                                "typeName": "String"
+                            }
+                        ],
+                        "typeName": "UMLClassifier"
+                    },
+                    "returnText": "",
+                    "ycoordName": 273
+                },
+                {
+                    "argumentText": "c1",
+                    "classReceiver": "main",
+                    "classSender": "ClassDiagram",
+                    "messageTypeName": 2,
+                    "operationName": {
+                        "modifierName": "\u0000",
+                        "name": "",
+                        "parametersName": [
+                        ],
+                        "typeName": ""
+                    },
+                    "returnText": "",
+                    "ycoordName": 213
+                },
+                {
+                    "argumentText": "c1",
+                    "classReceiver": "ClassDiagram",
+                    "classSender": "main",
+                    "messageTypeName": 0,
+                    "operationName": {
+                        "modifierName": "+",
+                        "name": "createClass",
+                        "parametersName": [
+                            {
+                                "modifierName": "+",
+                                "name": "name",
+                                "typeName": "String"
+                            }
+                        ],
+                        "typeName": "UMLClass"
+                    },
+                    "returnText": "",
+                    "ycoordName": 148
+                },
+                {
+                    "argumentText": "c1",
+                    "classReceiver": "c1UMLClass",
+                    "classSender": "ClassDiagram",
+                    "messageTypeName": 3,
+                    "operationName": {
+                        "modifierName": "\u0000",
+                        "name": "",
+                        "parametersName": [
+                        ],
+                        "typeName": ""
+                    },
+                    "returnText": "",
+                    "ycoordName": 182
+                },
+                {
+                    "argumentText": "a1, cInt",
+                    "classReceiver": "a1UMLAttribute",
+                    "classSender": "main",
+                    "messageTypeName": 3,
+                    "operationName": {
+                        "modifierName": "\u0000",
+                        "name": "",
+                        "parametersName": [
+                        ],
+                        "typeName": ""
+                    },
+                    "returnText": "",
+                    "ycoordName": 377
+                },
+                {
+                    "argumentText": "a1",
+                    "classReceiver": "c1UMLClass",
+                    "classSender": "main",
+                    "messageTypeName": 0,
+                    "operationName": {
+                        "modifierName": "+",
+                        "name": "addAttribute",
+                        "parametersName": [
+                            {
+                                "modifierName": "+",
+                                "name": "attr",
+                                "typeName": "UMLAttribute"
+                            }
+                        ],
+                        "typeName": "boolean"
+                    },
+                    "returnText": "",
+                    "ycoordName": 444
+                },
+                {
+                    "argumentText": "",
+                    "classReceiver": "a1UMLAttribute",
+                    "classSender": "main",
+                    "messageTypeName": 0,
+                    "operationName": {
+                        "modifierName": "+",
+                        "name": "isAbstract",
+                        "parametersName": [
+                        ],
+                        "typeName": "boolean"
+                    },
+                    "returnText": "",
+                    "ycoordName": 575
+                },
+                {
+                    "argumentText": "false",
+                    "classReceiver": "main",
+                    "classSender": "a1UMLAttribute",
+                    "messageTypeName": 2,
+                    "operationName": {
+                        "modifierName": "\u0000",
+                        "name": "",
+                        "parametersName": [
+                        ],
+                        "typeName": ""
+                    },
+                    "returnText": "",
+                    "ycoordName": 640
+                },
+                {
+                    "argumentText": "cInt",
+                    "classReceiver": "main",
+                    "classSender": "ClassDiagram",
+                    "messageTypeName": 2,
+                    "operationName": {
+                        "modifierName": "\u0000",
+                        "name": "",
+                        "parametersName": [
+                        ],
+                        "typeName": ""
+                    },
+                    "returnText": "",
+                    "ycoordName": 311
+                },
+                {
+                    "argumentText": "true",
+                    "classReceiver": "main",
+                    "classSender": "c1UMLClass",
+                    "messageTypeName": 2,
+                    "operationName": {
+                        "modifierName": "\u0000",
+                        "name": "",
+                        "parametersName": [
+                        ],
+                        "typeName": ""
+                    },
+                    "returnText": "",
+                    "ycoordName": 502
+                },
+                {
+                    "argumentText": "cInt",
+                    "classReceiver": "main",
+                    "classSender": "ClassDiagram",
+                    "messageTypeName": 2,
+                    "operationName": {
+                        "modifierName": "\u0000",
+                        "name": "",
+                        "parametersName": [
+                        ],
+                        "typeName": ""
+                    },
+                    "returnText": "",
+                    "ycoordName": 313
+                }
+            ]
+        }
+    ]
+}

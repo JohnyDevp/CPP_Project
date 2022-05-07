@@ -994,7 +994,8 @@ sequenceobjectgui.o: sequenceobjectgui.cpp sequenceobjectgui.h \
 		relationgui.h \
 		undo.h \
 		sequencemessagegui.h \
-		controllers/addmessagedialog.h
+		controllers/addmessagedialog.h \
+		errors.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sequenceobjectgui.o sequenceobjectgui.cpp
 
 undo.o: undo.cpp undo.h \

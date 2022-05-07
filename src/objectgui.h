@@ -24,6 +24,11 @@
 class RelationGui;
 class DiagramInterface;
 
+/**
+ * @brief The ObjectGUI class
+ * class representing the graphical visualizing of umlClass (both class and interface)
+ * in class diagram
+ */
 class ObjectGUI : public QGraphicsItem
 {
 public:
@@ -35,6 +40,9 @@ public:
     ~ObjectGUI();
 
     QRectF boundingRect() const;
+    /**
+     * @brief paint
+     */
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     /**
@@ -52,7 +60,7 @@ public:
     void checkForOverrideOperationsNotification();
 
     /**
-     * @brief initGui
+     * @brief initGui - initializing the gui
      * this function initialize all the lists of attributes, operations (build them to the strings), sets coords,...
      */
     void initGui();
@@ -79,10 +87,28 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
 private:
+    /**
+     * @brief prevMouseLocalX
+     * local coordinates system of this object
+     *
+     * its different from real coordinates (stored in )
+     * it serves for better movement of object (sometimes it jumps when some dialog created from this object is closed)
+     */
     qreal prevMouseLocalX;
+    /**
+     * @brief prevMouseLocalY same as prevMouseLocalX
+     */
     qreal prevMouseLocalY;
 
+    /**
+     * @brief prevMouseSceneX
+     * scene ("global") coordinates of this object
+     * serves for storing them into inner representation of this object(umlClass)
+     */
     qreal prevMouseSceneX;
+    /**
+     * @brief prevMouseSceneY same as prevMouseSceneY
+     */
     qreal prevMouseSceneY;
 
     // variables for default coords of bounding rectangle

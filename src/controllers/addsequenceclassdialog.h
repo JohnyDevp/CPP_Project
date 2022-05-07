@@ -10,6 +10,10 @@ namespace Ui {
 class AddSequenceClassDialog;
 }
 
+/**
+ * @brief The AddSequenceClassDialog class
+ * handling creating dialog for choosing the name of instance and the uml class, from which is the instance created
+ */
 class AddSequenceClassDialog : public QDialog
 {
     Q_OBJECT
@@ -23,7 +27,16 @@ public:
      */
     bool dataValid = false;
 
+    /**
+     * @brief init loads combobox with all possible classes to be added
+     * @param seqDiagInterface
+     */
     void init(SequenceDiagramInterface *seqDiagInterface);
+
+    /**
+     * @brief getUmlSeqClass
+     * @return newly created umlSeqClass with the instance of the uml class
+     */
     UMLSeqClass getUmlSeqClass();
 private slots:
     void on_buttonBox_accepted();

@@ -63,8 +63,11 @@ void EditObjectDialog::init(DiagramInterface *diagramInterface, UMLClass *umlCla
     {
         // build the operation text
         QString operationText = umlOperation.modifier + umlOperation.name + "(";
+        bool first = true; //solve adding comma befor each operation param except the first one
         foreach (UMLAttribute operationParam, umlOperation.parameterssOfOperationList)
         {
+            if (first) operationText += ", ";
+            else first = false;
             operationText += operationParam.name + ":" + operationParam.type;
         }
         operationText += ") : " + umlOperation.type;
@@ -77,8 +80,6 @@ void EditObjectDialog::init(DiagramInterface *diagramInterface, UMLClass *umlCla
 
     // load operations modifiers
     ui->cmbOperationModifier->addItems(modifiers);
-    // load operations attributes modifiers
-    ui->cmbAttrForOperationModifier->addItems(modifiers);
 }
 
 void EditObjectDialog::loadCmbAttributes()

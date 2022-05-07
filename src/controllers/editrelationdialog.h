@@ -19,6 +19,10 @@ namespace Ui
     class EditRelationDialog;
 }
 
+/**
+ * @brief The EditRelationDialog class
+ * handle edittig relation dialog - when relation is double-clicked
+ */
 class EditRelationDialog : public QDialog
 {
     Q_OBJECT
@@ -27,6 +31,10 @@ public:
     explicit EditRelationDialog(QWidget *parent = nullptr);
     ~EditRelationDialog();
 
+    /**
+     * @brief init initializes this function - only setting the currently edditing relation (its intern representation)
+     * @param umlRelation
+     */
     void init(UMLRelation *umlRelation);
     UMLRelation *getUpdatedUmlRelation();
 
@@ -42,6 +50,9 @@ private slots:
 private:
     Ui::EditRelationDialog *ui;
 
+    /**
+     * @brief umlRelation currently editting relation (its inner representation)
+     */
     UMLRelation *umlRelation;
 };
 

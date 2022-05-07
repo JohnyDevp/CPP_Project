@@ -24,6 +24,10 @@
 class SequenceDiagramInterface;
 class SequenceMessageGUI;
 
+/**
+ * @brief The SequenceObjectGUI class
+ * class representing the sequence object gui of its inner representation (umlseqclass)
+ */
 class SequenceObjectGUI : public QGraphicsItem
 {
 public:
@@ -32,8 +36,14 @@ public:
     ~SequenceObjectGUI();
 
     QRectF boundingRect() const;
+    /**
+     * @brief paint
+     */
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
+    /**
+     * @brief umlSeqClass inner representation of this gui sequence object
+     */
     UMLSeqClass umlSeqClass;
 
     /**
@@ -46,10 +56,26 @@ public:
      */
     QString objectName;
 
+    /**
+     * @brief lineXCoord coord, that is used by all related messages for know, where they should start or end
+     */
     qreal lineXCoord;
 
+    /**
+     * @brief updateActiveRectangles
+     * loops through all messages, checked whether they activating or deactivating this object and
+     * create according this active rectangles
+     */
     void updateActiveRectangles();
+    /**
+     * @brief addRelatedReceivingMessage for adding related messages, which are received by this obejct
+     * @param seqMsgGui
+     */
     void addRelatedReceivingMessage(SequenceMessageGUI *seqMsgGui);
+    /**
+     * @brief addRelatedSendingMessage for adding related messages, which are sent by this obejct
+     * @param seqMsgGui
+     */
     void addRelatedSendingMessage(SequenceMessageGUI *seqMsgGui);
 
     void removeRelatedReceivingMessage(SequenceMessageGUI *seqMsgGui);
@@ -60,10 +86,21 @@ protected:
     // void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
 
 private:
+    /**
+     * @brief prevMouseLocalX for info check objectgui.h
+     */
     qreal prevMouseLocalX;
+    /**
+     * @brief prevMouseLocalY for info check objectgui.h
+     */
     qreal prevMouseLocalY;
-
+    /**
+     * @brief mousePrevSceneX for info check objectgui.h
+     */
     qreal mousePrevSceneX;
+    /**
+     * @brief mousePrevSceneY for info check objectgui.h
+     */
     qreal mousePrevSceneY;
 
     // variables for default coords of bounding rectangle
@@ -77,9 +114,19 @@ private:
     QList<SequenceMessageGUI *> seqReceivingMsgGuiList;
     QList<SequenceMessageGUI *> seqSendingMsgGuiList;
 
+    /**
+     * @brief activeRectangles list for computed recatngles representing active parts of the life-line of the object
+     */
     QList<QRectF> activeRectangles;
 
+    /**
+     * @brief itemChange handles change in only Xaxis of this object
+     */
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
+
+    /**
+     * @brief objectDestroyPoint represents point, where this object ends
+     */
     qreal objectDestroyPoint;
 };
 

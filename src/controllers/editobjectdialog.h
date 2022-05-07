@@ -19,6 +19,10 @@ namespace Ui
     class EditObjectDialog;
 }
 
+/**
+ * @brief The EditObjectDialog class
+ * handle editting the object in class diagram - both interface and class
+ */
 class EditObjectDialog : public QDialog
 {
     Q_OBJECT
@@ -27,6 +31,12 @@ public:
     explicit EditObjectDialog(QWidget *parent = nullptr);
     ~EditObjectDialog();
 
+    /**
+     * @brief init initializes all comboboxes
+     * @param diagramInterface
+     * @param umlObject
+     * @param gui
+     */
     void init(DiagramInterface *diagramInterface, UMLClass *umlObject, ObjectGUI *gui);
     /**
      * @brief getUpdatedUmlObject
@@ -34,7 +44,16 @@ public:
      */
     UMLClass *getUpdatedUmlObject();
 
+    /**
+     * @brief loadCmbAttributes loads combobox with attributes (already added)
+     * called whenever new attribute is added
+     */
     void loadCmbAttributes();
+
+    /**
+     * @brief loadCmbOperations loads combobox with operations (already added)
+     * called whenever new operation is added
+     */
     void loadCmbOperations();
 
 private slots:
@@ -63,10 +82,13 @@ private:
     DiagramInterface *diagramInterface;
 
     /**
-     * @brief umlClass
+     * @brief umlClass uml (intern) representation of currently edited object
      */
     UMLClass *umlObject;
 
+    /**
+     * @brief guiObject - graphical representation of currently edited object
+     */
     ObjectGUI *guiObject;
 
     /**
@@ -75,6 +97,11 @@ private:
      */
     QMap<UMLOperation, QString> operationMapGUI;
 
+    /**
+     * @brief operationMapGUI
+     * map for storing each newly created param (as attribute) of currently creating operation
+     * and its string representation
+     */
     QMap<UMLAttribute, QString> operationAttributesMapGUI;
     /**
      * @brief attributesMapGUI

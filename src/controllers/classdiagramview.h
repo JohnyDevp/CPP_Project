@@ -27,7 +27,8 @@ namespace Ui
 }
 
 /**
- * @brief class handling all controlling actions of class diagram
+ * @brief The ClassDiagramView class
+ * class handling all controlling actions of class diagram (especially initializing)
  */
 class ClassDiagramView : public QWidget
 {

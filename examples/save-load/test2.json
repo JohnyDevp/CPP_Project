@@ -7,52 +7,42 @@
                 "attributeListName": [
                 ],
                 "isInterfaceName": false,
-                "name": ";k",
+                "name": "ssds",
                 "operationListName": [
                 ],
-                "xcoordName": 0,
-                "ycoordName": 0
+                "xcoordName": 508,
+                "ycoordName": 153
             },
             {
                 "attributeListName": [
                 ],
                 "isInterfaceName": false,
-                "name": "asd",
+                "name": "wqd",
                 "operationListName": [
                     {
                         "modifierName": "+",
-                        "name": "wdqwdqwda",
+                        "name": "asdsadd",
                         "parametersName": [
                         ],
-                        "typeName": "aaaaaaaaaaaaaaaaaaa"
+                        "typeName": "wqdwddwdwddwddwd"
                     }
                 ],
-                "xcoordName": 147,
-                "ycoordName": 21
-            },
-            {
-                "attributeListName": [
-                ],
-                "isInterfaceName": false,
-                "name": "qwd",
-                "operationListName": [
-                ],
-                "xcoordName": 550,
-                "ycoordName": 139
+                "xcoordName": 129,
+                "ycoordName": 25
             }
         ],
         "umlRelationList": [
             {
                 "cardiFromName": "",
                 "cardiToName": "",
-                "endXName": 455,
-                "endYName": 64,
+                "endXName": 401,
+                "endYName": 80,
                 "name": "",
-                "relFromName": "qwd",
-                "relToName": "asd",
+                "relFromName": "ssds",
+                "relToName": "wqd",
                 "relTypeName": 0,
-                "startXName": 559,
-                "startYName": 172
+                "startXName": 512,
+                "startYName": 197
             }
         ]
     },

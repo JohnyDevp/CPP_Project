@@ -35,6 +35,11 @@ class SequenceDiagramInterface;
 #define classDiagramName "classDiagram"
 #define sequenceDiagramsName "sequenceDiagrams"
 
+/**
+ * @brief The DiagramInterface class
+ * main part for class diagram - it is an interface for comunication between class diagram inner and outer(gui) representation
+ * it also does handle communication between itself and other related sequence diagrams
+ */
 class DiagramInterface
 {
 public:

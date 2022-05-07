@@ -7,6 +7,10 @@ namespace Ui {
 class InfoDialog;
 }
 
+/**
+ * @brief The InfoDialog class
+ * handling the showing info about this app
+ */
 class InfoDialog : public QDialog
 {
     Q_OBJECT

@@ -13,6 +13,11 @@
 
 #include <QString>
 
+/**
+ * @brief The Errors class
+ * class for creating error, warning and information messages in message boxes
+ * it is called whenever alert is necessary to be shown everywhere in this program
+ */
 class Errors
 {
 public:

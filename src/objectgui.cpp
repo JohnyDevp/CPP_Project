@@ -48,7 +48,7 @@ void ObjectGUI::initGui()
 
     // set name
     this->objectName = this->umlObject.name;
-    //if (fontMetrics.width(this->objectName) > boundingWidth - 30) this->boundingWidth = fontMetrics.width(objectName);
+    if (fontMetrics.width(this->objectName) > boundingWidth - 30) this->boundingWidth = fontMetrics.width(objectName);
 
     // reset maps
     this->attributesMapGUI.clear();
@@ -72,16 +72,17 @@ void ObjectGUI::initGui()
     {
         // build the operation text
         QString operationText = umlOperation.modifier + umlOperation.name + "(";
+        bool first = true; //variable for solving whether write a comma after operation or not (for the first one)
         foreach (UMLAttribute operationParam, umlOperation.parameterssOfOperationList)
         {
+            if (!first) operationText += ", ";
+            else first = false;
             operationText += operationParam.name + ":" + operationParam.type;
         }
         operationText += ") : " + umlOperation.type;
 
         // add to the map
         this->operationMapGUI.insert(umlOperation, operationText);
-
-        //if (fontMetrics.width(operationText) > boundingWidth - 25) this->boundingWidth = fontMetrics.width(operationText);
     }
 }
 
@@ -94,7 +95,7 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 {
     // variable for storing whether should be updated the gui if changed size during drawing
     bool hasChangedSize = false;
-
+    int state = 0;
 
     int prevWidth = this->boundingWidth;
     int prevHeight = this->boundingHeight;
@@ -221,11 +222,13 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             {
                 QPointF diff(0, 0);
                 // if the relation ends at the edge
-                if (relation->umlRelation.endX > this->boundingX + prevWidth - 10)
+                if (relation->umlRelation.endX > this->umlObject.Xcoord + prevWidth - 13 &&
+                    relation->umlRelation.endX < this->umlObject.Xcoord + prevWidth + 1)
                 {
                     diff.setX(this->boundingWidth - prevWidth);
                 }
-                if (relation->umlRelation.endY > this->boundingY + prevHeight - 10)
+                if (relation->umlRelation.endY > this->boundingY + prevHeight - 13 &&
+                    relation->umlRelation.endY < this->boundingY + prevHeight + 1)
                 {
                     diff.setY(this->boundingHeight - prevHeight);
                 }
@@ -236,11 +239,13 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             {
                 QPointF diff(0, 0);
                 // if the relation ends at the edge
-                if (relation->umlRelation.startX > this->boundingX + prevWidth - 10)
+                if (relation->umlRelation.startX > this->boundingX + prevWidth - 13 &&
+                    relation->umlRelation.startX < this->boundingX + prevWidth + 1)
                 {
                     diff.setX(this->boundingWidth - prevWidth);
                 }
-                if (relation->umlRelation.startY > this->boundingY + prevHeight - 10)
+                if (relation->umlRelation.startY > this->boundingY + prevHeight - 13 &&
+                    relation->umlRelation.startY < this->boundingY + prevHeight + 1)
                 {
                     diff.setY(this->boundingHeight - prevHeight);
                 }
@@ -248,6 +253,9 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                 relation->updatePosition(this->umlObject, diff);
             }
         }
+        update();
+    } else if(state == 0 && hasChangedSize) {
+        ++state;
         update();
     }
 

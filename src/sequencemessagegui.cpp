@@ -48,6 +48,7 @@ void SequenceMessageGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem
 
     //set font
     QFont font("arial", 13); //-> for text length measure
+    font.setBold(true);
     painter->setFont(font);
     QFontMetrics metr(font);
 
@@ -73,9 +74,18 @@ void SequenceMessageGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem
     double lineLength = qAbs(this->seqReceiverObjGui->lineXCoord - this->seqSenderObjGui->lineXCoord - same_sender_const);
 
     //draw the text
-    QString msgText = this->message.argumentText;
-    QPointF textPoint(this->seqReceiverObjGui->lineXCoord + lineLength/2 - metr.width(msgText),
-                      this->message.Ycoord);
+    //draw create or destroy tag, if message type fits
+    QString msgText = this->message.operation.name + " (" + this->message.argumentText + ") : " + this->message.operation.type;
+    if (message.messageType == Message::CREATE) {
+        msgText += "<<create>>";
+    } else if (message.messageType == Message::DESTROY){
+        msgText += "<<destroy>>";
+    }
+
+    qreal msgLeftX = this->seqSenderObjGui->lineXCoord < this->seqReceiverObjGui->lineXCoord ?
+                        this->seqSenderObjGui->lineXCoord : this->seqReceiverObjGui->lineXCoord;
+    QPointF textPoint(msgLeftX + lineLength/2 - metr.width(msgText)/2,
+                      this->message.Ycoord - 26);
     painter->drawText(textPoint, msgText);
 
     // draw the arrow
