@@ -101,6 +101,12 @@ void SequenceObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem 
                 );
     painter->drawLine(lineStartPoint, lineEndPoint);
 
+    //draw all active rectangles
+    updateActiveRectangles();
+    foreach(QRectF rec, this->activeRectangles){
+        painter->fillRect(rec, QColor(85, 230, 237));
+    }
+
     if (widthChanged) update();
 }
 
@@ -180,24 +186,6 @@ void SequenceObjectGUI::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 }
 
-QVariant SequenceObjectGUI::itemChange(GraphicsItemChange change, const QVariant &value)
- {
-//     if (change == ItemPositionChange && scene()) {
-//         // value is the new position.
-//         QPointF newPos = value.toPointF();
-//         QRectF rect = scene()->sceneRect();
-//         rect.setWidth(rect.width() - boundingRect().width());
-//         rect.setHeight(0);
-//         if (!rect.contains(newPos)) {
-//             // Keep the item inside the scene rect.
-//             //newPos.setX(qMin(rect.right(), qMax(newPos.x(), rect.left())));
-//             newPos.setY (this->pos().y());
-//             return newPos;
-//         }
-//     }
-     return QGraphicsItem::itemChange(change, value);
- }
-
 void SequenceObjectGUI::updateActiveRectangles(){
     //clear all rectangles
     this->activeRectangles.clear();
@@ -205,15 +193,37 @@ void SequenceObjectGUI::updateActiveRectangles(){
     //firstly build all activated objects
     foreach (SequenceMessageGUI * seqMsgGui, this->seqReceivingMsgGuiList){
         if(!seqMsgGui->isDeactivatingReceiver){
-
+            QRectF rec(this->boundingX+this->boundingWidth/2 - 6, seqMsgGui->message.Ycoord, 10, this->objectDestroyPoint - seqMsgGui->message.Ycoord);
+            this->activeRectangles.append(rec);
         }
     }
 
     foreach (SequenceMessageGUI * seqMsgGui, this->seqSendingMsgGuiList){
-        if(!seqMsgGui->isDeactivatingReceiver){
-
+        if(!seqMsgGui->isDeactivatingSender){
+            QRectF rec(this->boundingX+this->boundingWidth/2 - 6, seqMsgGui->message.Ycoord, 10, this->objectDestroyPoint - seqMsgGui->message.Ycoord);
+            this->activeRectangles.append(rec);
         }
     }
+
+    //then shortened already build rectangles to the deactivating points
+//    foreach (SequenceMessageGUI * seqMsgGui, this->seqReceivingMsgGuiList){
+//        if(seqMsgGui->isDeactivatingReceiver){
+//            foreach(QRectF * rec, this->activeRectangles){
+//                if (seqMsgGui->message.Ycoord < rec->y() &&
+//                    seqMsgGui->message.Ycoord > rec->y()+rec->height()){
+//                    rec->setHeight(seqMsgGui->message.Ycoord - rec->y());
+//                }
+//            }
+
+//        }
+//    }
+
+//    foreach (SequenceMessageGUI * seqMsgGui, this->seqSendingMsgGuiList){
+//        if(seqMsgGui->isDeactivatingSender){
+
+//        }
+//    }
+
 }
 
 void SequenceObjectGUI::addRelatedReceivingMessage(SequenceMessageGUI * seqMsgGui){

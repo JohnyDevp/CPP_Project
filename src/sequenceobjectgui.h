@@ -55,7 +55,6 @@ protected:
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
-    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 
 private:
     qreal prevMouseLocalX;

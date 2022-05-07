@@ -39,7 +39,7 @@ public:
     bool umlMessageExists = true;
 
     bool isDeactivatingSender = false;
-    bool isDeactivatingReceiver = true;
+    bool isDeactivatingReceiver = false;
 
     ~SequenceMessageGUI();
 protected:

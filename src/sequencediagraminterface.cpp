@@ -136,6 +136,10 @@ Message SequenceDiagramInterface::createMessage(Message &message)
         }
     }
 
+    //add the message gui to the list in both related classes gui objects
+    seqMsgGUI->seqReceiverObjGui->addRelatedReceivingMessage(seqMsgGUI);
+    seqMsgGUI->seqSenderObjGui->addRelatedSendingMessage(seqMsgGUI);
+
     //add the message gui to the scene and interface
     addNewSequenceMessageGUI(seqMsgGUI);
 
