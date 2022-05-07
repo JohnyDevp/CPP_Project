@@ -1,0 +1,44 @@
+{
+    "classDiagram": {
+        "name": "ClassDiagram",
+        "relationIndex": 1,
+        "umlClassList": [
+            {
+                "attributeListName": [
+                ],
+                "isInterfaceName": false,
+                "name": "asd",
+                "operationListName": [
+                ],
+                "xcoordName": 95,
+                "ycoordName": 37
+            },
+            {
+                "attributeListName": [
+                ],
+                "isInterfaceName": false,
+                "name": "qwdqd",
+                "operationListName": [
+                ],
+                "xcoordName": 306,
+                "ycoordName": 88
+            }
+        ],
+        "umlRelationList": [
+            {
+                "cardiFromName": "",
+                "cardiToName": "",
+                "endXName": 313,
+                "endYName": 156,
+                "name": "",
+                "relFromName": "asd",
+                "relToName": "qwdqd",
+                "relTypeName": 0,
+                "startXName": 190,
+                "startYName": 94
+            }
+        ]
+    },
+    "sequenceDiagrams": [
+    ]
+}

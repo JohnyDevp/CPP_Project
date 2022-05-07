@@ -7,28 +7,28 @@
                 "attributeListName": [
                 ],
                 "isInterfaceName": false,
-                "name": "Bob",
+                "name": "asd",
                 "operationListName": [
                 ],
-                "xcoordName": 455,
-                "ycoordName": 76
+                "xcoordName": 51,
+                "ycoordName": 56
             },
             {
                 "attributeListName": [
                 ],
                 "isInterfaceName": false,
-                "name": "Tom",
+                "name": "qwd",
                 "operationListName": [
                     {
                         "modifierName": "+",
-                        "name": "getName",
+                        "name": "asd",
                         "parametersName": [
                         ],
-                        "typeName": "String"
+                        "typeName": "asd"
                     }
                 ],
-                "xcoordName": 192,
-                "ycoordName": 71
+                "xcoordName": 251,
+                "ycoordName": 64
             }
         ],
         "umlRelationList": [
@@ -38,31 +38,31 @@
         {
             "classes": [
                 {
-                    "Xcoord": 254,
-                    "className": "Bob",
+                    "Xcoord": 176,
+                    "className": "asd",
                     "name": ""
                 },
                 {
-                    "Xcoord": 528,
-                    "className": "Tom",
+                    "Xcoord": 462,
+                    "className": "qwd",
                     "name": ""
                 }
             ],
             "messages": [
                 {
                     "argumentText": "",
-                    "classReceiver": "Tom",
-                    "classSender": "Tom",
+                    "classReceiver": "qwd",
+                    "classSender": "asd",
                     "messageTypeName": 0,
                     "operationName": {
                         "modifierName": "\u0000",
-                        "name": "+getName() : String",
+                        "name": "+asd() : asd",
                         "parametersName": [
                         ],
                         "typeName": ""
                     },
                     "returnText": "",
-                    "ycoordName": 131
+                    "ycoordName": 129
                 }
             ]
         }
