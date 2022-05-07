@@ -49,18 +49,16 @@ QVariant SequenceObjectGUI::itemChange(GraphicsItemChange change, const QVariant
     if (change == ItemPositionChange)
     {
         qreal diffX = scenePos().x() - this->mousePrevSceneX;
-
         this->mousePrevSceneX = scenePos().x();
 
-        this->boundingX += pos().x() - this->prevMouseLocalX;
-
-        this->boundingX += diffX;
+        // this->boundingX += pos().x() - this->prevMouseLocalX;
         this->prevMouseLocalX = pos().x();
 
         // load the new coords to the umlseq class and upload it
         this->umlSeqClass.Xcoord += diffX;
         this->seqDiagInterface->updateSeqClass(this->umlSeqClass);
 
+        // set coordination for messages
         this->lineXCoord = this->umlSeqClass.Xcoord + this->boundingWidth / 2;
 
         update();
@@ -232,22 +230,22 @@ void SequenceObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 
 // void SequenceObjectGUI::updateActiveRectangles()
 // {
-//     qreal diffX = event->scenePos().x() - this->mousePrevSceneX;
-//     this->mousePrevSceneX = event->scenePos().x();
+// qreal diffX = event->scenePos().x() - this->mousePrevSceneX;
+// this->mousePrevSceneX = event->scenePos().x();
 
-//     this->boundingX += event->pos().x() - this->prevMouseLocalX;
-//     this->prevMouseLocalX = event->pos().x();
+// this->boundingX += event->pos().x() - this->prevMouseLocalX;
+// this->prevMouseLocalX = event->pos().x();
 
-//     // load the new coords to the umlseq class and upload it
-//     this->umlSeqClass.Xcoord += diffX;
-//     this->seqDiagInterface->updateSeqClass(this->umlSeqClass);
+// // load the new coords to the umlseq class and upload it
+// this->umlSeqClass.Xcoord += diffX;
+// this->seqDiagInterface->updateSeqClass(this->umlSeqClass);
 
-//     // set coordination for messages
-//     this->lineXCoord = this->umlSeqClass.Xcoord + this->boundingWidth / 2;
+// // set coordination for messages
+// this->lineXCoord = this->umlSeqClass.Xcoord + this->boundingWidth / 2;
 
-//     update();
+// update();
 
-//     this->seqDiagInterface->updateScene();
+// this->seqDiagInterface->updateScene();
 
 //     QGraphicsItem::mouseMoveEvent(event);
 // }
