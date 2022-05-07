@@ -33,6 +33,8 @@ private slots:
 
     void on_checkBoxReturnMessage_toggled(bool checked);
 
+    void on_cmbMessageOperation_currentTextChanged(const QString &arg1);
+
 private:
     Ui::AddMessageDialog *ui;
 

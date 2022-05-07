@@ -21,6 +21,7 @@ SOURCES += \
         cls/ClassDiagram.cpp \
         cls/SequenceDiagram.cpp \
         controllers/addmessagedialog.cpp \
+        controllers/addsequenceclassdialog.cpp \
         controllers/editobjectdialog.cpp \
         controllers/editrelationdialog.cpp \
         controllers/sequencediagramview.cpp \
@@ -49,6 +50,7 @@ HEADERS += \
         cls/ClassDiagram.hpp \
         cls/SequenceDiagram.hpp \
         controllers/addmessagedialog.h \
+        controllers/addsequenceclassdialog.h \
         controllers/editobjectdialog.h \
         controllers/editrelationdialog.h \
         controllers/mainwindow.h \
@@ -67,6 +69,7 @@ HEADERS += \
 
 FORMS += \
     controllers/addmessagedialog.ui \
+    controllers/addsequenceclassdialog.ui \
     controllers/editobjectdialog.ui \
     controllers/editrelationdialog.ui \
     views/addclassdiagramobjectdialog.ui \
