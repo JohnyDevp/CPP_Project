@@ -27,6 +27,7 @@ SequenceObjectGUI::SequenceObjectGUI(UMLSeqClass umlSeqClass, SequenceDiagramInt
     this->boundingHeight = 800;
 
     setFlag(QGraphicsItem::ItemIsMovable);
+    //setFlag(QGraphicsItem::ItemPositionChange);
 
     //set umlSeqClass
     this->umlSeqClass = umlSeqClass;
@@ -71,10 +72,6 @@ void SequenceObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem 
     //set pen for rectangle
     QPen penRect(color, 3);
     painter->setPen(penRect);
-
-    //do not draw the bounding rectangle !!!! -> it is just for "bounds"
-    //QRectF rect = boundingRect();
-    //painter->drawRect(rect);
 
     //draw and fill the background rectangle of the text
     painter->drawRect(this->boundingX, this->boundingY, this->boundingWidth, 50);
@@ -162,31 +159,53 @@ void SequenceObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 void SequenceObjectGUI::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     qreal diffX = event->scenePos().x() - this->mousePrevSceneX;
-
     this->mousePrevSceneX = event->scenePos().x();
 
     this->boundingX += event->pos().x() - this->prevMouseLocalX;
-
-    //this->boundingX += diffX;
     this->prevMouseLocalX = event->pos().x();
 
     //load the new coords to the umlseq class and upload it
     this->umlSeqClass.Xcoord += diffX;
     this->seqDiagInterface->updateSeqClass(this->umlSeqClass);
 
+    //set coordination for messages
     this->lineXCoord = this->umlSeqClass.Xcoord + this->boundingWidth / 2;
 
     update();
 
     this->seqDiagInterface->updateScene();
 
-    setY(30);
-    //do not trigger the normall-mouseMoveEvent (it will do mistakes!!!)
-    //QGraphicsItem::mouseMoveEvent(event);
+    QGraphicsItem::mouseMoveEvent(event);
 
 }
 
+QVariant SequenceObjectGUI::itemChange(GraphicsItemChange change, const QVariant &value)
+ {
+//     if (change == ItemPositionChange && scene()) {
+//         // value is the new position.
+//         QPointF newPos = value.toPointF();
+//         QRectF rect = scene()->sceneRect();
+//         rect.setWidth(rect.width() - boundingRect().width());
+//         rect.setHeight(0);
+//         if (!rect.contains(newPos)) {
+//             // Keep the item inside the scene rect.
+//             //newPos.setX(qMin(rect.right(), qMax(newPos.x(), rect.left())));
+//             newPos.setY (this->pos().y());
+//             return newPos;
+//         }
+//     }
+     return QGraphicsItem::itemChange(change, value);
+ }
+
 void SequenceObjectGUI::updateActiveRectangles(){
+
+}
+
+void SequenceObjectGUI::addRelatedReceivingMessage(SequenceMessageGUI * seqMsgGui){
+
+}
+
+void SequenceObjectGUI::addRelatedSendingMessage(SequenceMessageGUI * seqMsgGui){
 
 }
 

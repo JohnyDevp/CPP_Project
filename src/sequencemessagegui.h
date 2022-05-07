@@ -38,7 +38,8 @@ public:
 
     bool umlMessageExists = true;
 
-    void updateXPosition(SequenceObjectGUI *seqObjGui, int diffX);
+    bool isDeactivatingSender = false;
+    bool isDeactivatingReceiver = true;
 
     ~SequenceMessageGUI();
 protected:
