@@ -49,6 +49,8 @@ public:
     qreal lineXCoord;
 
     void updateActiveRectangles();
+    void addRelatedReceivingMessage(SequenceMessageGUI *seqMsgGui);
+    void addRelatedSendingMessage(SequenceMessageGUI *seqMsgGui);
 protected:
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -57,6 +59,7 @@ protected:
 
 private:
     qreal prevMouseLocalX;
+    qreal prevMouseLocalY;
 
     qreal mousePrevSceneX;
     qreal mousePrevSceneY;
@@ -72,7 +75,9 @@ private:
     QList<SequenceMessageGUI*> seqReceivingMsgGuiList;
     QList<SequenceMessageGUI*> seqSendingMsgGuiList;
 
-    QList<QRectF> activeRectangle;
+    qreal objectDestroyPoint;
+
+    QList<QRectF> activeRectangles;
 };
 
 #endif // SEQUENCEOBJECTGUI_H

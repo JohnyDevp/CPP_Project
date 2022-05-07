@@ -25,6 +25,7 @@ SequenceObjectGUI::SequenceObjectGUI(UMLSeqClass umlSeqClass, SequenceDiagramInt
     this->boundingY = TOP_Y_COORD;
     this->boundingWidth = 50;
     this->boundingHeight = 800;
+    this->objectDestroyPoint = this->boundingHeight;
 
     setFlag(QGraphicsItem::ItemIsMovable);
     //setFlag(QGraphicsItem::ItemPositionChange);
@@ -198,15 +199,31 @@ QVariant SequenceObjectGUI::itemChange(GraphicsItemChange change, const QVariant
  }
 
 void SequenceObjectGUI::updateActiveRectangles(){
+    //clear all rectangles
+    this->activeRectangles.clear();
 
+    //firstly build all activated objects
+    foreach (SequenceMessageGUI * seqMsgGui, this->seqReceivingMsgGuiList){
+        if(!seqMsgGui->isDeactivatingReceiver){
+
+        }
+    }
+
+    foreach (SequenceMessageGUI * seqMsgGui, this->seqSendingMsgGuiList){
+        if(!seqMsgGui->isDeactivatingReceiver){
+
+        }
+    }
 }
 
 void SequenceObjectGUI::addRelatedReceivingMessage(SequenceMessageGUI * seqMsgGui){
-
+    this->seqReceivingMsgGuiList.append(seqMsgGui);
+    updateActiveRectangles();
 }
 
 void SequenceObjectGUI::addRelatedSendingMessage(SequenceMessageGUI * seqMsgGui){
-
+    this->seqSendingMsgGuiList.append(seqMsgGui);
+    updateActiveRectangles();
 }
 
 SequenceObjectGUI::~SequenceObjectGUI(){
