@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1014</width>
-    <height>488</height>
+    <width>1094</width>
+    <height>755</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,9 +16,9 @@
   <widget class="Line" name="line">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>200</y>
-     <width>1021</width>
+     <x>20</x>
+     <y>310</y>
+     <width>1041</width>
      <height>31</height>
     </rect>
    </property>
@@ -29,8 +29,8 @@
   <widget class="QPushButton" name="btnRenameObject">
    <property name="geometry">
     <rect>
-     <x>820</x>
-     <y>20</y>
+     <x>970</x>
+     <y>40</y>
      <width>89</width>
      <height>25</height>
     </rect>
@@ -42,8 +42,8 @@
   <widget class="QPushButton" name="btnRemoveObject">
    <property name="geometry">
     <rect>
-     <x>690</x>
-     <y>20</y>
+     <x>830</x>
+     <y>40</y>
      <width>89</width>
      <height>25</height>
     </rect>
@@ -55,9 +55,9 @@
   <widget class="QTextEdit" name="txtObjectName">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>30</y>
-     <width>201</width>
+     <x>20</x>
+     <y>40</y>
+     <width>311</width>
      <height>31</height>
     </rect>
    </property>
@@ -65,9 +65,9 @@
   <widget class="Line" name="line_2">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>60</y>
-     <width>1011</width>
+     <x>20</x>
+     <y>90</y>
+     <width>1041</width>
      <height>31</height>
     </rect>
    </property>
@@ -84,17 +84,22 @@
      <height>17</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string>Name</string>
    </property>
   </widget>
   <widget class="QWidget" name="layoutWidget_2">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>410</y>
-     <width>824</width>
-     <height>41</height>
+     <x>20</x>
+     <y>630</y>
+     <width>1041</width>
+     <height>74</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -116,7 +121,7 @@
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>118</width>
+          <width>50</width>
           <height>20</height>
          </size>
         </property>
@@ -125,7 +130,7 @@
       <item>
        <widget class="QPushButton" name="btnAddAttributeToOperation">
         <property name="text">
-         <string>ADD attribute</string>
+         <string>ADD ATTRIBUTE</string>
         </property>
        </widget>
       </item>
@@ -136,8 +141,8 @@
   <widget class="QPushButton" name="btnClearAllOperationAttributes">
    <property name="geometry">
     <rect>
-     <x>730</x>
-     <y>450</y>
+     <x>960</x>
+     <y>590</y>
      <width>104</width>
      <height>25</height>
     </rect>
@@ -146,13 +151,13 @@
     <string>CLEAR LIST</string>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>158</y>
-     <width>824</width>
-     <height>41</height>
+     <x>20</x>
+     <y>218</y>
+     <width>1041</width>
+     <height>74</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -174,7 +179,7 @@
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>118</width>
+          <width>50</width>
           <height>20</height>
          </size>
         </property>
@@ -191,16 +196,19 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>310</y>
-     <width>941</width>
-     <height>31</height>
+     <y>480</y>
+     <width>1041</width>
+     <height>74</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_6">
+    <property name="spacing">
+     <number>6</number>
+    </property>
     <item>
      <widget class="QComboBox" name="cmbOperationModifier"/>
     </item>
@@ -210,27 +218,21 @@
        <widget class="QTextEdit" name="txtOperationName">
         <property name="minimumSize">
          <size>
-          <width>221</width>
-          <height>29</height>
+          <width>0</width>
+          <height>0</height>
          </size>
         </property>
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
+       <widget class="QTextEdit" name="txtOperationType">
+        <property name="minimumSize">
          <size>
-          <width>150</width>
+          <width>156</width>
           <height>0</height>
          </size>
         </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QTextEdit" name="txtOperationType"/>
+       </widget>
       </item>
      </layout>
     </item>
@@ -241,7 +243,7 @@
       </property>
       <property name="sizeHint" stdset="0">
        <size>
-        <width>158</width>
+        <width>50</width>
         <height>20</height>
        </size>
       </property>
@@ -256,13 +258,13 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>250</y>
-     <width>891</width>
-     <height>27</height>
+     <x>20</x>
+     <y>370</y>
+     <width>1041</width>
+     <height>76</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_7">
@@ -283,8 +285,8 @@
       </property>
       <property name="sizeHint" stdset="0">
        <size>
-        <width>308</width>
-        <height>20</height>
+        <width>0</width>
+        <height>0</height>
        </size>
       </property>
      </spacer>
@@ -298,13 +300,13 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>100</y>
-     <width>901</width>
-     <height>27</height>
+     <x>20</x>
+     <y>160</y>
+     <width>1041</width>
+     <height>28</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -339,6 +341,60 @@
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>110</y>
+     <width>111</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Attributes</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>340</y>
+     <width>111</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Operations</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>590</y>
+     <width>201</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Operation Attributes</string>
+   </property>
   </widget>
  </widget>
  <resources/>

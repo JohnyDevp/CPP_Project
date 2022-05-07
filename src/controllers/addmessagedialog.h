@@ -5,8 +5,9 @@
 #include "sequencediagraminterface.h"
 #include <QDialog>
 
-namespace Ui {
-class AddMessageDialog;
+namespace Ui
+{
+    class AddMessageDialog;
 }
 
 class AddMessageDialog : public QDialog
@@ -22,8 +23,7 @@ public:
      */
     bool dataValid = false;
 
-    void init(SequenceObjectGUI * seqObjGuiSender, SequenceDiagramInterface * seqDiagInterface);
-
+    void init(SequenceObjectGUI *seqObjGuiSender, SequenceDiagramInterface *seqDiagInterface);
 
     Message getCreatedMessage();
 private slots:
@@ -33,15 +33,17 @@ private slots:
 
     void on_checkBoxReturnMessage_toggled(bool checked);
 
+    void on_cmbMessageOperation_currentTextChanged(const QString &arg1);
+
 private:
     Ui::AddMessageDialog *ui;
 
     Message createdMessage;
 
-    SequenceObjectGUI * seqObjGuiSender;
-    SequenceObjectGUI * seqObjGuiReceiver;
+    SequenceObjectGUI *seqObjGuiSender;
+    SequenceObjectGUI *seqObjGuiReceiver;
 
-    SequenceDiagramInterface * seqDiagInterface;
+    SequenceDiagramInterface *seqDiagInterface;
 
     QMap<UMLOperation, QString> cmbOperationList;
 };
