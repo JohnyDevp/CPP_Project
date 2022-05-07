@@ -42,8 +42,14 @@ ObjectGUI::ObjectGUI(UMLClass umlClass, DiagramInterface *diagramInterface) : um
 
 void ObjectGUI::initGui()
 {
+    // get and set current font
+    QFont font("arial", 12); //-> for text length measure
+    QFontMetrics fontMetrics(font);
+
     // set name
     this->objectName = this->umlObject.name;
+    //if (fontMetrics.width(this->objectName) > boundingWidth - 30) this->boundingWidth = fontMetrics.width(objectName);
+
     // reset maps
     this->attributesMapGUI.clear();
     this->operationMapGUI.clear();
@@ -56,6 +62,8 @@ void ObjectGUI::initGui()
             QString attrText = umlAttribute.modifier + umlAttribute.name + " : " + umlAttribute.type;
             // add to the map
             this->attributesMapGUI.insert(umlAttribute, attrText);
+
+            //if (fontMetrics.width(attrText) > boundingWidth - 25) this->boundingWidth = fontMetrics.width(attrText);
         }
     }
 
@@ -72,6 +80,8 @@ void ObjectGUI::initGui()
 
         // add to the map
         this->operationMapGUI.insert(umlOperation, operationText);
+
+        //if (fontMetrics.width(operationText) > boundingWidth - 25) this->boundingWidth = fontMetrics.width(operationText);
     }
 }
 
@@ -84,6 +94,7 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 {
     // variable for storing whether should be updated the gui if changed size during drawing
     bool hasChangedSize = false;
+
 
     int prevWidth = this->boundingWidth;
     int prevHeight = this->boundingHeight;
@@ -239,6 +250,8 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         }
         update();
     }
+
+
 }
 
 void ObjectGUI::addRelatedRelation(RelationGui *relation)
@@ -383,11 +396,14 @@ void ObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 
             // remove from gui
             diagramInterface->removeObjectFromGuiList(this);
-
-            return; // this is the end of this object
         }
         else
         {
+            //reset for possibility of minimizing the borders height and width
+            //TODO
+//            this->boundingWidth = 100;
+//            this->boundingHeight= 100;
+
             this->umlObject = *dlg->getUpdatedUmlObject();
             // update the class in class diagram
             this->diagramInterface->updateUMLClass(this->objectName, this->umlObject);
@@ -408,7 +424,9 @@ void ObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 
             update();
         }
-        // TODO: Maybe delete dlg;
+
+        delete dlg;
+
     }
 
     QGraphicsItem::mouseDoubleClickEvent(event);

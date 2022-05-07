@@ -1,69 +1,143 @@
 {
     "classDiagram": {
         "name": "ClassDiagram",
-        "relationIndex": 0,
+        "relationIndex": 3,
         "umlClassList": [
             {
                 "attributeListName": [
                 ],
                 "isInterfaceName": false,
-                "name": "asd",
+                "name": "alice",
                 "operationListName": [
+                    {
+                        "modifierName": "+",
+                        "name": "tellmeage",
+                        "parametersName": [
+                        ],
+                        "typeName": "int"
+                    },
+                    {
+                        "modifierName": "+",
+                        "name": "name",
+                        "parametersName": [
+                        ],
+                        "typeName": "string"
+                    }
                 ],
-                "xcoordName": 51,
-                "ycoordName": 56
+                "xcoordName": 180,
+                "ycoordName": 210
             },
             {
                 "attributeListName": [
                 ],
                 "isInterfaceName": false,
-                "name": "qwd",
+                "name": "bob",
                 "operationListName": [
                     {
                         "modifierName": "+",
-                        "name": "asd",
+                        "name": "sayhello",
                         "parametersName": [
                         ],
-                        "typeName": "asd"
+                        "typeName": "heythere"
+                    },
+                    {
+                        "modifierName": "+",
+                        "name": "name",
+                        "parametersName": [
+                        ],
+                        "typeName": "string"
                     }
                 ],
-                "xcoordName": 251,
-                "ycoordName": 64
+                "xcoordName": 582,
+                "ycoordName": 194
+            },
+            {
+                "attributeListName": [
+                ],
+                "isInterfaceName": false,
+                "name": "person",
+                "operationListName": [
+                    {
+                        "modifierName": "+",
+                        "name": "name",
+                        "parametersName": [
+                        ],
+                        "typeName": "string"
+                    }
+                ],
+                "xcoordName": 339,
+                "ycoordName": 7
+            },
+            {
+                "attributeListName": [
+                ],
+                "isInterfaceName": false,
+                "name": "timmik",
+                "operationListName": [
+                ],
+                "xcoordName": 74,
+                "ycoordName": 115
             }
         ],
         "umlRelationList": [
+            {
+                "cardiFromName": "",
+                "cardiToName": "",
+                "endXName": 668,
+                "endYName": 272,
+                "name": "",
+                "relFromName": "alice",
+                "relToName": "bob",
+                "relTypeName": 0,
+                "startXName": 319,
+                "startYName": 275
+            },
+            {
+                "cardiFromName": "",
+                "cardiToName": "",
+                "endXName": 361,
+                "endYName": 131,
+                "name": "",
+                "relFromName": "alice",
+                "relToName": "person",
+                "relTypeName": 2,
+                "startXName": 288,
+                "startYName": 213
+            },
+            {
+                "cardiFromName": "",
+                "cardiToName": "",
+                "endXName": 471,
+                "endYName": 128,
+                "name": "",
+                "relFromName": "bob",
+                "relToName": "person",
+                "relTypeName": 2,
+                "startXName": 589,
+                "startYName": 215
+            }
         ]
     },
     "sequenceDiagrams": [
         {
             "classes": [
                 {
-                    "Xcoord": 176,
-                    "className": "asd",
+                    "Xcoord": 148,
+                    "className": "alice",
                     "name": ""
                 },
                 {
-                    "Xcoord": 462,
-                    "className": "qwd",
+                    "Xcoord": 243,
+                    "className": "bob",
+                    "name": ""
+                },
+                {
+                    "Xcoord": 416,
+                    "className": "person",
                     "name": ""
                 }
             ],
             "messages": [
-                {
-                    "argumentText": "",
-                    "classReceiver": "qwd",
-                    "classSender": "asd",
-                    "messageTypeName": 0,
-                    "operationName": {
-                        "modifierName": "\u0000",
-                        "name": "+asd() : asd",
-                        "parametersName": [
-                        ],
-                        "typeName": ""
-                    },
-                    "returnText": "",
-                    "ycoordName": 129
-                }
             ]
         }
     ]

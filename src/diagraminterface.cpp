@@ -53,12 +53,12 @@ DiagramInterface::DiagramInterface(QGraphicsScene *scene)
 void DiagramInterface::updateUMLClass(QString oldName, UMLClass umlClass)
 {
     // notify sequence diagrams about updates
+    scene->update();
+    classDiagram.updateClass(oldName, umlClass);
     foreach (SequenceDiagramInterface *seqDiagInter, this->sequenceDiagramInterfaceList)
     {
         seqDiagInter->notifyUmlClassUpdate(oldName, umlClass);
     }
-    scene->update();
-    classDiagram.updateClass(oldName, umlClass);
 }
 
 void DiagramInterface::updateRelation(UMLRelation relation)

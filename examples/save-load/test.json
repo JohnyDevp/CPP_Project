@@ -7,68 +7,45 @@
                 "attributeListName": [
                 ],
                 "isInterfaceName": false,
-                "name": "bob",
+                "name": "qqq",
                 "operationListName": [
                     {
                         "modifierName": "+",
-                        "name": "getname",
+                        "name": "wqd",
                         "parametersName": [
                         ],
-                        "typeName": "string"
+                        "typeName": "aaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }
                 ],
-                "xcoordName": 426,
-                "ycoordName": 48
+                "xcoordName": 135,
+                "ycoordName": 81
             },
             {
                 "attributeListName": [
                 ],
                 "isInterfaceName": false,
-                "name": "tim",
+                "name": "qwd",
                 "operationListName": [
-                    {
-                        "modifierName": "+",
-                        "name": "second",
-                        "parametersName": [
-                        ],
-                        "typeName": "op"
-                    }
                 ],
-                "xcoordName": 127,
-                "ycoordName": 143
+                "xcoordName": 604,
+                "ycoordName": 217
             }
         ],
         "umlRelationList": [
             {
                 "cardiFromName": "",
                 "cardiToName": "",
-                "endXName": 433,
-                "endYName": 115,
+                "endXName": 463,
+                "endYName": 164,
                 "name": "",
-                "relFromName": "tim",
-                "relToName": "bob",
+                "relFromName": "qwd",
+                "relToName": "qqq",
                 "relTypeName": 0,
-                "startXName": 253,
-                "startYName": 217
+                "startXName": 610,
+                "startYName": 245
             }
         ]
     },
     "sequenceDiagrams": [
-        {
-            "classes": [
-                {
-                    "Xcoord": 149,
-                    "className": "bob",
-                    "name": ""
-                },
-                {
-                    "Xcoord": 325,
-                    "className": "tim",
-                    "name": ""
-                }
-            ],
-            "messages": [
-            ]
-        }
     ]
 }

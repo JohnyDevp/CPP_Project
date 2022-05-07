@@ -10,6 +10,7 @@
 
 #include "sequenceobjectgui.h"
 #include "controllers/addmessagedialog.h"
+#include "errors.h"
 #include "qabstractbutton.h"
 #include "qfont.h"
 #include "qfontmetrics.h"
@@ -17,6 +18,7 @@
 #include "qmessagebox.h"
 #include "qpainter.h"
 #include <iostream>
+#include <QInputDialog>
 
 SequenceObjectGUI::SequenceObjectGUI(UMLSeqClass umlSeqClass, SequenceDiagramInterface *seqDiagInterface)
 {
@@ -26,6 +28,8 @@ SequenceObjectGUI::SequenceObjectGUI(UMLSeqClass umlSeqClass, SequenceDiagramInt
     this->boundingWidth = 50;
     this->boundingHeight = 800;
     this->objectDestroyPoint = this->boundingHeight;
+
+    this->lineXCoord = umlSeqClass.Xcoord + this->boundingWidth/2;
 
     setFlag(QGraphicsItem::ItemIsMovable);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
@@ -154,8 +158,9 @@ void SequenceObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
         // ask for delete
 
         QMessageBox msgBox;
-        QPushButton *deleteButton = msgBox.addButton("Remove",QMessageBox::ActionRole);
         msgBox.setText("Remove class?");
+        QPushButton *deleteButton = msgBox.addButton("Remove",QMessageBox::ActionRole);
+        QPushButton *renameButton = msgBox.addButton("Rename",QMessageBox::ActionRole);
         QPushButton *cancelButton = msgBox.addButton(QMessageBox::Cancel);
         msgBox.exec();
 
@@ -173,6 +178,27 @@ void SequenceObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
                 seqMsgGui->removeMessageNotification();
             }
         }
+        else if (msgBox.clickedButton() == (QAbstractButton *)renameButton){
+            bool ok;
+            QString newNameOfInstance = QInputDialog::getText(event->widget(), QDialog::tr("Rename class instance"),
+                                                 QDialog::tr("New instance name:"), QLineEdit::Normal,
+                                                 "", &ok);
+            if (ok && !newNameOfInstance.isEmpty()){
+                //create tmp class for check, whether it this name exists, or not
+                UMLSeqClass tmp(newNameOfInstance,this->umlSeqClass.className,0);
+                if (this->seqDiagInterface->existsSeqClass(tmp)){
+                    //if it exists then error and return
+                    Errors().raiseError("Instance with this name already exists!");
+                    return;
+                } else {
+                    //otherwise rename this object and update the class
+                    this->umlSeqClass.name = newNameOfInstance;
+                    this->seqDiagInterface->updateSeqClass(this->umlSeqClass);
+                    //update
+                    update();
+                }
+            }
+        }
         else if (msgBox.clickedButton() == (QAbstractButton *)cancelButton)
         {
             // do nothing
@@ -187,7 +213,7 @@ QVariant SequenceObjectGUI::itemChange(GraphicsItemChange change, const QVariant
 {
     if (change == ItemPositionChange)
     {
-        qreal diffX = scenePos().x() - this->mousePrevSceneX;
+        //qreal diffX = scenePos().x() - this->mousePrevSceneX;
         this->mousePrevSceneX = scenePos().x();
 
         //this->boundingX += pos().x();
@@ -195,11 +221,15 @@ QVariant SequenceObjectGUI::itemChange(GraphicsItemChange change, const QVariant
 
         // load the new coords to the umlseq class and upload it
         //this->umlSeqClass.Xcoord += diffX;
-        this->umlSeqClass.Xcoord = value.toPointF().x();
+        /*=======*/
+        qreal diffX = value.toPointF().x() - pos().x();
+        this->umlSeqClass.Xcoord += diffX;
+        /*=======*/
+        //this->umlSeqClass.Xcoord = value.toPointF().x();
         this->seqDiagInterface->updateSeqClass(this->umlSeqClass);
 
         // set coordination for messages
-        this->lineXCoord = this->umlSeqClass.Xcoord + this->boundingWidth / 2 + 5;
+        this->lineXCoord = this->umlSeqClass.Xcoord + this->boundingWidth / 2;
 
         update();
 

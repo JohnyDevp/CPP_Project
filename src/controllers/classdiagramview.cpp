@@ -83,10 +83,8 @@ void ClassDiagramView::parseFile()
     }
 
     // Creating GUI Relations
-
     foreach (const UMLRelation &ur, diagramInterface->classDiagram.relationList)
     {
-        std::cout << "nonnononon" << std::endl;
         // create gui for the relation
         RelationGui *newRelGui = new RelationGui(ur, diagramInterface);
 

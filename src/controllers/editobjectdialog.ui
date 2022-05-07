@@ -104,9 +104,6 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_4">
     <item>
-     <widget class="QComboBox" name="cmbAttrForOperationModifier"/>
-    </item>
-    <item>
      <layout class="QHBoxLayout" name="horizontalLayout_5">
       <item>
        <widget class="QTextEdit" name="txtAttrForOperationName"/>

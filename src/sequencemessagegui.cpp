@@ -17,6 +17,7 @@
 #include "qpainter.h"
 #include "qpen.h"
 
+
 SequenceMessageGUI::SequenceMessageGUI(Message message, SequenceDiagramInterface * seqDiagInterface)
 {
     setFlag(QGraphicsLineItem::ItemIsMovable, true);
@@ -40,6 +41,10 @@ SequenceMessageGUI::SequenceMessageGUI(Message message, SequenceDiagramInterface
 
 void SequenceMessageGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+    //this lines serves, when the message is send to object itself -
+    // so diff of lineXcoord is 0, and there has to be some piece of line
+    int same_sender_const = 0;
+    if (seqSenderObjGui == seqReceiverObjGui) same_sender_const = 45;
 
     //set font
     QFont font("arial", 13); //-> for text length measure
@@ -57,7 +62,7 @@ void SequenceMessageGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem
 
     if (message.messageType == Message::RETURN) painter->setPen(QPen(color, 3, Qt::DashLine));
     // create line at current point
-    setLine(this->seqSenderObjGui->lineXCoord, this->message.Ycoord,
+    setLine(this->seqSenderObjGui->lineXCoord - same_sender_const, this->message.Ycoord,
             this->seqReceiverObjGui->lineXCoord, this->message.Ycoord);
     // draw the line set above
     painter->drawLine(line());
@@ -65,7 +70,7 @@ void SequenceMessageGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem
 
 
     // computed line length for choosing the right place for text and arrow
-    double lineLength = qAbs(this->seqReceiverObjGui->lineXCoord - this->seqSenderObjGui->lineXCoord);
+    double lineLength = qAbs(this->seqReceiverObjGui->lineXCoord - this->seqSenderObjGui->lineXCoord - same_sender_const);
 
     //draw the text
     QString msgText = this->message.argumentText;
@@ -84,8 +89,8 @@ void SequenceMessageGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem
     if (this->message.messageType == Message::RETURN){
         //draw empty arrow
         arrowAngle = this->seqSenderObjGui->lineXCoord > this->seqReceiverObjGui->lineXCoord ? qDegreesToRadians(45.0) : -qDegreesToRadians(225.0);
-        arrowLength = 30;
-        arrowWide = 14;
+        arrowLength = 15;
+        arrowWide = 7;
 
         line1.setP1(QPointF(
             arrowLength * qCos(- arrowAngle) + this->seqReceiverObjGui->lineXCoord - 5,
@@ -107,8 +112,8 @@ void SequenceMessageGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem
     } else if (message.messageType == Message::ASYNC) {
         //draw empty arrow
         arrowAngle = this->seqSenderObjGui->lineXCoord > this->seqReceiverObjGui->lineXCoord ? qDegreesToRadians(45.0) : -qDegreesToRadians(225.0);
-        arrowLength = 30;
-        arrowWide = 14;
+        arrowLength = 15;
+        arrowWide = 7;
 
         line1.setP1(QPointF(
             arrowLength * qCos( - arrowAngle) + this->seqReceiverObjGui->lineXCoord - 5,
@@ -129,7 +134,7 @@ void SequenceMessageGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem
 
     }else { //draw full arrow //SYNC CREATE DESTROY
         arrowAngle = this->seqSenderObjGui->lineXCoord > this->seqReceiverObjGui->lineXCoord ? qDegreesToRadians(45.0) : -qDegreesToRadians(225.0);
-        arrowLength = 30;
+        arrowLength = 15;
         // the aim
         relLineEnd << QPointF(this->seqReceiverObjGui->lineXCoord, this->message.Ycoord);
         // left corner

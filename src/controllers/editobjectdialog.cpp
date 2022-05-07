@@ -255,10 +255,10 @@ void EditObjectDialog::on_btnAddOperation_clicked()
 {
     QString operationName = ui->txtOperationName->toPlainText();
     QString operationType = ui->txtOperationType->toPlainText();
-    QChar operationModifier = ui->cmbAttrForOperationModifier->currentText()[0];
+    QString operationModifier = ui->cmbOperationModifier->currentText();
 
     // create new uml operation
-    UMLOperation newUmlOperation(operationName, operationType, operationModifier);
+    UMLOperation newUmlOperation(operationName, operationType, operationModifier[0]);
     // add all its attributes (previously added to the map)
     QMapIterator<UMLAttribute, QString> attrMap(this->operationAttributesMapGUI);
     while (attrMap.hasNext())
@@ -314,14 +314,14 @@ void EditObjectDialog::on_btnAddAttributeToOperation_clicked()
 {
     QString attrName = ui->txtAttrForOperationName->toPlainText();
     QString attrType = ui->txtAttrForOperationType->toPlainText();
-    QChar attrModifier = ui->cmbAttrForOperationModifier->currentText()[0];
+    QChar implicitAttr = '+'; //this serves for possible for check - because operation param doesnt have any modifier
 
     // if some of txt fields is empty then return
     if (attrName == "" || attrType == "")
         return;
 
     // create uml attribute
-    UMLAttribute newUmlAttr(attrModifier, attrName, attrType);
+    UMLAttribute newUmlAttr(implicitAttr,attrName, attrType);
     // try to add it to the list of current operation
 
     if (!UMLAttribute::isCorrect(newUmlAttr))
@@ -346,7 +346,7 @@ void EditObjectDialog::on_btnAddAttributeToOperation_clicked()
 
     //  if ok then add it to the operation attribute map
     //  the text serves for possible writeout to the listview of attributes of operation
-    QString attrText = newUmlAttr.modifier + newUmlAttr.name + " : " + newUmlAttr.type;
+    QString attrText = newUmlAttr.name + " : " + newUmlAttr.type;
     this->operationAttributesMapGUI.insert(newUmlAttr, attrText);
 }
 

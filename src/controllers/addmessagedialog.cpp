@@ -38,6 +38,16 @@ void AddMessageDialog::on_buttonBox_accepted()
 
     QString messageReceiver = ui->cmbMessageReceiver->currentText();
     QString messageOperation = ui->cmbMessageOperation->currentText();
+    //find the UMLOperation for the message
+    UMLOperation umlOperation;
+    QMapIterator<UMLOperation, QString> i(this->cmbOperationList);
+    while (i.hasNext()) {
+        i.next();
+        if(i.value() == messageOperation){
+            umlOperation = i.key();
+        }
+    }
+
     bool messageIsOnlyReturn = ui->checkBoxReturnMessage->isChecked();
     // bool addReturnedMessage = ui->checkBoxAddReturnMessage->isChecked();
     QString messageType = ui->cmbMessageType->currentText();
@@ -57,24 +67,26 @@ void AddMessageDialog::on_buttonBox_accepted()
     // decide what will be created
     if (messageIsOnlyReturn)
     {
+        UMLOperation uo("");
         // create only return message
         Message msg(
             -1,
             this->seqObjGuiSender->umlSeqClass.getUniqueName(),
             this->seqObjGuiReceiver->umlSeqClass.getUniqueName(),
-            "",
+            uo,
             Message::RETURN);
         msg.returnText = messageParams;
         this->createdMessage = msg;
     }
     else
     {
+
         // create only return message
         Message msg(
             -1,
             this->seqObjGuiSender->umlSeqClass.getUniqueName(),
             this->seqObjGuiReceiver->umlSeqClass.getUniqueName(),
-            messageOperation,
+            umlOperation,
             msgType);
         msg.argumentText = messageParams;
         this->createdMessage = msg;
@@ -116,13 +128,16 @@ void AddMessageDialog::on_cmbMessageReceiver_currentTextChanged(const QString &a
             if (!seqObjGui->umlClassExists)
                 return;
 
-            // no there is certainity of filling the combobox with new operations related to currently selected class
+            // now there is certainity of filling the combobox with new operations related to currently selected class
             ui->cmbMessageOperation->clear(); // clear the combobox
             this->cmbOperationList.clear();   // clear list with loaded operations
 
             UMLClass umlClass = seqDiagInterface->diagramInterface->getUMLClass(seqObjGui->umlSeqClass.className);
             foreach (UMLOperation umlOperation, umlClass.umlOperationsList)
             {
+                //check whether the operation is public
+                if (umlOperation.modifier != "+") return;
+
                 // build the operation text
                 QString operationText = umlOperation.modifier + umlOperation.name + "(";
                 foreach (UMLAttribute operationParam, umlOperation.parameterssOfOperationList)
@@ -171,6 +186,6 @@ void AddMessageDialog::on_cmbMessageOperation_currentTextChanged(const QString &
     //  then disable OK button
     if (ui->cmbMessageOperation->count() == 0 && !ui->checkBoxReturnMessage->isChecked())
     {
-        ui->buttonBox->setEnabled(false);
+        //ui->buttonBox->setEnabled(false);
     }
 }

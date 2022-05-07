@@ -7,35 +7,52 @@
                 "attributeListName": [
                 ],
                 "isInterfaceName": false,
-                "name": "asd",
+                "name": ";k",
                 "operationListName": [
                 ],
-                "xcoordName": 95,
-                "ycoordName": 37
+                "xcoordName": 0,
+                "ycoordName": 0
             },
             {
                 "attributeListName": [
                 ],
                 "isInterfaceName": false,
-                "name": "qwdqd",
+                "name": "asd",
+                "operationListName": [
+                    {
+                        "modifierName": "+",
+                        "name": "wdqwdqwda",
+                        "parametersName": [
+                        ],
+                        "typeName": "aaaaaaaaaaaaaaaaaaa"
+                    }
+                ],
+                "xcoordName": 147,
+                "ycoordName": 21
+            },
+            {
+                "attributeListName": [
+                ],
+                "isInterfaceName": false,
+                "name": "qwd",
                 "operationListName": [
                 ],
-                "xcoordName": 306,
-                "ycoordName": 88
+                "xcoordName": 550,
+                "ycoordName": 139
             }
         ],
         "umlRelationList": [
             {
                 "cardiFromName": "",
                 "cardiToName": "",
-                "endXName": 313,
-                "endYName": 156,
+                "endXName": 455,
+                "endYName": 64,
                 "name": "",
-                "relFromName": "asd",
-                "relToName": "qwdqd",
+                "relFromName": "qwd",
+                "relToName": "asd",
                 "relTypeName": 0,
-                "startXName": 190,
-                "startYName": 94
+                "startXName": 559,
+                "startYName": 172
             }
         ]
     },

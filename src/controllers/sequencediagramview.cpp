@@ -33,6 +33,9 @@ void SequenceDiagramView::init(QTabWidget *tabPane, int tabIndex, SequenceDiagra
 
     // set scene for the seauence diagram interface
     this->sequenceDiagramInterface->setScene(this->scene);
+
+    //load the gui of sequence diagram, if exists
+    this->sequenceDiagramInterface->load();
 }
 
 SequenceDiagramView::~SequenceDiagramView()
@@ -48,38 +51,6 @@ void SequenceDiagramView::on_btnClose_clicked()
 
 void SequenceDiagramView::on_btnAddObject_clicked()
 {
-    // collect name of all classes
-//    QStringList listOfClasses;
-//    foreach (UMLClass umlClass, this->sequenceDiagramInterface->diagramInterface->classDiagram.classList)
-//    {
-//        if (!umlClass.isInterface){
-//            listOfClasses << umlClass.name;
-//        }
-//    }
-
-//    // raise a choice dialog for choose a class to create
-//    //  create new dialog
-//    bool ok; // variable storing whether ok has been pressed
-//    QString item = QInputDialog::getItem(this,
-//                                         QDialog::tr("Choose relation type"),
-//                                         QDialog::tr("Relation type"),
-//                                         listOfClasses, 0, false, &ok);
-
-//    if (ok && !item.isEmpty())
-//    {
-//        // if the class has been chosen then find class according to the chosen name
-//        // and create umlseqclass and its gui
-//        UMLClass umlClass = this->sequenceDiagramInterface->diagramInterface->getUMLClass(item);
-
-
-//        UMLSeqClass umlSeqClass("", umlClass.name, 10);
-//        SequenceObjectGUI *sequenceObjectGUI = new SequenceObjectGUI(umlSeqClass, this->sequenceDiagramInterface);
-
-//        this->sequenceDiagramInterface->addSeqClas(umlSeqClass);
-//        // this method also add the gui to the scene
-//        this->sequenceDiagramInterface->addNewSequenceObjectGUI(sequenceObjectGUI);
-//    }
-
     //create new dialog for adding new sequence class
     AddSequenceClassDialog * seqClassDlg = new AddSequenceClassDialog();
     seqClassDlg->init(this->sequenceDiagramInterface);

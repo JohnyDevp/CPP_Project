@@ -204,7 +204,7 @@ void RelationGui::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 
         break;
     }
-    this->diagramInterface->scene->update();
+
 }
 
 void RelationGui::removeRelationNotification()
