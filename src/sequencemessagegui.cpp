@@ -28,7 +28,7 @@ SequenceMessageGUI::SequenceMessageGUI(Message message, SequenceDiagramInterface
     setLine(0, this->message.Ycoord, 0, this->message.Ycoord);
 
     // set the Z value -> not overdrawing the other objects
-    setZValue(5);
+    setZValue(13);
 
     //set activating/deactivating attributes
     if (message.messageType == Message::RETURN){
@@ -143,6 +143,7 @@ void SequenceMessageGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem
         path.addPolygon(relLineEnd);
         painter->setPen(pen);
         painter->drawPolygon(relLineEnd);
+        painter->fillPath(path, color);
     }
 
 }
@@ -165,8 +166,9 @@ void SequenceMessageGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
     msgBox.exec();
 
     if (msgBox.clickedButton() == (QAbstractButton*)deleteButton) {
-        this->seqDiagInterface->removeMessage(this->message);
-        this->seqDiagInterface->removeSequenceMessageGUI(this);
+        //trigger removeMessageNotification()
+        this->removeMessageNotification();
+
     } else if (msgBox.clickedButton() == (QAbstractButton*)cancelButton) {
         //do nothing
         return;
@@ -193,6 +195,16 @@ void SequenceMessageGUI::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     //do not trigger the normall-mouseMoveEvent (it will do mistakes!!!)
     //QGraphicsItem::mouseMoveEvent(event);
 
+}
+
+void SequenceMessageGUI::removeMessageNotification(){
+    //remove this message from sequence diagram and also its gui
+    this->seqDiagInterface->removeMessage(this->message);
+    this->seqDiagInterface->removeSequenceMessageGUI(this);
+
+    //notify both related classes about deletion
+    this->seqReceiverObjGui->removeRelatedReceivingMessage(this);
+    this->seqSenderObjGui->removeRelatedSendingMessage(this);
 }
 
 SequenceMessageGUI::~SequenceMessageGUI(){

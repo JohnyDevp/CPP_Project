@@ -92,7 +92,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>130</y>
+     <y>140</y>
      <width>311</width>
      <height>25</height>
     </rect>
@@ -103,12 +103,12 @@
     <rect>
      <x>20</x>
      <y>110</y>
-     <width>171</width>
+     <width>241</width>
      <height>23</height>
     </rect>
    </property>
    <property name="text">
-    <string>It is return message</string>
+    <string>ONLY RETURN MESSAGE</string>
    </property>
   </widget>
   <widget class="QCheckBox" name="checkBoxAddReturnMessage">

@@ -52,6 +52,8 @@ public:
     void addRelatedReceivingMessage(SequenceMessageGUI *seqMsgGui);
     void addRelatedSendingMessage(SequenceMessageGUI *seqMsgGui);
 
+    void removeRelatedReceivingMessage(SequenceMessageGUI *seqMsgGui);
+    void removeRelatedSendingMessage(SequenceMessageGUI *seqMsgGui);
 protected:
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);

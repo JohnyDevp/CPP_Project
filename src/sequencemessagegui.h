@@ -42,6 +42,7 @@ public:
     bool isDeactivatingReceiver = false;
 
     ~SequenceMessageGUI();
+    void removeMessageNotification();
 protected:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
