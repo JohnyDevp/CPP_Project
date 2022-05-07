@@ -49,10 +49,11 @@ public:
     qreal lineXCoord;
 
     void updateActiveRectangles();
+
 protected:
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    // void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
 
 private:
     qreal prevMouseLocalX;
@@ -68,10 +69,12 @@ private:
 
     SequenceDiagramInterface *seqDiagInterface;
 
-    QList<SequenceMessageGUI*> seqReceivingMsgGuiList;
-    QList<SequenceMessageGUI*> seqSendingMsgGuiList;
+    QList<SequenceMessageGUI *> seqReceivingMsgGuiList;
+    QList<SequenceMessageGUI *> seqSendingMsgGuiList;
 
     QList<QRectF> activeRectangle;
+
+    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 };
 
 #endif // SEQUENCEOBJECTGUI_H

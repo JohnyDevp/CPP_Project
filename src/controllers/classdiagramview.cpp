@@ -201,7 +201,7 @@ void ClassDiagramView::on_btnCreateNewSequenceDiagram_clicked()
 
 void ClassDiagramView::on_btnSave_clicked()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, "Open a file", QDir::homePath(), "JSON (*.json)");
+    QString fileName = QFileDialog::getOpenFileName(this, "Open a file", "/", "JSON (*.json)");
     // nothing has been selected -> prompt and return
     if (fileName.isEmpty())
     {

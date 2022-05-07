@@ -27,6 +27,7 @@ SequenceObjectGUI::SequenceObjectGUI(UMLSeqClass umlSeqClass, SequenceDiagramInt
     this->boundingHeight = 800;
 
     setFlag(QGraphicsItem::ItemIsMovable);
+    setFlag(QGraphicsItem::ItemSendsGeometryChanges);
 
     // set umlSeqClass
     this->umlSeqClass = umlSeqClass;
@@ -40,6 +41,36 @@ SequenceObjectGUI::SequenceObjectGUI(UMLSeqClass umlSeqClass, SequenceDiagramInt
 QRectF SequenceObjectGUI::boundingRect() const
 {
     return QRectF(this->boundingX, this->boundingY, this->boundingWidth, this->boundingHeight);
+}
+
+QVariant SequenceObjectGUI::itemChange(GraphicsItemChange change, const QVariant &value)
+{
+    if (change == ItemPositionChange)
+    {
+        qreal diffX = scenePos().x() - this->mousePrevSceneX;
+
+        this->mousePrevSceneX = scenePos().x();
+
+        this->boundingX += pos().x() - this->prevMouseLocalX;
+
+        this->boundingX += diffX;
+        this->prevMouseLocalX = pos().x();
+
+        // load the new coords to the umlseq class and upload it
+        this->umlSeqClass.Xcoord += diffX;
+        this->seqDiagInterface->updateSeqClass(this->umlSeqClass);
+
+        this->lineXCoord = this->umlSeqClass.Xcoord + this->boundingWidth / 2;
+
+        update();
+
+        this->seqDiagInterface->updateScene();
+
+        // setY(30);
+        // do not trigger the normall-mouseMoveEvent (it will do mistakes!!!)
+        return QPointF(value.toPointF().x(), pos().y());
+    }
+    return QGraphicsItem::itemChange(change, value);
 }
 
 void SequenceObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -128,22 +159,25 @@ void SequenceObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
     {
         // if the click was on the class time-line
 
-        AddMessageDialog * addMessageDlg = new AddMessageDialog();
+        AddMessageDialog *addMessageDlg = new AddMessageDialog();
         addMessageDlg->init(this, this->seqDiagInterface);
         addMessageDlg->exec();
 
-        //get message
-        if (!addMessageDlg->dataValid) return;
+        // get message
+        if (!addMessageDlg->dataValid)
+            return;
 
-        //create message gui and add it to the sequence diagram interface
+        // create message gui and add it to the sequence diagram interface
         Message newMsg = addMessageDlg->getCreatedMessage();
         newMsg.Ycoord = curY;
         this->seqDiagInterface->createMessage(newMsg);
 
         update();
-    } else if (curY <= this->boundingY + 50){
-        //if the click was on the background rectangle
-        //ask for delete
+    }
+    else if (curY <= this->boundingY + 50)
+    {
+        // if the click was on the background rectangle
+        // ask for delete
 
         QMessageBox msgBox;
         QPushButton *deleteButton = nullptr;
@@ -166,36 +200,36 @@ void SequenceObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
     QGraphicsItem::mouseDoubleClickEvent(event);
 }
 
-void SequenceObjectGUI::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+// void SequenceObjectGUI::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+// {
+// qreal diffX = event->scenePos().x() - this->mousePrevSceneX;
+
+// this->mousePrevSceneX = event->scenePos().x();
+
+// this->boundingX += event->pos().x() - this->prevMouseLocalX;
+
+// // this->boundingX += diffX;
+// this->prevMouseLocalX = event->pos().x();
+
+// // load the new coords to the umlseq class and upload it
+// this->umlSeqClass.Xcoord += diffX;
+// this->seqDiagInterface->updateSeqClass(this->umlSeqClass);
+
+// this->lineXCoord = this->umlSeqClass.Xcoord + this->boundingWidth / 2;
+
+// update();
+
+// this->seqDiagInterface->updateScene();
+
+// // setY(30);
+// // do not trigger the normall-mouseMoveEvent (it will do mistakes!!!)
+// QGraphicsItem::mouseMoveEvent(event);
+// }
+
+void SequenceObjectGUI::updateActiveRectangles()
 {
-    qreal diffX = event->scenePos().x() - this->mousePrevSceneX;
-
-    this->mousePrevSceneX = event->scenePos().x();
-
-    this->boundingX += event->pos().x() - this->prevMouseLocalX;
-
-    //this->boundingX += diffX;
-    this->prevMouseLocalX = event->pos().x();
-
-    // load the new coords to the umlseq class and upload it
-    this->umlSeqClass.Xcoord += diffX;
-    this->seqDiagInterface->updateSeqClass(this->umlSeqClass);
-
-    this->lineXCoord = this->umlSeqClass.Xcoord + this->boundingWidth / 2;
-
-    update();
-
-    this->seqDiagInterface->updateScene();
-
-    setY(30);
-    //do not trigger the normall-mouseMoveEvent (it will do mistakes!!!)
-    //QGraphicsItem::mouseMoveEvent(event);
-
 }
 
-void SequenceObjectGUI::updateActiveRectangles(){
-
-}
-
-SequenceObjectGUI::~SequenceObjectGUI(){
+SequenceObjectGUI::~SequenceObjectGUI()
+{
 }
