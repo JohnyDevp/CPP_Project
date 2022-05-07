@@ -36,6 +36,8 @@ private slots:
 private:
     Ui::AddMessageDialog *ui;
 
+    Message createdMessage;
+
     SequenceObjectGUI * seqObjGuiSender;
     SequenceObjectGUI * seqObjGuiReceiver;
 

@@ -43,6 +43,18 @@ void SequenceDiagramInterface::removeSequenceObjectGUI(SequenceObjectGUI *seqObj
     this->sequenceObjectGUIList.removeOne(seqObjGUI);
 }
 
+void SequenceDiagramInterface::addNewSequenceMessageGUI(SequenceMessageGUI * msgGui){
+
+    this->scene->addItem(msgGui);
+    this->sequenceMessageGUIList.append(msgGui);
+
+}
+
+void SequenceDiagramInterface::removeSequenceMessageGUI(SequenceMessageGUI * msgGui){
+    this->scene->removeItem(msgGui);
+    this->sequenceMessageGUIList.removeOne(msgGui);
+}
+
 void SequenceDiagramInterface::notifyUmlClassUpdate(QString classOldName, UMLClass updatedClass)
 {
     // loop through sequence gui objects and look at their classes, whether they fit to this name or not
@@ -108,6 +120,27 @@ void SequenceDiagramInterface::updateMessage(Message &message)
 
 Message SequenceDiagramInterface::createMessage(Message &message)
 {
+    SequenceMessageGUI * seqMsgGUI = new SequenceMessageGUI(message, this);
+
+    //loop through all the sequence object gui and find the ones, which are related
+    // and set them to the message
+    foreach(SequenceObjectGUI * seqObjGui, this->sequenceObjectGUIList){
+        //if it found message receiver
+        if (message.classReceiver == seqObjGui->umlSeqClass.getUniqueName()){
+            seqMsgGUI->seqReceiverObjGui = seqObjGui;
+            seqMsgGUI->updateXPosition(seqObjGui, seqObjGui->lineXCoord);
+        }
+
+        //if it found message sender
+        if (message.classSender == seqObjGui->umlSeqClass.getUniqueName()){
+            seqMsgGUI->seqSenderObjGui = seqObjGui;
+            seqMsgGUI->updateXPosition(seqObjGui, seqObjGui->lineXCoord);
+        }
+    }
+
+    //add the message gui to the scene and interface
+    addNewSequenceMessageGUI(seqMsgGUI);
+
     return sequenceDiagram.createMessage(message);
 }
 

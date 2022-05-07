@@ -16,11 +16,13 @@
 #include "cls/UMLSeqClass.hpp"
 #include "sequencediagraminterface.h"
 #include "diagraminterface.h"
+#include "sequencemessagegui.h"
 #include <QGraphicsItem>
 
 #define TOP_Y_COORD 30
 
 class SequenceDiagramInterface;
+class SequenceMessageGUI;
 
 class SequenceObjectGUI : public QGraphicsItem
 {
@@ -44,12 +46,17 @@ public:
      */
     QString objectName;
 
+    qreal lineXCoord;
+
+    void updateActiveRectangles();
 protected:
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
 
 private:
+    qreal prevMouseLocalX;
+
     qreal mousePrevSceneX;
     qreal mousePrevSceneY;
 
@@ -60,6 +67,11 @@ private:
     int boundingHeight;
 
     SequenceDiagramInterface *seqDiagInterface;
+
+    QList<SequenceMessageGUI*> seqReceivingMsgGuiList;
+    QList<SequenceMessageGUI*> seqSendingMsgGuiList;
+
+    QList<QRectF> activeRectangle;
 };
 
 #endif // SEQUENCEOBJECTGUI_H

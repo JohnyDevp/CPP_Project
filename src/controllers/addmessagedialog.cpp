@@ -16,6 +16,11 @@ void AddMessageDialog::init(SequenceObjectGUI * seqObjGuiSender, SequenceDiagram
     foreach(SequenceObjectGUI *seqObjGui, seqDiagInterface->sequenceObjectGUIList){
         ui->cmbMessageReceiver->addItem(seqObjGui->objectName);
     }
+
+    //load message types to cmbbox
+    QStringList typeList;
+    typeList << "SYNC" << "ASYNC" << "CREATE" << "DESTROY";
+    ui->cmbMessageType->addItems(typeList);
 }
 
 AddMessageDialog::~AddMessageDialog()
@@ -30,9 +35,12 @@ void AddMessageDialog::on_buttonBox_accepted()
     QString messageReceiver = ui->cmbMessageReceiver->currentText();
     QString messageOperation = ui->cmbMessageOperation->currentText();
     bool messageIsOnlyReturn = ui->checkBoxReturnMessage->isChecked();
-    bool addReturnedMessage = ui->checkBoxAddReturnMessage->isChecked();
-    QString messageType = ui->cmbOperationType->currentText();
+    //bool addReturnedMessage = ui->checkBoxAddReturnMessage->isChecked();
+    QString messageType = ui->cmbMessageType->currentText();
+    QString messageParams = ui->txtMessageParams->toPlainText();
+
     Message::MessageType msgType;
+
     if (messageType == "SYNC") msgType = Message::SYNC;
     if (messageType == "ASYNC") msgType = Message::ASYNC;
     if (messageType == "DESTROY") msgType = Message::DESTROY;
@@ -43,22 +51,34 @@ void AddMessageDialog::on_buttonBox_accepted()
         //create only return message
         Message msg(
                     -1,
-                    this->seqObjGuiSender->objectName,
-                    this->seqObjGuiReceiver->objectName,
+                    this->seqObjGuiSender->umlSeqClass.getUniqueName(),
+                    this->seqObjGuiReceiver->umlSeqClass.getUniqueName(),
+                    "",
+                    Message::RETURN
+                    );
+        msg.returnText = messageParams;
+        this->createdMessage = msg;
+
+    } else {
+        //create only return message
+        Message msg(
+                    -1,
+                    this->seqObjGuiSender->umlSeqClass.getUniqueName(),
+                    this->seqObjGuiReceiver->umlSeqClass.getUniqueName(),
                     messageOperation,
                     msgType
                     );
-    } else {
-
+        msg.argumentText = messageParams;
+        this->createdMessage = msg;
     }
 
     this->dataValid = true;
 }
 
 Message AddMessageDialog::getCreatedMessage(){
-
-
+    return this->createdMessage;
 }
+
 void AddMessageDialog::on_cmbMessageReceiver_currentTextChanged(const QString &arg1)
 {
     QString chosenClass = arg1;
@@ -75,7 +95,7 @@ void AddMessageDialog::on_cmbMessageReceiver_currentTextChanged(const QString &a
         if (chosenClass == seqObjGui->objectName){
             //set it as receiver
             this->seqObjGuiReceiver = seqObjGui;
-
+            QString justforfun = seqObjGui->umlSeqClass.getUniqueName();
             //load operations
             //get class of object which receiving the message -> firstly check whether it exists
             if (!seqObjGui->umlClassExists) return;
@@ -103,7 +123,6 @@ void AddMessageDialog::on_cmbMessageReceiver_currentTextChanged(const QString &a
         }
     }
 }
-
 
 void AddMessageDialog::on_checkBoxReturnMessage_toggled(bool checked)
 {
