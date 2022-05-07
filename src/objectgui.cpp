@@ -237,8 +237,8 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                 relation->updatePosition(this->umlObject, diff);
             }
         }
+        update();
     }
-    update();
 }
 
 void ObjectGUI::addRelatedRelation(RelationGui *relation)

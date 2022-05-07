@@ -25,6 +25,7 @@ SequenceObjectGUI::SequenceObjectGUI(UMLSeqClass umlSeqClass, SequenceDiagramInt
     this->boundingY = TOP_Y_COORD;
     this->boundingWidth = 50;
     this->boundingHeight = 800;
+    this->objectDestroyPoint = this->boundingHeight;
 
     setFlag(QGraphicsItem::ItemIsMovable);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
@@ -108,10 +109,6 @@ void SequenceObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem 
     QPen penRect(color, 3);
     painter->setPen(penRect);
 
-    // do not draw the bounding rectangle !!!! -> it is just for "bounds"
-    // QRectF rect = boundingRect();
-    // painter->drawRect(rect);
-
     // draw and fill the background rectangle of the text
     painter->drawRect(this->boundingX, this->boundingY, this->boundingWidth, 50);
     painter->fillRect(this->boundingX, this->boundingY, this->boundingWidth, 50, QColor(200, 207, 230));
@@ -135,6 +132,13 @@ void SequenceObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem 
         this->boundingX + this->boundingWidth / 2,
         this->boundingY + this->boundingHeight);
     painter->drawLine(lineStartPoint, lineEndPoint);
+
+    // draw all active rectangles
+    updateActiveRectangles();
+    foreach (QRectF rec, this->activeRectangles)
+    {
+        painter->fillRect(rec, QColor(85, 230, 237));
+    }
 
     if (widthChanged)
         update();
@@ -226,8 +230,82 @@ void SequenceObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 // QGraphicsItem::mouseMoveEvent(event);
 // }
 
+// void SequenceObjectGUI::updateActiveRectangles()
+// {
+//     qreal diffX = event->scenePos().x() - this->mousePrevSceneX;
+//     this->mousePrevSceneX = event->scenePos().x();
+
+//     this->boundingX += event->pos().x() - this->prevMouseLocalX;
+//     this->prevMouseLocalX = event->pos().x();
+
+//     // load the new coords to the umlseq class and upload it
+//     this->umlSeqClass.Xcoord += diffX;
+//     this->seqDiagInterface->updateSeqClass(this->umlSeqClass);
+
+//     // set coordination for messages
+//     this->lineXCoord = this->umlSeqClass.Xcoord + this->boundingWidth / 2;
+
+//     update();
+
+//     this->seqDiagInterface->updateScene();
+
+//     QGraphicsItem::mouseMoveEvent(event);
+// }
+
 void SequenceObjectGUI::updateActiveRectangles()
 {
+    // clear all rectangles
+    this->activeRectangles.clear();
+
+    // firstly build all activated objects
+    foreach (SequenceMessageGUI *seqMsgGui, this->seqReceivingMsgGuiList)
+    {
+        if (!seqMsgGui->isDeactivatingReceiver)
+        {
+            QRectF rec(this->boundingX + this->boundingWidth / 2 - 6, seqMsgGui->message.Ycoord, 10, this->objectDestroyPoint - seqMsgGui->message.Ycoord);
+            this->activeRectangles.append(rec);
+        }
+    }
+
+    foreach (SequenceMessageGUI *seqMsgGui, this->seqSendingMsgGuiList)
+    {
+        if (!seqMsgGui->isDeactivatingSender)
+        {
+            QRectF rec(this->boundingX + this->boundingWidth / 2 - 6, seqMsgGui->message.Ycoord, 10, this->objectDestroyPoint - seqMsgGui->message.Ycoord);
+            this->activeRectangles.append(rec);
+        }
+    }
+
+    // then shortened already build rectangles to the deactivating points
+    //    foreach (SequenceMessageGUI * seqMsgGui, this->seqReceivingMsgGuiList){
+    //        if(seqMsgGui->isDeactivatingReceiver){
+    //            foreach(QRectF * rec, this->activeRectangles){
+    //                if (seqMsgGui->message.Ycoord < rec->y() &&
+    //                    seqMsgGui->message.Ycoord > rec->y()+rec->height()){
+    //                    rec->setHeight(seqMsgGui->message.Ycoord - rec->y());
+    //                }
+    //            }
+
+    //        }
+    //    }
+
+    //    foreach (SequenceMessageGUI * seqMsgGui, this->seqSendingMsgGuiList){
+    //        if(seqMsgGui->isDeactivatingSender){
+
+    //        }
+    //    }
+}
+
+void SequenceObjectGUI::addRelatedReceivingMessage(SequenceMessageGUI *seqMsgGui)
+{
+    this->seqReceivingMsgGuiList.append(seqMsgGui);
+    updateActiveRectangles();
+}
+
+void SequenceObjectGUI::addRelatedSendingMessage(SequenceMessageGUI *seqMsgGui)
+{
+    this->seqSendingMsgGuiList.append(seqMsgGui);
+    updateActiveRectangles();
 }
 
 SequenceObjectGUI::~SequenceObjectGUI()

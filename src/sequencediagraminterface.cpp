@@ -47,7 +47,7 @@ void SequenceDiagramInterface::addNewSequenceMessageGUI(SequenceMessageGUI * msg
 
     this->scene->addItem(msgGui);
     this->sequenceMessageGUIList.append(msgGui);
-
+    this->updateScene();
 }
 
 void SequenceDiagramInterface::removeSequenceMessageGUI(SequenceMessageGUI * msgGui){
@@ -128,15 +128,17 @@ Message SequenceDiagramInterface::createMessage(Message &message)
         //if it found message receiver
         if (message.classReceiver == seqObjGui->umlSeqClass.getUniqueName()){
             seqMsgGUI->seqReceiverObjGui = seqObjGui;
-            seqMsgGUI->updateXPosition(seqObjGui, seqObjGui->lineXCoord);
         }
 
         //if it found message sender
         if (message.classSender == seqObjGui->umlSeqClass.getUniqueName()){
             seqMsgGUI->seqSenderObjGui = seqObjGui;
-            seqMsgGUI->updateXPosition(seqObjGui, seqObjGui->lineXCoord);
         }
     }
+
+    //add the message gui to the list in both related classes gui objects
+    seqMsgGUI->seqReceiverObjGui->addRelatedReceivingMessage(seqMsgGUI);
+    seqMsgGUI->seqSenderObjGui->addRelatedSendingMessage(seqMsgGUI);
 
     //add the message gui to the scene and interface
     addNewSequenceMessageGUI(seqMsgGUI);
