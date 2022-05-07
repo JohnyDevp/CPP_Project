@@ -10,8 +10,8 @@
                 "name": "Bob",
                 "operationListName": [
                 ],
-                "xcoordName": 378,
-                "ycoordName": 139
+                "xcoordName": 455,
+                "ycoordName": 76
             },
             {
                 "attributeListName": [
@@ -27,8 +27,8 @@
                         "typeName": "String"
                     }
                 ],
-                "xcoordName": 180,
-                "ycoordName": 126
+                "xcoordName": 192,
+                "ycoordName": 71
             }
         ],
         "umlRelationList": [
@@ -36,6 +36,35 @@
     },
     "sequenceDiagrams": [
         {
+            "classes": [
+                {
+                    "Xcoord": 254,
+                    "className": "Bob",
+                    "name": ""
+                },
+                {
+                    "Xcoord": 528,
+                    "className": "Tom",
+                    "name": ""
+                }
+            ],
+            "messages": [
+                {
+                    "argumentText": "",
+                    "classReceiver": "Tom",
+                    "classSender": "Tom",
+                    "messageTypeName": 0,
+                    "operationName": {
+                        "modifierName": "\u0000",
+                        "name": "+getName() : String",
+                        "parametersName": [
+                        ],
+                        "typeName": ""
+                    },
+                    "returnText": "",
+                    "ycoordName": 131
+                }
+            ]
         }
     ]
 }

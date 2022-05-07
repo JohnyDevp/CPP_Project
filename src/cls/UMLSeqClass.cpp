@@ -12,7 +12,8 @@
 
 bool UMLSeqClass::isCorrect(const UMLSeqClass &cl)
 {
-    if (!Element::isCorrect(cl))
+    // In addiction can be empty
+    if (!Element::isCorrect(cl) && !cl.name.isEmpty())
         return false;
 
     if (cl.className.isEmpty())

@@ -45,14 +45,16 @@ void SequenceDiagramInterface::removeSequenceObjectGUI(SequenceObjectGUI *seqObj
     updateScene();
 }
 
-void SequenceDiagramInterface::addNewSequenceMessageGUI(SequenceMessageGUI * msgGui){
+void SequenceDiagramInterface::addNewSequenceMessageGUI(SequenceMessageGUI *msgGui)
+{
 
     this->scene->addItem(msgGui);
     this->sequenceMessageGUIList.append(msgGui);
     this->updateScene();
 }
 
-void SequenceDiagramInterface::removeSequenceMessageGUI(SequenceMessageGUI * msgGui){
+void SequenceDiagramInterface::removeSequenceMessageGUI(SequenceMessageGUI *msgGui)
+{
     this->scene->removeItem(msgGui);
     this->sequenceMessageGUIList.removeOne(msgGui);
     updateScene();
@@ -123,27 +125,29 @@ void SequenceDiagramInterface::updateMessage(Message &message)
 
 Message SequenceDiagramInterface::createMessage(Message &message)
 {
-    SequenceMessageGUI * seqMsgGUI = new SequenceMessageGUI(message, this);
+    SequenceMessageGUI *seqMsgGUI = new SequenceMessageGUI(message, this);
 
-    //loop through all the sequence object gui and find the ones, which are related
-    // and set them to the message
-    foreach(SequenceObjectGUI * seqObjGui, this->sequenceObjectGUIList){
-        //if it found message receiver
-        if (message.classReceiver == seqObjGui->umlSeqClass.getUniqueName()){
+    // loop through all the sequence object gui and find the ones, which are related
+    //  and set them to the message
+    foreach (SequenceObjectGUI *seqObjGui, this->sequenceObjectGUIList)
+    {
+        // if it found message receiver
+        if (message.classReceiver == seqObjGui->umlSeqClass.getUniqueName())
+        {
             seqMsgGUI->seqReceiverObjGui = seqObjGui;
         }
-
-        //if it found message sender
-        if (message.classSender == seqObjGui->umlSeqClass.getUniqueName()){
+        // if it found message sender
+        if (message.classSender == seqObjGui->umlSeqClass.getUniqueName())
+        {
             seqMsgGUI->seqSenderObjGui = seqObjGui;
         }
     }
 
-    //add the message gui to the list in both related classes gui objects
+    // add the message gui to the list in both related classes gui objects
     seqMsgGUI->seqReceiverObjGui->addRelatedReceivingMessage(seqMsgGUI);
     seqMsgGUI->seqSenderObjGui->addRelatedSendingMessage(seqMsgGUI);
 
-    //add the message gui to the scene and interface
+    // add the message gui to the scene and interface
     addNewSequenceMessageGUI(seqMsgGUI);
 
     return sequenceDiagram.createMessage(message);
@@ -152,6 +156,52 @@ Message SequenceDiagramInterface::createMessage(Message &message)
 void SequenceDiagramInterface::removeMessage(Message &message)
 {
     sequenceDiagram.deleteMessage(message);
+}
+
+void SequenceDiagramInterface::load()
+{
+
+    // Load UMLSeqClasses into GUI
+    foreach (UMLSeqClass cl, sequenceDiagram.classes())
+    {
+        SequenceObjectGUI *sequenceObjectGUI = new SequenceObjectGUI(cl, this);
+
+        // this method also add the gui to the scene
+        addNewSequenceObjectGUI(sequenceObjectGUI);
+    }
+
+    // Load Messages into GUI
+    foreach (Message mes, sequenceDiagram.messages())
+    {
+        SequenceMessageGUI *seqMsgGUI = new SequenceMessageGUI(mes, this);
+
+        // loop through all the sequence object gui and find the ones, which are related
+        //  and set them to the message
+        foreach (SequenceObjectGUI *seqObjGui, this->sequenceObjectGUIList)
+        {
+            // if it found message receiver
+            if (mes.classReceiver == seqObjGui->umlSeqClass.getUniqueName())
+            {
+                seqMsgGUI->seqReceiverObjGui = seqObjGui;
+            }
+
+            // if it found message sender
+            if (mes.classSender == seqObjGui->umlSeqClass.getUniqueName())
+            {
+                seqMsgGUI->seqSenderObjGui = seqObjGui;
+            }
+        }
+
+        // add the message gui to the list in both related classes gui objects
+        seqMsgGUI->seqReceiverObjGui->addRelatedReceivingMessage(seqMsgGUI);
+        seqMsgGUI->seqSenderObjGui->addRelatedSendingMessage(seqMsgGUI);
+
+        // add the message gui to the scene and interface
+        addNewSequenceMessageGUI(seqMsgGUI);
+    }
+
+    updateEverything();
+    updateScene();
 }
 
 void SequenceDiagramInterface::removeSeqClass(UMLSeqClass &seqClass)
