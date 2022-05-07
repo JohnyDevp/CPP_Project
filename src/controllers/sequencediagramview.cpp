@@ -9,6 +9,7 @@
  */
 
 #include "sequencediagramview.h"
+#include "controllers/addsequenceclassdialog.h"
 #include "ui_sequencediagramview.h"
 #include <iostream>
 #include <QInputDialog>
@@ -48,29 +49,45 @@ void SequenceDiagramView::on_btnClose_clicked()
 void SequenceDiagramView::on_btnAddObject_clicked()
 {
     // collect name of all classes
-    QStringList listOfClasses;
-    foreach (UMLClass umlClass, this->sequenceDiagramInterface->diagramInterface->classDiagram.classList)
-    {
-        if (!umlClass.isInterface)
-        {
-            listOfClasses << umlClass.name;
-        }
-    }
+//    QStringList listOfClasses;
+//    foreach (UMLClass umlClass, this->sequenceDiagramInterface->diagramInterface->classDiagram.classList)
+//    {
+//        if (!umlClass.isInterface){
+//            listOfClasses << umlClass.name;
+//        }
+//    }
 
-    // raise a choice dialog for choose a class to create
-    //  create new dialog
-    bool ok; // variable storing whether ok has been pressed
-    QString item = QInputDialog::getItem(this,
-                                         QDialog::tr("Choose relation type"),
-                                         QDialog::tr("Relation type"),
-                                         listOfClasses, 0, false, &ok);
+//    // raise a choice dialog for choose a class to create
+//    //  create new dialog
+//    bool ok; // variable storing whether ok has been pressed
+//    QString item = QInputDialog::getItem(this,
+//                                         QDialog::tr("Choose relation type"),
+//                                         QDialog::tr("Relation type"),
+//                                         listOfClasses, 0, false, &ok);
 
-    if (ok && !item.isEmpty())
-    {
-        // if the class has been chosen then find class according to the chosen name
-        // and create umlseqclass and its gui
-        UMLClass umlClass = this->sequenceDiagramInterface->diagramInterface->getUMLClass(item);
-        UMLSeqClass umlSeqClass("", umlClass.name, 10);
+//    if (ok && !item.isEmpty())
+//    {
+//        // if the class has been chosen then find class according to the chosen name
+//        // and create umlseqclass and its gui
+//        UMLClass umlClass = this->sequenceDiagramInterface->diagramInterface->getUMLClass(item);
+
+
+//        UMLSeqClass umlSeqClass("", umlClass.name, 10);
+//        SequenceObjectGUI *sequenceObjectGUI = new SequenceObjectGUI(umlSeqClass, this->sequenceDiagramInterface);
+
+//        this->sequenceDiagramInterface->addSeqClas(umlSeqClass);
+//        // this method also add the gui to the scene
+//        this->sequenceDiagramInterface->addNewSequenceObjectGUI(sequenceObjectGUI);
+//    }
+
+    //create new dialog for adding new sequence class
+    AddSequenceClassDialog * seqClassDlg = new AddSequenceClassDialog();
+    seqClassDlg->init(this->sequenceDiagramInterface);
+    seqClassDlg->exec();
+
+    //if the data get are valid
+    if (seqClassDlg->dataValid){
+        UMLSeqClass umlSeqClass = seqClassDlg->getUmlSeqClass();
         SequenceObjectGUI *sequenceObjectGUI = new SequenceObjectGUI(umlSeqClass, this->sequenceDiagramInterface);
 
         this->sequenceDiagramInterface->addSeqClas(umlSeqClass);
