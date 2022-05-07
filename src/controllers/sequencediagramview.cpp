@@ -51,7 +51,8 @@ void SequenceDiagramView::on_btnAddObject_clicked()
     QStringList listOfClasses;
     foreach (UMLClass umlClass, this->sequenceDiagramInterface->diagramInterface->classDiagram.classList)
     {
-        if (!umlClass.isInterface){
+        if (!umlClass.isInterface)
+        {
             listOfClasses << umlClass.name;
         }
     }

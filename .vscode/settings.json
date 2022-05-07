@@ -73,6 +73,7 @@
         "valarray": "cpp",
         "qlist": "cpp",
         "qgraphicsscene": "cpp",
-        "qmessagebox": "cpp"
+        "qmessagebox": "cpp",
+        "ios": "cpp"
     }
 }

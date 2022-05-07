@@ -22,6 +22,26 @@
 
 class SequenceDiagram : public Element
 {
+
+private:
+    /**
+     * @brief Index for Message when will be added
+     *
+     */
+    int _messageIndex;
+
+    /**
+     * @brief Map of classes, key is their name
+     *
+     */
+    QMap<QString, UMLSeqClass> _classes;
+
+    /**
+     * @brief Map of messages, key is their index created on their creation
+     *
+     */
+    QMap<int, Message> _messages;
+
 public:
     /**
      * @brief returns if all is correcly set from the view of the class
@@ -31,24 +51,6 @@ public:
      * @return false
      */
     static bool isCorrect(const SequenceDiagram &seqDia);
-
-    /**
-     * @brief Index for Message when will be added
-     *
-     */
-    int messageIndex;
-
-    /**
-     * @brief Map of classes, key is their name
-     *
-     */
-    QMap<QString, UMLSeqClass> classes;
-
-    /**
-     * @brief Map of messages, key is their index created on their creation
-     *
-     */
-    QMap<int, Message> messages;
 
     /**method for adding new participated class in sequence diagram
      * @param umlSeqClass class representing the object which takes part in the sequence diagram*/
@@ -115,4 +117,8 @@ public:
      *
      */
     ~SequenceDiagram();
+
+    QMap<QString, UMLSeqClass> classes() const { return _classes; }
+
+    QMap<int, Message> messages() const { return _messages; }
 };

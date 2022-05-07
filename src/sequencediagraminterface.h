@@ -62,12 +62,18 @@ public:
 
     void sendUpdateNotification();
 
+    /**
+     * @brief Used to load all data into GUI objects
+     *
+     */
+    void load();
+
     void addNewSequenceObjectGUI(SequenceObjectGUI *seqObjGUI);
 
     void removeSequenceObjectGUI(SequenceObjectGUI *seqObjGUI);
 
-    QList<SequenceObjectGUI*> sequenceObjectGUIList;
-    QList<SequenceMessageGUI*> sequenceMessageGUIList;
+    QList<SequenceObjectGUI *> sequenceObjectGUIList;
+    QList<SequenceMessageGUI *> sequenceMessageGUIList;
 
     /*updates======================================*/
     // communication from diagramInterface -> SequenceDiagramInterface
@@ -86,6 +92,7 @@ public:
 
     void addNewSequenceMessageGUI(SequenceMessageGUI *msgGui);
     void removeSequenceMessageGUI(SequenceMessageGUI *msgGui);
+
 private:
     /**
      * @brief scene for this sequence diagram
