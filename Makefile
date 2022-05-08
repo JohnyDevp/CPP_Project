@@ -36,4 +36,4 @@ run:
 # TODO: Change reame to txt
 pack:
 	make clean;\
-	zip -r  n-xzimol04-xholan11.zip docs examples src Makefile README.md;
+	zip -r  1-xzimol04-xholan11.zip docs examples src Makefile README.md;

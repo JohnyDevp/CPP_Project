@@ -1,6 +1,6 @@
 /**
  * @file ClassDiagram.hpp
- * @author xzimol04
+ * @author xzimol04, xholan11
  * @brief Class representing the whole class diagram with its items
  * @date 2022-04-28
  *
@@ -17,7 +17,6 @@
 #define classListName "umlClassList"
 #define interfaceListName "umlInterfaceList"
 #define relationListName "umlRelationList"
-#define isInterfaceName "isInterfaceName"
 #define relationIndexName "relationIndex"
 
 class ClassDiagram : public Element

@@ -2,7 +2,7 @@
 
 /**
  * @file undo.h
- * @author xzimol04, xholan11
+ * @author xzimol04, xholan11, xholan11
  * @brief Header for Undo.cpp
  * @date 2022-05-05
  *

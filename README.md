@@ -22,9 +22,3 @@ To pack everything into a zip file: `make pack`
 
 ## SOURCES
 [1] https://doc.qt.io/qt-5/qtcore-serialization-savegame-example.html
-
-## TODOS
-
-[ ] Readme must be .txt \
-[ ] Add sources \
-[ ] Add both as authors to all files

@@ -1,6 +1,6 @@
 /**
  * @file Undo.cpp
- * @author xzimol04
+ * @author xzimol04, xholan11
  * @brief Handles UNDO operations
  * @date 2022-05-05
  *

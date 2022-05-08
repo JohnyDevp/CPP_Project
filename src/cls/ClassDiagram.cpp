@@ -1,6 +1,6 @@
 /**
  * @file ClassDiagram.cpp
- * @author xzimol04
+ * @author xzimol04, xholan11
  * @brief Source file for ClassDiagram.hpp
  * @date 2022-04-28
  * @sources: https://doc.qt.io/qt-5/qtcore-serialization-savegame-example.html

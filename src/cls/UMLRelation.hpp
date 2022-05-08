@@ -1,6 +1,6 @@
 /**
  * @file UMLRelation.hpp
- * @author xzimol04
+ * @author xzimol04, xholan11
  * @brief  Class that defines relationship between UML classes
  * @date 2022-04-28
  *

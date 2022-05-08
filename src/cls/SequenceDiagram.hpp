@@ -1,6 +1,6 @@
 /**
  * @file SequenceDiagram.hpp
- * @author xzimol04
+ * @author xzimol04, xholan11
  * @brief Class that represents sequence diagram
  * @date 2022-04-28
  *
@@ -18,7 +18,6 @@
 
 #define classesName "classes"
 #define messagesName "messages"
-#define messageIndexName "messageIndex"
 
 class SequenceDiagram : public Element
 {

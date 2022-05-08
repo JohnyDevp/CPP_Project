@@ -1,6 +1,6 @@
 /**
  * @file UMLAttribute.hpp
- * @author xzimol04 and dr.Koci
+ * @author xzimol04, xholan11 and dr.Koci
  * @brief Class representing uml attribute
  * @date 2022-04-28
  *

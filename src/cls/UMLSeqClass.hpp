@@ -1,6 +1,6 @@
 /**
  * @file UMLSeqClass.hpp
- * @author xzimol04
+ * @author xzimol04, xholan11
  * @brief Class that represents class in Sequence Diagram
  * @date 2022-04-28
  *

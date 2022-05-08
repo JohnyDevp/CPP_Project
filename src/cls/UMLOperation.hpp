@@ -1,6 +1,6 @@
 /**
  * @file UMLOperation.hpp
- * @author xzimol04, xholan11, dr. Koci
+ * @author xzimol04, xholan11, xholan11, dr. Koci
  * @brief Class for representing uml operation for both interface and class
  * @date 2022-04-28
  *

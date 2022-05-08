@@ -1,6 +1,6 @@
 /**
  * @file UMLClass.hpp
- * @author xzimol04 and dr. Koci
+ * @author xzimol04, xholan11 and dr. Koci
  * @brief class representing UML class
  * @date 2022-04-28
  *

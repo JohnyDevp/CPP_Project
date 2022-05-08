@@ -1,6 +1,6 @@
 /**
  * @file main.cpp
- * @author xzimol04 and Jan Holáň (xholan11)
+ * @author xzimol04, xholan11 and Jan Holáň (xholan11)
  * @brief
  * @date 2022-04-28
  * @copyright Copyright (c) 2022
