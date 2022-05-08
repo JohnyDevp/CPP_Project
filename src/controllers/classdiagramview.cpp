@@ -66,7 +66,6 @@ void ClassDiagramView::parseFile()
         return;
     }
 
-    // TODO: Check for duplicates
     //  Creating GUI Objects
 
     foreach (const UMLClass &cl, diagramInterface->classDiagram.classList)
@@ -126,7 +125,6 @@ void ClassDiagramView::parseFile()
 
 void ClassDiagramView::on_btnClose_clicked()
 {
-    // save all diagrams?? //TODO
 
     // enabling buttons
     this->btnCreateNewDiagram->setEnabled(true);
@@ -140,7 +138,6 @@ void ClassDiagramView::on_btnClose_clicked()
     {
         this->tabPane->removeTab(i);
     }
-    // TODO: Clean data, check
     delete diagramInterface;
 }
 

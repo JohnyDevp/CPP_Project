@@ -19,12 +19,12 @@ clean:
 	rm -rf *.o;\
 	rm -rf .qmake.stash ;\
 	cd ..; \
-	cd docs/;\
+	cd doc/;\
 	rm -rf html;\
 	cd ..;
 
 doxygen:
-	cd docs/;\
+	cd doc/;\
 	doxygen Doxyfile;\
 	cd ..;
 
@@ -33,7 +33,6 @@ run:
 	./CPP_Project;\
 	cd ..;
 
-# TODO: Change reame to txt
 pack:
 	make clean;\
-	zip -r  1-xzimol04-xholan11.zip docs examples src Makefile README.md;
+	zip -r  1-xzimol04-xholan11.zip doc examples src Makefile README.txt;

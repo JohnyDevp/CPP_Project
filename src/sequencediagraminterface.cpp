@@ -77,25 +77,33 @@ void SequenceDiagramInterface::notifyUmlClassUpdate(QString classOldName, UMLCla
         }
     }
 
-    //loop through all messages and find whether they exists or not
-    foreach (SequenceMessageGUI *seqMsgGui, this->sequenceMessageGUIList){
-        //first check for RETURN MESSAGE, which is represented by empty uml operation - thus should be checked for first
+    // loop through all messages and find whether they exists or not
+    foreach (SequenceMessageGUI *seqMsgGui, this->sequenceMessageGUIList)
+    {
+        // first check for RETURN MESSAGE, which is represented by empty uml operation - thus should be checked for first
         UMLOperation tmp("");
-        if (seqMsgGui->message.operation == tmp) continue;
+        if (seqMsgGui->message.operation == tmp)
+            continue;
 
-        //if the uml class doesnt exist, then set the message not exist
-        if (seqMsgGui->seqReceiverObjGui->umlClassExists){
-            //if the class exists, then loop through its operations and find whether this message's operation exist
+        // if the uml class doesnt exist, then set the message not exist
+        if (seqMsgGui->seqReceiverObjGui->umlClassExists)
+        {
+            // if the class exists, then loop through its operations and find whether this message's operation exist
             QString umlClsName = seqMsgGui->seqReceiverObjGui->umlSeqClass.className;
-            //get the uml class from the receiver - and then its operations from it
+            // get the uml class from the receiver - and then its operations from it
             UMLClass umlClsFromReceiver = this->diagramInterface->getUMLClass(umlClsName);
             bool found = umlClsFromReceiver.umlOperationsList.contains(seqMsgGui->message.operation);
-            if (found){
+            if (found)
+            {
                 seqMsgGui->umlMessageExists = true;
-            } else {
+            }
+            else
+            {
                 seqMsgGui->umlMessageExists = false;
             }
-        } else {
+        }
+        else
+        {
             seqMsgGui->umlMessageExists = false;
         }
     }
@@ -113,8 +121,6 @@ void SequenceDiagramInterface::updateEverything()
             //->notify sequence gui object and all related messages
             seqObjGUI->umlClassExists = false;
 
-            // TODO - notify messages
-
             // update gui
             seqObjGUI->update();
         }
@@ -125,25 +131,33 @@ void SequenceDiagramInterface::updateEverything()
         }
     }
 
-    //loop through all messages and find whether they exists or not
-    foreach (SequenceMessageGUI *seqMsgGui, this->sequenceMessageGUIList){
-        //first check for RETURN MESSAGE, which is represented by empty uml operation - thus should be checked for first
+    // loop through all messages and find whether they exists or not
+    foreach (SequenceMessageGUI *seqMsgGui, this->sequenceMessageGUIList)
+    {
+        // first check for RETURN MESSAGE, which is represented by empty uml operation - thus should be checked for first
         UMLOperation tmp("");
-        if (seqMsgGui->message.operation == tmp) continue;
+        if (seqMsgGui->message.operation == tmp)
+            continue;
 
-        //if the uml class doesnt exist, then set the message not exist
-        if (seqMsgGui->seqReceiverObjGui->umlClassExists){
-            //if the class exists, then loop through its operations and find whether this message's operation exist
+        // if the uml class doesnt exist, then set the message not exist
+        if (seqMsgGui->seqReceiverObjGui->umlClassExists)
+        {
+            // if the class exists, then loop through its operations and find whether this message's operation exist
             QString umlClsName = seqMsgGui->seqReceiverObjGui->umlSeqClass.className;
-            //get the uml class from the receiver - and then its operations from it
+            // get the uml class from the receiver - and then its operations from it
             UMLClass umlClsFromReceiver = this->diagramInterface->getUMLClass(umlClsName);
             bool found = umlClsFromReceiver.umlOperationsList.contains(seqMsgGui->message.operation);
-            if (found){
+            if (found)
+            {
                 seqMsgGui->umlMessageExists = true;
-            } else {
+            }
+            else
+            {
                 seqMsgGui->umlMessageExists = false;
             }
-        } else {
+        }
+        else
+        {
             seqMsgGui->umlMessageExists = false;
         }
     }

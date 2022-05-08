@@ -59,7 +59,6 @@ void Message::read(const QJsonObject &json)
         Ycoord = json[ycoordName].toInt();
     }
 
-    // TODO: Not sure about isDouble() but isInt() is not
     if (json.contains(messageTypeName) && json[messageTypeName].isDouble())
     {
         // create Enum from int

@@ -1,1 +1,0 @@
-[] add that the user can only add instances or one global class

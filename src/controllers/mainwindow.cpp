@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 {
     ui->setupUi(this);
 
-    // remove default tab of QTabWidget -> maybe //FIXME
+    // remove default tab of QTabWidget
     ui->tabWidget->removeTab(0);
 
     InfoDialog *dlg = new InfoDialog();

@@ -48,7 +48,8 @@ void ObjectGUI::initGui()
 
     // set name
     this->objectName = this->umlObject.name;
-    if (fontMetrics.width(this->objectName) > boundingWidth - 30) this->boundingWidth = fontMetrics.width(objectName);
+    if (fontMetrics.width(this->objectName) > boundingWidth - 30)
+        this->boundingWidth = fontMetrics.width(objectName);
 
     // reset maps
     this->attributesMapGUI.clear();
@@ -63,7 +64,7 @@ void ObjectGUI::initGui()
             // add to the map
             this->attributesMapGUI.insert(umlAttribute, attrText);
 
-            //if (fontMetrics.width(attrText) > boundingWidth - 25) this->boundingWidth = fontMetrics.width(attrText);
+            // if (fontMetrics.width(attrText) > boundingWidth - 25) this->boundingWidth = fontMetrics.width(attrText);
         }
     }
 
@@ -72,11 +73,13 @@ void ObjectGUI::initGui()
     {
         // build the operation text
         QString operationText = umlOperation.modifier + umlOperation.name + "(";
-        bool first = true; //variable for solving whether write a comma after operation or not (for the first one)
+        bool first = true; // variable for solving whether write a comma after operation or not (for the first one)
         foreach (UMLAttribute operationParam, umlOperation.parameterssOfOperationList)
         {
-            if (!first) operationText += ", ";
-            else first = false;
+            if (!first)
+                operationText += ", ";
+            else
+                first = false;
             operationText += operationParam.name + ":" + operationParam.type;
         }
         operationText += ") : " + umlOperation.type;
@@ -254,12 +257,12 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             }
         }
         update();
-    } else if(state == 0 && hasChangedSize) {
+    }
+    else if (state == 0 && hasChangedSize)
+    {
         ++state;
         update();
     }
-
-
 }
 
 void ObjectGUI::addRelatedRelation(RelationGui *relation)
@@ -407,10 +410,9 @@ void ObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
         }
         else
         {
-            //reset for possibility of minimizing the borders height and width
-            //TODO
-//            this->boundingWidth = 100;
-//            this->boundingHeight= 100;
+            // reset for possibility of minimizing the borders height and width
+            //            this->boundingWidth = 100;
+            //            this->boundingHeight= 100;
 
             this->umlObject = *dlg->getUpdatedUmlObject();
             // update the class in class diagram
@@ -434,7 +436,6 @@ void ObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
         }
 
         delete dlg;
-
     }
 
     QGraphicsItem::mouseDoubleClickEvent(event);
@@ -517,7 +518,6 @@ void ObjectGUI::checkForOverrideOperationsNotification()
 void ObjectGUI::normalizePointToEdge(QPointF *point)
 {
     // intersects question
-    // TODO
     bool end = false;
     int prevX = point->x();
     int prevY = point->y();
