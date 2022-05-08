@@ -2,14 +2,18 @@
 
 APP USAGE
 
-In the main window, you can either load a new class diagram from a JSON file (example in /data folder) or
-create a new one.
+In the main window, you can either load a new class diagram from a JSON file (example in /data folder) or create a new one.
 
-You can add a new class by clicking on ADD CLASS button. Create relations by double-clicking on the edge of one class and then double-clicking on the edge of another class. Edit by double-clicking on what you want to edit.
+You can add a new class by clicking on ADD CLASS button. Create relations by double-clicking on the edge of one class and then double-clicking on the edge of another class. 
 
-In the sequence diagram, you can add classes created in the class diagram and create messages between them by right-clicking on the timeline below a class.
+In the sequence diagram, you can add classes created in the class diagram and  create messages between them by right-clicking on the timeline below a class.
 
+Edit by double-clicking on what you want to edit.
 
-Close all diagrams by clicking on the CLOSE button.
+Close all diagrams by clicking on the CLOSE button in the class diagram.
 
-APP MADE BY: xzimol04; Jan HOLAN (xholan11)
+Save all by clicking on the SAVE button in the class diagram.
+
+You can undo a class of rename and of adding operations and attributes.
+
+APP MADE BY:  Jan Zimola (xzimol04); Jan Holáň (xholan11)

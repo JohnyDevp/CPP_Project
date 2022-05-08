@@ -7,20 +7,11 @@ Jan Zimola (xzimol04)
 DESCRIPTION
 -----------
 
-This program represents a tool for creating class diagrams and related
-sequence diagrams. This implementation-supported mode consists of only
-one must-opened class diagram and several related sequence diagrams. The
-application can either create a whole new project or load one from an
-existing file - the only supported format is JSON.
+This program represents a tool for creating class diagrams and related sequence diagrams. This implementation-supported mode consists of only one must-opened class diagram and several related sequence diagrams. The application can either create a whole new project or load one from an existing file - the only supported format is JSON.
 
-In the class diagram, the user can create classes and add attributes and
-operations to them. Between objects, the user can create relations. All
-of these values can be modified.
+In the class diagram, the user can create classes and add attributes and operations to them. Between objects, the user can create relations. All of these values can be modified.
 
-In the sequence diagram, the user can add classes from the class diagram
-as the representation of the whole class or instance of it. Between
-classes, the user can add messages that represent operations from the
-class diagram with optional arguments and return values.
+In the sequence diagram, the user can add classes from the class diagram as the representation of the whole class or instance of it. Between classes, the user can add messages that represent operations from the class diagram with optional arguments and return values.
 
 The user can undo a class of rename and of adding operations and attributes to a class.
 
