@@ -13,7 +13,8 @@ In the class diagram, the user can create classes and add attributes and operati
 
 In the sequence diagram, the user can add classes from the class diagram as the representation of the whole class or instance of it. Between classes, the user can add messages that represent operations from the class diagram with optional arguments and return values.
 
-The user can undo a class of rename and of adding operations and attributes to a class.
+The user can undo a class of rename and of adding operations and attributes.
+
 
 USAGE
 -----------
