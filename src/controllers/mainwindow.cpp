@@ -33,13 +33,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_btnCreateNewDiagram_clicked()
 {
-    std::cout << "creating new diagram\n";
     diagramTabConstructor(false);
 }
 
 void MainWindow::on_btnLoadExistingDiagram_clicked()
 {
-    std::cout << "loading existing diagram\n";
     diagramTabConstructor(true);
 }
 
@@ -53,7 +51,6 @@ void MainWindow::diagramTabConstructor(bool isLoadingFile)
         // nothing has been selected -> prompt and return
         if (fileName == "")
         {
-            std::cout << "nothing has been selected!" << std::endl;
             return;
         }
     }

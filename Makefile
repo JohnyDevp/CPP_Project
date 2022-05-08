@@ -14,6 +14,7 @@ clean:
 	cd src/;\
 	rm CPP_Project;\
 	rm CPP_Project.pro.*;\
+	rm Makefile;\
 	rm -rf ui_*;\
 	rm -rf moc_*;\
 	rm -rf *.o;\

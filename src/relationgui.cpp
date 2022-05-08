@@ -264,7 +264,6 @@ void RelationGui::updatePosition(UMLClass umlObject, QPointF diffPoint)
 
     setLine(this->qpointStart.x(), this->qpointStart.y(), this->qpointEnd.x(), this->qpointEnd.y());
 
-    // std::cout << this->qpointStart.x()<< " " << this->qpointStart.y()<< " " << this->qpointEnd.x() << " " << this->qpointEnd.y() << std::endl;
     // save new coords to the umlRelation
     this->umlRelation.startX = this->qpointStart.x();
     this->umlRelation.startY = this->qpointStart.y();

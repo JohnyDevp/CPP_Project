@@ -116,8 +116,6 @@ void ObjectGUI::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     // fill the most back background (containing whole object)
     painter->fillRect(rec, brush);
 
-    // std::cout << this->boundingX << std::endl;
-
     // fill the second background (making space for object contain)
     painter->fillRect(10 + this->boundingX, this->boundingY + 10, this->boundingWidth - 20, this->boundingHeight - 20, QColor(217, 211, 210));
 
@@ -321,7 +319,6 @@ void ObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
                 this->diagramInterface->tempUmlRelation.relationTo = this->objectName;
 
                 QPointF point(event->scenePos().x(), event->scenePos().y());
-                // std::cout << point.x() << " " << point.y() << std::endl;
 
                 // normalizePointToEdge(&point);
 
@@ -377,12 +374,10 @@ void ObjectGUI::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 
                 this->diagramInterface->isRelationCreating = true;
                 this->diagramInterface->tempUmlRelation = umlRelation;
-
-                // std::cout << qPrintable(item) << std::endl;
             }
             else
             {
-                std::cout << "Relation type hasn't been selected - canceled" << std::endl;
+                // std::cout << "Relation type hasn't been selected - canceled" << std::endl;
             }
         }
     }
@@ -459,7 +454,6 @@ void ObjectGUI::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     this->umlObject.Xcoord += diffX;
     this->umlObject.Ycoord += diffY;
 
-    // std::cout << "Object gui X Y: " << this->umlObject.Xcoord << " " << this->umlObject.Ycoord << std::endl;
 
     // go through all related relations and notify them about moving
     QListIterator<RelationGui *> itr(this->relatedRelations);
