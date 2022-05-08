@@ -72,27 +72,6 @@
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QPushButton" name="btnAddRelation">
-           <property name="text">
-            <string>ADD RELATION</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnEditObject">
-           <property name="text">
-            <string>EDIT CLASS/INTERFACE</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnEditRelation">
-           <property name="text">
-            <string>EDIT RELATION</string>
-           </property>
-          </widget>
-         </item>
         </layout>
        </item>
       </layout>

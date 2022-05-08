@@ -9,6 +9,7 @@
  */
 
 #include "editobjectdialog.h"
+#include "qmessagebox.h"
 #include "ui_editobjectdialog.h"
 #include "errors.h"
 #include "undo.h"
@@ -123,7 +124,29 @@ void EditObjectDialog::on_btnRenameObject_clicked()
         Errors().raiseError("Invalid name.");
         return;
     }
-    // if (!rx.exactMatch(newName)) return; //there cant be whitespace
+
+    //check for inconsistencies in sequence diagrams
+    // and if found, raise msgdialog
+    bool inconsistencyFound = false;
+    foreach(SequenceDiagramInterface * seqDiagInterface, diagramInterface->sequenceDiagramInterfaceList){
+        foreach( UMLSeqClass seqCls, seqDiagInterface->sequenceDiagram.classes()){
+            if (seqCls.className == this->guiObject->umlObject.name){
+                inconsistencyFound = true;
+            }
+        }
+    }
+    if (inconsistencyFound){
+        QMessageBox msgBox;
+        msgBox.setText("Inconsistencies in sequence diagram found, proceed?");
+        QPushButton *proceedButton = msgBox.addButton("Proceed",QMessageBox::ActionRole);
+        QPushButton *cancelButton = msgBox.addButton(QMessageBox::Cancel);
+        msgBox.exec();
+
+        if (msgBox.clickedButton() == (QAbstractButton *)cancelButton)
+        {
+            return;
+        }
+    }
 
     // ask diagram interface whether exists object with new name
     UMLClass tmp(newName);
@@ -146,6 +169,29 @@ void EditObjectDialog::on_btnRenameObject_clicked()
 
 void EditObjectDialog::on_btnRemoveObject_clicked()
 {
+    //check for inconsistencies in sequence diagrams
+    // and if found, raise msgdialog
+    bool inconsistencyFound = false;
+    foreach(SequenceDiagramInterface * seqDiagInterface, diagramInterface->sequenceDiagramInterfaceList){
+        foreach( UMLSeqClass seqCls, seqDiagInterface->sequenceDiagram.classes()){
+            if (seqCls.className == this->guiObject->umlObject.name){
+                inconsistencyFound = true;
+            }
+        }
+    }
+    if (inconsistencyFound){
+        QMessageBox msgBox;
+        msgBox.setText("Inconsistencies in sequence diagram found, proceed?");
+        QPushButton *proceedButton = msgBox.addButton("Proceed",QMessageBox::ActionRole);
+        QPushButton *cancelButton = msgBox.addButton(QMessageBox::Cancel);
+        msgBox.exec();
+
+        if (msgBox.clickedButton() == (QAbstractButton *)cancelButton)
+        {
+            return;
+        }
+    }
+
     this->umlObject = NULL;
 
     // close this dialog
@@ -203,6 +249,29 @@ void EditObjectDialog::on_btnDeleteOperation_clicked()
         if (operationMap.value() == selectedOperation)
         {
             uoToBeRemoved = operationMap.key();
+        }
+    }
+
+    //check for inconsistencies in sequence diagrams
+    // and if found, raise msgdialog
+    bool inconsistencyFound = false;
+    foreach(SequenceDiagramInterface * seqDiagInterface, diagramInterface->sequenceDiagramInterfaceList){
+        foreach( Message msg, seqDiagInterface->sequenceDiagram.messages()){
+            if (msg.operation == uoToBeRemoved){
+                inconsistencyFound = true;
+            }
+        }
+    }
+    if (inconsistencyFound){
+        QMessageBox msgBox;
+        msgBox.setText("Inconsistencies in sequence diagram found, proceed?");
+        QPushButton *proceedButton = msgBox.addButton("Proceed",QMessageBox::ActionRole);
+        QPushButton *cancelButton = msgBox.addButton(QMessageBox::Cancel);
+        msgBox.exec();
+
+        if (msgBox.clickedButton() == (QAbstractButton *)cancelButton)
+        {
+            return;
         }
     }
 
